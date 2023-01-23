@@ -1,30 +1,24 @@
-
-first_term <- function(mh, Nh) mh/(mh - 1) * (1 - mh / Nh)
-
-second_term <- function(mh, mhc, Nhc) (mh - mhc) * (Nhc / mh) ^2
-
-terms <- function(T1h, T1hc, T2hc) T1h * (T1hc + T2hc)
-
-#' Estimate population from survey samples (Strukturerhebung, relevé structurel)
+#' Estimate population from survey samples
 #'
 #' This function estimates the populations, variance and confidence intervals
-#' from survey samples provided by the Bundesamt für Statistik / Office Fédéral
+#' from survey samples  (Strukturerhebung, relevé structurel) provided by the
+#' Bundesamt für Statistik / Office Fédéral
 #' des Statistiques.
 #'
 #' @param data Tibble
-#' @param weight_colname String, name of the column containing the weights
-#' @param strata_variable String, name of the column containg the strata/zones
+#' @param weight_colname Character string, name of the column containing the weights
+#' @param strata_variable Character string, name of the column containing the strata/zones
 #' @param condition_col Vector of strings, names of the conditions to estimate,
 #' can be empty for total population estimate
 #'
 #' @returns Tibble, with the following columns:
 #'
-#' * `total`: population estimate;
-#' * `vhat`: estimated variance;
-#' * `occ`: true frequency in survey sample;
-#' * `sd`: standard deviation;
-#' * `ci`: absolute confidence interval;
-#' * `ci_pers`: percent confidence interval.
+#' - `total`: population estimate;
+#' - `vhat`: estimated variance;
+#' - `occ`: true frequency in survey sample;
+#' - `sd`: standard deviation;
+#' - `ci`: absolute confidence interval;
+#' - `ci_pers`: percent confidence interval.
 
 estimate_vhat <- function(data, weight_colname, strata_variable = "zone", condition_col = NULL) {
   # Summarise by strata
@@ -60,3 +54,10 @@ estimate_vhat <- function(data, weight_colname, strata_variable = "zone", condit
     # Order as desired
     select(all_of(condition_col), total, vhat, occ, sd, ci, ci_per)
 }
+
+
+first_term <- function(mh, Nh) mh/(mh - 1) * (1 - mh / Nh)
+
+second_term <- function(mh, mhc, Nhc) (mh - mhc) * (Nhc / mh) ^2
+
+terms <- function(T1h, T1hc, T2hc) T1h * (T1hc + T2hc)
