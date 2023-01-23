@@ -1,0 +1,11 @@
+Package: BFSestimates
+Type: Package
+Title: Estimates from BFS Population Survey 
+Version: 0.1.0
+Author: Souad Guemghar
+Maintainer: <souad.guemghar@bl.cht>
+Description: Estimates population sizes, variance and confidence intervals
+    from Bundesamt für Statistik (BFS) population Survey.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
