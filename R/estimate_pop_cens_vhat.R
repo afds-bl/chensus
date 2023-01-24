@@ -1,9 +1,8 @@
 #' Estimate population from survey samples
 #'
 #' This function estimates the populations, variance and confidence intervals
-#' from survey samples  (Strukturerhebung, relevé structurel) provided by the
-#' Bundesamt für Statistik / Office Fédéral
-#' des Statistiques.
+#' from population survey samples (Strukturerhebung von der Volkzählung, relevé structurel) provided by the
+#' Bundesamt für Statistik / Office Fédéral de la Statistique.
 #'
 #' @param data Tibble
 #' @param weight_colname Character string, name of the column containing the weights
@@ -20,17 +19,17 @@
 #' - `ci`: absolute confidence interval;
 #' - `ci_pers`: percent confidence interval.
 
-estimate_vhat <- function(data, weight_colname, strata_variable = "zone", condition_col = NULL) {
+estimate_pop_cens_vhat <- function(data, weight_colname, strata_variable = "zone", condition_col = NULL) {
   # Summarise by strata
-  data <- summarise_strata(data = data, strata_var = strata_variable, weight_var = weight_colname,
+  data <- summarise_pop_cens_strata(data = data, strata_var = strata_variable, weight_var = weight_colname,
                                  mh_col = "mh", Nh_col = "Nh") %>%
-    # First summation term
-    mutate(T1h = first_term(mh, Nh)) %>%
+    # First summation term (1)
+    mutate(T1h = mh/(mh - 1) * (1 - mh / Nh)) %>%
     # Summarise by strata and conditions
-    summarise_strata(., strata_var = c(strata_variable, condition_col), weight_var = weight_colname,
+    summarise_pop_cens_strata(., strata_var = c(strata_variable, condition_col), weight_var = weight_colname,
                            mh_col = "mhc", Nh_col = "Nhc") %>%
     # Second summation term 1/2
-    mutate(T1hc = second_term(mh, mhc, Nhc))
+    mutate(T1hc = (mh - mhc) * (Nhc / mh) ^2)
 
   data %>%
     group_by(across(c(all_of(strata_variable), all_of(condition_col)))) %>%
@@ -40,7 +39,7 @@ estimate_vhat <- function(data, weight_colname, strata_variable = "zone", condit
               , ., by = c(strata_variable, condition_col)) %>%
     group_by(across(all_of(condition_col))) %>%
     # Variance estimate
-    summarise(vhat = sum(terms(T1h, T1hc, T2hc)),
+    summarise(vhat = sum(T1h * (T1hc + T2hc)),
               # Population estimate
               total = sum(Nhc),
               # True occurrence in survey sample
@@ -54,10 +53,3 @@ estimate_vhat <- function(data, weight_colname, strata_variable = "zone", condit
     # Order as desired
     select(all_of(condition_col), total, vhat, occ, sd, ci, ci_per)
 }
-
-
-first_term <- function(mh, Nh) mh/(mh - 1) * (1 - mh / Nh)
-
-second_term <- function(mh, mhc, Nhc) (mh - mhc) * (Nhc / mh) ^2
-
-terms <- function(T1h, T1hc, T2hc) T1h * (T1hc + T2hc)
