@@ -37,14 +37,14 @@ estimate_pop_cens <- function(data, weight_colname,
                                    strata_variable = "zone",
                                    condition_col = NULL) {
   # Summarise by strata
-  data <- summarise_pop_cens(data = data, strata_var = strata_variable,
-                                    weight_var = weight_colname,
+  data <- summarise_pop_cens(data = data, strata_variable = strata_variable,
+                                    weight_colname = weight_colname,
                                  mh_col = "mh", Nh_col = "Nh") %>%
     # First summation term (1)
     mutate(T1h = mh/(mh - 1) * (1 - mh / Nh)) %>%
     # Summarise by strata and conditions
-    summarise_pop_cens(., strata_var = c(strata_variable, condition_col),
-                              weight_var = weight_colname,
+    summarise_pop_cens(., strata_variable = c(strata_variable, condition_col),
+                              weight_colname = weight_colname,
                            mh_col = "mhc", Nh_col = "Nhc") %>%
     # Second summation term 1/2
     mutate(T1hc = (mh - mhc) * (Nhc / mh) ^2)
