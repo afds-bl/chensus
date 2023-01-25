@@ -1,4 +1,4 @@
-summarise_pop_cens_strata <- function(data, strata_var, weight_var, mh_col, Nh_col){
+summarise_pop_cens <- function(data, strata_var, weight_var, mh_col, Nh_col){
   data %>%
     group_by(across(all_of(strata_var))) %>%
     summarise({{mh_col}} := n(), # number of participants per stratum
