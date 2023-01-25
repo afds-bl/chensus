@@ -14,5 +14,5 @@
 #'
 #' @examples
 #' glimpse(nhanes)
-#' table(nhanes_15_16$edu_level)
+#' table(nhanes$edu_level)
 "nhanes"

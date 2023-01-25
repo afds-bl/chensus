@@ -15,8 +15,19 @@
 #' @returns Tibble \code{data} augmented with columns \code{mh_col} and \code{Nhcol}
 #'
 #' @examples
+#' # One strata variable
+#' library(dplyr)
 #' summarise_pop_cens(nhanes, weight_colname = "weights", strata_variable = "strata") %>%
 #'   glimpse()
+#' # Two strata variables
+#' summarise_pop_cens(nhanes,
+#'   weight_colname = "weights", strata_variable = c("strata", "gender"),
+#'   mh_col = "mhc", Nh_col = "Nhc"
+#' ) %>%
+#'   select(weights, strata, gender, mhc, Nhc) %>%
+#'   group_by(strata, gender) %>%
+#'   slice_sample(n = 2) %>%
+#'   head(10)
 #'
 #' @import dplyr
 #'
