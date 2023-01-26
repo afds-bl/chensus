@@ -1,9 +1,7 @@
 #' Estimates from population survey
 #'
 #' \code{estimate_pop_cens()} estimates the frequencies, variance and confidence
-#' intervals from population surveys (Strukturerhebung der Volkzählung, relevé
-#' structurel du recensement) provided by the Bundesamt für Statistik / Office
-#'  Fédéral de la Statistique.
+#' intervals of BFS/OFS population surveys.
 #'
 #' @param data Tibble
 #' @param weight_colname Character string, name of the column containing the
@@ -12,6 +10,7 @@
 #' strata/zones
 #' @param condition_col Vector of character strings, names of the conditions to
 #' estimate, can be empty for total population estimate
+#' @param alpha Double, significance level. Default 0.05 for 95\% confidence interval.
 #'
 #' @returns Tibble, with the following columns:
 #'  \itemize{
@@ -20,7 +19,7 @@
 #'  \item{\code{occ}: }{true frequency in survey sample}
 #'  \item{\code{sd}: }{standard deviation}
 #'  \item{\code{ci}: }{absolute confidence interval}
-#'  \item{\code{ci_pers}: }{percent confidence interval.}
+#'  \item{\code{ci_per}: }{percent confidence interval.}
 #'  }
 #'
 #' @examples
@@ -37,7 +36,8 @@
 
 estimate_pop_cens <- function(data, weight_colname,
                               strata_variable = "zone",
-                              condition_col = NULL) {
+                              condition_col = NULL,
+                              alpha = 0.05) {
   # Summarise by strata
   data <- summarise_pop_cens(
     data = data, strata_variable = strata_variable,
@@ -80,7 +80,7 @@ estimate_pop_cens <- function(data, weight_colname,
       # Standard deviation
       sd = sqrt(vhat),
       # Absolute confidence interval
-      ci = sd * qnorm(0.975),
+      ci = sd * qnorm(1 - alpha / 2),
       # Percent confidence interval
       ci_per = ci / total * 100
     ) %>%
