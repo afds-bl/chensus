@@ -1,14 +1,14 @@
 #' Estimates from population survey
 #'
-#' \code{estimate_pop_cens()} estimates the frequencies, variance and confidence
+#' \code{estimate_popsurv()} estimates the frequencies, variance and confidence
 #' intervals of BFS/OFS population surveys.
 #'
 #' @param data Tibble
-#' @param weight_colname Character string, name of the column containing the
+#' @param weight Character string, name of the column containing the
 #' weights
-#' @param strata_variable Character string, name of the column containing the
+#' @param strata Character string, name of the column containing the
 #' strata/zones
-#' @param condition_col Vector of character strings, names of the conditions to
+#' @param condition Vector of character strings, names of the conditions to
 #' estimate, can be empty for total population estimate
 #' @param alpha Double, significance level. Default 0.05 for 95\% confidence interval.
 #'
@@ -23,51 +23,51 @@
 #'  }
 #'
 #' @examples
-#' estimate_pop_cens(
+#' estimate_popsurv(
 #'   data = nhanes,
-#'   weight_colname = "weights",
-#'   strata_variable = "strata",
-#'   condition_col = "gender"
+#'   weight = "weights",
+#'   strata = "strata",
+#'   condition = "gender"
 #' )
 #'
 #' @import dplyr
 #'
 #' @export
 
-estimate_pop_cens <- function(data, weight_colname,
-                              strata_variable = "zone",
-                              condition_col = NULL,
+estimate_popsurv <- function(data, weight,
+                              strata = "zone",
+                              condition = NULL,
                               alpha = 0.05) {
   # Summarise by strata
-  data <- summarise_pop_cens(
-    data = data, strata_variable = strata_variable,
-    weight_colname = weight_colname,
+  data <- summarise_popsurv(
+    data = data, strata = strata,
+    weight = weight,
     mh_col = "mh", Nh_col = "Nh"
   ) %>%
     # First summation term (1)
     mutate(T1h = mh / (mh - 1) * (1 - mh / Nh)) %>%
     # Summarise by strata and conditions
-    summarise_pop_cens(.,
-      strata_variable = c(strata_variable, condition_col),
-      weight_colname = weight_colname,
+    summarise_popsurv(.,
+      strata = c(strata, condition),
+      weight = weight,
       mh_col = "mhc", Nh_col = "Nhc"
     ) %>%
     # Second summation term 1/2
     mutate(T1hc = (mh - mhc) * (Nhc / mh)^2)
 
   data %>%
-    group_by(across(c(all_of(strata_variable), all_of(condition_col)))) %>%
+    group_by(across(c(all_of(strata), all_of(condition)))) %>%
     # Second summation term 2/2
-    summarise(T2hc = sum((.data[[weight_colname]] - Nhc / mh)^2)) %>%
+    summarise(T2hc = sum((.data[[weight]] - Nhc / mh)^2)) %>%
     left_join(
       distinct(data, across(c(
-        all_of(strata_variable),
-        all_of(condition_col), T1h, T1hc, mhc, Nhc
+        all_of(strata),
+        all_of(condition), T1h, T1hc, mhc, Nhc
       ))),
       .,
-      by = c(strata_variable, condition_col)
+      by = c(strata, condition)
     ) %>%
-    group_by(across(all_of(condition_col))) %>%
+    group_by(across(all_of(condition))) %>%
     summarise(
       # Variance estimate
       vhat = sum(T1h * (T1hc + T2hc)),
@@ -85,5 +85,5 @@ estimate_pop_cens <- function(data, weight_colname,
       ci_per = ci / total * 100
     ) %>%
     # Order as desired
-    select(all_of(condition_col), total, vhat, occ, sd, ci, ci_per)
+    select(all_of(condition), total, vhat, occ, sd, ci, ci_per)
 }

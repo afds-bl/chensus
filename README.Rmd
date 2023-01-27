@@ -40,10 +40,12 @@ Population survey estimates:
 ```{r example1}
 library(BFSestimates)
 library(dplyr)
-estimate_pop_cens(data = nhanes, 
-                       weight_colname = "weights", 
-                       strata_variable = "strata",
-                       condition_col = "gender")
+estimate_popsurv(
+  data = nhanes,
+  weight = "weights",
+  strata = "strata",
+  condition_col = "gender"
+)
 ```
 
 Mobility survey estimates:
@@ -52,16 +54,16 @@ Mobility survey estimates:
 
 From the survey data, `BFestimates` estimates:
 
-- occurrences in the real population: sum of weights of sub-population of interest (see Equation);
+- occurrences in the real population: sum of weights of sub-population of interest;
 - variance $\hat V$ of the estimate; 
 - standard deviation ($sd = \sqrt{\hat{V}}$) of the estimate;
-- $95\%$ confidence interval of the estimate: $\pm 97.5^{\text{th}}$ centile of normal distribution with mean $0$ and standard deviation $\sqrt{\hat{V}}$;
+- confidence interval of the estimate with significance level $\alpha$: $\left[(1 - \alpha/2)\times 100\right]^{\text{th}}$ percentile of normal distribution with mean $0$ and standard deviation $\sqrt{\hat{V}}$.
 
 ## Population survey
 
 The BFS/OFS provides [formulas to estimate populations and variances](https://portal.collab.admin.ch/sites/317-SE-CUG) in French (`do-f-40-se_METH.pdf`) and German(`do-d-40-se_METH.pdf`).
 
-### Estimated Population (#estimated_pop)
+### Estimated Population
 
 The estimated populations from the population survey is given by:
 
@@ -101,9 +103,9 @@ Finally the original variance estimate equation becomes:
 
 $$\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \left[(m_h - m_{hc}) \left(\frac{\hat{N}_{hc}}{m_h}\right)^2  + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2\right]$$
 
-`summarise_pop()` calculates $m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}$. 
+`summarise_popsurv()` calculates $m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}$. 
 
-`estimate_pop_cens()` implements the variance equation for $\hat{V}(\hat{N}_c)$ and calculates true occurrence in the survey sample and confidence intervals.
+`estimate_popsurv()` implements the variance equation for $\hat{V}(\hat{N}_c)$ and calculates true occurrence in the survey sample and confidence intervals.
 
 ## Mobility and Transport Survey
 
