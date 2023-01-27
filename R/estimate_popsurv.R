@@ -23,12 +23,27 @@
 #'  }
 #'
 #' @examples
+#' # One condition
 #' estimate_popsurv(
 #'   data = nhanes,
 #'   weight = "weights",
 #'   strata = "strata",
 #'   condition = "gender"
 #' )
+#' # Multiple conditions
+#' library(dplyr)
+#' purrr::map(
+#'   c("gender", "marital_status"),
+#'   ~ estimate_popsurv(
+#'     data = nhanes,
+#'     weight = "weights",
+#'     strata = "strata",
+#'     condition = .x
+#'   ) %>%
+#'     mutate(variable = .x, .before = 1) %>%
+#'     rename_with(~"value", all_of(.x))
+#' ) %>%
+#'   purrr::map_dfr(~ .x %>% as_tibble())
 #'
 #' @import dplyr
 #'
