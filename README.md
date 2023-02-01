@@ -45,7 +45,7 @@ estimate_popsurv(
   data = nhanes,
   weight = "weights",
   strata = "strata",
-  condition_col = "gender"
+  condition = "gender"
 )
 #> # A tibble: 2 × 7
 #>   gender      total    vhat   occ       sd       ci ci_per
@@ -55,6 +55,19 @@ estimate_popsurv(
 ```
 
 Mobility survey estimates:
+
+``` r
+library(BFSestimates)
+library(dplyr)
+estimate_mobsurv(
+  object = c("annual_household_income", "annual_family_income"),
+  data = nhanes,
+  weight = "weights"
+)
+#>                        id    wmean        ci
+#> 1 annual_household_income 11.77473 0.2852000
+#> 2    annual_family_income 11.42304 0.2875722
+```
 
 # More Information
 

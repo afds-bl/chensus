@@ -44,11 +44,21 @@ estimate_popsurv(
   data = nhanes,
   weight = "weights",
   strata = "strata",
-  condition_col = "gender"
+  condition = "gender"
 )
 ```
 
 Mobility survey estimates:
+```{r example2}
+library(BFSestimates)
+library(dplyr)
+estimate_mobsurv(
+  object = c("annual_household_income", "annual_family_income"),
+  data = nhanes,
+  weight = "weights"
+)
+```
+
 
 # More Information
 
