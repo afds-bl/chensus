@@ -20,9 +20,20 @@
 #' @examples
 #' # We can use the nhanes dataset as an example even if it only contains population data
 #' library(dplyr)
-#' estimate_mobsurv(c("annual_household_income", "annual_family_income"),
-#'   data = nhanes, weight = "weights"
+#' # Estimate two means
+#' estimate_mobsurv(
+#'   c("annual_household_income", "annual_family_income"),
+#'   data = nhanes,
+#'   weight = "weights",
+#'   alpha = 0.1
 #' )
+#' # With conditions
+#' c("gender", "interview_lang") %>%
+#'   purrr::set_names() %>%
+#'   purrr::map(~ estimate_mobsurv(
+#'     object = c("annual_household_income", "annual_family_income"),
+#'     data = nhanes %>% group_by(.data[[.x]]), weight = "weights"
+#'   ))
 #'
 #' @import dplyr
 #'
