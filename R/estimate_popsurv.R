@@ -56,9 +56,7 @@ estimate_popsurv <- function(data, weight,
   # Summarise by strata
   data <- summarise_popsurv(
     data = data, strata = strata,
-    weight = weight,
-    mh_col = "mh", Nh_col = "Nh"
-  ) %>%
+    weight = weight) %>%
     # First summation term (1)
     mutate(T1h = mh / (mh - 1) * (1 - mh / Nh)) %>%
     # Summarise by strata and conditions
