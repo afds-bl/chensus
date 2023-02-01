@@ -12,14 +12,17 @@
       Variance</a>
   - <a href="#mobility-and-transport-survey"
     id="toc-mobility-and-transport-survey">Mobility and Transport Survey</a>
+    - <a href="#estimated-mean" id="toc-estimated-mean">Estimated Mean</a>
+    - <a href="#estimated-confidence-interval"
+      id="toc-estimated-confidence-interval">Estimated Confidence Interval</a>
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # BFSestimates
 
-The goal of BFSestimates is to estimate the population, variance and
-confidence intervals from surveys conducted by *Bundesamt für Statistik*
-(BFS) / *Office fédéral de la statistique* (OFS):
+The goal of BFSestimates is to estimate population frequencies, means,
+variances and confidence intervals from surveys conducted by *Bundesamt
+für Statistik* (BFS) / *Office fédéral de la statistique* (OFS):
 
 - population survey (*Volkszählung* (VZ), *recensement de la
   population*),
@@ -71,7 +74,9 @@ estimate_mobsurv(
 
 # More Information
 
-From the survey data, `BFestimates` estimates:
+## Population survey
+
+From the survey data, `estimate_popsurv()` estimates:
 
 - occurrences in the real population: sum of weights of sub-population
   of interest;
@@ -88,8 +93,6 @@ From the survey data, `BFestimates` estimates:
   ![0](https://latex.codecogs.com/png.latex?0 "0") and standard
   deviation
   ![\sqrt{\hat{V}}](https://latex.codecogs.com/png.latex?%5Csqrt%7B%5Chat%7BV%7D%7D "\sqrt{\hat{V}}").
-
-## Population survey
 
 The BFS/OFS provides [formulas to estimate populations and
 variances](https://portal.collab.admin.ch/sites/317-SE-CUG) in French
@@ -165,12 +168,84 @@ Finally the original variance estimate equation becomes:
 
 ![\hat{V}(\hat{N}\_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \left\[(m_h - m\_{hc}) \left(\frac{\hat{N}\_{hc}}{m_h}\right)^2  + \sum\_{i \in r\_{hc}} \left(w_i - \frac{\hat{N}\_{hc}}{m_h}\right)^2\right\]](https://latex.codecogs.com/png.latex?%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29%20%3D%20%5Csum_h%20%5Cfrac%7Bm_h%7D%7Bm_h%20-%201%7D%5Cleft%281%20-%20%5Cfrac%7Bm_h%7D%7BN_h%7D%5Cright%29%20%5Cleft%5B%28m_h%20-%20m_%7Bhc%7D%29%20%5Cleft%28%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%20%20%2B%20%5Csum_%7Bi%20%5Cin%20r_%7Bhc%7D%7D%20%5Cleft%28w_i%20-%20%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%5Cright%5D "\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \left[(m_h - m_{hc}) \left(\frac{\hat{N}_{hc}}{m_h}\right)^2  + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2\right]")
 
+The confidence interval is given by:
+
+![\text{CI} = \sqrt{\hat{V}(\hat{N}\_c)} \times \text{qnorm}(1 - \alpha / 2)](https://latex.codecogs.com/png.latex?%5Ctext%7BCI%7D%20%3D%20%5Csqrt%7B%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Calpha%20%2F%202%29 "\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}(1 - \alpha / 2)")
+
+where ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha")
+is the significance level, for example 0.05 for confidence interval 95%.
+
 `summarise_popsurv()` calculates
 ![m_h, N_h, m\_{hc}, \text{and } \hat{N}\_{hc}](https://latex.codecogs.com/png.latex?m_h%2C%20N_h%2C%20m_%7Bhc%7D%2C%20%5Ctext%7Band%20%7D%20%5Chat%7BN%7D_%7Bhc%7D "m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}").
 
-`estimate_popsurv()` implements the variance equation for
-![\hat{V}(\hat{N}\_c)](https://latex.codecogs.com/png.latex?%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29 "\hat{V}(\hat{N}_c)")
-and calculates true occurrence in the survey sample and confidence
-intervals.
+`estimate_popsurv()` calcualtes
+![\hat{V}(\hat{N}\_c)](https://latex.codecogs.com/png.latex?%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29 "\hat{V}(\hat{N}_c)"),
+the true occurrence in the survey sample and confidence intervals.
 
 ## Mobility and Transport Survey
+
+From the survey data, `estimate_mobsurv` estimates:
+
+- average occurrence in the real population: weighted mean of
+  sub-population of interest;
+- confidence interval of the estimate with significance level
+  ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha").
+
+### Estimated Mean
+
+The estimated mean is:
+
+![\hat{Y}\_c = \frac{1}{\sum\limits\_{i\in r_c} w_i}\sum\_{i \in r_c} w_i y_i](https://latex.codecogs.com/png.latex?%5Chat%7BY%7D_c%20%3D%20%5Cfrac%7B1%7D%7B%5Csum%5Climits_%7Bi%5Cin%20r_c%7D%20w_i%7D%5Csum_%7Bi%20%5Cin%20r_c%7D%20w_i%20y_i "\hat{Y}_c = \frac{1}{\sum\limits_{i\in r_c} w_i}\sum_{i \in r_c} w_i y_i")
+
+where:
+
+- ![w_i](https://latex.codecogs.com/png.latex?w_i "w_i") is the weight
+  for participant ![i](https://latex.codecogs.com/png.latex?i "i");
+- ![y_i](https://latex.codecogs.com/png.latex?y_i "y_i") is the response
+  of participant ![i](https://latex.codecogs.com/png.latex?i "i");
+- ![r_c](https://latex.codecogs.com/png.latex?r_c "r_c") is the set of
+  respondents with condition
+  ![c](https://latex.codecogs.com/png.latex?c "c").
+
+### Estimated Confidence Interval
+
+The [confidence interval of the estimated
+mean](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html)
+is:
+
+![\begin{aligned}\text{CI} &= 
+1.14\times Z\_{\alpha}\frac{\hat{\sigma}\_{y_c}}{\sqrt{n_c}}\\\\
+&= 1.14 \times \frac{\hat{\sigma}\_{y_c}}{\sqrt{n_c}} \times \text{qnorm}(1 - \alpha / 2)
+\end{aligned}](https://latex.codecogs.com/png.latex?%5Cbegin%7Baligned%7D%5Ctext%7BCI%7D%20%26%3D%20%0A1.14%5Ctimes%20Z_%7B%5Calpha%7D%5Cfrac%7B%5Chat%7B%5Csigma%7D_%7By_c%7D%7D%7B%5Csqrt%7Bn_c%7D%7D%5C%5C%0A%26%3D%201.14%20%5Ctimes%20%5Cfrac%7B%5Chat%7B%5Csigma%7D_%7By_c%7D%7D%7B%5Csqrt%7Bn_c%7D%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Calpha%20%2F%202%29%0A%5Cend%7Baligned%7D "\begin{aligned}\text{CI} &= 
+1.14\times Z_{\alpha}\frac{\hat{\sigma}_{y_c}}{\sqrt{n_c}}\\
+&= 1.14 \times \frac{\hat{\sigma}_{y_c}}{\sqrt{n_c}} \times \text{qnorm}(1 - \alpha / 2)
+\end{aligned}")
+
+where:
+
+- 1.14 is a correction factor;
+- ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha") is
+  the significance level, for example 0.05 for confidence interval 95%;
+- ![Z\_{\alpha}](https://latex.codecogs.com/png.latex?Z_%7B%5Calpha%7D "Z_{\alpha}")
+  is the [Z-value](https://www.z-table.com/) for the desired confidence
+  level
+  (![Z\_{0.05} = 1.96](https://latex.codecogs.com/png.latex?Z_%7B0.05%7D%20%3D%201.96 "Z_{0.05} = 1.96")
+  for double-sided 95% confidence interval);
+- ![n_c](https://latex.codecogs.com/png.latex?n_c "n_c") is the size of
+  set ![r_c](https://latex.codecogs.com/png.latex?r_c "r_c"),
+  i.e. number of respondents with condition
+  ![c](https://latex.codecogs.com/png.latex?c "c");
+- ![\hat{\sigma}\_{y_c}^2](https://latex.codecogs.com/png.latex?%5Chat%7B%5Csigma%7D_%7By_c%7D%5E2 "\hat{\sigma}_{y_c}^2")
+  is the variance of variable
+  ![Y_c](https://latex.codecogs.com/png.latex?Y_c "Y_c") estimated with
+  sample ![r_c](https://latex.codecogs.com/png.latex?r_c "r_c").
+
+The (sample) variance of variable
+![Y_c](https://latex.codecogs.com/png.latex?Y_c "Y_c") is estimated by:
+
+![\hat{\sigma}\_{y_c}^2 = \frac{\sum\limits\_{i\in r_c} w_i \left(y_i - \bar{y}\_c\right)^2}{\left(\sum\limits\_{i \in r_c} w_i \right)- 1}](https://latex.codecogs.com/png.latex?%5Chat%7B%5Csigma%7D_%7By_c%7D%5E2%20%3D%20%5Cfrac%7B%5Csum%5Climits_%7Bi%5Cin%20r_c%7D%20w_i%20%5Cleft%28y_i%20-%20%5Cbar%7By%7D_c%5Cright%29%5E2%7D%7B%5Cleft%28%5Csum%5Climits_%7Bi%20%5Cin%20r_c%7D%20w_i%20%5Cright%29-%201%7D "\hat{\sigma}_{y_c}^2 = \frac{\sum\limits_{i\in r_c} w_i \left(y_i - \bar{y}_c\right)^2}{\left(\sum\limits_{i \in r_c} w_i \right)- 1}")
+
+where
+![\bar{y}\_c](https://latex.codecogs.com/png.latex?%5Cbar%7By%7D_c "\bar{y}_c")
+is the estimated mean
+![\hat{Y}\_c](https://latex.codecogs.com/png.latex?%5Chat%7BY%7D_c "\hat{Y}_c").

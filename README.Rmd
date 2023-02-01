@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 # BFSestimates
 
-The goal of BFSestimates is to estimate the population, variance and confidence intervals from surveys conducted by *Bundesamt für Statistik* (BFS) / *Office fédéral de la statistique* (OFS):
+The goal of BFSestimates is to estimate population frequencies, means, variances and confidence intervals from surveys conducted by *Bundesamt für Statistik* (BFS) / *Office fédéral de la statistique* (OFS):
 
 - population survey (*Volkszählung* (VZ), *recensement de la population*),
 - mobility and transport survey (*Mikrozensus Mobilität und Verkehr* (MZMV), *Microrecensement mobilité et transports* (MRMT)).
@@ -62,14 +62,15 @@ estimate_mobsurv(
 
 # More Information
 
-From the survey data, `BFestimates` estimates:
+## Population survey
+
+
+From the survey data, `estimate_popsurv()` estimates:
 
 - occurrences in the real population: sum of weights of sub-population of interest;
 - variance $\hat V$ of the estimate; 
 - standard deviation ($sd = \sqrt{\hat{V}}$) of the estimate;
 - confidence interval of the estimate with significance level $\alpha$: $\left[(1 - \alpha/2)\times 100\right]^{\text{th}}$ percentile of normal distribution with mean $0$ and standard deviation $\sqrt{\hat{V}}$.
-
-## Population survey
 
 The BFS/OFS provides [formulas to estimate populations and variances](https://portal.collab.admin.ch/sites/317-SE-CUG) in French (`do-f-40-se_METH.pdf`) and German(`do-d-40-se_METH.pdf`).
 
@@ -112,11 +113,52 @@ where $r_{hc}$ is the set of respondents in stratum $h$ who fulfill condition $c
 Finally the original variance estimate equation becomes:
 
 $$\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \left[(m_h - m_{hc}) \left(\frac{\hat{N}_{hc}}{m_h}\right)^2  + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2\right]$$
+The confidence interval is given by:
+
+$$\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}(1 - \alpha / 2)$$
+where $\alpha$ is the significance level, for example 0.05 for confidence interval 95%.
 
 `summarise_popsurv()` calculates $m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}$. 
 
-`estimate_popsurv()` implements the variance equation for $\hat{V}(\hat{N}_c)$ and calculates true occurrence in the survey sample and confidence intervals.
+`estimate_popsurv()` calcualtes $\hat{V}(\hat{N}_c)$, the true occurrence in the survey sample and confidence intervals.
 
 ## Mobility and Transport Survey
 
+From the survey data, `estimate_mobsurv` estimates:
+
+- average occurrence in the real population: weighted mean of sub-population of interest;
+- confidence interval of the estimate with significance level $\alpha$.
+
+### Estimated Mean
+
+The estimated mean is:
+
+$$\hat{Y}_c = \frac{1}{\sum\limits_{i\in r_c} w_i}\sum_{i \in r_c} w_i y_i$$
+where:
+
+- $w_i$ is the weight for participant $i$;
+- $y_i$ is the response of participant $i$;
+- $r_c$ is the set of respondents with condition $c$.
+
+### Estimated Confidence Interval
+
+The [confidence interval of the estimated mean](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html) is:
+
+$$
+\begin{aligned}\text{CI} &= 
+1.14\times Z_{\alpha}\frac{\hat{\sigma}_{y_c}}{\sqrt{n_c}}\\
+&= 1.14 \times \frac{\hat{\sigma}_{y_c}}{\sqrt{n_c}} \times \text{qnorm}(1 - \alpha / 2)
+\end{aligned}$$
+
+where:
+
+- 1.14 is a correction factor; 
+- $\alpha$ is the significance level, for example 0.05 for confidence interval 95%;
+- $Z_{\alpha}$ is the [Z-value](https://www.z-table.com/) for the desired confidence level ($Z_{0.05} = 1.96$ for double-sided 95% confidence interval);
+- $n_c$ is the size of set $r_c$, i.e. number of respondents with condition $c$;
+- $\hat{\sigma}_{y_c}^2$ is the variance of variable $Y_c$ estimated with sample $r_c$. 
+
+The (sample) variance of variable $Y_c$ is estimated by:
+$$\hat{\sigma}_{y_c}^2 = \frac{\sum\limits_{i\in r_c} w_i \left(y_i - \bar{y}_c\right)^2}{\left(\sum\limits_{i \in r_c} w_i \right)- 1}$$
+where $\bar{y}_c$ is the estimated mean $\hat{Y}_c$.
 
