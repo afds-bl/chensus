@@ -48,7 +48,7 @@ estimate_mobsurv <- function(object, data, weight, cf = 1.14, alpha = 0.05) {
       summarise(
         nc = sum(.data[[.x]] > 0),
         wmean = weighted.mean(x = .data[[.x]], w = .data[[weight]]),
-        ci = cf * sqrt(sum(.data[[weight]] * (.data[[.x]] - wmean)^2) / (sum(.data[[weight]]) - 1) / nc) * qnorm(1 - alpha / 2)
+        ci = cf * sqrt(sum(.data[[weight]] * (.data[[.x]] - wmean)^2) / (sum(.data[[weight]]) - 1) / n()) * qnorm(1 - alpha / 2)
       )) %>%
     purrr::list_rbind(names_to = "id") # Convert into a table
 }
