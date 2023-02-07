@@ -82,7 +82,7 @@ $$\hat{N}_c = \sum_{i \in r} w_i I_c$$
 
 where:
 
-- $w_i$ the weight for participant $i$;
+- $w_i$ is the weight for participant $i$;
 - $I_c = 1$ if condition(s) $c$ is true, 0 otherwise;
 - $r$ is the set of participants
 
@@ -115,7 +115,7 @@ Finally the original variance estimate equation becomes:
 $$\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \left[(m_h - m_{hc}) \left(\frac{\hat{N}_{hc}}{m_h}\right)^2  + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2\right]$$
 The confidence interval is given by:
 
-$$\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}(1 - \alpha / 2)$$
+$$\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}(1 - \frac{\alpha}2)$$
 where $\alpha$ is the significance level, for example 0.05 for confidence interval 95%.
 
 `summarise_popsurv()` calculates $m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}$. 
@@ -140,14 +140,12 @@ where:
 - $y_i$ is the response of participant $i$;
 - $r_c$ is the set of respondents with condition $c$.
 
-### Estimated Confidence Interval
-
 The [confidence interval of the estimated mean](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html) is:
 
 $$
 \begin{aligned}\text{CI} &= 
 1.14\times Z_{\alpha}\frac{\hat{\sigma}_{y_c}}{\sqrt{n_c}}\\
-&= 1.14 \times \frac{\hat{\sigma}_{y_c}}{\sqrt{n_c}} \times \text{qnorm}(1 - \alpha / 2)
+&= 1.14 \times \frac{\hat{\sigma}_{y_c}}{\sqrt{n_c}} \times \text{qnorm}(1 - \frac{\alpha}2)
 \end{aligned}$$
 
 where:
@@ -162,3 +160,23 @@ The (sample) variance of variable $Y_c$ is estimated by:
 $$\hat{\sigma}_{y_c}^2 = \frac{\sum\limits_{i\in r_c} w_i \left(y_i - \bar{y}_c\right)^2}{\left(\sum\limits_{i \in r_c} w_i \right)- 1}$$
 where $\bar{y}_c$ is the estimated mean $\hat{Y}_c$.
 
+### Estimated Proportion
+
+The estimated proportion of the population who fulfil a condition $c$ is:
+
+$$p_c = \frac{1}{\sum\limits_{i \in r} w_i} \sum_{i \in r} w_i I_c$$
+where:
+
+- $w_i$ is the weight for participant $i$;
+- $I_c = 1$ if condition(s) $c$ is true, 0 otherwise;
+- $r$ is the set of participants
+
+The [confidence interval](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html) of the estimated proportion is:
+
+$$\text{CI} = 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)$$
+where:
+
+- 1.14 is a correction factor; 
+- $\alpha$ is the significance level, for example 0.05 for confidence interval 95%;
+- `qnorm` outputs the Z-score for the required confidence level $\alpha$;
+- $n$ is the size of set $r$, i.e. number of respondents in the subset of interest.

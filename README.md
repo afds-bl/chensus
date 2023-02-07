@@ -13,8 +13,8 @@
   - <a href="#mobility-and-transport-survey"
     id="toc-mobility-and-transport-survey">Mobility and Transport Survey</a>
     - <a href="#estimated-mean" id="toc-estimated-mean">Estimated Mean</a>
-    - <a href="#estimated-confidence-interval"
-      id="toc-estimated-confidence-interval">Estimated Confidence Interval</a>
+    - <a href="#estimated-proportion" id="toc-estimated-proportion">Estimated
+      Proportion</a>
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -67,9 +67,9 @@ estimate_mobsurv(
   data = nhanes,
   weight = "weights"
 )
-#>                        id    wmean        ci
-#> 1 annual_household_income 11.77473 0.2852000
-#> 2    annual_family_income 11.42304 0.2875722
+#>                        id   nc    wmean        ci
+#> 1 annual_household_income 9307 11.77473 0.2852000
+#> 2    annual_family_income 9307 11.42304 0.2875722
 ```
 
 # More Information
@@ -106,8 +106,8 @@ The estimated populations from the population survey is given by:
 
 where:
 
-- ![w_i](https://latex.codecogs.com/png.latex?w_i "w_i") the weight for
-  participant ![i](https://latex.codecogs.com/png.latex?i "i");
+- ![w_i](https://latex.codecogs.com/png.latex?w_i "w_i") is the weight
+  for participant ![i](https://latex.codecogs.com/png.latex?i "i");
 - ![I_c = 1](https://latex.codecogs.com/png.latex?I_c%20%3D%201 "I_c = 1")
   if condition(s) ![c](https://latex.codecogs.com/png.latex?c "c") is
   true, 0 otherwise;
@@ -170,7 +170,7 @@ Finally the original variance estimate equation becomes:
 
 The confidence interval is given by:
 
-![\text{CI} = \sqrt{\hat{V}(\hat{N}\_c)} \times \text{qnorm}(1 - \alpha / 2)](https://latex.codecogs.com/png.latex?%5Ctext%7BCI%7D%20%3D%20%5Csqrt%7B%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Calpha%20%2F%202%29 "\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}(1 - \alpha / 2)")
+![\text{CI} = \sqrt{\hat{V}(\hat{N}\_c)} \times \text{qnorm}(1 - \frac{\alpha}2)](https://latex.codecogs.com/png.latex?%5Ctext%7BCI%7D%20%3D%20%5Csqrt%7B%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Cfrac%7B%5Calpha%7D2%29 "\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}(1 - \frac{\alpha}2)")
 
 where ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha")
 is the significance level, for example 0.05 for confidence interval 95%.
@@ -207,18 +207,16 @@ where:
   respondents with condition
   ![c](https://latex.codecogs.com/png.latex?c "c").
 
-### Estimated Confidence Interval
-
 The [confidence interval of the estimated
 mean](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html)
 is:
 
 ![\begin{aligned}\text{CI} &= 
 1.14\times Z\_{\alpha}\frac{\hat{\sigma}\_{y_c}}{\sqrt{n_c}}\\\\
-&= 1.14 \times \frac{\hat{\sigma}\_{y_c}}{\sqrt{n_c}} \times \text{qnorm}(1 - \alpha / 2)
-\end{aligned}](https://latex.codecogs.com/png.latex?%5Cbegin%7Baligned%7D%5Ctext%7BCI%7D%20%26%3D%20%0A1.14%5Ctimes%20Z_%7B%5Calpha%7D%5Cfrac%7B%5Chat%7B%5Csigma%7D_%7By_c%7D%7D%7B%5Csqrt%7Bn_c%7D%7D%5C%5C%0A%26%3D%201.14%20%5Ctimes%20%5Cfrac%7B%5Chat%7B%5Csigma%7D_%7By_c%7D%7D%7B%5Csqrt%7Bn_c%7D%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Calpha%20%2F%202%29%0A%5Cend%7Baligned%7D "\begin{aligned}\text{CI} &= 
+&= 1.14 \times \frac{\hat{\sigma}\_{y_c}}{\sqrt{n_c}} \times \text{qnorm}(1 - \frac{\alpha}2)
+\end{aligned}](https://latex.codecogs.com/png.latex?%5Cbegin%7Baligned%7D%5Ctext%7BCI%7D%20%26%3D%20%0A1.14%5Ctimes%20Z_%7B%5Calpha%7D%5Cfrac%7B%5Chat%7B%5Csigma%7D_%7By_c%7D%7D%7B%5Csqrt%7Bn_c%7D%7D%5C%5C%0A%26%3D%201.14%20%5Ctimes%20%5Cfrac%7B%5Chat%7B%5Csigma%7D_%7By_c%7D%7D%7B%5Csqrt%7Bn_c%7D%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Cfrac%7B%5Calpha%7D2%29%0A%5Cend%7Baligned%7D "\begin{aligned}\text{CI} &= 
 1.14\times Z_{\alpha}\frac{\hat{\sigma}_{y_c}}{\sqrt{n_c}}\\
-&= 1.14 \times \frac{\hat{\sigma}_{y_c}}{\sqrt{n_c}} \times \text{qnorm}(1 - \alpha / 2)
+&= 1.14 \times \frac{\hat{\sigma}_{y_c}}{\sqrt{n_c}} \times \text{qnorm}(1 - \frac{\alpha}2)
 \end{aligned}")
 
 where:
@@ -249,3 +247,37 @@ where
 ![\bar{y}\_c](https://latex.codecogs.com/png.latex?%5Cbar%7By%7D_c "\bar{y}_c")
 is the estimated mean
 ![\hat{Y}\_c](https://latex.codecogs.com/png.latex?%5Chat%7BY%7D_c "\hat{Y}_c").
+
+### Estimated Proportion
+
+The estimated proportion of the population who fulfil a condition
+![c](https://latex.codecogs.com/png.latex?c "c") is:
+
+![p_c = \frac{1}{\sum\limits\_{i \in r} w_i} \sum\_{i \in r} w_i I_c](https://latex.codecogs.com/png.latex?p_c%20%3D%20%5Cfrac%7B1%7D%7B%5Csum%5Climits_%7Bi%20%5Cin%20r%7D%20w_i%7D%20%5Csum_%7Bi%20%5Cin%20r%7D%20w_i%20I_c "p_c = \frac{1}{\sum\limits_{i \in r} w_i} \sum_{i \in r} w_i I_c")
+
+where:
+
+- ![w_i](https://latex.codecogs.com/png.latex?w_i "w_i") is the weight
+  for participant ![i](https://latex.codecogs.com/png.latex?i "i");
+- ![I_c = 1](https://latex.codecogs.com/png.latex?I_c%20%3D%201 "I_c = 1")
+  if condition(s) ![c](https://latex.codecogs.com/png.latex?c "c") is
+  true, 0 otherwise;
+- ![r](https://latex.codecogs.com/png.latex?r "r") is the set of
+  participants
+
+The [confidence
+interval](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html)
+of the estimated proportion is:
+
+![\text{CI} = 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)](https://latex.codecogs.com/png.latex?%5Ctext%7BCI%7D%20%3D%201.14%20%5Ctimes%20%5Csqrt%7B%5Cfrac%7Bp%281-p%29%7D%7Bn%7D%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Cfrac%7B%5Calpha%7D%202%29 "\text{CI} = 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)")
+
+where:
+
+- 1.14 is a correction factor;
+- ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha") is
+  the significance level, for example 0.05 for confidence interval 95%;
+- `qnorm` outputs the Z-score for the required confidence level
+  ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha");
+- ![n](https://latex.codecogs.com/png.latex?n "n") is the size of set
+  ![r](https://latex.codecogs.com/png.latex?r "r"), i.e. number of
+  respondents in the subset of interest.
