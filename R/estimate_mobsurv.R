@@ -1,4 +1,4 @@
-#' Estimates from mobility survey
+#' Estimate means from mobility survey
 #'
 #' \code{estimate_mobsurv()} estimates the mean frequencies and confidence
 #' intervals of BFS/OFS mobility surveys.
@@ -51,4 +51,19 @@ estimate_mobsurv <- function(object, data, weight, cf = 1.14, alpha = 0.05) {
         ci = cf * sqrt(sum(.data[[weight]] * (.data[[.x]] - wmean)^2) / (sum(.data[[weight]]) - 1) / n()) * qnorm(1 - alpha / 2)
       )) %>%
     purrr::list_rbind(names_to = "id") # Convert into a table
+}
+
+#' Estimate proportions from mobility survey
+#'
+#' \code{mzmv_estimate_prop} estimates the proportions and confidence intervals of BFS/OFS mobility survey data
+#'
+#'
+
+mzmv_estimate_prop <- function(data, object, weight, cf = 1.14, alpha = 0.05) {
+  data %>%
+    summarise(
+      p = sum(.data[[weight]] * .data[[object]]) / sum(.data[[weight]]),
+      ci = cf * sqrt(p * (1 - p) / n()) * qnorm(1 - alpha / 2)
+    )
+
 }
