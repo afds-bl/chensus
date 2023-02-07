@@ -44,7 +44,7 @@ Population survey estimates:
 ``` r
 library(BFSestimates)
 library(dplyr)
-estimate_popsurv(
+vz_estimate(
   data = nhanes,
   weight = "weights",
   strata = "strata",
@@ -62,7 +62,7 @@ Mobility survey estimates:
 ``` r
 library(BFSestimates)
 library(dplyr)
-estimate_mobsurv(
+mzmv_estimate_mean(
   object = c("annual_household_income", "annual_family_income"),
   data = nhanes,
   weight = "weights"
@@ -76,7 +76,7 @@ estimate_mobsurv(
 
 ## Population survey
 
-From the survey data, `estimate_popsurv()` estimates:
+From the survey data, `vz_estimate()` estimates:
 
 - occurrences in the real population: sum of weights of sub-population
   of interest;
@@ -175,20 +175,26 @@ The confidence interval is given by:
 where ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha")
 is the significance level, for example 0.05 for confidence interval 95%.
 
-`summarise_popsurv()` calculates
+`vz_summarise()` calculates
 ![m_h, N_h, m\_{hc}, \text{and } \hat{N}\_{hc}](https://latex.codecogs.com/png.latex?m_h%2C%20N_h%2C%20m_%7Bhc%7D%2C%20%5Ctext%7Band%20%7D%20%5Chat%7BN%7D_%7Bhc%7D "m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}").
 
-`estimate_popsurv()` calcualtes
+`vz_estimate()` calculates
 ![\hat{V}(\hat{N}\_c)](https://latex.codecogs.com/png.latex?%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29 "\hat{V}(\hat{N}_c)"),
 the true occurrence in the survey sample and confidence intervals.
 
 ## Mobility and Transport Survey
 
-From the survey data, `estimate_mobsurv` estimates:
+From the survey data, `mzmv_estimate_mean()` estimates:
 
 - average occurrence in the real population: weighted mean of
   sub-population of interest;
 - confidence interval of the estimate with significance level
+  ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha"),
+
+while `mzmv_estimate_prop()` estimates:
+
+- proportions in the real population
+- confidence interval of the proportion estimate with significance level
   ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha").
 
 ### Estimated Mean

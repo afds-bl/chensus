@@ -40,7 +40,7 @@ Population survey estimates:
 ```{r example1}
 library(BFSestimates)
 library(dplyr)
-estimate_popsurv(
+vz_estimate(
   data = nhanes,
   weight = "weights",
   strata = "strata",
@@ -52,7 +52,7 @@ Mobility survey estimates:
 ```{r example2}
 library(BFSestimates)
 library(dplyr)
-estimate_mobsurv(
+mzmv_estimate_mean(
   object = c("annual_household_income", "annual_family_income"),
   data = nhanes,
   weight = "weights"
@@ -65,7 +65,7 @@ estimate_mobsurv(
 ## Population survey
 
 
-From the survey data, `estimate_popsurv()` estimates:
+From the survey data, `vz_estimate()` estimates:
 
 - occurrences in the real population: sum of weights of sub-population of interest;
 - variance $\hat V$ of the estimate; 
@@ -118,16 +118,21 @@ The confidence interval is given by:
 $$\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}(1 - \frac{\alpha}2)$$
 where $\alpha$ is the significance level, for example 0.05 for confidence interval 95%.
 
-`summarise_popsurv()` calculates $m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}$. 
+`vz_summarise()` calculates $m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}$. 
 
-`estimate_popsurv()` calcualtes $\hat{V}(\hat{N}_c)$, the true occurrence in the survey sample and confidence intervals.
+`vz_estimate()` calculates $\hat{V}(\hat{N}_c)$, the true occurrence in the survey sample and confidence intervals.
 
 ## Mobility and Transport Survey
 
-From the survey data, `estimate_mobsurv` estimates:
+From the survey data, `mzmv_estimate_mean()` estimates:
 
 - average occurrence in the real population: weighted mean of sub-population of interest;
-- confidence interval of the estimate with significance level $\alpha$.
+- confidence interval of the estimate with significance level $\alpha$,
+
+while `mzmv_estimate_prop()` estimates:
+
+- proportions in the real population
+- confidence interval of the proportion estimate with significance level $\alpha$.
 
 ### Estimated Mean
 
