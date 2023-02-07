@@ -1,6 +1,6 @@
 #' Summarise population survey
 #'
-#' \code{summarise_popsurv()} stratifies the number of true occurrences and
+#' \code{vz_summarise()} stratifies the number of true occurrences and
 #' estimated populations in population surveys provided by the the Bundesamt
 #' für Statistik / Office Fédéral de la Statistique.
 #'
@@ -17,10 +17,10 @@
 #' @examples
 #' # One strata variable
 #' library(dplyr)
-#' summarise_popsurv(nhanes, weight = "weights", strata = "strata") %>%
+#' vz_summarise(nhanes, weight = "weights", strata = "strata") %>%
 #'   glimpse()
 #' # Two strata variables
-#' summarise_popsurv(nhanes,
+#' vz_summarise(nhanes,
 #'   weight = "weights", strata = c("strata", "gender"),
 #'   mh_col = "mhc", Nh_col = "Nhc"
 #' ) %>%
@@ -33,7 +33,7 @@
 #'
 #' @export
 
-summarise_popsurv <- function(data, weight, strata,
+vz_summarise <- function(data, weight, strata,
                                mh_col = "mh", Nh_col = "Nh") {
   data %>%
     group_by(across(all_of(strata))) %>%

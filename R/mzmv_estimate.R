@@ -1,6 +1,6 @@
 #' Estimate means from mobility survey
 #'
-#' \code{estimate_mobsurv()} estimates the mean frequencies and confidence
+#' \code{mzmv_estimate_mean()} estimates the mean frequencies and confidence
 #' intervals of BFS/OFS mobility surveys.
 #'
 #' @param object Vector of character strings, to be estimated
@@ -22,7 +22,7 @@
 #' # We can use the nhanes dataset as an example even if it only contains population data
 #' library(dplyr)
 #' # Estimate two means
-#' estimate_mobsurv(
+#' mzmv_estimate_mean(
 #'   c("annual_household_income", "annual_family_income"),
 #'   data = nhanes,
 #'   weight = "weights",
@@ -31,7 +31,7 @@
 #' # With conditions
 #' c("gender", "interview_lang") %>%
 #'   purrr::set_names() %>%
-#'   purrr::map(~ estimate_mobsurv(
+#'   purrr::map(~ mzmv_estimate_mean(
 #'     object = c("annual_household_income", "annual_family_income"),
 #'     data = nhanes %>% group_by(.data[[.x]]), weight = "weights"
 #'   ))
@@ -40,7 +40,7 @@
 #'
 #' @export
 #'
-estimate_mobsurv <- function(object, data, weight, cf = 1.14, alpha = 0.05) {
+mzmv_estimate_mean <- function(object, data, weight, cf = 1.14, alpha = 0.05) {
   object %>%
     purrr::set_names() %>% # Output is a list whose elements are named using object
     purrr::map(~ data %>%
@@ -57,13 +57,14 @@ estimate_mobsurv <- function(object, data, weight, cf = 1.14, alpha = 0.05) {
 #'
 #' \code{mzmv_estimate_prop} estimates the proportions and confidence intervals of BFS/OFS mobility survey data
 #'
+#' @import dplyr
 #'
-
+#' @export
+#'
 mzmv_estimate_prop <- function(data, object, weight, cf = 1.14, alpha = 0.05) {
   data %>%
     summarise(
       p = sum(.data[[weight]] * .data[[object]]) / sum(.data[[weight]]),
       ci = cf * sqrt(p * (1 - p) / n()) * qnorm(1 - alpha / 2)
     )
-
 }

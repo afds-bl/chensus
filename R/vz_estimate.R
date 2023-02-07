@@ -1,6 +1,6 @@
 #' Estimates from population survey
 #'
-#' \code{estimate_popsurv()} estimates the frequencies, variance and confidence
+#' \code{vz_estimate()} estimates the frequencies, variance and confidence
 #' intervals of BFS/OFS population surveys.
 #'
 #' @param data Tibble
@@ -24,7 +24,7 @@
 #'
 #' @examples
 #' # One condition
-#' estimate_popsurv(
+#' vz_estimate(
 #'   data = nhanes,
 #'   weight = "weights",
 #'   strata = "strata",
@@ -34,7 +34,7 @@
 #' library(dplyr)
 #' purrr::map(
 #'   c("gender", "marital_status"),
-#'   ~ estimate_popsurv(
+#'   ~ vz_estimate(
 #'     data = nhanes,
 #'     weight = "weights",
 #'     strata = "strata",
@@ -49,18 +49,18 @@
 #'
 #' @export
 
-estimate_popsurv <- function(data, weight,
+vz_estimate <- function(data, weight,
                               strata = "zone",
                               condition = NULL,
                               alpha = 0.05) {
   # Summarise by strata
-  data <- summarise_popsurv(
+  data <- vz_summarise(
     data = data, strata = strata,
     weight = weight) %>%
     # First summation term (1)
     mutate(T1h = mh / (mh - 1) * (1 - mh / Nh)) %>%
     # Summarise by strata and conditions
-    summarise_popsurv(.,
+    vz_summarise(.,
       strata = c(strata, condition),
       weight = weight,
       mh_col = "mhc", Nh_col = "Nhc"
