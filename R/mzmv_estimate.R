@@ -40,7 +40,7 @@
 #'
 #' @export
 #'
-mzmv_estimate_mean <- function(object, data, weight, cf = 1.14, alpha = 0.05) {
+mzmv_estimate_mean <- function(data, object, weight, cf = 1.14, alpha = 0.05) {
   object %>%
     purrr::set_names() %>% # Output is a list whose elements are named using object
     purrr::map(~ data %>%

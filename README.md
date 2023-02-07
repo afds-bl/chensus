@@ -63,8 +63,8 @@ Mobility survey estimates:
 library(BFSestimates)
 library(dplyr)
 mzmv_estimate_mean(
-  object = c("annual_household_income", "annual_family_income"),
   data = nhanes,
+  object = c("annual_household_income", "annual_family_income"),
   weight = "weights"
 )
 #>                        id   nc    wmean        ci
