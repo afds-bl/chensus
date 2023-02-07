@@ -7,7 +7,7 @@
 #' @param data Tibble
 #' @param weight Character string, name of the column containing the
 #' weights
-#' @param strata Vector of haracter strings, names of the columns containing the
+#' @param strata Vector of character strings, names of the columns containing the
 #' strata
 #' @param mh_col Character string, desired column name of number of true occurrences per stratum
 #' @param Nh_col Character string, desired column name of estimated population per stratum

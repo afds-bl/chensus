@@ -57,6 +57,35 @@ mzmv_estimate_mean <- function(object, data, weight, cf = 1.14, alpha = 0.05) {
 #'
 #' \code{mzmv_estimate_prop} estimates the proportions and confidence intervals of BFS/OFS mobility survey data
 #'
+#' @param data Tibble
+#' @param object Character string, variable to be estimated
+#' @param weight Character string, name of the column containing the
+#' weights
+#' @param cf Double, correction factor of the confidence interval, supplied by BFS/OFS
+#' @param alpha Double, significance level. Default 0.05 for 95\% confidence interval.
+#'
+#' @returns Vector, with the following values:
+#' \itemize{
+#' \item{\code{p}: }{proportion estimate}
+#' \item{\code{ci}: }{confidence interval estimate}
+#' }
+#'
+#' @examples
+#' # We can use the nhanes dataset
+#' library(dplyr)
+#' nhanes %>%
+#'   mutate(
+#'     married =
+#'       case_when(
+#'         marital_status == "Married" ~ 1,
+#'         TRUE ~ 0
+#'       )
+#'   ) %>%
+#'   mzmv_estimate_prop(
+#'     object = "married",
+#'     weight = "weights"
+#'   )
+#'
 #' @import dplyr
 #'
 #' @export
