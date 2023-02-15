@@ -3,7 +3,7 @@
 #' \code{mzmv_estimate_mean()} estimates the mean frequencies and confidence
 #' intervals of BFS/OFS mobility surveys.
 #'
-#' @param object Vector of character strings, to be estimated
+#' @param object Vector of strings, names of variables to be estimated. Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent `NA`.
 #' @param data Tibble
 #' @param weight Character string, name of the column containing the
 #' weights
@@ -58,7 +58,7 @@ mzmv_estimate_mean <- function(data, object, weight, cf = 1.14, alpha = 0.05) {
 #' \code{mzmv_estimate_prop} estimates the proportions and confidence intervals of BFS/OFS mobility survey data
 #'
 #' @param data Tibble
-#' @param object Character string, variable to be estimated
+#' @param object Vector of strings, names of variables to be estimated. Variables have integer #' values, representing a quantity (number of cars per household) or presence/absence  (possession of a car). Negative numbers represent `NA`.
 #' @param weight Character string, name of the column containing the
 #' weights
 #' @param cf Double, correction factor of the confidence interval, supplied by BFS/OFS
@@ -92,7 +92,10 @@ mzmv_estimate_mean <- function(data, object, weight, cf = 1.14, alpha = 0.05) {
 #'
 mzmv_estimate_prop <- function(data, object, weight, cf = 1.14, alpha = 0.05) {
   data %>%
+    filter(.data[[object]] >= 0) %>%
     summarise(
+      nc = n(),
+      wmean = weighted.mean(x = .data[[object]], w = .data[[weight]]),
       p = sum(.data[[weight]] * .data[[object]]) / sum(.data[[weight]]),
       ci = cf * sqrt(p * (1 - p) / n()) * qnorm(1 - alpha / 2)
     )
