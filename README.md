@@ -69,8 +69,8 @@ mzmv_estimate_mean(
   weight = "weights"
 )
 #>                        id   nc    wmean        ci
-#> 1 annual_household_income 9307 11.77473 0.2852000
-#> 2    annual_family_income 9307 11.42304 0.2875722
+#> 1 annual_household_income 9307 11.77473 0.2393474
+#> 2    annual_family_income 9307 11.42304 0.2413382
 ```
 
 # More Information
@@ -197,6 +197,9 @@ while `mzmv_estimate_prop()` estimates:
 - proportions in the real population
 - confidence interval of the proportion estimate with significance level
   ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha").
+
+Note that one can simply use `mzmv_estimate_mean()` to estimate both
+proportions and means, as shown later in the document.
 
 ### Estimated Mean
 

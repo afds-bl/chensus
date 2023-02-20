@@ -134,6 +134,8 @@ while `mzmv_estimate_prop()` estimates:
 - proportions in the real population
 - confidence interval of the proportion estimate with significance level $\alpha$.
 
+Note that one can simply use `mzmv_estimate_mean()` to estimate both proportions and means, as shown later in the document.
+
 ### Estimated Mean
 
 The estimated mean is:
