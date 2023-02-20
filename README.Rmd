@@ -65,7 +65,6 @@ mzmv_estimate_mean(
 
 ## Population survey
 
-
 From the survey data, `vz_estimate()` estimates:
 
 - occurrences in the real population: sum of weights of sub-population of interest;
@@ -165,6 +164,7 @@ where:
 - $\hat{\sigma}_{y}^2$ is the variance of variable $Y$ estimated with sample $r$. 
 
 The (sample) variance of variable $Y$ is estimated by:
+
 $$\hat{\sigma}_{y}^2 = \frac{\sum\limits_{i\in r} w_i \left(y_i - \bar{y}\right)^2}{\left(\sum\limits_{i \in r} w_i \right)- 1}$$
 where $\bar{y}$ is the estimated mean $\hat{Y}$.
 
@@ -198,14 +198,16 @@ $$
 Therefore, the estimated sample variance becomes:
 
 $$\hat{\sigma}_{p}^2 = \frac{p(1-p) \sum\limits_{i} w_i}{\left(\sum\limits_{i} w_i \right)- 1}$$
-which when $\sum\limits_i w_i >> 1$ becomes:
+
+which when $\sum\limits_i w_i >> 1$ can be approximated with:
+
 $$\hat{\sigma}_{p}^2 \approx p(1-p)$$
 
-The confidence interval for proportions can be approximated by:
+The confidence interval for proportions could therefore be approximated with:
 
 $$\text{CI} \approx 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)$$
 where:
 
-- $\alpha$  is the siginificance level;
+- $\alpha$  is the significance level;
 - $\text{qnorm}$ outputs the Z-score for the required significance level $\alpha$;
 - $n$ is the size of set $r$, i.e. number of respondents.

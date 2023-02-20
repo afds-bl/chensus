@@ -307,18 +307,19 @@ Therefore, the estimated sample variance becomes:
 
 which when
 ![\sum\limits_i w_i \>\> 1](https://latex.codecogs.com/png.latex?%5Csum%5Climits_i%20w_i%20%3E%3E%201 "\sum\limits_i w_i >> 1")
-becomes:
+can be approximated with:
 
 ![\hat{\sigma}\_{p}^2 \approx p(1-p)](https://latex.codecogs.com/png.latex?%5Chat%7B%5Csigma%7D_%7Bp%7D%5E2%20%5Capprox%20p%281-p%29 "\hat{\sigma}_{p}^2 \approx p(1-p)")
 
-The confidence interval for proportions can be approximated by:
+The confidence interval for proportions could therefore be approximated
+with:
 
 ![\text{CI} \approx 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)](https://latex.codecogs.com/png.latex?%5Ctext%7BCI%7D%20%5Capprox%201.14%20%5Ctimes%20%5Csqrt%7B%5Cfrac%7Bp%281-p%29%7D%7Bn%7D%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Cfrac%7B%5Calpha%7D%202%29 "\text{CI} \approx 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)")
 
 where:
 
 - ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha") is
-  the siginificance level;
+  the significance level;
 - ![\text{qnorm}](https://latex.codecogs.com/png.latex?%5Ctext%7Bqnorm%7D "\text{qnorm}")
   outputs the Z-score for the required significance level
   ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha");
