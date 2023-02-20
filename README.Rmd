@@ -49,6 +49,7 @@ vz_estimate(
 ```
 
 Mobility survey estimates:
+
 ```{r example2}
 library(BFSestimates)
 library(dplyr)
