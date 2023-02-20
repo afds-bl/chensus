@@ -40,7 +40,7 @@
 #'
 #' @export
 #'
-mzmv_estimate_mean <- function(data, object, weight, cf = 1.14, alpha = 0.05) {
+mzmv_estimate_mean <- function(data, object, weight, cf = 1.14, alpha = 0.1) {
   object %>%
     purrr::set_names() %>% # Output is a list whose elements are named using object
     purrr::map(~ data %>%
@@ -95,12 +95,12 @@ mzmv_estimate_mean <- function(data, object, weight, cf = 1.14, alpha = 0.05) {
 #'
 #' @export
 #'
-mzmv_estimate_prop <- function(data, object, weight, cf = 1.14, alpha = 0.05) {
+mzmv_estimate_prop <- function(data, object, weight, cf = 1.14, alpha = 0.1) {
   data %>%
     filter(.data[[object]] >= 0) %>%
     summarise(
       nc = n(),
-      p = sum(.data[[weight]] * .data[[object]]) / sum(.data[[weight]]),
+      p = weighted.mean(x = .data[[object]], w = .data[[weight]]),
       ci = cf * sqrt(p * (1 - p) / n()) * qnorm(1 - alpha / 2)
     )
 }
