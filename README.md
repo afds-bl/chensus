@@ -211,8 +211,7 @@ where:
 - ![y_i](https://latex.codecogs.com/png.latex?y_i "y_i") is the response
   of participant ![i](https://latex.codecogs.com/png.latex?i "i");
 - ![r](https://latex.codecogs.com/png.latex?r "r") is the set of
-  respondents with condition
-  ![c](https://latex.codecogs.com/png.latex?c "c").
+  respondents.
 
 The [confidence interval of the estimated
 mean](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html)
@@ -238,8 +237,7 @@ where:
   for double-sided 95% confidence interval);
 - ![n](https://latex.codecogs.com/png.latex?n "n") is the size of set
   ![r](https://latex.codecogs.com/png.latex?r "r"), i.e. number of
-  respondents with condition
-  ![c](https://latex.codecogs.com/png.latex?c "c");
+  respondents;
 - ![\hat{\sigma}\_{y}^2](https://latex.codecogs.com/png.latex?%5Chat%7B%5Csigma%7D_%7By%7D%5E2 "\hat{\sigma}_{y}^2")
   is the variance of variable
   ![Y](https://latex.codecogs.com/png.latex?Y "Y") estimated with sample
