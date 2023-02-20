@@ -21,8 +21,9 @@
 # BFSestimates
 
 The goal of BFSestimates is to estimate population frequencies, means,
-variances and confidence intervals from surveys conducted by *Bundesamt
-für Statistik* (BFS) / *Office fédéral de la statistique* (OFS):
+proportions and confidence intervals from surveys conducted by
+*Bundesamt für Statistik* (BFS) / *Office fédéral de la statistique*
+(OFS):
 
 - population survey (*Volkszählung* (VZ), *recensement de la
   population*),
@@ -34,7 +35,7 @@ für Statistik* (BFS) / *Office fédéral de la statistique* (OFS):
 You can install the development version of `BFSestimates` like so:
 
 ``` r
-devtools::install_github("BFSestimates", "souadg")
+install.packages('BFSestimates_0.1.0.tar.gz', repos=NULL, type='source')
 ```
 
 # Usage

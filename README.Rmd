@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 # BFSestimates
 
-The goal of BFSestimates is to estimate population frequencies, means, variances and confidence intervals from surveys conducted by *Bundesamt für Statistik* (BFS) / *Office fédéral de la statistique* (OFS):
+The goal of BFSestimates is to estimate population frequencies, means, proportions and confidence intervals from surveys conducted by *Bundesamt für Statistik* (BFS) / *Office fédéral de la statistique* (OFS):
 
 - population survey (*Volkszählung* (VZ), *recensement de la population*),
 - mobility and transport survey (*Mikrozensus Mobilität und Verkehr* (MZMV), *Microrecensement mobilité et transports* (MRMT)).
@@ -31,7 +31,7 @@ The goal of BFSestimates is to estimate population frequencies, means, variances
 You can install the development version of `BFSestimates` like so:
 
 ```{r eval = FALSE}
-devtools::install_github("BFSestimates", "souadg")
+install.packages('BFSestimates_0.1.0.tar.gz', repos=NULL, type='source')
 ```
 
 # Usage
