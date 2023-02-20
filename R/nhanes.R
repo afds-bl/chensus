@@ -1,7 +1,9 @@
 #' National Health and Nutrition Examination Survey (NHANES)
 #'
-#' Demogrpahic survey data from NHANES 2015 to 2016, with data on 9307
+#' Demographic survey data from NHANES 2015 to 2016, with data on 9307
 #' participants, including sampling weights.
+#'
+#' @format A data frame with 9307 rows and 13 variables.
 #'
 #' @docType data
 #'
