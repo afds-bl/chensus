@@ -138,19 +138,19 @@ while `mzmv_estimate_prop()` estimates:
 
 The estimated mean is:
 
-$$\hat{Y}_c = \frac{1}{\sum\limits_{i\in r_c} w_i}\sum_{i \in r_c} w_i y_i$$
+$$\hat{Y} = \frac{1}{\sum\limits_{i\in r} w_i}\sum_{i \in r} w_i y_i$$
 where:
 
 - $w_i$ is the weight for participant $i$;
 - $y_i$ is the response of participant $i$;
-- $r_c$ is the set of respondents with condition $c$.
+- $r$ is the set of respondents with condition $c$.
 
 The [confidence interval of the estimated mean](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html) is:
 
 $$
 \begin{aligned}\text{CI} &= 
-1.14\times Z_{\alpha}\frac{\hat{\sigma}_{y_c}}{\sqrt{n_c}}\\
-&= 1.14 \times \frac{\hat{\sigma}_{y_c}}{\sqrt{n_c}} \times \text{qnorm}(1 - \frac{\alpha}2)
+1.14\times Z_{\alpha}\frac{\hat{\sigma}_{y}}{\sqrt{n}}\\
+&= 1.14 \times \frac{\hat{\sigma}_{y}}{\sqrt{n}} \times \text{qnorm}(1 - \frac{\alpha}2)
 \end{aligned}$$
 
 where:
@@ -158,30 +158,51 @@ where:
 - 1.14 is a correction factor; 
 - $\alpha$ is the significance level, for example 0.05 for confidence interval 95%;
 - $Z_{\alpha}$ is the [Z-value](https://www.z-table.com/) for the desired confidence level ($Z_{0.05} = 1.96$ for double-sided 95% confidence interval);
-- $n_c$ is the size of set $r_c$, i.e. number of respondents with condition $c$;
-- $\hat{\sigma}_{y_c}^2$ is the variance of variable $Y_c$ estimated with sample $r_c$. 
+- $n$ is the size of set $r$, i.e. number of respondents with condition $c$;
+- $\hat{\sigma}_{y}^2$ is the variance of variable $Y$ estimated with sample $r$. 
 
-The (sample) variance of variable $Y_c$ is estimated by:
-$$\hat{\sigma}_{y_c}^2 = \frac{\sum\limits_{i\in r_c} w_i \left(y_i - \bar{y}_c\right)^2}{\left(\sum\limits_{i \in r_c} w_i \right)- 1}$$
-where $\bar{y}_c$ is the estimated mean $\hat{Y}_c$.
+The (sample) variance of variable $Y$ is estimated by:
+$$\hat{\sigma}_{y}^2 = \frac{\sum\limits_{i\in r} w_i \left(y_i - \bar{y}\right)^2}{\left(\sum\limits_{i \in r} w_i \right)- 1}$$
+where $\bar{y}$ is the estimated mean $\hat{Y}$.
 
 ### Estimated Proportion
 
-The estimated proportion of the population who fulfil a condition $c$ is:
+If $y_i \in \{0, 1\}$, for example possession of a car, then the mean estimate becomes the proportion estimate:
 
-$$p_c = \frac{1}{\sum\limits_{i \in r} w_i} \sum_{i \in r} w_i I_c$$
+$$p = \frac{1}{\sum\limits_{i \in r} w_i} \sum_{i \in r} w_i I_c$$
 where:
 
 - $w_i$ is the weight for participant $i$;
-- $I_c = 1$ if condition(s) $c$ is true, 0 otherwise;
-- $r$ is the set of participants
+- $I_c = 1$ if condition $c$ is true ($y_i = 1$), 0 otherwise ($y_i = 0$);
+- $r$ is the set of participants.
 
-The [confidence interval](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html) of the estimated proportion is:
+The sample variance in the previous section then becomes:
 
-$$\text{CI} = 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)$$
+$$\hat{\sigma}_{p}^2 = \frac{\sum\limits_{i\in r} w_i \left(I_c - p\right)^2}{\left(\sum\limits_{i \in r} w_i \right)- 1}$$
+
+Noting that $I_c^2 = I_c$ and $\sum\limits_i w_i I_c = p \sum\limits_i w_i$, the nominator then becomes:
+
+$$
+\begin{aligned} \sum\limits_{i\in r} w_i \left(I_c - p\right)^2 &=
+\sum_i w_i \left(I_c^2 +p^2 -2pI_c\right) \\
+&= \sum_i w_i I_c + p^2 \sum_i w_i -2p\sum_i w_i I_c\\
+&= p \sum_i w_i + p^2 \sum_i w_i - 2p^2 \sum_i w_i\\
+&= p \sum_i w_i - p^2 \sum_i w_i\\
+&= p(1-p) \sum_i w_i
+\end{aligned}
+$$
+
+Therefore, the estimated sample variance becomes:
+
+$$\hat{\sigma}_{p}^2 = \frac{p(1-p) \sum\limits_{i} w_i}{\left(\sum\limits_{i} w_i \right)- 1}$$
+which when $\sum\limits_i w_i >> 1$ becomes:
+$$\hat{\sigma}_{p}^2 \approx p(1-p)$$
+
+The confidence interval for proportions can be approximated by:
+
+$$\text{CI} \approx 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)$$
 where:
 
-- 1.14 is a correction factor; 
-- $\alpha$ is the significance level, for example 0.05 for confidence interval 95%;
-- `qnorm` outputs the Z-score for the required confidence level $\alpha$;
-- $n$ is the size of set $r$, i.e. number of respondents in the subset of interest.
+- $\alpha$  is the siginificance level;
+- $\text{qnorm}$ outputs the Z-score for the required significance level $\alpha$;
+- $n$ is the size of set $r$, i.e. number of respondents.
