@@ -6,7 +6,7 @@ Author: Souad Guemghar
 Maintainer: <souad.guemghar@bl.ch>
 Description: Estimates population sizes and confidence intervals
     from Bundesamt für Statistik (BFS) / Office fédéral de la statistique (OFS) 
-    population and mobility surveys. Give it data from Volkszählung / Recensement de la population or from Mikrozensus für Mobilität und Verkehr / Microrecensement mobilité et transports, and obtain population estimates along with confidence values.
+    population and mobility surveys. Give it data from Volkszählung / Recensement de la population or from Mikrozensus für Mobilität und Verkehr / Microrecensement mobilité et transports, and obtain population estimates along with confidence intervals.
 License: `use_mit_license()`
 Encoding: UTF-8
 LazyData: true
