@@ -31,7 +31,7 @@ The goal of BFSestimates is to estimate population frequencies, means, proportio
 You can install the development version of `BFSestimates` like so:
 
 ```{r eval = FALSE}
-install.packages('BFSestimates_0.1.0.tar.gz', repos=NULL, type='source')
+devtools::install_github("souadg/BFSestimates", auth_token = <PAT>)
 ```
 
 # Usage

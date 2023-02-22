@@ -35,7 +35,7 @@ proportions and confidence intervals from surveys conducted by
 You can install the development version of `BFSestimates` like so:
 
 ``` r
-install.packages('BFSestimates_0.1.0.tar.gz', repos=NULL, type='source')
+devtools::install_github("souadg/BFSestimates", auth_token = <PAT>)
 ```
 
 # Usage
