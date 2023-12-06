@@ -34,6 +34,7 @@ intervals of BFS/OFS mobility surveys.
 \examples{
 # We can use the nhanes dataset as an example even if it only contains population data
 library(dplyr)
+library(purrr)
 # Estimate two means
 mzmv_estimate_mean(
   c("annual_household_income", "annual_family_income"),
@@ -43,8 +44,8 @@ mzmv_estimate_mean(
 )
 # With conditions
 c("gender", "interview_lang") \%>\%
-  purrr::set_names() \%>\%
-  purrr::map(~ mzmv_estimate_mean(
+  set_names() \%>\%
+  map(~ mzmv_estimate_mean(
     object = c("annual_household_income", "annual_family_income"),
     data = nhanes \%>\% group_by(.data[[.x]]), weight = "weights"
   ))

@@ -21,6 +21,7 @@
 #' @examples
 #' # We can use the nhanes dataset as an example even if it only contains population data
 #' library(dplyr)
+#' library(purrr)
 #' # Estimate two means
 #' mzmv_estimate_mean(
 #'   c("annual_household_income", "annual_family_income"),
@@ -30,27 +31,28 @@
 #' )
 #' # With conditions
 #' c("gender", "interview_lang") %>%
-#'   purrr::set_names() %>%
-#'   purrr::map(~ mzmv_estimate_mean(
+#'   set_names() %>%
+#'   map(~ mzmv_estimate_mean(
 #'     object = c("annual_household_income", "annual_family_income"),
 #'     data = nhanes %>% group_by(.data[[.x]]), weight = "weights"
 #'   ))
 #'
 #' @import dplyr
+#' @import purrr
 #'
 #' @export
 #'
 mzmv_estimate_mean <- function(data, object, weight, cf = 1.14, alpha = 0.1) {
   object %>%
-    purrr::set_names() %>% # Output is a list whose elements are named using object
-    purrr::map(~ data %>%
+    set_names() %>% # Output is a list whose elements are named using object
+    map(~ data %>%
       filter(.data[[.x]] >= 0) %>%
       summarise(
         nc = n(),
         wmean = weighted.mean(x = .data[[.x]], w = .data[[weight]]),
         ci = cf * sqrt(sum(.data[[weight]] * (.data[[.x]] - wmean)^2) / (sum(.data[[weight]]) - 1) / n()) * qnorm(1 - alpha / 2)
       )) %>%
-    purrr::list_rbind(names_to = "id") # Convert into a table
+    list_rbind(names_to = "id") # Convert into a table
 }
 
 #' Estimate proportions from mobility survey
