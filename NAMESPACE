@@ -2,7 +2,7 @@
 
 export(mzmv_estimate_mean)
 export(mzmv_estimate_prop)
-export(vz_estimate)
-export(vz_summarise)
+export(se_estimate)
+export(se_summarise)
 import(dplyr)
 import(purrr)

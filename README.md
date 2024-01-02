@@ -1,20 +1,14 @@
 
-- <a href="#bfsestimates" id="toc-bfsestimates">BFSestimates</a>
-- <a href="#installation" id="toc-installation">Installation</a>
-- <a href="#usage" id="toc-usage">Usage</a>
-- <a href="#more-information" id="toc-more-information">More
-  Information</a>
-  - <a href="#population-survey" id="toc-population-survey">Population
-    survey</a>
-    - <a href="#estimated-population" id="toc-estimated-population">Estimated
-      Population</a>
-    - <a href="#estimated-variance" id="toc-estimated-variance">Estimated
-      Variance</a>
-  - <a href="#mobility-and-transport-survey"
-    id="toc-mobility-and-transport-survey">Mobility and Transport Survey</a>
-    - <a href="#estimated-mean" id="toc-estimated-mean">Estimated Mean</a>
-    - <a href="#estimated-proportion" id="toc-estimated-proportion">Estimated
-      Proportion</a>
+- [BFSestimates](#bfsestimates)
+- [Installation](#installation)
+- [Usage](#usage)
+- [More Information](#more-information)
+  - [Population survey](#population-survey)
+    - [Estimated Population](#estimated-population)
+    - [Estimated Variance](#estimated-variance)
+  - [Mobility and Transport Survey](#mobility-and-transport-survey)
+    - [Estimated Mean](#estimated-mean)
+    - [Estimated Proportion](#estimated-proportion)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -25,10 +19,9 @@ proportions and confidence intervals from surveys conducted by
 *Bundesamt für Statistik* (BFS) / *Office fédéral de la statistique*
 (OFS):
 
-- population survey (*Volkszählung* (VZ), *recensement de la
-  population*),
-- mobility and transport survey (*Mikrozensus Mobilität und Verkehr*
-  (MZMV), *Microrecensement mobilité et transports* (MRMT)).
+- population survey: *Strukturerhebung* (SE) / *relevé structurel*,
+- mobility and transport survey: *Mikrozensus Mobilität und Verkehr*
+  (MZMV) / *Microrecensement mobilité et transports* (MRMT).
 
 # Installation
 
@@ -45,7 +38,7 @@ Population survey estimates:
 ``` r
 library(BFSestimates)
 library(dplyr)
-vz_estimate(
+se_estimate(
   data = nhanes,
   weight = "weights",
   strata = "strata",
@@ -77,7 +70,7 @@ mzmv_estimate_mean(
 
 ## Population survey
 
-From the survey data, `vz_estimate()` estimates:
+From the survey data, `se_estimate()` estimates:
 
 - occurrences in the real population: sum of weights of sub-population
   of interest;
@@ -148,7 +141,7 @@ condition ![c](https://latex.codecogs.com/png.latex?c "c") this becomes:
 
 ![\begin{aligned}
 \sum\_{i \in r_h}\left(w_i I_c - \frac{\hat{N}\_{hc}}{m_h}\right)^2 &=
-\sum\_{i \notin r\_{hc}} \left(\frac{\hat{N}\_{hc}}{m_h}\right)^2 + \sum\_{i \in r\_{hc}} \left(w_i - \frac{\hat{N}\_{hc}}{m_h}\right)^2 \\\\
+\sum\_{i \notin r\_{hc}} \left(\frac{\hat{N}\_{hc}}{m_h}\right)^2 + \sum\_{i \in r\_{hc}} \left(w_i - \frac{\hat{N}\_{hc}}{m_h}\right)^2 \\
 &= \left(m_h - m\_{hc}\right) \left(\frac{\hat{N}\_{hc}}{m_h}\right)^2  + \sum\_{i \in r\_{hc}} \left(w_i - \frac{\hat{N}\_{hc}}{m_h}\right)^2
 \end{aligned}](https://latex.codecogs.com/png.latex?%5Cbegin%7Baligned%7D%0A%5Csum_%7Bi%20%5Cin%20r_h%7D%5Cleft%28w_i%20I_c%20-%20%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%20%26%3D%0A%5Csum_%7Bi%20%5Cnotin%20r_%7Bhc%7D%7D%20%5Cleft%28%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%20%2B%20%5Csum_%7Bi%20%5Cin%20r_%7Bhc%7D%7D%20%5Cleft%28w_i%20-%20%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%20%5C%5C%0A%26%3D%20%5Cleft%28m_h%20-%20m_%7Bhc%7D%5Cright%29%20%5Cleft%28%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%20%20%2B%20%5Csum_%7Bi%20%5Cin%20r_%7Bhc%7D%7D%20%5Cleft%28w_i%20-%20%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%0A%5Cend%7Baligned%7D "\begin{aligned}
 \sum_{i \in r_h}\left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2 &=
@@ -176,10 +169,10 @@ The confidence interval is given by:
 where ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha")
 is the significance level, for example 0.05 for confidence interval 95%.
 
-`vz_summarise()` calculates
+`se_summarise()` calculates
 ![m_h, N_h, m\_{hc}, \text{and } \hat{N}\_{hc}](https://latex.codecogs.com/png.latex?m_h%2C%20N_h%2C%20m_%7Bhc%7D%2C%20%5Ctext%7Band%20%7D%20%5Chat%7BN%7D_%7Bhc%7D "m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}").
 
-`vz_estimate()` calculates
+`se_estimate()` calculates
 ![\hat{V}(\hat{N}\_c)](https://latex.codecogs.com/png.latex?%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29 "\hat{V}(\hat{N}_c)"),
 the true occurrence in the survey sample and confidence intervals.
 
@@ -221,7 +214,7 @@ mean](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enqu
 is:
 
 ![\begin{aligned}\text{CI} &= 
-1.14\times Z\_{\alpha}\frac{\hat{\sigma}\_{y}}{\sqrt{n}}\\\\
+1.14\times Z\_{\alpha}\frac{\hat{\sigma}\_{y}}{\sqrt{n}}\\
 &= 1.14 \times \frac{\hat{\sigma}\_{y}}{\sqrt{n}} \times \text{qnorm}(1 - \frac{\alpha}2)
 \end{aligned}](https://latex.codecogs.com/png.latex?%5Cbegin%7Baligned%7D%5Ctext%7BCI%7D%20%26%3D%20%0A1.14%5Ctimes%20Z_%7B%5Calpha%7D%5Cfrac%7B%5Chat%7B%5Csigma%7D_%7By%7D%7D%7B%5Csqrt%7Bn%7D%7D%5C%5C%0A%26%3D%201.14%20%5Ctimes%20%5Cfrac%7B%5Chat%7B%5Csigma%7D_%7By%7D%7D%7B%5Csqrt%7Bn%7D%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Cfrac%7B%5Calpha%7D2%29%0A%5Cend%7Baligned%7D "\begin{aligned}\text{CI} &= 
 1.14\times Z_{\alpha}\frac{\hat{\sigma}_{y}}{\sqrt{n}}\\
@@ -259,7 +252,7 @@ is the estimated mean
 ### Estimated Proportion
 
 If
-![y_i \in \\{0, 1\\}](https://latex.codecogs.com/png.latex?y_i%20%5Cin%20%5C%7B0%2C%201%5C%7D "y_i \in \{0, 1\}"),
+![y_i \in \\0, 1\\](https://latex.codecogs.com/png.latex?y_i%20%5Cin%20%5C%7B0%2C%201%5C%7D "y_i \in \{0, 1\}"),
 for example possession of a car, then the mean estimate becomes the
 proportion estimate:
 
@@ -288,10 +281,10 @@ and
 the nominator then becomes:
 
 ![\begin{aligned} \sum\limits\_{i\in r} w_i \left(I_c - p\right)^2 &=
-\sum_i w_i \left(I_c^2 +p^2 -2pI_c\right) \\\\
-&= \sum_i w_i I_c + p^2 \sum_i w_i -2p\sum_i w_i I_c\\\\
-&= p \sum_i w_i + p^2 \sum_i w_i - 2p^2 \sum_i w_i\\\\
-&= p \sum_i w_i - p^2 \sum_i w_i\\\\
+\sum_i w_i \left(I_c^2 +p^2 -2pI_c\right) \\
+&= \sum_i w_i I_c + p^2 \sum_i w_i -2p\sum_i w_i I_c\\
+&= p \sum_i w_i + p^2 \sum_i w_i - 2p^2 \sum_i w_i\\
+&= p \sum_i w_i - p^2 \sum_i w_i\\
 &= p(1-p) \sum_i w_i
 \end{aligned}](https://latex.codecogs.com/png.latex?%5Cbegin%7Baligned%7D%20%5Csum%5Climits_%7Bi%5Cin%20r%7D%20w_i%20%5Cleft%28I_c%20-%20p%5Cright%29%5E2%20%26%3D%0A%5Csum_i%20w_i%20%5Cleft%28I_c%5E2%20%2Bp%5E2%20-2pI_c%5Cright%29%20%5C%5C%0A%26%3D%20%5Csum_i%20w_i%20I_c%20%2B%20p%5E2%20%5Csum_i%20w_i%20-2p%5Csum_i%20w_i%20I_c%5C%5C%0A%26%3D%20p%20%5Csum_i%20w_i%20%2B%20p%5E2%20%5Csum_i%20w_i%20-%202p%5E2%20%5Csum_i%20w_i%5C%5C%0A%26%3D%20p%20%5Csum_i%20w_i%20-%20p%5E2%20%5Csum_i%20w_i%5C%5C%0A%26%3D%20p%281-p%29%20%5Csum_i%20w_i%0A%5Cend%7Baligned%7D "\begin{aligned} \sum\limits_{i\in r} w_i \left(I_c - p\right)^2 &=
 \sum_i w_i \left(I_c^2 +p^2 -2pI_c\right) \\

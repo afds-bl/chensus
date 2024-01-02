@@ -23,8 +23,8 @@ knitr::opts_chunk$set(
 
 The goal of BFSestimates is to estimate population frequencies, means, proportions and confidence intervals from surveys conducted by *Bundesamt für Statistik* (BFS) / *Office fédéral de la statistique* (OFS):
 
-- population survey (*Volkszählung* (VZ), *recensement de la population*),
-- mobility and transport survey (*Mikrozensus Mobilität und Verkehr* (MZMV), *Microrecensement mobilité et transports* (MRMT)).
+- population survey: *Strukturerhebung* (SE) / *relevé structurel*,
+- mobility and transport survey: *Mikrozensus Mobilität und Verkehr* (MZMV) / *Microrecensement mobilité et transports* (MRMT).
 
 # Installation
 
@@ -40,7 +40,7 @@ Population survey estimates:
 ```{r example1}
 library(BFSestimates)
 library(dplyr)
-vz_estimate(
+se_estimate(
   data = nhanes,
   weight = "weights",
   strata = "strata",
@@ -65,7 +65,7 @@ mzmv_estimate_mean(
 
 ## Population survey
 
-From the survey data, `vz_estimate()` estimates:
+From the survey data, `se_estimate()` estimates:
 
 - occurrences in the real population: sum of weights of sub-population of interest;
 - variance $\hat V$ of the estimate; 
@@ -118,9 +118,9 @@ The confidence interval is given by:
 $$\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}(1 - \frac{\alpha}2)$$
 where $\alpha$ is the significance level, for example 0.05 for confidence interval 95%.
 
-`vz_summarise()` calculates $m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}$. 
+`se_summarise()` calculates $m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}$. 
 
-`vz_estimate()` calculates $\hat{V}(\hat{N}_c)$, the true occurrence in the survey sample and confidence intervals.
+`se_estimate()` calculates $\hat{V}(\hat{N}_c)$, the true occurrence in the survey sample and confidence intervals.
 
 ## Mobility and Transport Survey
 

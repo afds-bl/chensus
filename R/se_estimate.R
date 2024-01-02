@@ -1,6 +1,6 @@
 #' Estimates from population survey
 #'
-#' \code{vz_estimate()} estimates the frequencies, variance and confidence
+#' \code{se_estimate()} estimates the frequencies, variance and confidence
 #' intervals of BFS/OFS population surveys.
 #'
 #' @param data Tibble
@@ -24,7 +24,7 @@
 #'
 #' @examples
 #' # One condition
-#' vz_estimate(
+#' se_estimate(
 #'   data = nhanes,
 #'   weight = "weights",
 #'   strata = "strata",
@@ -35,7 +35,7 @@
 #' library(purrr)
 #' map(
 #'   c("gender", "marital_status"),
-#'   ~ vz_estimate(
+#'   ~ se_estimate(
 #'     data = nhanes,
 #'     weight = "weights",
 #'     strata = "strata",
@@ -50,18 +50,18 @@
 #'
 #' @export
 
-vz_estimate <- function(data, weight,
+se_estimate <- function(data, weight,
                               strata = "zone",
                               condition = NULL,
                               alpha = 0.05) {
   # Summarise by strata
-  data <- vz_summarise(
+  data <- se_summarise(
     data = data, strata = strata,
     weight = weight) %>%
     # First summation term (1)
     mutate(T1h = mh / (mh - 1) * (1 - mh / Nh)) %>%
     # Summarise by strata and conditions
-    vz_summarise(.,
+    se_summarise(.,
       strata = c(strata, condition),
       weight = weight,
       mh_col = "mhc", Nh_col = "Nhc"
