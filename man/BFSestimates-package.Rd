@@ -4,8 +4,8 @@
 \name{BFSestimates-package}
 \alias{BFSestimates}
 \alias{BFSestimates-package}
-\title{BFSestimates: Estimate Populations from Bundesamt für Statistik Surveys}
+\title{BFSestimates: Estimate totals and confidence intervals from Bundesamt für Statistik's Surveys}
 \description{
-Estimates population sizes and confidence intervals from Bundesamt für Statistik (BFS) / Office fédéral de la statistique (OFS) population and mobility surveys. Give it data from Volkszählung / Recensement de la population or from Mikrozensus für Mobilität und Verkehr / Microrecensement mobilité et transports, and obtain population estimates along with confidence intervals.
+Estimates population sizes and confidence intervals from "Bundesamt für Statistik (BFS)" / "Office fédéral de la statistique (OFS)" population and mobility surveys. Give it data from "Strukturerhebung" / "relevé structurel" or from "Mikrozensus für Mobilität und Verkehr" / "Microrecensement mobilité et transports", and obtain estimates of totals and confidence intervals.
 }
 \keyword{internal}
