@@ -45,7 +45,8 @@ vz_estimate(
 )
 # Multiple conditions
 library(dplyr)
-purrr::map(
+library(purrr)
+map(
   c("gender", "marital_status"),
   ~ vz_estimate(
     data = nhanes,
@@ -56,6 +57,6 @@ purrr::map(
     mutate(variable = .x, .before = 1) \%>\%
     rename_with(~"value", all_of(.x))
 ) \%>\%
-  purrr::map_dfr(~ .x \%>\% as_tibble())
+  map_dfr(~ .x \%>\% as_tibble())
 
 }

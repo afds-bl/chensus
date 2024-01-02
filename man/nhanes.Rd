@@ -18,8 +18,9 @@ Demographic survey data from NHANES 2015 to 2016, with data on 9307
 participants, including sampling weights.
 }
 \examples{
+library(dplyr)
 glimpse(nhanes)
-table(nhanes$edu_level)
+nhanes |> count(edu_level)
 }
 \references{
 (\href{https://wwwn.cdc.gov/nchs/nhanes/}{CDC})
