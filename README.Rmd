@@ -36,7 +36,7 @@ devtools::install_github("souadg/BFSestimates", auth_token = <PAT>)
 
 # Usage
 
-Population survey estimates:
+Population survey estimates (*Strukturerhebung* / *relevé structurel*):
 ```{r example1}
 library(BFSestimates)
 library(dplyr)
@@ -48,7 +48,7 @@ se_estimate(
 )
 ```
 
-Mobility survey estimates:
+Mobility survey estimates (MZMV/MRMT):
 
 ```{r example2}
 library(BFSestimates)
@@ -63,7 +63,7 @@ mzmv_estimate_mean(
 
 # More Information
 
-## Population survey
+## Population survey (*Strukturerhebung* / *relevé structurel*)
 
 From the survey data, `se_estimate()` estimates:
 
@@ -122,7 +122,7 @@ where $\alpha$ is the significance level, for example 0.05 for confidence interv
 
 `se_estimate()` calculates $\hat{V}(\hat{N}_c)$, the true occurrence in the survey sample and confidence intervals.
 
-## Mobility and Transport Survey
+## Mobility and Transport Survey (MZMV/MRMT)
 
 From the survey data, `mzmv_estimate_mean()` estimates:
 

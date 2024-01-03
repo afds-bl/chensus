@@ -3,10 +3,12 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [More Information](#more-information)
-  - [Population survey](#population-survey)
+  - [Population survey (*Strukturerhebung* / *relevé
+    structurel*)](#population-survey-strukturerhebung--relevé-structurel)
     - [Estimated Population](#estimated-population)
     - [Estimated Variance](#estimated-variance)
-  - [Mobility and Transport Survey](#mobility-and-transport-survey)
+  - [Mobility and Transport Survey
+    (MZMV/MRMT)](#mobility-and-transport-survey-mzmvmrmt)
     - [Estimated Mean](#estimated-mean)
     - [Estimated Proportion](#estimated-proportion)
 
@@ -33,7 +35,7 @@ devtools::install_github("souadg/BFSestimates", auth_token = <PAT>)
 
 # Usage
 
-Population survey estimates:
+Population survey estimates (*Strukturerhebung* / *relevé structurel*):
 
 ``` r
 library(BFSestimates)
@@ -51,7 +53,7 @@ se_estimate(
 #> 2 Female 151475830. 7.30e12  4715 2702304. 5296418.   3.50
 ```
 
-Mobility survey estimates:
+Mobility survey estimates (MZMV/MRMT):
 
 ``` r
 library(BFSestimates)
@@ -68,7 +70,7 @@ mzmv_estimate_mean(
 
 # More Information
 
-## Population survey
+## Population survey (*Strukturerhebung* / *relevé structurel*)
 
 From the survey data, `se_estimate()` estimates:
 
@@ -176,7 +178,7 @@ is the significance level, for example 0.05 for confidence interval 95%.
 ![\hat{V}(\hat{N}\_c)](https://latex.codecogs.com/png.latex?%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29 "\hat{V}(\hat{N}_c)"),
 the true occurrence in the survey sample and confidence intervals.
 
-## Mobility and Transport Survey
+## Mobility and Transport Survey (MZMV/MRMT)
 
 From the survey data, `mzmv_estimate_mean()` estimates:
 
