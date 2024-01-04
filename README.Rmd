@@ -265,6 +265,11 @@ structurel*. Many thanks Sandro for the great work and support!
 
 # Citation
 
-```{r}
+```{r eval = FALSE}
+utils::citation("BFSestimates")
+```
+
+
+```{r echo = FALSE}
 utils::citation("BFSestimates")
 ```

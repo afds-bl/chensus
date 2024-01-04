@@ -347,21 +347,22 @@ structurel*. Many thanks Sandro for the great work and support!
 
 ``` r
 utils::citation("BFSestimates")
-To cite BFSestimates in publications, please use:
-
-  Guemghar, S. (2024). BFSestimates: Estimate Totals and Confidence
-  Intervals of Bundesamt für Statistik's Surveys. R package version
-  1.0.0. Amt für Daten und Statistik, Basel-Landschaft.
-  https://kww.git.bl.ch/statistisches-amt/r-programming/bfsestimates
-
-A BibTeX entry for LaTeX users is
-
-  @Manual{,
-    title = {{BFSestimates}: Estimate Totals and Confidence Intervals of Bundesamt für Statistik's Surveys},
-    author = {Souad Guemghar},
-    organization = {Amt für Daten und Statistik, Basel-Landschaft},
-    note = {R package version 1.0.0},
-    year = {2024},
-    url = {https://kww.git.bl.ch/statistisches-amt/r-programming/bfsestimates},
-  }
 ```
+
+    To cite 'BFSestimates' in publications, please use:
+
+      Guemghar, S. (2024). BFSestimates: Estimate Totals and Confidence
+      Intervals of Bundesamt für Statistik's Surveys. R package version
+      1.0.0. Amt für Daten und Statistik, Basel-Landschaft.
+      https://kww.git.bl.ch/statistisches-amt/r-programming/bfsestimates
+
+    A BibTeX entry for LaTeX users is
+
+      @Manual{,
+        title = {{BFSestimates}: Estimate Totals and Confidence Intervals of Bundesamt für Statistik's Surveys},
+        author = {Souad Guemghar},
+        organization = {Amt für Daten und Statistik, Basel-Landschaft},
+        note = {R package version 1.0.0},
+        year = {2024},
+        url = {https://kww.git.bl.ch/statistisches-amt/r-programming/bfsestimates},
+      }
