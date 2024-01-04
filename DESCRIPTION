@@ -4,7 +4,7 @@ Title: Estimate Totals and Confidence Intervals of Bundesamt für Statistik's Su
 Description: Estimates population sizes and confidence intervals
     from "Bundesamt für Statistik (BFS)" / "Office fédéral de la statistique (OFS)" 
     population and mobility surveys. Give it data from "Strukturerhebung" / "relevé structurel" or from "Mikrozensus für Mobilität und Verkehr" / "Microrecensement mobilité et transports", and obtain estimates of totals and confidence intervals.
-Version: 0.2.0
+Version: 1.0.0
 Authors@R: c(
   person("Souad", "Guemghar", email = "souad.guemghar@bl.ch", role = c("aut", "cre")),
   person("Amt für Daten und Statistik, Basel-Landschaft", role = c("cph", "fnd")))
