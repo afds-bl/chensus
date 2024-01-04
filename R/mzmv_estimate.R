@@ -98,6 +98,7 @@ mzmv_estimate_mean <- function(data, object, weight, cf = 1.14, alpha = 0.1) {
 #' @export
 #'
 mzmv_estimate_prop <- function(data, object, weight, cf = 1.14, alpha = 0.1) {
+  p <- NULL
   data %>%
     filter(.data[[object]] >= 0) %>%
     summarise(

@@ -26,7 +26,7 @@ Tibble, with the following columns:
  \item{\code{total}: }{population estimate}
  \item{\code{vhat}: }{estimated variance}
  \item{\code{occ}: }{true frequency in survey sample}
- \item{\code{sd}: }{standard deviation}
+ \item{\code{stand_dev}: }{standard deviation}
  \item{\code{ci}: }{absolute confidence interval}
  \item{\code{ci_per}: }{percent confidence interval.}
  }

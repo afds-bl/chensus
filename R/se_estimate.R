@@ -17,7 +17,7 @@
 #'  \item{\code{total}: }{population estimate}
 #'  \item{\code{vhat}: }{estimated variance}
 #'  \item{\code{occ}: }{true frequency in survey sample}
-#'  \item{\code{sd}: }{standard deviation}
+#'  \item{\code{stand_dev}: }{standard deviation}
 #'  \item{\code{ci}: }{absolute confidence interval}
 #'  \item{\code{ci_per}: }{percent confidence interval.}
 #'  }
@@ -52,17 +52,19 @@
 #' @export
 
 se_estimate <- function(data, weight,
-                              strata = "zone",
-                              condition = NULL,
-                              alpha = 0.05) {
+                        strata = "zone",
+                        condition = NULL,
+                        alpha = 0.05) {
+  mh <- Nh <- mhc <- Nhc <- T1h <- T1hc <- T2hc <- vhat <- stand_dev <- ci <- total <- occ <- ci_per <- NULL
   # Summarise by strata
   data <- se_summarise(
     data = data, strata = strata,
-    weight = weight) %>%
+    weight = weight
+  ) %>%
     # First summation term (1)
     mutate(T1h = mh / (mh - 1) * (1 - mh / Nh)) %>%
     # Summarise by strata and conditions
-    se_summarise(.,
+    se_summarise(
       strata = c(strata, condition),
       weight = weight,
       mh_col = "mhc", Nh_col = "Nhc"
@@ -93,12 +95,12 @@ se_estimate <- function(data, weight,
     ) %>%
     mutate(
       # Standard deviation
-      sd = sqrt(vhat),
+      stand_dev = sqrt(vhat),
       # Absolute confidence interval
-      ci = sd * qnorm(1 - alpha / 2),
+      ci = stand_dev * qnorm(1 - alpha / 2),
       # Percent confidence interval
       ci_per = ci / total * 100
     ) %>%
     # Order as desired
-    select(all_of(condition), total, vhat, occ, sd, ci, ci_per)
+    select(all_of(condition), total, vhat, occ, stand_dev, ci, ci_per)
 }
