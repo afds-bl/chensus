@@ -11,6 +11,9 @@
     (MZMV/MRMT)](#mobility-and-transport-survey-mzmvmrmt)
     - [Estimated Mean](#estimated-mean)
     - [Estimated Proportion](#estimated-proportion)
+- [License](#license)
+- [Contact](#contact)
+- [Acknowledgments](#acknowledgments)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -27,9 +30,11 @@ proportions and confidence intervals from surveys conducted by
 
 # Installation
 
-You can install the development version of `BFSestimates` like so:
+You can install the development version of `BFSestimates` from
+[GitHub](https://github.com/):
 
 ``` r
+# install.packages("devtools")
 devtools::install_github("souadg/BFSestimates", auth_token = <PAT>)
 ```
 
@@ -321,3 +326,18 @@ where:
 - ![n](https://latex.codecogs.com/png.latex?n "n") is the size of set
   ![r](https://latex.codecogs.com/png.latex?r "r"), i.e. number of
   respondents.
+
+# License
+
+Distributed under the GPL-3 License. See `COPYING` for more information.
+
+# Contact
+
+[Souad Guemghar](souad.guemghar@bl.ch)
+
+# Acknowledgments
+
+This package is an extension of
+[vhatbfs](https://github.com/gibonet/vhatbfs) by Sandro Burri, a package
+to estimate the confidence intervals of *Strukturerhebung* / *relevé
+structurel*. Many thanks Sandro for the great work and support!

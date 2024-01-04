@@ -4,6 +4,9 @@ output:
     pandoc_args: "--webtex" #> Better maths rendering in Github https://github.com/rstudio/rmarkdown/issues/1886
     toc: true
     toc_depth: 4
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -21,22 +24,29 @@ knitr::opts_chunk$set(
 
 # BFSestimates
 
-The goal of BFSestimates is to estimate population frequencies, means, proportions and confidence intervals from surveys conducted by *Bundesamt für Statistik* (BFS) / *Office fédéral de la statistique* (OFS):
+The goal of BFSestimates is to estimate population frequencies, means,
+proportions and confidence intervals from surveys conducted by
+*Bundesamt für Statistik* (BFS) / *Office fédéral de la statistique*
+(OFS):
 
-- population survey: *Strukturerhebung* (SE) / *relevé structurel*,
-- mobility and transport survey: *Mikrozensus Mobilität und Verkehr* (MZMV) / *Microrecensement mobilité et transports* (MRMT).
+-   population survey: *Strukturerhebung* (SE) / *relevé structurel*,
+-   mobility and transport survey: *Mikrozensus Mobilität und Verkehr*
+    (MZMV) / *Microrecensement mobilité et transports* (MRMT).
 
 # Installation
 
-You can install the development version of `BFSestimates` like so:
+You can install the development version of `BFSestimates` from
+[GitHub](https://github.com/):
 
 ```{r eval = FALSE}
+# install.packages("devtools")
 devtools::install_github("souadg/BFSestimates", auth_token = <PAT>)
 ```
 
 # Usage
 
 Population survey estimates (*Strukturerhebung* / *relevé structurel*):
+
 ```{r example1}
 library(BFSestimates)
 library(dplyr)
@@ -60,19 +70,24 @@ mzmv_estimate_mean(
 )
 ```
 
-
 # More Information
 
 ## Population survey (*Strukturerhebung* / *relevé structurel*)
 
 From the survey data, `se_estimate()` estimates:
 
-- occurrences in the real population: sum of weights of sub-population of interest;
-- variance $\hat V$ of the estimate; 
-- standard deviation ($sd = \sqrt{\hat{V}}$) of the estimate;
-- confidence interval of the estimate with significance level $\alpha$: $\left[(1 - \alpha/2)\times 100\right]^{\text{th}}$ percentile of normal distribution with mean $0$ and standard deviation $\sqrt{\hat{V}}$.
+-   occurrences in the real population: sum of weights of sub-population
+    of interest;
+-   variance $\hat V$ of the estimate;
+-   standard deviation ($sd = \sqrt{\hat{V}}$) of the estimate;
+-   confidence interval of the estimate with significance level
+    $\alpha$: $\left[(1 - \alpha/2)\times 100\right]^{\text{th}}$
+    percentile of normal distribution with mean $0$ and standard
+    deviation $\sqrt{\hat{V}}$.
 
-The BFS/OFS provides [formulas to estimate populations and variances](https://portal.collab.admin.ch/sites/317-SE-CUG) in French (`do-f-40-se_METH.pdf`) and German(`do-d-40-se_METH.pdf`).
+The BFS/OFS provides [formulas to estimate populations and
+variances](https://portal.collab.admin.ch/sites/317-SE-CUG) in French
+(`do-f-40-se_METH.pdf`) and German (`do-d-40-se_METH.pdf`).
 
 ### Estimated Population
 
@@ -82,9 +97,9 @@ $$\hat{N}_c = \sum_{i \in r} w_i I_c$$
 
 where:
 
-- $w_i$ is the weight for participant $i$;
-- $I_c = 1$ if condition(s) $c$ is true, 0 otherwise;
-- $r$ is the set of participants
+-   $w_i$ is the weight for participant $i$;
+-   $I_c = 1$ if condition(s) $c$ is true, 0 otherwise;
+-   $r$ is the set of participants
 
 ### Estimated Variance
 
@@ -93,22 +108,24 @@ $$\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right
 
 where:
 
-- $\hat{N}_c$ is the estimated occurrence of condition $c$;
-- $h$ designates a stratum (e.g. `zone`)
-- $\hat{N}_{hc}$ is the estimated occurrence of coditions $c$ in stratum $h$;
-- $N_h$ is the total estimated population in stratum $h$ (sum of weights in stratum h);
-- $r_h$ is the set of participants in stratum $h$;
-- $m_h$ is the number of participants in stratum $h$.
+-   $\hat{N}_c$ is the estimated occurrence of condition $c$;
+-   $h$ designates a stratum (e.g. `zone`)
+-   $\hat{N}_{hc}$ is the estimated occurrence of coditions $c$ in
+    stratum $h$;
+-   $N_h$ is the total estimated population in stratum $h$ (sum of
+    weights in stratum h);
+-   $r_h$ is the set of participants in stratum $h$;
+-   $m_h$ is the number of participants in stratum $h$.
 
-Note that the second summation is over the whole stratum, so for condition $c$ this becomes:
-$$
+Note that the second summation is over the whole stratum, so for
+condition $c$ this becomes: $$
 \begin{aligned}
 \sum_{i \in r_h}\left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2 &=
 \sum_{i \notin r_{hc}} \left(\frac{\hat{N}_{hc}}{m_h}\right)^2 + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2 \\
 &= \left(m_h - m_{hc}\right) \left(\frac{\hat{N}_{hc}}{m_h}\right)^2  + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2
 \end{aligned}
-$$
-where $r_{hc}$ is the set of respondents in stratum $h$ who fulfill condition $c$ and $m_{hc}$ the number of respondents in $r_{hc}$.
+$$ where $r_{hc}$ is the set of respondents in stratum $h$ who fulfil
+condition $c$ and $m_{hc}$ the number of respondents in $r_{hc}$.
 
 Finally the original variance estimate equation becomes:
 
@@ -116,25 +133,32 @@ $$\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right
 The confidence interval is given by:
 
 $$\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}(1 - \frac{\alpha}2)$$
-where $\alpha$ is the significance level, for example 0.05 for confidence interval 95%.
+where $\alpha$ is the significance level, for example 0.05 for
+confidence interval 95%.
 
-`se_summarise()` calculates $m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}$. 
+`se_summarise()` calculates
+$m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}$.
 
-`se_estimate()` calculates $\hat{V}(\hat{N}_c)$, the true occurrence in the survey sample and confidence intervals.
+`se_estimate()` calculates $\hat{V}(\hat{N}_c)$, the true occurrence in
+the survey sample and confidence intervals.
 
 ## Mobility and Transport Survey (MZMV/MRMT)
 
 From the survey data, `mzmv_estimate_mean()` estimates:
 
-- average occurrence in the real population: weighted mean of sub-population of interest;
-- confidence interval of the estimate with significance level $\alpha$,
+-   average occurrence in the real population: weighted mean of
+    sub-population of interest;
+-   confidence interval of the estimate with significance level
+    $\alpha$,
 
 while `mzmv_estimate_prop()` estimates:
 
-- proportions in the real population
-- confidence interval of the proportion estimate with significance level $\alpha$.
+-   proportions in the real population
+-   confidence interval of the proportion estimate with significance
+    level $\alpha$.
 
-Note that one can simply use `mzmv_estimate_mean()` to estimate both proportions and means, as shown later in the document.
+Note that one can simply use `mzmv_estimate_mean()` to estimate both
+proportions and means, as shown below.
 
 ### Estimated Mean
 
@@ -143,11 +167,13 @@ The estimated mean is:
 $$\hat{Y} = \frac{1}{\sum\limits_{i\in r} w_i}\sum_{i \in r} w_i y_i$$
 where:
 
-- $w_i$ is the weight for participant $i$;
-- $y_i$ is the response of participant $i$;
-- $r$ is the set of respondents.
+-   $w_i$ is the weight for participant $i$;
+-   $y_i$ is the response of participant $i$;
+-   $r$ is the set of respondents.
 
-The [confidence interval of the estimated mean](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html) is:
+The [confidence interval of the estimated
+mean](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html)
+is:
 
 $$
 \begin{aligned}\text{CI} &= 
@@ -157,11 +183,15 @@ $$
 
 where:
 
-- 1.14 is a correction factor; 
-- $\alpha$ is the significance level, for example 0.05 for confidence interval 95%;
-- $Z_{\alpha}$ is the [Z-value](https://www.z-table.com/) for the desired confidence level ($Z_{0.05} = 1.96$ for double-sided 95% confidence interval);
-- $n$ is the size of set $r$, i.e. number of respondents;
-- $\hat{\sigma}_{y}^2$ is the variance of variable $Y$ estimated with sample $r$. 
+-   1.14 is a correction factor;
+-   $\alpha$ is the significance level, for example 0.05 for confidence
+    interval 95%;
+-   $Z_{\alpha}$ is the [Z-value](https://www.z-table.com/) for the
+    desired confidence level ($Z_{0.05} = 1.96$ for double-sided 95%
+    confidence interval);
+-   $n$ is the size of set $r$, i.e. number of respondents;
+-   $\hat{\sigma}_{y}^2$ is the variance of variable $Y$ estimated with
+    sample $r$.
 
 The (sample) variance of variable $Y$ is estimated by:
 
@@ -170,20 +200,24 @@ where $\bar{y}$ is the estimated mean $\hat{Y}$.
 
 ### Estimated Proportion
 
-If $y_i \in \{0, 1\}$, for example possession of a car, then the mean estimate becomes the proportion estimate:
+If $y_i \in \{0, 1\}$, for example possession of a car, then the mean
+estimate becomes the proportion estimate:
 
 $$p = \frac{1}{\sum\limits_{i \in r} w_i} \sum_{i \in r} w_i I_c$$
 where:
 
-- $w_i$ is the weight for participant $i$;
-- $I_c = 1$ if condition $c$ is true ($y_i = 1$), 0 otherwise ($y_i = 0$);
-- $r$ is the set of participants.
+-   $w_i$ is the weight for participant $i$;
+-   $I_c = 1$ if condition $c$ is true ($y_i = 1$), 0 otherwise
+    ($y_i = 0$);
+-   $r$ is the set of participants.
 
 The sample variance in the previous section then becomes:
 
 $$\hat{\sigma}_{p}^2 = \frac{\sum\limits_{i\in r} w_i \left(I_c - p\right)^2}{\left(\sum\limits_{i \in r} w_i \right)- 1}$$
 
-Noting that $I_c^2 = I_c$ and $\sum\limits_i w_i I_c = p \sum\limits_i w_i$, the nominator then becomes:
+Noting that $I_c^2 = I_c$ and
+$\sum\limits_i w_i I_c = p \sum\limits_i w_i$, the nominator then
+becomes:
 
 $$
 \begin{aligned} \sum\limits_{i\in r} w_i \left(I_c - p\right)^2 &=
@@ -203,11 +237,41 @@ which when $\sum\limits_i w_i >> 1$ can be approximated with:
 
 $$\hat{\sigma}_{p}^2 \approx p(1-p)$$
 
-The confidence interval for proportions could therefore be approximated with:
+The confidence interval for proportions could therefore be approximated
+with:
 
 $$\text{CI} \approx 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)$$
 where:
 
-- $\alpha$  is the significance level;
-- $\text{qnorm}$ outputs the Z-score for the required significance level $\alpha$;
-- $n$ is the size of set $r$, i.e. number of respondents.
+-   $\alpha$ is the significance level;
+-   $\text{qnorm}$ outputs the Z-score for the required significance
+    level $\alpha$;
+-   $n$ is the size of set $r$, i.e. number of respondents.
+
+# License
+
+Distributed under the GPL-3 License. See `LICENSE` for more information.
+
+# Contact
+
+[Souad Guemghar](souad.guemghar@bl.ch)
+
+# Acknowledgments
+
+This package is an extension of
+[vhatbfs](https://github.com/gibonet/vhatbfs) by Sandro Burri, a package
+to estimate the confidence intervals of *Strukturerhebung* / *relevé
+structurel*. Many thanks Sandro for the great work and support!
+
+# Citation
+
+To cite package 'BFSestimates' in publications use:
+
+Guemghar S. *BFSestimates: Estimate totals and confidence intervals from
+Bundesamt für Statistik's Surveys*. R package version 0.1.0.
+
+A BibTeX entry for LaTeX users is
+
+@Manual{, title = {BFSestimates: Estimate totals and confidence
+intervals from Bundesamt für Statistik's Surveys}, author = {Souad
+Guemghar}, note = {R package version 0.1.0}, }

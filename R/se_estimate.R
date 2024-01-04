@@ -47,6 +47,7 @@
 #'   map_dfr(~ .x %>% as_tibble())
 #'
 #' @import dplyr
+#' @importFrom stats qnorm weighted.mean
 #'
 #' @export
 

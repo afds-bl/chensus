@@ -1,0 +1,20 @@
+citHeader("To cite BFSestimates in publications, please use:")
+
+note  <- paste("R package version", meta$Version)
+year <- "2024"
+text_author <- "Guemghar, S."
+organization <- "Amt für Daten und Statistik, Basel-Landschaft"
+
+bibentry(
+  bibtype  = "Manual",
+    title = sprintf("{%s}: %s", meta$Package, meta$Title),
+    author = "Souad Guemghar",
+    organization = organization,
+    note = note,
+    year = year,
+    url = meta$URL,
+    textVersion = sprintf(
+    "%s (%s). %s: %s. %s. %s. %s",
+    text_author, year, meta$Package, meta$Title, note, organization, meta$URL
+  )
+)
