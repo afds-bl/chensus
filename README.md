@@ -14,6 +14,7 @@
 - [License](#license)
 - [Contact](#contact)
 - [Acknowledgments](#acknowledgments)
+- [Citation](#citation)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -51,11 +52,11 @@ se_estimate(
   strata = "strata",
   condition = "gender"
 )
-#> # A tibble: 2 × 7
-#>   gender      total    vhat   occ       sd       ci ci_per
-#>   <fct>       <dbl>   <dbl> <int>    <dbl>    <dbl>  <dbl>
-#> 1 Male   146242153. 7.52e12  4592 2741918. 5374060.   3.67
-#> 2 Female 151475830. 7.30e12  4715 2702304. 5296418.   3.50
+# A tibble: 2 × 7
+  gender      total    vhat   occ       sd       ci ci_per
+  <fct>       <dbl>   <dbl> <int>    <dbl>    <dbl>  <dbl>
+1 Male   146242153. 7.52e12  4592 2741918. 5374060.   3.67
+2 Female 151475830. 7.30e12  4715 2702304. 5296418.   3.50
 ```
 
 Mobility survey estimates (MZMV/MRMT):
@@ -68,9 +69,9 @@ mzmv_estimate_mean(
   object = c("annual_household_income", "annual_family_income"),
   weight = "weights"
 )
-#>                        id   nc    wmean        ci
-#> 1 annual_household_income 9307 11.77473 0.2393474
-#> 2    annual_family_income 9307 11.42304 0.2413382
+                       id   nc    wmean        ci
+1 annual_household_income 9307 11.77473 0.2393474
+2    annual_family_income 9307 11.42304 0.2413382
 ```
 
 # More Information
@@ -97,7 +98,7 @@ From the survey data, `se_estimate()` estimates:
 
 The BFS/OFS provides [formulas to estimate populations and
 variances](https://portal.collab.admin.ch/sites/317-SE-CUG) in French
-(`do-f-40-se_METH.pdf`) and German(`do-d-40-se_METH.pdf`).
+(`do-f-40-se_METH.pdf`) and German (`do-d-40-se_METH.pdf`).
 
 ### Estimated Population
 
@@ -159,7 +160,7 @@ condition ![c](https://latex.codecogs.com/png.latex?c "c") this becomes:
 where
 ![r\_{hc}](https://latex.codecogs.com/png.latex?r_%7Bhc%7D "r_{hc}") is
 the set of respondents in stratum
-![h](https://latex.codecogs.com/png.latex?h "h") who fulfill condition
+![h](https://latex.codecogs.com/png.latex?h "h") who fulfil condition
 ![c](https://latex.codecogs.com/png.latex?c "c") and
 ![m\_{hc}](https://latex.codecogs.com/png.latex?m_%7Bhc%7D "m_{hc}") the
 number of respondents in
@@ -199,7 +200,7 @@ while `mzmv_estimate_prop()` estimates:
   ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha").
 
 Note that one can simply use `mzmv_estimate_mean()` to estimate both
-proportions and means, as shown later in the document.
+proportions and means, as shown below.
 
 ### Estimated Mean
 
@@ -329,7 +330,7 @@ where:
 
 # License
 
-Distributed under the GPL-3 License. See `COPYING` for more information.
+Distributed under the GPL-3 License. See `LICENSE` for more information.
 
 # Contact
 
@@ -341,3 +342,26 @@ This package is an extension of
 [vhatbfs](https://github.com/gibonet/vhatbfs) by Sandro Burri, a package
 to estimate the confidence intervals of *Strukturerhebung* / *relevé
 structurel*. Many thanks Sandro for the great work and support!
+
+# Citation
+
+``` r
+utils::citation("BFSestimates")
+To cite BFSestimates in publications, please use:
+
+  Guemghar, S. (2024). BFSestimates: Estimate Totals and Confidence
+  Intervals of Bundesamt für Statistik's Surveys. R package version
+  1.0.0. Amt für Daten und Statistik, Basel-Landschaft.
+  https://kww.git.bl.ch/statistisches-amt/r-programming/bfsestimates
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {{BFSestimates}: Estimate Totals and Confidence Intervals of Bundesamt für Statistik's Surveys},
+    author = {Souad Guemghar},
+    organization = {Amt für Daten und Statistik, Basel-Landschaft},
+    note = {R package version 1.0.0},
+    year = {2024},
+    url = {https://kww.git.bl.ch/statistisches-amt/r-programming/bfsestimates},
+  }
+```

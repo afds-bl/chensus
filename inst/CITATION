@@ -1,14 +1,15 @@
-citHeader("To cite BFSestimates in publications, please use:")
+citHeader("To cite 'BFSestimates' in publications, please use:")
 
 note  <- paste("R package version", meta$Version)
 year <- "2024"
+author <- sub("^(\\w+\\s+\\w+).*", "\\1", meta$Author)
 text_author <- "Guemghar, S."
-organization <- "Amt für Daten und Statistik, Basel-Landschaft"
+organization <- sub(".*\\n\\s*(.*?)\\s*\\[.*", "\\1", meta$Author)
 
 bibentry(
   bibtype  = "Manual",
     title = sprintf("{%s}: %s", meta$Package, meta$Title),
-    author = "Souad Guemghar",
+    author = author,
     organization = organization,
     note = note,
     year = year,

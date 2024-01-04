@@ -14,7 +14,7 @@ editor_options:
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
+  comment = "",
   fig.path = "man/figures/README-",
   out.width = "100%",
   message = FALSE,
@@ -265,13 +265,6 @@ structurel*. Many thanks Sandro for the great work and support!
 
 # Citation
 
-To cite package 'BFSestimates' in publications use:
-
-Guemghar S. *BFSestimates: Estimate totals and confidence intervals from
-Bundesamt für Statistik's Surveys*. R package version 0.1.0.
-
-A BibTeX entry for LaTeX users is
-
-@Manual{, title = {BFSestimates: Estimate totals and confidence
-intervals from Bundesamt für Statistik's Surveys}, author = {Souad
-Guemghar}, note = {R package version 0.1.0}, }
+```{r}
+utils::citation("BFSestimates")
+```
