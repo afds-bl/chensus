@@ -45,7 +45,21 @@ devtools::install_github("souadg/BFSestimates", auth_token = <PAT>)
 
 # Usage
 
-Population survey estimates (*Strukturerhebung* / *relevé structurel*):
+As an example, we use the [National Health and Nutrition Examination Survey (NHANES) dataset](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) for the period 2015-2016 (more with `?nhanes`). Its structure is similar to BFS survey data in that it contains a `strata` column, a `weights` column and demographic features:
+
+```{r}
+#| echo: false
+
+library(BFSestimates)
+library(dplyr)
+glimpse(nhanes)
+```
+
+
+
+## Population survey estimates (*Strukturerhebung* / *relevé structurel*)
+
+Here we estimate the male and female populations:
 
 ```{r example1}
 library(BFSestimates)
@@ -58,7 +72,9 @@ se_estimate(
 )
 ```
 
-Mobility survey estimates (MZMV/MRMT):
+## Mobility survey estimates (MZMV/MRMT)
+
+Here we estimate the annual household and family incomes:
 
 ```{r example2}
 library(BFSestimates)
@@ -86,7 +102,7 @@ From the survey data, `se_estimate()` estimates:
     deviation $\sqrt{\hat{V}}$.
 
 The BFS/OFS provides [formulas to estimate populations and
-variances](https://portal.collab.admin.ch/sites/317-SE-CUG) in French
+variances of the Strukturerhebung](https://portal.collab.admin.ch/sites/317-SE-CUG) in French
 (`do-f-40-se_METH.pdf`) and German (`do-d-40-se_METH.pdf`).
 
 ### Estimated Population
@@ -159,6 +175,9 @@ while `mzmv_estimate_prop()` estimates:
 
 Note that one can simply use `mzmv_estimate_mean()` to estimate both
 proportions and means, as shown below.
+
+The BFS/OFS provides [formulas to estimate
+variances of the MZMV/MRMT](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html).
 
 ### Estimated Mean
 

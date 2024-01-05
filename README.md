@@ -2,6 +2,10 @@
 - [BFSestimates](#bfsestimates)
 - [Installation](#installation)
 - [Usage](#usage)
+  - [Population survey estimates (*Strukturerhebung* / *relevé
+    structurel*)](#population-survey-estimates-strukturerhebung--relevé-structurel)
+  - [Mobility survey estimates
+    (MZMV/MRMT)](#mobility-survey-estimates-mzmvmrmt)
 - [More Information](#more-information)
   - [Population survey (*Strukturerhebung* / *relevé
     structurel*)](#population-survey-strukturerhebung--relevé-structurel)
@@ -41,7 +45,32 @@ devtools::install_github("souadg/BFSestimates", auth_token = <PAT>)
 
 # Usage
 
-Population survey estimates (*Strukturerhebung* / *relevé structurel*):
+As an example, we use the [National Health and Nutrition Examination
+Survey (NHANES)
+dataset](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) for the
+period 2015-2016 (more with `?nhanes`). Its structure is similar to BFS
+survey data in that it contains a `strata` column, a `weights` column
+and demographic features:
+
+    Rows: 9,307
+    Columns: 13
+    $ PSU                     <dbl> 1, 1, 1, 1, 2, 1, 1, 2, 1, 2, 1, 2, 2, 2, 1, 2…
+    $ weights                 <dbl> 134671.370, 24328.560, 12400.009, 102717.996, …
+    $ strata                  <dbl> 125, 125, 131, 131, 126, 128, 120, 124, 119, 1…
+    $ gender                  <fct> Male, Male, Male, Female, Female, Female, Fema…
+    $ age                     <dbl> 62, 53, 78, 56, 42, 72, 11, 4, 1, 22, 32, 18, …
+    $ birth_country           <fct> US, Other, US, US, US, Other, US, US, US, US, …
+    $ marital_status          <fct> Married, Divorced, Married, Living with partne…
+    $ interview_lang          <fct> English, English, English, English, English, E…
+    $ edu_level               <fct> College graduate or above, High School, High S…
+    $ household_size          <dbl> 2, 1, 2, 1, 5, 5, 5, 5, 7, 3, 4, 3, 1, 3, 2, 6…
+    $ family_size             <dbl> 2, 1, 2, 1, 5, 5, 5, 5, 7, 3, 4, 3, 1, 3, 2, 6…
+    $ annual_household_income <dbl> 10, 4, 5, 10, 7, 14, 6, 15, 77, 7, 6, 15, 3, 4…
+    $ annual_family_income    <dbl> 10, 4, 5, 10, 7, 14, 6, 15, 77, 7, 6, 15, 3, 4…
+
+## Population survey estimates (*Strukturerhebung* / *relevé structurel*)
+
+Here we estimate the male and female populations:
 
 ``` r
 library(BFSestimates)
@@ -53,13 +82,15 @@ se_estimate(
   condition = "gender"
 )
 # A tibble: 2 × 7
-  gender      total    vhat   occ       sd       ci ci_per
-  <fct>       <dbl>   <dbl> <int>    <dbl>    <dbl>  <dbl>
-1 Male   146242153. 7.52e12  4592 2741918. 5374060.   3.67
-2 Female 151475830. 7.30e12  4715 2702304. 5296418.   3.50
+  gender      total    vhat   occ stand_dev       ci ci_per
+  <fct>       <dbl>   <dbl> <int>     <dbl>    <dbl>  <dbl>
+1 Male   146242153. 7.52e12  4592  2741918. 5374060.   3.67
+2 Female 151475830. 7.30e12  4715  2702304. 5296418.   3.50
 ```
 
-Mobility survey estimates (MZMV/MRMT):
+## Mobility survey estimates (MZMV/MRMT)
+
+Here we estimate the annual household and family incomes:
 
 ``` r
 library(BFSestimates)
@@ -96,9 +127,9 @@ From the survey data, `se_estimate()` estimates:
   deviation
   ![\sqrt{\hat{V}}](https://latex.codecogs.com/png.latex?%5Csqrt%7B%5Chat%7BV%7D%7D "\sqrt{\hat{V}}").
 
-The BFS/OFS provides [formulas to estimate populations and
-variances](https://portal.collab.admin.ch/sites/317-SE-CUG) in French
-(`do-f-40-se_METH.pdf`) and German (`do-d-40-se_METH.pdf`).
+The BFS/OFS provides [formulas to estimate populations and variances of
+the Strukturerhebung](https://portal.collab.admin.ch/sites/317-SE-CUG)
+in French (`do-f-40-se_METH.pdf`) and German (`do-d-40-se_METH.pdf`).
 
 ### Estimated Population
 
@@ -201,6 +232,9 @@ while `mzmv_estimate_prop()` estimates:
 
 Note that one can simply use `mzmv_estimate_mean()` to estimate both
 proportions and means, as shown below.
+
+The BFS/OFS provides [formulas to estimate variances of the
+MZMV/MRMT](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html).
 
 ### Estimated Mean
 
@@ -353,7 +387,7 @@ utils::citation("BFSestimates")
 
       Guemghar, S. (2024). BFSestimates: Estimate Totals and Confidence
       Intervals of Bundesamt für Statistik's Surveys. R package version
-      1.0.0. Amt für Daten und Statistik, Basel-Landschaft.
+      1.0.1. Amt für Daten und Statistik, Basel-Landschaft.
       https://kww.git.bl.ch/statistisches-amt/r-programming/bfsestimates
 
     A BibTeX entry for LaTeX users is
@@ -362,7 +396,7 @@ utils::citation("BFSestimates")
         title = {{BFSestimates}: Estimate Totals and Confidence Intervals of Bundesamt für Statistik's Surveys},
         author = {Souad Guemghar},
         organization = {Amt für Daten und Statistik, Basel-Landschaft},
-        note = {R package version 1.0.0},
+        note = {R package version 1.0.1},
         year = {2024},
         url = {https://kww.git.bl.ch/statistisches-amt/r-programming/bfsestimates},
       }

@@ -8,7 +8,7 @@
 A data frame with 9307 rows and 13 variables.
 }
 \source{
-\href{https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm}{NHANES 2015-2916}
+\href{https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm}{NHANES 2015-2016}
 }
 \usage{
 nhanes
