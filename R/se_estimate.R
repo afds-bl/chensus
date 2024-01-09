@@ -84,6 +84,7 @@ se_estimate <- function(data, weight,
       .,
       by = c(strata, condition)
     ) %>%
+    ungroup() %>%
     group_by(across(all_of(condition))) %>%
     summarise(
       # Variance estimate
@@ -93,6 +94,7 @@ se_estimate <- function(data, weight,
       # True occurrence in survey sample
       occ = sum(mhc)
     ) %>%
+    ungroup() %>%
     mutate(
       # Standard deviation
       stand_dev = sqrt(vhat),

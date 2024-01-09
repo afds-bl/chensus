@@ -17,16 +17,16 @@
 #' @examples
 #' # One strata variable
 #' library(dplyr)
-#' se_summarise(nhanes, weight = "weights", strata = "strata") |>
+#' se_summarise(nhanes, weight = "weights", strata = "strata") %>%
 #'   glimpse()
 #' # Two strata variables
 #' se_summarise(nhanes,
 #'   weight = "weights", strata = c("strata", "gender"),
 #'   mh_col = "mhc", Nh_col = "Nhc"
-#' ) |>
-#'   select(weights, strata, gender, mhc, Nhc) |>
-#'   group_by(strata, gender) |>
-#'   slice_sample(n = 2) |>
+#' ) %>%
+#'   select(weights, strata, gender, mhc, Nhc) %>%
+#'   group_by(strata, gender) %>%
+#'   slice_sample(n = 2) %>%
 #'   head(10)
 #'
 #' @import dplyr
@@ -40,9 +40,9 @@ se_summarise <- function(
     mh_col = "mh",
     Nh_col = "Nh"
     ) {
-  data |>
-    group_by(across(all_of(strata))) |>
-    add_count(name = {{ mh_col }}) |>
-    add_count(wt = .data[[weight]], name = {{ Nh_col }}) |>
+  data %>%
+    group_by(across(all_of(strata))) %>%
+    add_count(name = {{ mh_col }}) %>%
+    add_count(wt = .data[[weight]], name = {{ Nh_col }}) %>%
     ungroup()
 }
