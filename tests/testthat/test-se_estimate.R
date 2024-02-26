@@ -1,4 +1,4 @@
-test_that("Size 1 stratum works", {
+test_that("size 1 stratum works", {
   a <- 3.5
   data <- data.frame(weights = a, strata = 34)
   expect_equal(

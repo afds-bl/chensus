@@ -1,4 +1,4 @@
-test_that("Basic summary works", {
+test_that("basic summary works", {
   expect_equal(
     nhanes |>
       add_count(strata, name = "mh") |>
