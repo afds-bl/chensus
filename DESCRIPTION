@@ -16,3 +16,6 @@ Imports:
   purrr
 URL: https://kww.git.bl.ch/statistisches-amt/r-programming/bfsestimates
 License: GPL (>= 3)
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

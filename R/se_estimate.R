@@ -62,7 +62,7 @@ se_estimate <- function(data, weight,
     weight = weight
   ) %>%
     # First summation term (1)
-    mutate(T1h = mh / (mh - 1) * (1 - mh / Nh)) %>%
+    mutate(T1h =if_else(mh != 1, mh / (mh - 1) * (1 - mh / Nh), 0)) %>%
     # Summarise by strata and conditions
     se_summarise(
       strata = c(strata, condition),
