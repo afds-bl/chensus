@@ -75,7 +75,7 @@ Here we estimate the male and female populations:
 ``` r
 library(BFSestimates)
 library(dplyr)
-se_estimate(
+se_estimate_total(
   data = nhanes,
   weight = "weights",
   strata = "strata",
@@ -109,7 +109,7 @@ mzmv_estimate_mean(
 
 ## Population survey (*Strukturerhebung* / *relevé structurel*)
 
-From the survey data, `se_estimate()` estimates:
+From the survey data, `se_estimate_total()` estimates:
 
 - occurrences in the real population: sum of weights of sub-population
   of interest;
@@ -211,7 +211,7 @@ is the significance level, for example 0.05 for confidence interval 95%.
 `se_summarise()` calculates
 ![m_h, N_h, m\_{hc}, \text{and } \hat{N}\_{hc}](https://latex.codecogs.com/png.latex?m_h%2C%20N_h%2C%20m_%7Bhc%7D%2C%20%5Ctext%7Band%20%7D%20%5Chat%7BN%7D_%7Bhc%7D "m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}").
 
-`se_estimate()` calculates
+`se_estimate_total()` calculates
 ![\hat{V}(\hat{N}\_c)](https://latex.codecogs.com/png.latex?%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29 "\hat{V}(\hat{N}_c)"),
 the true occurrence in the survey sample and confidence intervals.
 
@@ -393,7 +393,8 @@ utils::citation("BFSestimates")
     A BibTeX entry for LaTeX users is
 
       @Manual{,
-        title = {{BFSestimates}: Estimate Totals and Confidence Intervals of Bundesamt für Statistik's Surveys},
+        title = {{BFSestimates}: Estimate Totals and Confidence Intervals of Bundesamt für
+    Statistik's Surveys},
         author = {Souad Guemghar},
         organization = {Amt für Daten und Statistik, Basel-Landschaft},
         note = {R package version 1.0.1},

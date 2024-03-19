@@ -64,7 +64,7 @@ Here we estimate the male and female populations:
 ```{r example1}
 library(BFSestimates)
 library(dplyr)
-se_estimate(
+se_estimate_total(
   data = nhanes,
   weight = "weights",
   strata = "strata",
@@ -90,7 +90,7 @@ mzmv_estimate_mean(
 
 ## Population survey (*Strukturerhebung* / *relevé structurel*)
 
-From the survey data, `se_estimate()` estimates:
+From the survey data, `se_estimate_total()` estimates:
 
 -   occurrences in the real population: sum of weights of sub-population
     of interest;
@@ -155,7 +155,7 @@ confidence interval 95%.
 `se_summarise()` calculates
 $m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}$.
 
-`se_estimate()` calculates $\hat{V}(\hat{N}_c)$, the true occurrence in
+`se_estimate_total()` calculates $\hat{V}(\hat{N}_c)$, the true occurrence in
 the survey sample and confidence intervals.
 
 ## Mobility and Transport Survey (MZMV/MRMT)
