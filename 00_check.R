@@ -16,8 +16,12 @@ check_man()
 
 check()
 
-install()
-
 build()
 
 test()
+
+check()
+
+install()
+
+use_version(which = "major", push = TRUE)

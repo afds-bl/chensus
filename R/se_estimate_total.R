@@ -24,7 +24,7 @@
 #'
 #' @examples
 #' # One condition
-#' se_estimate(
+#' se_estimate_total(
 #'   data = nhanes,
 #'   weight = "weights",
 #'   strata = "strata",
@@ -35,7 +35,7 @@
 #' library(purrr)
 #' map(
 #'   c("gender", "marital_status"),
-#'   ~ se_estimate(
+#'   ~ se_estimate_total(
 #'     data = nhanes,
 #'     weight = "weights",
 #'     strata = "strata",
@@ -51,7 +51,7 @@
 #'
 #' @export
 
-se_estimate <- function(data, weight,
+se_estimate_total <- function(data, weight,
                         strata = "zone",
                         condition = NULL,
                         alpha = 0.05) {
