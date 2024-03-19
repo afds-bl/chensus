@@ -1,10 +1,10 @@
 Package: BFSestimates
 Type: Package
-Title: Estimate Totals and Confidence Intervals of Bundesamt für Statistik's Surveys 
-Description: Estimates population sizes and confidence intervals
+Title: Estimate Totals, Averages and Confidence Intervals of Bundesamt für Statistik's Surveys 
+Description: Estimates population sizes, averages and confidence intervals
     from "Bundesamt für Statistik (BFS)" / "Office fédéral de la statistique (OFS)" 
     population and mobility surveys. Give it data from "Strukturerhebung" / "relevé structurel" or from "Mikrozensus für Mobilität und Verkehr" / "Microrecensement mobilité et transports", and obtain estimates of totals and confidence intervals.
-Version: 1.0.1
+Version: 2.0.0
 Authors@R: c(
   person("Souad", "Guemghar", email = "souad.guemghar@bl.ch", role = c("aut", "cre")),
   person("Amt für Daten und Statistik, Basel-Landschaft", role = c("cph", "fnd")))
