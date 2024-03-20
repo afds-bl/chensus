@@ -1,4 +1,4 @@
-#' Estimate means from mobility survey
+#' Estimate means of mobility survey
 #'
 #' \code{mzmv_estimate_mean()} estimates the mean frequencies and confidence
 #' intervals of BFS/OFS mobility surveys.

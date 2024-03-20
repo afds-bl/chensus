@@ -2,7 +2,7 @@
 % Please edit documentation in R/se_estimate_total.R
 \name{se_estimate_total}
 \alias{se_estimate_total}
-\title{Estimates from population survey}
+\title{Estimate totals of population survey}
 \usage{
 se_estimate_total(
   data,

@@ -2,10 +2,7 @@
 % Please edit documentation in R/se_estimate_mean.R
 \name{se_estimate_mean}
 \alias{se_estimate_mean}
-\title{Title Estimate means of population surveys
-\code{se_estimate_mean()} estimates the proportions of categorical variables
-and averages of numeric variables along with the variance and confidence
-intervals of the Strukturerhebung / relevé struturel of BFS/OFS/FSO.}
+\title{Estimate means of population surveys}
 \usage{
 se_estimate_mean(
   data,
@@ -47,19 +44,18 @@ Tibble, with the following columns:
  }
 }
 \description{
-Title Estimate means of population surveys
 \code{se_estimate_mean()} estimates the proportions of categorical variables
 and averages of numeric variables along with the variance and confidence
 intervals of the Strukturerhebung / relevé struturel of BFS/OFS/FSO.
 }
 \examples{
-# One condition
 se_estimate_mean(
   data = nhanes,
   variable = "age",
   var_type = "num",
   strata = "strata",
-  weight = "weights"
+  weight = "weights",
+  condition = "gender"
 )
 
 }

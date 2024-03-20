@@ -24,4 +24,10 @@ check()
 
 install()
 
-use_version(which = "major", push = TRUE)
+use_version(which = "minor", push = FALSE)
+
+# To add dependencies
+use_package("tidyr")
+use_package("dplyr")
+use_package("purrr")
+use_tidy_description()

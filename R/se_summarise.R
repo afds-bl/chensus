@@ -1,4 +1,4 @@
-#' Summarise population survey
+#' Summarise totals of population survey
 #'
 #' \code{se_summarise()} stratifies the number of true occurrences and
 #' estimated populations in population surveys provided by the the Bundesamt

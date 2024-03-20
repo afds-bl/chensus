@@ -2,7 +2,7 @@
 % Please edit documentation in R/se_summarise.R
 \name{se_summarise}
 \alias{se_summarise}
-\title{Summarise population survey}
+\title{Summarise totals of population survey}
 \usage{
 se_summarise(data, weight, strata, mh_col = "mh", Nh_col = "Nh")
 }

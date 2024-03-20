@@ -1,4 +1,4 @@
-#' Estimates from population survey
+#' Estimate totals of population survey
 #'
 #' \code{se_estimate()} estimates the frequencies, variance and confidence
 #' intervals of BFS/OFS population surveys.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/mzmv_estimate.R
 \name{mzmv_estimate_mean}
 \alias{mzmv_estimate_mean}
-\title{Estimate means from mobility survey}
+\title{Estimate means of mobility survey}
 \usage{
 mzmv_estimate_mean(data, object, weight, cf = 1.14, alpha = 0.1)
 }
