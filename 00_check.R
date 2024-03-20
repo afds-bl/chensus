@@ -31,3 +31,9 @@ use_package("tidyr")
 use_package("dplyr")
 use_package("purrr")
 use_tidy_description()
+
+# Spring clean package
+# https://www.jumpingrivers.com/blog/spring-clean-r-package-usethis/
+# use_git()
+# usethis::git_default_branch_rename()
+use_tidy_description()
