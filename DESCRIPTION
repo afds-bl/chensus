@@ -15,13 +15,13 @@ Description: Estimates population sizes, averages and confidence intervals
     and obtain estimates of totals and confidence intervals.
 License: GPL (>= 3)
 URL: https://kww.git.bl.ch/statistisches-amt/r-programming/bfsestimates
+Imports: 
+    dplyr,
+    purrr,
+    tidyr
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
-Imports: 
-    dplyr,
-    purrr,
-    tidyr
