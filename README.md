@@ -111,6 +111,18 @@ mzmv_estimate_mean_map(
   condition = condition,
   weight = "weights"
 )
+
+# A tibble: 8 × 6
+  variable                condition      condition_value    nc wmean    ci
+  <chr>                   <chr>          <fct>           <int> <dbl> <dbl>
+1 annual_household_income gender         Male             4592  11.9 0.331
+2 annual_household_income gender         Female           4715  11.6 0.346
+3 annual_family_income    gender         Male             4592  11.5 0.330
+4 annual_family_income    gender         Female           4715  11.3 0.352
+5 annual_household_income interview_lang English          8131  11.7 0.233
+6 annual_household_income interview_lang Spanish          1176  13.2 1.24 
+7 annual_family_income    interview_lang English          8131  11.3 0.235
+8 annual_family_income    interview_lang Spanish          1176  12.8 1.25
 ```
 
 # More Information {#more-information}
