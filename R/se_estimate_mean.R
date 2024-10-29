@@ -37,7 +37,7 @@
 #'   condition = "gender"
 #' )
 #'
-se_estimate_mean <- function(data, variable, var_type, strata = "zone", weight, condition = NULL, alpha = 0.05) {
+se_estimate_mean <- function(data, variable, var_type, condition = NULL, strata = "zone", weight, alpha = 0.05) {
   mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- occ <- nc <- ybar <- zk <- zhat <- vhat <- stand_dev <- ci <- total <- occ <- ci_per <- NULL
 
     stopifnot("`var_type` should be either 'cat' or 'num'" = var_type %in% c("cat", "num"))

@@ -4,12 +4,12 @@
 \alias{mzmv_estimate_prop}
 \title{Estimate proportions from mobility survey}
 \usage{
-mzmv_estimate_prop(data, object, weight, cf = 1.14, alpha = 0.1)
+mzmv_estimate_prop(data, variable, weight, cf = 1.14, alpha = 0.1)
 }
 \arguments{
 \item{data}{Tibble}
 
-\item{object}{Vector of strings, names of variables to be estimated. Variables are binary with integer values:
+\item{variable}{Vector of strings, names of variables to be estimated. Variables are binary with integer values:
 \itemize{
 \item{1: }{if condition is present}
 \item{0: }{if condition is absent}
@@ -45,7 +45,7 @@ nhanes \%>\%
       )
   ) \%>\%
   mzmv_estimate_prop(
-    object = "married",
+    variable = "married",
     weight = "weights"
   )
 
