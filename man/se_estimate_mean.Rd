@@ -8,9 +8,9 @@ se_estimate_mean(
   data,
   variable,
   var_type,
+  condition = NULL,
   strata = "zone",
   weight,
-  condition = NULL,
   alpha = 0.05
 )
 }
@@ -22,14 +22,14 @@ to estimate}
 
 \item{var_type}{Charcter string, variable type, one of "cat" or "num"}
 
+\item{condition}{condition Vector of character strings, names of additional
+stratification variables}
+
 \item{strata}{Character string, name of the column containing the
 strata/zones}
 
 \item{weight}{Character string, name of the column containing the
 weights}
-
-\item{condition}{condition Vector of character strings, names of additional
-stratification variables}
 
 \item{alpha}{Double, significance level. Default 0.05 for 95\% confidence interval.}
 }
