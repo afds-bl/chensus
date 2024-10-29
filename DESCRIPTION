@@ -2,7 +2,7 @@ Type: Package
 Package: BFSestimates
 Title: Estimate Totals, Averages and Confidence Intervals of Bundesamt für
     Statistik's Surveys
-Version: 2.1.0
+Version: 2.2.0
 Authors@R: c(
     person("Souad", "Guemghar", , "souad.guemghar@bl.ch", role = c("aut", "cre")),
     person("Amt für Daten und Statistik, Basel-Landschaft", role = c("cph", "fnd"))
