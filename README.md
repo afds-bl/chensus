@@ -1,3 +1,5 @@
+<img src='man/figures/logo.png' align='right' height='20%' width='20%'/>
+================
 
 - [BFSestimates](#bfsestimates)
 - [Installation](#installation)
@@ -278,6 +280,15 @@ In other words:
 & = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i z_i - \frac{\hat z_h}{m_h}\right)^2 \\
 & = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i z_i - \frac{\sum_{j \in r_h} w_j z_j}{m_h}\right)^2 \\
 & = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i \frac{y_i - \bar y}{\sum_{j \in r_h} w_j} - \frac{\sum_{j \in r_h} w_j \left(\frac{y_j - \bar y}{\sum_{k \in r_h} w_k}\right)}{m_h}\right)^2 \end{align*}")
+
+Here again the confidence interval is given by:
+
+![\text{CI} = \sqrt{\hat{V}(\bar y)} \times \text{qnorm}(1 - \frac{\alpha}2)](https://latex.codecogs.com/png.latex?%5Ctext%7BCI%7D%20%3D%20%5Csqrt%7B%5Chat%7BV%7D%28%5Cbar%20y%29%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Cfrac%7B%5Calpha%7D2%29 "\text{CI} = \sqrt{\hat{V}(\bar y)} \times \text{qnorm}(1 - \frac{\alpha}2)")
+
+`se_estimate_mean()` calculates
+![\bar y](https://latex.codecogs.com/png.latex?%5Cbar%20y "\bar y"),
+![\hat{V}(\bar y)](https://latex.codecogs.com/png.latex?%5Chat%7BV%7D%28%5Cbar%20y%29 "\hat{V}(\bar y)"),
+the frequency in the survey sample and confidence intervals.
 
 ## Mobility and Transport Survey (MZMV/MRMT)
 
