@@ -29,7 +29,7 @@ proportions and confidence intervals from surveys conducted by
 *Bundesamt für Statistik* (BFS) / *Office fédéral de la statistique*
 (OFS):
 
--   population survey: *Strukturerhebung* (SE) / *relevé structurel*,
+-   structural survey: *Strukturerhebung* (SE) / *relevé structurel*,
 -   mobility and transport survey: *Mikrozensus Mobilität und Verkehr*
     (MZMV) / *Microrecensement mobilité et transports* (MRMT).
 
@@ -52,18 +52,19 @@ As an example, we use the [National Health and Nutrition Examination Survey (NHA
 
 library(BFSestimates)
 library(dplyr)
+
 glimpse(nhanes)
 ```
 
 
 
-## Population survey estimates (*Strukturerhebung* / *relevé structurel*)
+## Structural survey (*Strukturerhebung* / *relevé structurel*)
 
 Here we estimate the male and female populations:
 
 ```{r example1}
 library(BFSestimates)
-library(dplyr)
+
 se_estimate_total(
   data = nhanes,
   weight = "weights",
@@ -72,23 +73,49 @@ se_estimate_total(
 )
 ```
 
-## Mobility survey estimates (MZMV/MRMT)
+```{r example2}
+library(BFSestimates)
+se_estimate_mean(
+  data = nhanes, 
+  variable = "household_size", 
+  var_type = "num", 
+  weight = "weights")
+```
+
+
+## Mobility and Transport Survey (MZMV/MRMT)
 
 Here we estimate the annual household and family incomes:
 
-```{r example2}
+```{r example3}
 library(BFSestimates)
-library(dplyr)
+
 mzmv_estimate_mean(
   data = nhanes,
-  object = c("annual_household_income", "annual_family_income"),
+  variable = c("annual_household_income", "annual_family_income"),
+  weight = "weights"
+)
+```
+
+We can also use the `mzmv_estimate_mean_map()` function with a set of conditions:
+
+``` {r}
+library(BFSestimates)
+
+variable <- c("annual_household_income", "annual_family_income")
+condition <- c("gender", "interview_lang")
+
+mzmv_estimate_mean_map(
+  data = nhanes,
+  variable = variable,
+  condition = condition,
   weight = "weights"
 )
 ```
 
 # More Information
 
-## Population survey (*Strukturerhebung* / *relevé structurel*)
+## Structural survey(*Strukturerhebung* / *relevé structurel*)
 
 From the survey data, `se_estimate_total()` estimates:
 
@@ -105,7 +132,7 @@ The BFS/OFS provides [formulas to estimate populations and
 variances of the Strukturerhebung](https://portal.collab.admin.ch/sites/317-SE-CUG) in French
 (`do-f-40-se_METH.pdf`) and German (`do-d-40-se_METH.pdf`).
 
-### Estimated Population
+### Totals
 
 The estimated populations from the population survey is given by:
 
@@ -116,8 +143,6 @@ where:
 -   $w_i$ is the weight for participant $i$;
 -   $I_c = 1$ if condition(s) $c$ is true, 0 otherwise;
 -   $r$ is the set of participants
-
-### Estimated Variance
 
 The estimated variance is given by:
 $$\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2$$
@@ -157,6 +182,26 @@ $m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}$.
 
 `se_estimate_total()` calculates $\hat{V}(\hat{N}_c)$, the true occurrence in
 the survey sample and confidence intervals.
+
+### Means
+
+The estimate of the mean of a continuous variable $y$, for example the
+average rent of an apartment `rentnet`, is given by the weighted mean:
+
+$$\bar y = \frac{\sum_k w_k y_k}{\sum_k w_k}$$
+
+Variance of $\bar y$ is approximated by that of the total of variable
+$z$ where: $$z_k = \frac{y_k - \bar y}{\sum_i w_i}$$
+
+In other words:
+
+```{=tex}
+\begin{align*} 
+\hat V(\bar y) & = \hat V(\hat z) \\
+& = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i z_i - \frac{\hat z_h}{m_h}\right)^2 \\
+& = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i z_i - \frac{\sum_{j \in r_h} w_j z_j}{m_h}\right)^2 \\
+& = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i \frac{y_i - \bar y}{\sum_{j \in r_h} w_j} - \frac{\sum_{j \in r_h} w_j \left(\frac{y_j - \bar y}{\sum_{k \in r_h} w_k}\right)}{m_h}\right)^2 \end{align*}
+```
 
 ## Mobility and Transport Survey (MZMV/MRMT)
 
