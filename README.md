@@ -13,8 +13,8 @@
     - [Means](#means)
   - [Mobility and Transport Survey
     (MZMV/MRMT)](#mobility-and-transport-survey-mzmvmrmt-1)
-    - [Estimated Mean](#estimated-mean)
-    - [Estimated Proportion](#estimated-proportion)
+    - [Means](#means-1)
+    - [Proportions](#proportions)
 - [License](#license)
 - [Contact](#contact)
 - [Acknowledgments](#acknowledgments)
@@ -269,6 +269,16 @@ approximated by that of the total of variable
 
 In other words:
 
+![\begin{align\*} 
+\hat V(\bar y) & = \hat V(\hat z) \\
+& = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum\_{i \in r_h}\left(w_i z_i - \frac{\hat z_h}{m_h}\right)^2 \\
+& = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum\_{i \in r_h}\left(w_i z_i - \frac{\sum\_{j \in r_h} w_j z_j}{m_h}\right)^2 \\
+& = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum\_{i \in r_h}\left(w_i \frac{y_i - \bar y}{\sum\_{j \in r_h} w_j} - \frac{\sum\_{j \in r_h} w_j \left(\frac{y_j - \bar y}{\sum\_{k \in r_h} w_k}\right)}{m_h}\right)^2 \end{align\*}](https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%20%0A%5Chat%20V%28%5Cbar%20y%29%20%26%20%3D%20%5Chat%20V%28%5Chat%20z%29%20%5C%5C%0A%26%20%3D%20%5Csum_h%20%5Cfrac%7Bm_h%7D%7Bm_h%20-%201%7D%5Cleft%281%20-%20%5Cfrac%7Bm_h%7D%7BN_h%7D%5Cright%29%20%5Csum_%7Bi%20%5Cin%20r_h%7D%5Cleft%28w_i%20z_i%20-%20%5Cfrac%7B%5Chat%20z_h%7D%7Bm_h%7D%5Cright%29%5E2%20%5C%5C%0A%26%20%3D%20%5Csum_h%20%5Cfrac%7Bm_h%7D%7Bm_h%20-%201%7D%5Cleft%281%20-%20%5Cfrac%7Bm_h%7D%7BN_h%7D%5Cright%29%20%5Csum_%7Bi%20%5Cin%20r_h%7D%5Cleft%28w_i%20z_i%20-%20%5Cfrac%7B%5Csum_%7Bj%20%5Cin%20r_h%7D%20w_j%20z_j%7D%7Bm_h%7D%5Cright%29%5E2%20%5C%5C%0A%26%20%3D%20%5Csum_h%20%5Cfrac%7Bm_h%7D%7Bm_h%20-%201%7D%5Cleft%281%20-%20%5Cfrac%7Bm_h%7D%7BN_h%7D%5Cright%29%20%5Csum_%7Bi%20%5Cin%20r_h%7D%5Cleft%28w_i%20%5Cfrac%7By_i%20-%20%5Cbar%20y%7D%7B%5Csum_%7Bj%20%5Cin%20r_h%7D%20w_j%7D%20-%20%5Cfrac%7B%5Csum_%7Bj%20%5Cin%20r_h%7D%20w_j%20%5Cleft%28%5Cfrac%7By_j%20-%20%5Cbar%20y%7D%7B%5Csum_%7Bk%20%5Cin%20r_h%7D%20w_k%7D%5Cright%29%7D%7Bm_h%7D%5Cright%29%5E2%20%5Cend%7Balign%2A%7D "\begin{align*} 
+\hat V(\bar y) & = \hat V(\hat z) \\
+& = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i z_i - \frac{\hat z_h}{m_h}\right)^2 \\
+& = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i z_i - \frac{\sum_{j \in r_h} w_j z_j}{m_h}\right)^2 \\
+& = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i \frac{y_i - \bar y}{\sum_{j \in r_h} w_j} - \frac{\sum_{j \in r_h} w_j \left(\frac{y_j - \bar y}{\sum_{k \in r_h} w_k}\right)}{m_h}\right)^2 \end{align*}")
+
 ## Mobility and Transport Survey (MZMV/MRMT)
 
 From the survey data, `mzmv_estimate_mean()` estimates:
@@ -290,7 +300,7 @@ proportions and means, as shown below.
 The BFS/OFS provides [formulas to estimate variances of the
 MZMV/MRMT](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html).
 
-### Estimated Mean
+### Means
 
 The estimated mean is:
 
@@ -345,7 +355,7 @@ where
 is the estimated mean
 ![\hat{Y}](https://latex.codecogs.com/png.latex?%5Chat%7BY%7D "\hat{Y}").
 
-### Estimated Proportion
+### Proportions
 
 If
 ![y_i \in \\0, 1\\](https://latex.codecogs.com/png.latex?y_i%20%5Cin%20%5C%7B0%2C%201%5C%7D "y_i \in \{0, 1\}"),

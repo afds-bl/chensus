@@ -195,13 +195,13 @@ $z$ where: $$z_k = \frac{y_k - \bar y}{\sum_i w_i}$$
 
 In other words:
 
-```{=tex}
+$$
 \begin{align*} 
 \hat V(\bar y) & = \hat V(\hat z) \\
 & = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i z_i - \frac{\hat z_h}{m_h}\right)^2 \\
 & = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i z_i - \frac{\sum_{j \in r_h} w_j z_j}{m_h}\right)^2 \\
 & = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i \frac{y_i - \bar y}{\sum_{j \in r_h} w_j} - \frac{\sum_{j \in r_h} w_j \left(\frac{y_j - \bar y}{\sum_{k \in r_h} w_k}\right)}{m_h}\right)^2 \end{align*}
-```
+$$
 
 ## Mobility and Transport Survey (MZMV/MRMT)
 
@@ -224,7 +224,7 @@ proportions and means, as shown below.
 The BFS/OFS provides [formulas to estimate
 variances of the MZMV/MRMT](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html).
 
-### Estimated Mean
+### Means
 
 The estimated mean is:
 
@@ -262,7 +262,7 @@ The (sample) variance of variable $Y$ is estimated by:
 $$\hat{\sigma}_{y}^2 = \frac{\sum\limits_{i\in r} w_i \left(y_i - \bar{y}\right)^2}{\left(\sum\limits_{i \in r} w_i \right)- 1}$$
 where $\bar{y}$ is the estimated mean $\hat{Y}$.
 
-### Estimated Proportion
+### Proportions
 
 If $y_i \in \{0, 1\}$, for example possession of a car, then the mean
 estimate becomes the proportion estimate:
