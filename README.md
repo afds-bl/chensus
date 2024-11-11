@@ -175,7 +175,11 @@ in French (`do-f-40-se_METH.pdf`) and German (`do-d-40-se_METH.pdf`).
 
 The estimated populations from the population survey is given by:
 
+<div>
+
 ![\hat{N}\_c = \sum\_{i \in r} w_i I_c](https://latex.codecogs.com/png.latex?%5Chat%7BN%7D_c%20%3D%20%5Csum_%7Bi%20%5Cin%20r%7D%20w_i%20I_c "\hat{N}_c = \sum_{i \in r} w_i I_c")
+
+</div>
 
 where:
 
@@ -467,8 +471,8 @@ utils::citation("BFSestimates")
     A BibTeX entry for LaTeX users is
 
       @Manual{,
-        title = {{BFSestimates}: Estimate Totals, Averages and Confidence Intervals of Bundesamt für
-    Statistik's Surveys},
+        title = {{BFSestimates}: Estimate Totals, Averages and Confidence Intervals of Bundesamt
+    für Statistik's Surveys},
         author = {Souad Guemghar},
         organization = {Amt für Daten und Statistik, Basel-Landschaft},
         note = {R package version 2.2.0},

@@ -136,7 +136,9 @@ variances of the Strukturerhebung](https://portal.collab.admin.ch/sites/317-SE-C
 
 The estimated populations from the population survey is given by:
 
+<div>
 $$\hat{N}_c = \sum_{i \in r} w_i I_c$$
+</div>
 
 where:
 
