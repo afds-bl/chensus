@@ -41,8 +41,7 @@ You can install the development version of `BFSestimates` from
 [GitHub](https://github.com/):
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("souadg/BFSestimates", auth_token = <PAT>)
+remotes::install_github("afds-bl/BFSestimates", auth_token = <PAT>)
 ```
 
 # Usage

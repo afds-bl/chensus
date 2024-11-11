@@ -40,8 +40,7 @@ You can install the development version of `BFSestimates` from
 [GitHub](https://github.com/):
 
 ```{r eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("afds-bl/BFSestimates", auth_token = <PAT>)
+remotes::install_github("afds-bl/BFSestimates", auth_token = <PAT>)
 ```
 
 # Usage
