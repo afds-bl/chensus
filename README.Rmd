@@ -1,11 +1,14 @@
 ---
 title: "<img src='man/figures/logo.png' align='right' height='20%' width='20%'/>"
-format:
-  gfm:
-    toc: true
-    toc_depth: 4
-    math: true
-    preview-mode: raw
+editor_options:
+  markdown:
+    mode: gfm
+# format:
+#   gfm:
+#     toc: true
+#     toc_depth: 4
+#     math: true
+#     preview-mode: raw
     # html-math-method: 
     #   method: webtex
     #   url: https://latex.codecogs.com/png.image?%5Cbg_black&space; # for dark mode

@@ -485,60 +485,66 @@ estimate populations and variances of the Strukturerhebung</a> in French
 <div id="totals" class="section level3">
 <h3>Totals</h3>
 <p>The estimated populations from the population survey is given by:</p>
-<div>
 <p><span class="math display">\[\hat{N}_c = \sum_{i \in r} w_i
 I_c\]</span></p>
-</div>
 <p>where:</p>
 <ul>
 <li><span class="math inline">\(w_i\)</span> is the weight for
 participant <span class="math inline">\(i\)</span>;</li>
 <li><span class="math inline">\(I_c = 1\)</span> if condition(s) <span class="math inline">\(c\)</span> is true, 0 otherwise;</li>
 <li><span class="math inline">\(r\)</span> is the set of
-participants</li>
+participants.</li>
 </ul>
-<p>The estimated variance is given by: <span class="math display">\[\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h -
-1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i I_c -
-\frac{\hat{N}_{hc}}{m_h}\right)^2\]</span></p>
+<p>The estimated variance is given by:</p>
+<p><span class="math display">\[\hat{V}(\hat{N}_c) = \sum_h
+\frac{m_h}{m_h - 1} \left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}
+\left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2\]</span></p>
 <p>where:</p>
 <ul>
 <li><span class="math inline">\(\hat{N}_c\)</span> is the estimated
 occurrence of condition <span class="math inline">\(c\)</span>;</li>
-<li><span class="math inline">\(h\)</span> designates a stratum
-(e.g. <code>zone</code>)</li>
+<li><span class="math inline">\(h\)</span> designates a stratum (e.g.,
+<code>zone</code>);</li>
 <li><span class="math inline">\(\hat{N}_{hc}\)</span> is the estimated
-occurrence of coditions <span class="math inline">\(c\)</span> in
+occurrence of conditions <span class="math inline">\(c\)</span> in
 stratum <span class="math inline">\(h\)</span>;</li>
 <li><span class="math inline">\(N_h\)</span> is the total estimated
 population in stratum <span class="math inline">\(h\)</span> (sum of
-weights in stratum h);</li>
+weights in stratum <span class="math inline">\(h\)</span>);</li>
 <li><span class="math inline">\(r_h\)</span> is the set of participants
 in stratum <span class="math inline">\(h\)</span>;</li>
 <li><span class="math inline">\(m_h\)</span> is the number of
 participants in stratum <span class="math inline">\(h\)</span>.</li>
 </ul>
-<p>Note that the second summation is over the whole stratum, so for
-condition <span class="math inline">\(c\)</span> this becomes: <span class="math display">\[
+<p>For condition <span class="math inline">\(c\)</span>, this
+becomes:</p>
+<p><span class="math display">\[
 \begin{aligned}
-\sum_{i \in r_h}\left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2 &amp;=
-\sum_{i \notin r_{hc}} \left(\frac{\hat{N}_{hc}}{m_h}\right)^2 + \sum_{i
-\in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2 \\
-&amp;= \left(m_h - m_{hc}\right)
-\left(\frac{\hat{N}_{hc}}{m_h}\right)^2  + \sum_{i \in r_{hc}} \left(w_i
-- \frac{\hat{N}_{hc}}{m_h}\right)^2
+\sum_{i \in r_h} \left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2
+&amp;= \sum_{i \notin r_{hc}} \left(\frac{\hat{N}_{hc}}{m_h}\right)^2 +
+\sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2 \\
+&amp;= \left(m_h - m_{hc}\right) \left(\frac{\hat{N}_{hc}}{m_h}\right)^2
++ \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2
 \end{aligned}
-\]</span> where <span class="math inline">\(r_{hc}\)</span> is the set
-of respondents in stratum <span class="math inline">\(h\)</span> who
-fulfil condition <span class="math inline">\(c\)</span> and <span class="math inline">\(m_{hc}\)</span> the number of respondents in <span class="math inline">\(r_{hc}\)</span>.</p>
-<p>Finally the original variance estimate equation becomes:</p>
-<p><span class="math display">\[\hat{V}(\hat{N}_c) = \sum_h
-\frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \left[(m_h - m_{hc})
-\left(\frac{\hat{N}_{hc}}{m_h}\right)^2  + \sum_{i \in r_{hc}} \left(w_i
-- \frac{\hat{N}_{hc}}{m_h}\right)^2\right]\]</span></p>
+\]</span></p>
+<p>where <span class="math inline">\(r_{hc}\)</span> is the set of
+respondents in stratum <span class="math inline">\(h\)</span> who
+fulfill condition <span class="math inline">\(c\)</span>, and <span class="math inline">\(m_{hc}\)</span> is the number of respondents in
+<span class="math inline">\(r_{hc}\)</span>.</p>
+<p>Thus, the original variance estimate equation becomes:</p>
+<p><span class="math display">\[
+\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1} \left(1 -
+\frac{m_h}{N_h}\right) \left[(m_h - m_{hc})
+\left(\frac{\hat{N}_{hc}}{m_h}\right)^2 + \sum_{i \in r_{hc}} \left(w_i
+- \frac{\hat{N}_{hc}}{m_h}\right)^2\right]
+\]</span></p>
 <p>The confidence interval is given by:</p>
-<p><span class="math display">\[\text{CI} = \sqrt{\hat{V}(\hat{N}_c)}
-\times \text{qnorm}(1 - \frac{\alpha}2)\]</span> where <span class="math inline">\(\alpha\)</span> is the significance level, for
-example 0.05 for confidence interval 95%.</p>
+<p><span class="math display">\[
+\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}\left(1 -
+\frac{\alpha}{2}\right)
+\]</span></p>
+<p>where <span class="math inline">\(\alpha\)</span> is the significance
+level (e.g., 0.05 for a 95% confidence interval).</p>
 <p><code>se_summarise()</code> calculates <span class="math inline">\(m_h, N_h, m_{hc}, \text{and }
 \hat{N}_{hc}\)</span>.</p>
 <p><code>se_estimate_total()</code> calculates <span class="math inline">\(\hat{V}(\hat{N}_c)\)</span>, the true occurrence
