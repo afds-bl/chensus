@@ -168,9 +168,7 @@ in French (`do-f-40-se_METH.pdf`) and German (`do-d-40-se_METH.pdf`).
 
 The estimated populations from the population survey is given by:
 
-$$
-\hat{N}_c = \sum_{i \in r} w_i I_c
-$$
+$$\hat{N}_c = \sum_{i \in r} w_i I_c$$
 
 where:
 
@@ -180,9 +178,7 @@ where:
 
 The estimated variance is given by:
 
-$$
-\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1} \left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h} \left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2
-$$
+$$\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1} \left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h} \left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2$$
 
 where:
 
