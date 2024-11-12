@@ -3,7 +3,7 @@ title: "<img src='man/figures/logo.png' align='right' height='20%' width='20%'/>
 output:
   md_document:
     variant: gfm+tex_math_dollars
-    preserve_yaml: true
+    preserve_yaml: false
 editor_options:
   markdown:
     mode: gfm

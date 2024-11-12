@@ -1,32 +1,3 @@
----
-title: "<img src='man/figures/logo.png' align='right' height='20%' width='20%'/>"
-output:
-  md_document:
-    variant: gfm+tex_math_dollars
-    preserve_yaml: true
-editor_options:
-  markdown:
-    mode: gfm
-    extensions: +tex_math_dollars+raw_tex
-# format:
-#   gfm:
-#     toc: true
-#     toc_depth: 4
-#     math: true
-#     preview-mode: raw
-    # html-math-method: 
-    #   method: webtex
-    #   url: https://latex.codecogs.com/png.image?%5Cbg_black&space; # for dark mode
-# output: 
-#   github_document:
-#     pandoc_args: "--webtex" #> Better maths rendering in Github https://github.com/rstudio/rmarkdown/issues/1886
-#     toc: true
-#     toc_depth: 4
-# editor_options: 
-#   markdown: 
-#     wrap: 72
----
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # BFSestimates
