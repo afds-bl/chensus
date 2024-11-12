@@ -5,6 +5,7 @@ format:
     toc: true
     toc_depth: 4
     math: true
+    preview-mode: raw
     # html-math-method: 
     #   method: webtex
     #   url: https://latex.codecogs.com/png.image?%5Cbg_black&space; # for dark mode
