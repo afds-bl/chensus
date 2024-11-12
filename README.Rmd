@@ -4,6 +4,7 @@ format:
   gfm:
     toc: true
     toc_depth: 4
+    math: true
     # html-math-method: 
     #   method: webtex
     #   url: https://latex.codecogs.com/png.image?%5Cbg_black&space; # for dark mode
