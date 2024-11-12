@@ -1,5 +1,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+<img src='man/figures/logo.png' style="float: right; width: 20%; height: auto;" />
+
 # BFSestimates
 
 The goal of BFSestimates is to estimate population frequencies, means,
