@@ -37,7 +37,7 @@ proportions and confidence intervals from surveys conducted by
 # Installation
 
 You can install the development version of `BFSestimates` from
-[GitHub](https://github.com/):
+[GitHub](https://github.com/afds-bl/BFSestimates):
 
 ```{r eval = FALSE}
 remotes::install_github("afds-bl/BFSestimates", auth_token = <PAT>)
