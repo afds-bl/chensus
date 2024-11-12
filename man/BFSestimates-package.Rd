@@ -4,11 +4,11 @@
 \name{BFSestimates-package}
 \alias{BFSestimates}
 \alias{BFSestimates-package}
-\title{BFSestimates: Estimate Totals, Averages and Confidence Intervals of Bundesamt für Statistik's Surveys}
+\title{BFSestimates: Estimate Totals, Averages and Confidence Intervals of the Federal Statistic Office's Surveys}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Estimates population sizes, averages and confidence intervals from "Bundesamt für Statistik (BFS)" / "Office fédéral de la statistique (OFS)" population and mobility surveys. Give it data from "Strukturerhebung" / "relevé structurel" or from "Mikrozensus für Mobilität und Verkehr" / "Microrecensement mobilité et transports", and obtain estimates of totals and confidence intervals.
+Estimates population sizes, averages and confidence intervals from the Federal Statistic Office's (FSO) population and mobility surveys. Give it data from "Strukturerhebung" / "relevé structurel" or from "Mikrozensus für Mobilität und Verkehr" / "Microrecensement mobilité et transports", and obtain estimates of totals and confidence intervals.
 }
 \seealso{
 Useful links:

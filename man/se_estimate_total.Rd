@@ -39,7 +39,7 @@ Tibble, with the following columns:
 }
 \description{
 \code{se_estimate()} estimates the frequencies, variance and confidence
-intervals of BFS/OFS population surveys.
+intervals of FSO population surveys.
 }
 \examples{
 # One condition

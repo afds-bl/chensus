@@ -1,7 +1,7 @@
 #' Estimate totals of population survey
 #'
 #' \code{se_estimate()} estimates the frequencies, variance and confidence
-#' intervals of BFS/OFS population surveys.
+#' intervals of FSO population surveys.
 #'
 #' @param data Tibble
 #' @param weight Character string, name of the column containing the

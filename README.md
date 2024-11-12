@@ -5,9 +5,8 @@
 # BFSestimates
 
 The goal of BFSestimates is to estimate population frequencies, means,
-proportions and confidence intervals from surveys conducted by
-*Bundesamt für Statistik* (BFS) / *Office fédéral de la statistique*
-(OFS):
+proportions and confidence intervals from surveys conducted by the
+Federal Statistical Office (FSO):
 
 - structural survey: *Strukturerhebung* (SE) / *relevé structurel*,
 - mobility and transport survey: *Mikrozensus Mobilität und Verkehr*
@@ -19,7 +18,7 @@ You can install the development version of `BFSestimates` from
 [GitHub](https://github.com/afds-bl/BFSestimates):
 
 ``` r
-remotes::install_github("afds-bl/BFSestimates", auth_token = <PAT>)
+remotes::install_github("afds-bl/BFSestimates")
 ```
 
 # Usage
@@ -27,7 +26,7 @@ remotes::install_github("afds-bl/BFSestimates", auth_token = <PAT>)
 As an example, we use the [National Health and Nutrition Examination
 Survey (NHANES)
 dataset](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) for the
-period 2015-2016 (more with `?nhanes`). Its structure is similar to BFS
+period 2015-2016 (more with `?nhanes`). Its structure is similar to FSO
 survey data in that it contains a `strata` column, a `weights` column
 and demographic features:
 
@@ -138,9 +137,9 @@ From the survey data, `se_estimate_total()` estimates:
   percentile of normal distribution with mean $`0`$ and standard
   deviation $`\sqrt{\hat{V}}`$.
 
-The BFS/OFS provides [formulas to estimate populations and variances of
-the Strukturerhebung](https://portal.collab.admin.ch/sites/317-SE-CUG)
-in French (`do-f-40-se_METH.pdf`) and German (`do-d-40-se_METH.pdf`).
+The FSO provides [formulas to estimate populations and variances of the
+Strukturerhebung](https://portal.collab.admin.ch/sites/317-SE-CUG) in
+French (`do-f-40-se_METH.pdf`) and German (`do-d-40-se_METH.pdf`).
 
 ### Totals
 
@@ -263,7 +262,7 @@ while `mzmv_estimate_prop()` estimates:
 Note that one can simply use `mzmv_estimate_mean()` to estimate both
 proportions and means, as shown below.
 
-The BFS/OFS provides [formulas to estimate variances of the
+The FSO provides [formulas to estimate variances of the
 MZMV/MRMT](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html).
 
 ### Means
@@ -395,15 +394,14 @@ utils::citation("BFSestimates")
     To cite 'BFSestimates' in publications, please use:
 
       Guemghar, S. (2024). BFSestimates: Estimate Totals, Averages and
-      Confidence Intervals of Bundesamt für Statistik's Surveys. R package
-      version 2.2.0. Amt für Daten und Statistik, Basel-Landschaft.
+      Confidence Intervals of the Federal Statistic Office's Surveys. R
+      package version 2.2.0. Amt für Daten und Statistik, Basel-Landschaft.
       https://github.com/afds-bl/bfsestimates
 
     A BibTeX entry for LaTeX users is
 
       @Manual{,
-        title = {{BFSestimates}: Estimate Totals, Averages and Confidence Intervals of Bundesamt für
-    Statistik's Surveys},
+        title = {{BFSestimates}: Estimate Totals, Averages and Confidence Intervals of the Federal Statistic Office's Surveys},
         author = {Souad Guemghar},
         organization = {Amt für Daten und Statistik, Basel-Landschaft},
         note = {R package version 2.2.0},

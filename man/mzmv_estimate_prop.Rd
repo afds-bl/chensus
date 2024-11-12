@@ -19,7 +19,7 @@ mzmv_estimate_prop(data, variable, weight, cf = 1.14, alpha = 0.1)
 \item{weight}{Character string, name of the column containing the
 weights}
 
-\item{cf}{Double, correction factor of the confidence interval, supplied by BFS/OFS}
+\item{cf}{Double, correction factor of the confidence interval, supplied by FSO}
 
 \item{alpha}{Double, significance level. Default 0.05 for 95\% confidence interval.}
 }
@@ -31,7 +31,7 @@ Vector, with the following values:
 }
 }
 \description{
-\code{mzmv_estimate_prop} estimates the proportions and confidence intervals of BFS/OFS mobility survey data
+\code{mzmv_estimate_prop} estimates the proportions and confidence intervals of FSO mobility survey data
 }
 \examples{
 # We can use the nhanes dataset

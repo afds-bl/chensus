@@ -14,7 +14,7 @@ mzmv_estimate_mean(data, variable, weight, cf = 1.14, alpha = 0.1)
 \item{weight}{Character string, name of the column containing the
 weights}
 
-\item{cf}{Double, correction factor of the confidence interval, supplied by BFS/OFS}
+\item{cf}{Double, correction factor of the confidence interval, supplied by FSO}
 
 \item{alpha}{Double, significance level. Default 0.1 for 90\% confidence interval.}
 }
@@ -29,7 +29,7 @@ Tibble (number of rows is length of \code{variable}) with the following columns:
 }
 \description{
 \code{mzmv_estimate_mean()} estimates the mean frequencies and confidence
-intervals of BFS/OFS mobility surveys.
+intervals of FSO mobility surveys.
 }
 \examples{
 # We can use the nhanes dataset as an example even if it only contains population data

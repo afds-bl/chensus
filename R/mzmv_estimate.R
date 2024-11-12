@@ -1,13 +1,13 @@
 #' Estimate means of mobility survey
 #'
 #' \code{mzmv_estimate_mean()} estimates the mean frequencies and confidence
-#' intervals of BFS/OFS mobility surveys.
+#' intervals of FSO mobility surveys.
 #'
 #' @param data Tibble
 #' @param variable Vector of strings, names of variables to be estimated. Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent `NA`.
 #' @param weight Character string, name of the column containing the
 #' weights
-#' @param cf Double, correction factor of the confidence interval, supplied by BFS/OFS
+#' @param cf Double, correction factor of the confidence interval, supplied by FSO
 #' @param alpha Double, significance level. Default 0.1 for 90\% confidence interval.
 #'
 #' @returns Tibble (number of rows is length of \code{variable}) with the following columns:
@@ -57,7 +57,7 @@ mzmv_estimate_mean <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
 #' Estimate means of mobility survey with conditions
 #'
 #' \code{mzmv_estimate_mean_map()} estimates the mean frequencies and confidence
-#' intervals of BFS/OFS mobility surveys for a given set of features.
+#' intervals of FSO mobility surveys for a given set of features.
 #'
 #' @param data Tibble
 #' @param variable Vector of strings, names of variables to be estimated. Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent `NA`.
@@ -65,7 +65,7 @@ mzmv_estimate_mean <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
 #' stratification variables
  #' @param weight Character string, name of the column containing the
 #' weights
-#' @param cf Double, correction factor of the confidence interval, supplied by BFS/OFS
+#' @param cf Double, correction factor of the confidence interval, supplied by FSO
 #' @param alpha Double, significance level. Default 0.1 for 90\% confidence interval.
 #'
 #' @returns Tibble (number of rows is length of \code{variable}) with the following columns:
@@ -122,7 +122,7 @@ mzmv_estimate_mean_map <- function(data, variable, condition = NULL, weight, cf 
 
 #' Estimate proportions from mobility survey
 #'
-#' \code{mzmv_estimate_prop} estimates the proportions and confidence intervals of BFS/OFS mobility survey data
+#' \code{mzmv_estimate_prop} estimates the proportions and confidence intervals of FSO mobility survey data
 #'
 #' @param data Tibble
 #' @param variable Vector of strings, names of variables to be estimated. Variables are binary with integer values:
@@ -133,7 +133,7 @@ mzmv_estimate_mean_map <- function(data, variable, condition = NULL, weight, cf 
 #' }
 #' @param weight Character string, name of the column containing the
 #' weights
-#' @param cf Double, correction factor of the confidence interval, supplied by BFS/OFS
+#' @param cf Double, correction factor of the confidence interval, supplied by FSO
 #' @param alpha Double, significance level. Default 0.05 for 95\% confidence interval.
 #'
 #' @returns Vector, with the following values:

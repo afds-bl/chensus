@@ -24,7 +24,7 @@ stratification variables}
 \item{weight}{Character string, name of the column containing the
 weights}
 
-\item{cf}{Double, correction factor of the confidence interval, supplied by BFS/OFS}
+\item{cf}{Double, correction factor of the confidence interval, supplied by FSO}
 
 \item{alpha}{Double, significance level. Default 0.1 for 90\% confidence interval.}
 }
@@ -39,7 +39,7 @@ Tibble (number of rows is length of \code{variable}) with the following columns:
 }
 \description{
 \code{mzmv_estimate_mean_map()} estimates the mean frequencies and confidence
-intervals of BFS/OFS mobility surveys for a given set of features.
+intervals of FSO mobility surveys for a given set of features.
 }
 \examples{
 # We can use the nhanes dataset as an example even if it only contains population data

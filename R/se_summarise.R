@@ -1,8 +1,7 @@
 #' Summarise totals of population survey
 #'
 #' \code{se_summarise()} stratifies the number of true occurrences and
-#' estimated populations in population surveys provided by the the Bundesamt
-#' für Statistik / Office Fédéral de la Statistique.
+#' estimated populations in population surveys provided by the FSO.
 #'
 #' @param data Tibble
 #' @param weight Character string, name of the column containing the

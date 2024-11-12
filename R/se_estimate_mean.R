@@ -2,7 +2,7 @@
 #'
 #' \code{se_estimate_mean()} estimates the proportions of categorical variables
 #' and averages of numeric variables along with the variance and confidence
-#' intervals of the Strukturerhebung / relevé struturel of BFS/OFS/FSO.
+#' intervals of the Strukturerhebung / relevé struturel of FSO.
 #'
 #' @param data Tibble
 #' @param variable Character string, name of the feature whose mean we would like

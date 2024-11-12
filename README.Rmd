@@ -46,8 +46,7 @@ knitr::opts_chunk$set(
 
 The goal of BFSestimates is to estimate population frequencies, means,
 proportions and confidence intervals from surveys conducted by
-*Bundesamt für Statistik* (BFS) / *Office fédéral de la statistique*
-(OFS):
+the Federal Statistical Office (FSO):
 
 -   structural survey: *Strukturerhebung* (SE) / *relevé structurel*,
 -   mobility and transport survey: *Mikrozensus Mobilität und Verkehr*
@@ -59,12 +58,12 @@ You can install the development version of `BFSestimates` from
 [GitHub](https://github.com/afds-bl/BFSestimates):
 
 ```{r eval = FALSE}
-remotes::install_github("afds-bl/BFSestimates", auth_token = <PAT>)
+remotes::install_github("afds-bl/BFSestimates")
 ```
 
 # Usage
 
-As an example, we use the [National Health and Nutrition Examination Survey (NHANES) dataset](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) for the period 2015-2016 (more with `?nhanes`). Its structure is similar to BFS survey data in that it contains a `strata` column, a `weights` column and demographic features:
+As an example, we use the [National Health and Nutrition Examination Survey (NHANES) dataset](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) for the period 2015-2016 (more with `?nhanes`). Its structure is similar to FSO survey data in that it contains a `strata` column, a `weights` column and demographic features:
 
 ```{r}
 #| echo: false
@@ -147,7 +146,7 @@ From the survey data, `se_estimate_total()` estimates:
     percentile of normal distribution with mean $0$ and standard
     deviation $\sqrt{\hat{V}}$.
 
-The BFS/OFS provides [formulas to estimate populations and
+The FSO provides [formulas to estimate populations and
 variances of the Strukturerhebung](https://portal.collab.admin.ch/sites/317-SE-CUG) in French
 (`do-f-40-se_METH.pdf`) and German (`do-d-40-se_METH.pdf`).
 
@@ -253,7 +252,7 @@ while `mzmv_estimate_prop()` estimates:
 Note that one can simply use `mzmv_estimate_mean()` to estimate both
 proportions and means, as shown below.
 
-The BFS/OFS provides [formulas to estimate
+The FSO provides [formulas to estimate
 variances of the MZMV/MRMT](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html).
 
 ### Means

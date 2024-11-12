@@ -24,8 +24,7 @@ Tibble \code{data} augmented with columns \code{mh_col} and \code{Nhcol}
 }
 \description{
 \code{se_summarise()} stratifies the number of true occurrences and
-estimated populations in population surveys provided by the the Bundesamt
-für Statistik / Office Fédéral de la Statistique.
+estimated populations in population surveys provided by the FSO.
 }
 \examples{
 # One strata variable
