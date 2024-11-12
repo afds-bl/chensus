@@ -1,5 +1,5 @@
-<img src='man/figures/logo.png' align='right' height='20%' width='20%'/>
-================
+# <img src='man/figures/logo.png' align='right' height='20%' width='20%'/>
+
 
 - [BFSestimates](#bfsestimates)
 - [Installation](#installation)
@@ -154,18 +154,18 @@ From the survey data, `se_estimate_total()` estimates:
 - occurrences in the real population: sum of weights of sub-population
   of interest;
 - variance
-  ![\hat V](https://latex.codecogs.com/png.latex?%5Chat%20V "\hat V") of
-  the estimate;
+  ![\hat V](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Chat%20V "\hat V")
+  of the estimate;
 - standard deviation
-  (![sd = \sqrt{\hat{V}}](https://latex.codecogs.com/png.latex?sd%20%3D%20%5Csqrt%7B%5Chat%7BV%7D%7D "sd = \sqrt{\hat{V}}"))
+  (![sd = \sqrt{\hat{V}}](https://latex.codecogs.com/png.image?%5Cbg_black&space;sd%20%3D%20%5Csqrt%7B%5Chat%7BV%7D%7D "sd = \sqrt{\hat{V}}"))
   of the estimate;
 - confidence interval of the estimate with significance level
-  ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha"):
-  ![\left\[(1 - \alpha/2)\times 100\right\]^{\text{th}}](https://latex.codecogs.com/png.latex?%5Cleft%5B%281%20-%20%5Calpha%2F2%29%5Ctimes%20100%5Cright%5D%5E%7B%5Ctext%7Bth%7D%7D "\left[(1 - \alpha/2)\times 100\right]^{\text{th}}")
+  ![\alpha](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Calpha "\alpha"):
+  ![\left\[(1 - \alpha/2)\times 100\right\]^{\text{th}}](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Cleft%5B%281%20-%20%5Calpha%2F2%29%5Ctimes%20100%5Cright%5D%5E%7B%5Ctext%7Bth%7D%7D "\left[(1 - \alpha/2)\times 100\right]^{\text{th}}")
   percentile of normal distribution with mean
-  ![0](https://latex.codecogs.com/png.latex?0 "0") and standard
-  deviation
-  ![\sqrt{\hat{V}}](https://latex.codecogs.com/png.latex?%5Csqrt%7B%5Chat%7BV%7D%7D "\sqrt{\hat{V}}").
+  ![0](https://latex.codecogs.com/png.image?%5Cbg_black&space;0 "0") and
+  standard deviation
+  ![\sqrt{\hat{V}}](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Csqrt%7B%5Chat%7BV%7D%7D "\sqrt{\hat{V}}").
 
 The BFS/OFS provides [formulas to estimate populations and variances of
 the Strukturerhebung](https://portal.collab.admin.ch/sites/317-SE-CUG)
@@ -177,100 +177,109 @@ The estimated populations from the population survey is given by:
 
 <div>
 
-![\hat{N}\_c = \sum\_{i \in r} w_i I_c](https://latex.codecogs.com/png.latex?%5Chat%7BN%7D_c%20%3D%20%5Csum_%7Bi%20%5Cin%20r%7D%20w_i%20I_c "\hat{N}_c = \sum_{i \in r} w_i I_c")
+![\hat{N}\_c = \sum\_{i \in r} w_i I_c](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Chat%7BN%7D_c%20%3D%20%5Csum_%7Bi%20%5Cin%20r%7D%20w_i%20I_c "\hat{N}_c = \sum_{i \in r} w_i I_c")
 
 </div>
 
 where:
 
-- ![w_i](https://latex.codecogs.com/png.latex?w_i "w_i") is the weight
-  for participant ![i](https://latex.codecogs.com/png.latex?i "i");
-- ![I_c = 1](https://latex.codecogs.com/png.latex?I_c%20%3D%201 "I_c = 1")
-  if condition(s) ![c](https://latex.codecogs.com/png.latex?c "c") is
+- ![w_i](https://latex.codecogs.com/png.image?%5Cbg_black&space;w_i "w_i")
+  is the weight for participant
+  ![i](https://latex.codecogs.com/png.image?%5Cbg_black&space;i "i");
+- ![I_c = 1](https://latex.codecogs.com/png.image?%5Cbg_black&space;I_c%20%3D%201 "I_c = 1")
+  if condition(s)
+  ![c](https://latex.codecogs.com/png.image?%5Cbg_black&space;c "c") is
   true, 0 otherwise;
-- ![r](https://latex.codecogs.com/png.latex?r "r") is the set of
-  participants
+- ![r](https://latex.codecogs.com/png.image?%5Cbg_black&space;r "r") is
+  the set of participants
 
 The estimated variance is given by:
 
-![\hat{V}(\hat{N}\_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum\_{i \in r_h}\left(w_i I_c - \frac{\hat{N}\_{hc}}{m_h}\right)^2](https://latex.codecogs.com/png.latex?%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29%20%3D%20%5Csum_h%20%5Cfrac%7Bm_h%7D%7Bm_h%20-%201%7D%5Cleft%281%20-%20%5Cfrac%7Bm_h%7D%7BN_h%7D%5Cright%29%20%5Csum_%7Bi%20%5Cin%20r_h%7D%5Cleft%28w_i%20I_c%20-%20%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2 "\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2")
+![\hat{V}(\hat{N}\_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum\_{i \in r_h}\left(w_i I_c - \frac{\hat{N}\_{hc}}{m_h}\right)^2](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29%20%3D%20%5Csum_h%20%5Cfrac%7Bm_h%7D%7Bm_h%20-%201%7D%5Cleft%281%20-%20%5Cfrac%7Bm_h%7D%7BN_h%7D%5Cright%29%20%5Csum_%7Bi%20%5Cin%20r_h%7D%5Cleft%28w_i%20I_c%20-%20%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2 "\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2")
 
 where:
 
-- ![\hat{N}\_c](https://latex.codecogs.com/png.latex?%5Chat%7BN%7D_c "\hat{N}_c")
+- ![\hat{N}\_c](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Chat%7BN%7D_c "\hat{N}_c")
   is the estimated occurrence of condition
-  ![c](https://latex.codecogs.com/png.latex?c "c");
-- ![h](https://latex.codecogs.com/png.latex?h "h") designates a stratum
-  (e.g. `zone`)
-- ![\hat{N}\_{hc}](https://latex.codecogs.com/png.latex?%5Chat%7BN%7D_%7Bhc%7D "\hat{N}_{hc}")
+  ![c](https://latex.codecogs.com/png.image?%5Cbg_black&space;c "c");
+- ![h](https://latex.codecogs.com/png.image?%5Cbg_black&space;h "h")
+  designates a stratum (e.g. `zone`)
+- ![\hat{N}\_{hc}](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Chat%7BN%7D_%7Bhc%7D "\hat{N}_{hc}")
   is the estimated occurrence of coditions
-  ![c](https://latex.codecogs.com/png.latex?c "c") in stratum
-  ![h](https://latex.codecogs.com/png.latex?h "h");
-- ![N_h](https://latex.codecogs.com/png.latex?N_h "N_h") is the total
-  estimated population in stratum
-  ![h](https://latex.codecogs.com/png.latex?h "h") (sum of weights in
-  stratum h);
-- ![r_h](https://latex.codecogs.com/png.latex?r_h "r_h") is the set of
-  participants in stratum
-  ![h](https://latex.codecogs.com/png.latex?h "h");
-- ![m_h](https://latex.codecogs.com/png.latex?m_h "m_h") is the number
-  of participants in stratum
-  ![h](https://latex.codecogs.com/png.latex?h "h").
+  ![c](https://latex.codecogs.com/png.image?%5Cbg_black&space;c "c") in
+  stratum
+  ![h](https://latex.codecogs.com/png.image?%5Cbg_black&space;h "h");
+- ![N_h](https://latex.codecogs.com/png.image?%5Cbg_black&space;N_h "N_h")
+  is the total estimated population in stratum
+  ![h](https://latex.codecogs.com/png.image?%5Cbg_black&space;h "h")
+  (sum of weights in stratum h);
+- ![r_h](https://latex.codecogs.com/png.image?%5Cbg_black&space;r_h "r_h")
+  is the set of participants in stratum
+  ![h](https://latex.codecogs.com/png.image?%5Cbg_black&space;h "h");
+- ![m_h](https://latex.codecogs.com/png.image?%5Cbg_black&space;m_h "m_h")
+  is the number of participants in stratum
+  ![h](https://latex.codecogs.com/png.image?%5Cbg_black&space;h "h").
 
 Note that the second summation is over the whole stratum, so for
-condition ![c](https://latex.codecogs.com/png.latex?c "c") this becomes:
+condition
+![c](https://latex.codecogs.com/png.image?%5Cbg_black&space;c "c") this
+becomes:
 
 ![\begin{aligned}
 \sum\_{i \in r_h}\left(w_i I_c - \frac{\hat{N}\_{hc}}{m_h}\right)^2 &=
 \sum\_{i \notin r\_{hc}} \left(\frac{\hat{N}\_{hc}}{m_h}\right)^2 + \sum\_{i \in r\_{hc}} \left(w_i - \frac{\hat{N}\_{hc}}{m_h}\right)^2 \\
 &= \left(m_h - m\_{hc}\right) \left(\frac{\hat{N}\_{hc}}{m_h}\right)^2  + \sum\_{i \in r\_{hc}} \left(w_i - \frac{\hat{N}\_{hc}}{m_h}\right)^2
-\end{aligned}](https://latex.codecogs.com/png.latex?%5Cbegin%7Baligned%7D%0A%5Csum_%7Bi%20%5Cin%20r_h%7D%5Cleft%28w_i%20I_c%20-%20%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%20%26%3D%0A%5Csum_%7Bi%20%5Cnotin%20r_%7Bhc%7D%7D%20%5Cleft%28%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%20%2B%20%5Csum_%7Bi%20%5Cin%20r_%7Bhc%7D%7D%20%5Cleft%28w_i%20-%20%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%20%5C%5C%0A%26%3D%20%5Cleft%28m_h%20-%20m_%7Bhc%7D%5Cright%29%20%5Cleft%28%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%20%20%2B%20%5Csum_%7Bi%20%5Cin%20r_%7Bhc%7D%7D%20%5Cleft%28w_i%20-%20%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%0A%5Cend%7Baligned%7D "\begin{aligned}
+\end{aligned}](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Cbegin%7Baligned%7D%0A%5Csum_%7Bi%20%5Cin%20r_h%7D%5Cleft%28w_i%20I_c%20-%20%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%20%26%3D%0A%5Csum_%7Bi%20%5Cnotin%20r_%7Bhc%7D%7D%20%5Cleft%28%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%20%2B%20%5Csum_%7Bi%20%5Cin%20r_%7Bhc%7D%7D%20%5Cleft%28w_i%20-%20%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%20%5C%5C%0A%26%3D%20%5Cleft%28m_h%20-%20m_%7Bhc%7D%5Cright%29%20%5Cleft%28%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%20%20%2B%20%5Csum_%7Bi%20%5Cin%20r_%7Bhc%7D%7D%20%5Cleft%28w_i%20-%20%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%0A%5Cend%7Baligned%7D "\begin{aligned}
 \sum_{i \in r_h}\left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2 &=
 \sum_{i \notin r_{hc}} \left(\frac{\hat{N}_{hc}}{m_h}\right)^2 + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2 \\
 &= \left(m_h - m_{hc}\right) \left(\frac{\hat{N}_{hc}}{m_h}\right)^2  + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2
 \end{aligned}")
 
 where
-![r\_{hc}](https://latex.codecogs.com/png.latex?r_%7Bhc%7D "r_{hc}") is
-the set of respondents in stratum
-![h](https://latex.codecogs.com/png.latex?h "h") who fulfil condition
-![c](https://latex.codecogs.com/png.latex?c "c") and
-![m\_{hc}](https://latex.codecogs.com/png.latex?m_%7Bhc%7D "m_{hc}") the
-number of respondents in
-![r\_{hc}](https://latex.codecogs.com/png.latex?r_%7Bhc%7D "r_{hc}").
+![r\_{hc}](https://latex.codecogs.com/png.image?%5Cbg_black&space;r_%7Bhc%7D "r_{hc}")
+is the set of respondents in stratum
+![h](https://latex.codecogs.com/png.image?%5Cbg_black&space;h "h") who
+fulfil condition
+![c](https://latex.codecogs.com/png.image?%5Cbg_black&space;c "c") and
+![m\_{hc}](https://latex.codecogs.com/png.image?%5Cbg_black&space;m_%7Bhc%7D "m_{hc}")
+the number of respondents in
+![r\_{hc}](https://latex.codecogs.com/png.image?%5Cbg_black&space;r_%7Bhc%7D "r_{hc}").
 
 Finally the original variance estimate equation becomes:
 
-![\hat{V}(\hat{N}\_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \left\[(m_h - m\_{hc}) \left(\frac{\hat{N}\_{hc}}{m_h}\right)^2  + \sum\_{i \in r\_{hc}} \left(w_i - \frac{\hat{N}\_{hc}}{m_h}\right)^2\right\]](https://latex.codecogs.com/png.latex?%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29%20%3D%20%5Csum_h%20%5Cfrac%7Bm_h%7D%7Bm_h%20-%201%7D%5Cleft%281%20-%20%5Cfrac%7Bm_h%7D%7BN_h%7D%5Cright%29%20%5Cleft%5B%28m_h%20-%20m_%7Bhc%7D%29%20%5Cleft%28%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%20%20%2B%20%5Csum_%7Bi%20%5Cin%20r_%7Bhc%7D%7D%20%5Cleft%28w_i%20-%20%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%5Cright%5D "\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \left[(m_h - m_{hc}) \left(\frac{\hat{N}_{hc}}{m_h}\right)^2  + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2\right]")
+![\hat{V}(\hat{N}\_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \left\[(m_h - m\_{hc}) \left(\frac{\hat{N}\_{hc}}{m_h}\right)^2  + \sum\_{i \in r\_{hc}} \left(w_i - \frac{\hat{N}\_{hc}}{m_h}\right)^2\right\]](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29%20%3D%20%5Csum_h%20%5Cfrac%7Bm_h%7D%7Bm_h%20-%201%7D%5Cleft%281%20-%20%5Cfrac%7Bm_h%7D%7BN_h%7D%5Cright%29%20%5Cleft%5B%28m_h%20-%20m_%7Bhc%7D%29%20%5Cleft%28%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%20%20%2B%20%5Csum_%7Bi%20%5Cin%20r_%7Bhc%7D%7D%20%5Cleft%28w_i%20-%20%5Cfrac%7B%5Chat%7BN%7D_%7Bhc%7D%7D%7Bm_h%7D%5Cright%29%5E2%5Cright%5D "\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \left[(m_h - m_{hc}) \left(\frac{\hat{N}_{hc}}{m_h}\right)^2  + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2\right]")
 
 The confidence interval is given by:
 
-![\text{CI} = \sqrt{\hat{V}(\hat{N}\_c)} \times \text{qnorm}(1 - \frac{\alpha}2)](https://latex.codecogs.com/png.latex?%5Ctext%7BCI%7D%20%3D%20%5Csqrt%7B%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Cfrac%7B%5Calpha%7D2%29 "\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}(1 - \frac{\alpha}2)")
+![\text{CI} = \sqrt{\hat{V}(\hat{N}\_c)} \times \text{qnorm}(1 - \frac{\alpha}2)](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Ctext%7BCI%7D%20%3D%20%5Csqrt%7B%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Cfrac%7B%5Calpha%7D2%29 "\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}(1 - \frac{\alpha}2)")
 
-where ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha")
+where
+![\alpha](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Calpha "\alpha")
 is the significance level, for example 0.05 for confidence interval 95%.
 
 `se_summarise()` calculates
-![m_h, N_h, m\_{hc}, \text{and } \hat{N}\_{hc}](https://latex.codecogs.com/png.latex?m_h%2C%20N_h%2C%20m_%7Bhc%7D%2C%20%5Ctext%7Band%20%7D%20%5Chat%7BN%7D_%7Bhc%7D "m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}").
+![m_h, N_h, m\_{hc}, \text{and } \hat{N}\_{hc}](https://latex.codecogs.com/png.image?%5Cbg_black&space;m_h%2C%20N_h%2C%20m_%7Bhc%7D%2C%20%5Ctext%7Band%20%7D%20%5Chat%7BN%7D_%7Bhc%7D "m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}").
 
 `se_estimate_total()` calculates
-![\hat{V}(\hat{N}\_c)](https://latex.codecogs.com/png.latex?%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29 "\hat{V}(\hat{N}_c)"),
+![\hat{V}(\hat{N}\_c)](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Chat%7BV%7D%28%5Chat%7BN%7D_c%29 "\hat{V}(\hat{N}_c)"),
 the true occurrence in the survey sample and confidence intervals.
 
 ### Means
 
 The estimate of the mean of a continuous variable
-![y](https://latex.codecogs.com/png.latex?y "y"), for example the
-average rent of an apartment `rentnet`, is given by the weighted mean:
+![y](https://latex.codecogs.com/png.image?%5Cbg_black&space;y "y"), for
+example the average rent of an apartment `rentnet`, is given by the
+weighted mean:
 
-![\bar y = \frac{\sum_k w_k y_k}{\sum_k w_k}](https://latex.codecogs.com/png.latex?%5Cbar%20y%20%3D%20%5Cfrac%7B%5Csum_k%20w_k%20y_k%7D%7B%5Csum_k%20w_k%7D "\bar y = \frac{\sum_k w_k y_k}{\sum_k w_k}")
+![\bar y = \frac{\sum_k w_k y_k}{\sum_k w_k}](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Cbar%20y%20%3D%20%5Cfrac%7B%5Csum_k%20w_k%20y_k%7D%7B%5Csum_k%20w_k%7D "\bar y = \frac{\sum_k w_k y_k}{\sum_k w_k}")
 
 Variance of
-![\bar y](https://latex.codecogs.com/png.latex?%5Cbar%20y "\bar y") is
-approximated by that of the total of variable
-![z](https://latex.codecogs.com/png.latex?z "z") where:
+![\bar y](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Cbar%20y "\bar y")
+is approximated by that of the total of variable
+![z](https://latex.codecogs.com/png.image?%5Cbg_black&space;z "z")
+where:
 
-![z_k = \frac{y_k - \bar y}{\sum_i w_i}](https://latex.codecogs.com/png.latex?z_k%20%3D%20%5Cfrac%7By_k%20-%20%5Cbar%20y%7D%7B%5Csum_i%20w_i%7D "z_k = \frac{y_k - \bar y}{\sum_i w_i}")
+![z_k = \frac{y_k - \bar y}{\sum_i w_i}](https://latex.codecogs.com/png.image?%5Cbg_black&space;z_k%20%3D%20%5Cfrac%7By_k%20-%20%5Cbar%20y%7D%7B%5Csum_i%20w_i%7D "z_k = \frac{y_k - \bar y}{\sum_i w_i}")
 
 In other words:
 
@@ -278,7 +287,7 @@ In other words:
 \hat V(\bar y) & = \hat V(\hat z) \\
 & = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum\_{i \in r_h}\left(w_i z_i - \frac{\hat z_h}{m_h}\right)^2 \\
 & = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum\_{i \in r_h}\left(w_i z_i - \frac{\sum\_{j \in r_h} w_j z_j}{m_h}\right)^2 \\
-& = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum\_{i \in r_h}\left(w_i \frac{y_i - \bar y}{\sum\_{j \in r_h} w_j} - \frac{\sum\_{j \in r_h} w_j \left(\frac{y_j - \bar y}{\sum\_{k \in r_h} w_k}\right)}{m_h}\right)^2 \end{align\*}](https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%20%0A%5Chat%20V%28%5Cbar%20y%29%20%26%20%3D%20%5Chat%20V%28%5Chat%20z%29%20%5C%5C%0A%26%20%3D%20%5Csum_h%20%5Cfrac%7Bm_h%7D%7Bm_h%20-%201%7D%5Cleft%281%20-%20%5Cfrac%7Bm_h%7D%7BN_h%7D%5Cright%29%20%5Csum_%7Bi%20%5Cin%20r_h%7D%5Cleft%28w_i%20z_i%20-%20%5Cfrac%7B%5Chat%20z_h%7D%7Bm_h%7D%5Cright%29%5E2%20%5C%5C%0A%26%20%3D%20%5Csum_h%20%5Cfrac%7Bm_h%7D%7Bm_h%20-%201%7D%5Cleft%281%20-%20%5Cfrac%7Bm_h%7D%7BN_h%7D%5Cright%29%20%5Csum_%7Bi%20%5Cin%20r_h%7D%5Cleft%28w_i%20z_i%20-%20%5Cfrac%7B%5Csum_%7Bj%20%5Cin%20r_h%7D%20w_j%20z_j%7D%7Bm_h%7D%5Cright%29%5E2%20%5C%5C%0A%26%20%3D%20%5Csum_h%20%5Cfrac%7Bm_h%7D%7Bm_h%20-%201%7D%5Cleft%281%20-%20%5Cfrac%7Bm_h%7D%7BN_h%7D%5Cright%29%20%5Csum_%7Bi%20%5Cin%20r_h%7D%5Cleft%28w_i%20%5Cfrac%7By_i%20-%20%5Cbar%20y%7D%7B%5Csum_%7Bj%20%5Cin%20r_h%7D%20w_j%7D%20-%20%5Cfrac%7B%5Csum_%7Bj%20%5Cin%20r_h%7D%20w_j%20%5Cleft%28%5Cfrac%7By_j%20-%20%5Cbar%20y%7D%7B%5Csum_%7Bk%20%5Cin%20r_h%7D%20w_k%7D%5Cright%29%7D%7Bm_h%7D%5Cright%29%5E2%20%5Cend%7Balign%2A%7D "\begin{align*} 
+& = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum\_{i \in r_h}\left(w_i \frac{y_i - \bar y}{\sum\_{j \in r_h} w_j} - \frac{\sum\_{j \in r_h} w_j \left(\frac{y_j - \bar y}{\sum\_{k \in r_h} w_k}\right)}{m_h}\right)^2 \end{align\*}](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Cbegin%7Balign%2A%7D%20%0A%5Chat%20V%28%5Cbar%20y%29%20%26%20%3D%20%5Chat%20V%28%5Chat%20z%29%20%5C%5C%0A%26%20%3D%20%5Csum_h%20%5Cfrac%7Bm_h%7D%7Bm_h%20-%201%7D%5Cleft%281%20-%20%5Cfrac%7Bm_h%7D%7BN_h%7D%5Cright%29%20%5Csum_%7Bi%20%5Cin%20r_h%7D%5Cleft%28w_i%20z_i%20-%20%5Cfrac%7B%5Chat%20z_h%7D%7Bm_h%7D%5Cright%29%5E2%20%5C%5C%0A%26%20%3D%20%5Csum_h%20%5Cfrac%7Bm_h%7D%7Bm_h%20-%201%7D%5Cleft%281%20-%20%5Cfrac%7Bm_h%7D%7BN_h%7D%5Cright%29%20%5Csum_%7Bi%20%5Cin%20r_h%7D%5Cleft%28w_i%20z_i%20-%20%5Cfrac%7B%5Csum_%7Bj%20%5Cin%20r_h%7D%20w_j%20z_j%7D%7Bm_h%7D%5Cright%29%5E2%20%5C%5C%0A%26%20%3D%20%5Csum_h%20%5Cfrac%7Bm_h%7D%7Bm_h%20-%201%7D%5Cleft%281%20-%20%5Cfrac%7Bm_h%7D%7BN_h%7D%5Cright%29%20%5Csum_%7Bi%20%5Cin%20r_h%7D%5Cleft%28w_i%20%5Cfrac%7By_i%20-%20%5Cbar%20y%7D%7B%5Csum_%7Bj%20%5Cin%20r_h%7D%20w_j%7D%20-%20%5Cfrac%7B%5Csum_%7Bj%20%5Cin%20r_h%7D%20w_j%20%5Cleft%28%5Cfrac%7By_j%20-%20%5Cbar%20y%7D%7B%5Csum_%7Bk%20%5Cin%20r_h%7D%20w_k%7D%5Cright%29%7D%7Bm_h%7D%5Cright%29%5E2%20%5Cend%7Balign%2A%7D "\begin{align*} 
 \hat V(\bar y) & = \hat V(\hat z) \\
 & = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i z_i - \frac{\hat z_h}{m_h}\right)^2 \\
 & = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i z_i - \frac{\sum_{j \in r_h} w_j z_j}{m_h}\right)^2 \\
@@ -286,11 +295,11 @@ In other words:
 
 Here again the confidence interval is given by:
 
-![\text{CI} = \sqrt{\hat{V}(\bar y)} \times \text{qnorm}(1 - \frac{\alpha}2)](https://latex.codecogs.com/png.latex?%5Ctext%7BCI%7D%20%3D%20%5Csqrt%7B%5Chat%7BV%7D%28%5Cbar%20y%29%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Cfrac%7B%5Calpha%7D2%29 "\text{CI} = \sqrt{\hat{V}(\bar y)} \times \text{qnorm}(1 - \frac{\alpha}2)")
+![\text{CI} = \sqrt{\hat{V}(\bar y)} \times \text{qnorm}(1 - \frac{\alpha}2)](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Ctext%7BCI%7D%20%3D%20%5Csqrt%7B%5Chat%7BV%7D%28%5Cbar%20y%29%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Cfrac%7B%5Calpha%7D2%29 "\text{CI} = \sqrt{\hat{V}(\bar y)} \times \text{qnorm}(1 - \frac{\alpha}2)")
 
 `se_estimate_mean()` calculates
-![\bar y](https://latex.codecogs.com/png.latex?%5Cbar%20y "\bar y"),
-![\hat{V}(\bar y)](https://latex.codecogs.com/png.latex?%5Chat%7BV%7D%28%5Cbar%20y%29 "\hat{V}(\bar y)"),
+![\bar y](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Cbar%20y "\bar y"),
+![\hat{V}(\bar y)](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Chat%7BV%7D%28%5Cbar%20y%29 "\hat{V}(\bar y)"),
 the frequency in the survey sample and confidence intervals.
 
 ## Mobility and Transport Survey (MZMV/MRMT)
@@ -300,13 +309,13 @@ From the survey data, `mzmv_estimate_mean()` estimates:
 - average occurrence in the real population: weighted mean of
   sub-population of interest;
 - confidence interval of the estimate with significance level
-  ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha"),
+  ![\alpha](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Calpha "\alpha"),
 
 while `mzmv_estimate_prop()` estimates:
 
 - proportions in the real population
 - confidence interval of the proportion estimate with significance level
-  ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha").
+  ![\alpha](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Calpha "\alpha").
 
 Note that one can simply use `mzmv_estimate_mean()` to estimate both
 proportions and means, as shown below.
@@ -318,16 +327,18 @@ MZMV/MRMT](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports
 
 The estimated mean is:
 
-![\hat{Y} = \frac{1}{\sum\limits\_{i\in r} w_i}\sum\_{i \in r} w_i y_i](https://latex.codecogs.com/png.latex?%5Chat%7BY%7D%20%3D%20%5Cfrac%7B1%7D%7B%5Csum%5Climits_%7Bi%5Cin%20r%7D%20w_i%7D%5Csum_%7Bi%20%5Cin%20r%7D%20w_i%20y_i "\hat{Y} = \frac{1}{\sum\limits_{i\in r} w_i}\sum_{i \in r} w_i y_i")
+![\hat{Y} = \frac{1}{\sum\limits\_{i\in r} w_i}\sum\_{i \in r} w_i y_i](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Chat%7BY%7D%20%3D%20%5Cfrac%7B1%7D%7B%5Csum%5Climits_%7Bi%5Cin%20r%7D%20w_i%7D%5Csum_%7Bi%20%5Cin%20r%7D%20w_i%20y_i "\hat{Y} = \frac{1}{\sum\limits_{i\in r} w_i}\sum_{i \in r} w_i y_i")
 
 where:
 
-- ![w_i](https://latex.codecogs.com/png.latex?w_i "w_i") is the weight
-  for participant ![i](https://latex.codecogs.com/png.latex?i "i");
-- ![y_i](https://latex.codecogs.com/png.latex?y_i "y_i") is the response
-  of participant ![i](https://latex.codecogs.com/png.latex?i "i");
-- ![r](https://latex.codecogs.com/png.latex?r "r") is the set of
-  respondents.
+- ![w_i](https://latex.codecogs.com/png.image?%5Cbg_black&space;w_i "w_i")
+  is the weight for participant
+  ![i](https://latex.codecogs.com/png.image?%5Cbg_black&space;i "i");
+- ![y_i](https://latex.codecogs.com/png.image?%5Cbg_black&space;y_i "y_i")
+  is the response of participant
+  ![i](https://latex.codecogs.com/png.image?%5Cbg_black&space;i "i");
+- ![r](https://latex.codecogs.com/png.image?%5Cbg_black&space;r "r") is
+  the set of respondents.
 
 The [confidence interval of the estimated
 mean](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html)
@@ -336,7 +347,7 @@ is:
 ![\begin{aligned}\text{CI} &= 
 1.14\times Z\_{\alpha}\frac{\hat{\sigma}\_{y}}{\sqrt{n}}\\
 &= 1.14 \times \frac{\hat{\sigma}\_{y}}{\sqrt{n}} \times \text{qnorm}(1 - \frac{\alpha}2)
-\end{aligned}](https://latex.codecogs.com/png.latex?%5Cbegin%7Baligned%7D%5Ctext%7BCI%7D%20%26%3D%20%0A1.14%5Ctimes%20Z_%7B%5Calpha%7D%5Cfrac%7B%5Chat%7B%5Csigma%7D_%7By%7D%7D%7B%5Csqrt%7Bn%7D%7D%5C%5C%0A%26%3D%201.14%20%5Ctimes%20%5Cfrac%7B%5Chat%7B%5Csigma%7D_%7By%7D%7D%7B%5Csqrt%7Bn%7D%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Cfrac%7B%5Calpha%7D2%29%0A%5Cend%7Baligned%7D "\begin{aligned}\text{CI} &= 
+\end{aligned}](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Cbegin%7Baligned%7D%5Ctext%7BCI%7D%20%26%3D%20%0A1.14%5Ctimes%20Z_%7B%5Calpha%7D%5Cfrac%7B%5Chat%7B%5Csigma%7D_%7By%7D%7D%7B%5Csqrt%7Bn%7D%7D%5C%5C%0A%26%3D%201.14%20%5Ctimes%20%5Cfrac%7B%5Chat%7B%5Csigma%7D_%7By%7D%7D%7B%5Csqrt%7Bn%7D%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Cfrac%7B%5Calpha%7D2%29%0A%5Cend%7Baligned%7D "\begin{aligned}\text{CI} &= 
 1.14\times Z_{\alpha}\frac{\hat{\sigma}_{y}}{\sqrt{n}}\\
 &= 1.14 \times \frac{\hat{\sigma}_{y}}{\sqrt{n}} \times \text{qnorm}(1 - \frac{\alpha}2)
 \end{aligned}")
@@ -344,60 +355,67 @@ is:
 where:
 
 - 1.14 is a correction factor;
-- ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha") is
-  the significance level, for example 0.05 for confidence interval 95%;
-- ![Z\_{\alpha}](https://latex.codecogs.com/png.latex?Z_%7B%5Calpha%7D "Z_{\alpha}")
+- ![\alpha](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Calpha "\alpha")
+  is the significance level, for example 0.05 for confidence interval
+  95%;
+- ![Z\_{\alpha}](https://latex.codecogs.com/png.image?%5Cbg_black&space;Z_%7B%5Calpha%7D "Z_{\alpha}")
   is the [Z-value](https://www.z-table.com/) for the desired confidence
   level
-  (![Z\_{0.05} = 1.96](https://latex.codecogs.com/png.latex?Z_%7B0.05%7D%20%3D%201.96 "Z_{0.05} = 1.96")
+  (![Z\_{0.05} = 1.96](https://latex.codecogs.com/png.image?%5Cbg_black&space;Z_%7B0.05%7D%20%3D%201.96 "Z_{0.05} = 1.96")
   for double-sided 95% confidence interval);
-- ![n](https://latex.codecogs.com/png.latex?n "n") is the size of set
-  ![r](https://latex.codecogs.com/png.latex?r "r"), i.e. number of
-  respondents;
-- ![\hat{\sigma}\_{y}^2](https://latex.codecogs.com/png.latex?%5Chat%7B%5Csigma%7D_%7By%7D%5E2 "\hat{\sigma}_{y}^2")
+- ![n](https://latex.codecogs.com/png.image?%5Cbg_black&space;n "n") is
+  the size of set
+  ![r](https://latex.codecogs.com/png.image?%5Cbg_black&space;r "r"),
+  i.e. number of respondents;
+- ![\hat{\sigma}\_{y}^2](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Chat%7B%5Csigma%7D_%7By%7D%5E2 "\hat{\sigma}_{y}^2")
   is the variance of variable
-  ![Y](https://latex.codecogs.com/png.latex?Y "Y") estimated with sample
-  ![r](https://latex.codecogs.com/png.latex?r "r").
+  ![Y](https://latex.codecogs.com/png.image?%5Cbg_black&space;Y "Y")
+  estimated with sample
+  ![r](https://latex.codecogs.com/png.image?%5Cbg_black&space;r "r").
 
 The (sample) variance of variable
-![Y](https://latex.codecogs.com/png.latex?Y "Y") is estimated by:
+![Y](https://latex.codecogs.com/png.image?%5Cbg_black&space;Y "Y") is
+estimated by:
 
-![\hat{\sigma}\_{y}^2 = \frac{\sum\limits\_{i\in r} w_i \left(y_i - \bar{y}\right)^2}{\left(\sum\limits\_{i \in r} w_i \right)- 1}](https://latex.codecogs.com/png.latex?%5Chat%7B%5Csigma%7D_%7By%7D%5E2%20%3D%20%5Cfrac%7B%5Csum%5Climits_%7Bi%5Cin%20r%7D%20w_i%20%5Cleft%28y_i%20-%20%5Cbar%7By%7D%5Cright%29%5E2%7D%7B%5Cleft%28%5Csum%5Climits_%7Bi%20%5Cin%20r%7D%20w_i%20%5Cright%29-%201%7D "\hat{\sigma}_{y}^2 = \frac{\sum\limits_{i\in r} w_i \left(y_i - \bar{y}\right)^2}{\left(\sum\limits_{i \in r} w_i \right)- 1}")
+![\hat{\sigma}\_{y}^2 = \frac{\sum\limits\_{i\in r} w_i \left(y_i - \bar{y}\right)^2}{\left(\sum\limits\_{i \in r} w_i \right)- 1}](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Chat%7B%5Csigma%7D_%7By%7D%5E2%20%3D%20%5Cfrac%7B%5Csum%5Climits_%7Bi%5Cin%20r%7D%20w_i%20%5Cleft%28y_i%20-%20%5Cbar%7By%7D%5Cright%29%5E2%7D%7B%5Cleft%28%5Csum%5Climits_%7Bi%20%5Cin%20r%7D%20w_i%20%5Cright%29-%201%7D "\hat{\sigma}_{y}^2 = \frac{\sum\limits_{i\in r} w_i \left(y_i - \bar{y}\right)^2}{\left(\sum\limits_{i \in r} w_i \right)- 1}")
 
 where
-![\bar{y}](https://latex.codecogs.com/png.latex?%5Cbar%7By%7D "\bar{y}")
+![\bar{y}](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Cbar%7By%7D "\bar{y}")
 is the estimated mean
-![\hat{Y}](https://latex.codecogs.com/png.latex?%5Chat%7BY%7D "\hat{Y}").
+![\hat{Y}](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Chat%7BY%7D "\hat{Y}").
 
 ### Proportions
 
 If
-![y_i \in \\0, 1\\](https://latex.codecogs.com/png.latex?y_i%20%5Cin%20%5C%7B0%2C%201%5C%7D "y_i \in \{0, 1\}"),
+![y_i \in \\0, 1\\](https://latex.codecogs.com/png.image?%5Cbg_black&space;y_i%20%5Cin%20%5C%7B0%2C%201%5C%7D "y_i \in \{0, 1\}"),
 for example possession of a car, then the mean estimate becomes the
 proportion estimate:
 
-![p = \frac{1}{\sum\limits\_{i \in r} w_i} \sum\_{i \in r} w_i I_c](https://latex.codecogs.com/png.latex?p%20%3D%20%5Cfrac%7B1%7D%7B%5Csum%5Climits_%7Bi%20%5Cin%20r%7D%20w_i%7D%20%5Csum_%7Bi%20%5Cin%20r%7D%20w_i%20I_c "p = \frac{1}{\sum\limits_{i \in r} w_i} \sum_{i \in r} w_i I_c")
+![p = \frac{1}{\sum\limits\_{i \in r} w_i} \sum\_{i \in r} w_i I_c](https://latex.codecogs.com/png.image?%5Cbg_black&space;p%20%3D%20%5Cfrac%7B1%7D%7B%5Csum%5Climits_%7Bi%20%5Cin%20r%7D%20w_i%7D%20%5Csum_%7Bi%20%5Cin%20r%7D%20w_i%20I_c "p = \frac{1}{\sum\limits_{i \in r} w_i} \sum_{i \in r} w_i I_c")
 
 where:
 
-- ![w_i](https://latex.codecogs.com/png.latex?w_i "w_i") is the weight
-  for participant ![i](https://latex.codecogs.com/png.latex?i "i");
-- ![I_c = 1](https://latex.codecogs.com/png.latex?I_c%20%3D%201 "I_c = 1")
-  if condition ![c](https://latex.codecogs.com/png.latex?c "c") is true
-  (![y_i = 1](https://latex.codecogs.com/png.latex?y_i%20%3D%201 "y_i = 1")),
+- ![w_i](https://latex.codecogs.com/png.image?%5Cbg_black&space;w_i "w_i")
+  is the weight for participant
+  ![i](https://latex.codecogs.com/png.image?%5Cbg_black&space;i "i");
+- ![I_c = 1](https://latex.codecogs.com/png.image?%5Cbg_black&space;I_c%20%3D%201 "I_c = 1")
+  if condition
+  ![c](https://latex.codecogs.com/png.image?%5Cbg_black&space;c "c") is
+  true
+  (![y_i = 1](https://latex.codecogs.com/png.image?%5Cbg_black&space;y_i%20%3D%201 "y_i = 1")),
   0 otherwise
-  (![y_i = 0](https://latex.codecogs.com/png.latex?y_i%20%3D%200 "y_i = 0"));
-- ![r](https://latex.codecogs.com/png.latex?r "r") is the set of
-  participants.
+  (![y_i = 0](https://latex.codecogs.com/png.image?%5Cbg_black&space;y_i%20%3D%200 "y_i = 0"));
+- ![r](https://latex.codecogs.com/png.image?%5Cbg_black&space;r "r") is
+  the set of participants.
 
 The sample variance in the previous section then becomes:
 
-![\hat{\sigma}\_{p}^2 = \frac{\sum\limits\_{i\in r} w_i \left(I_c - p\right)^2}{\left(\sum\limits\_{i \in r} w_i \right)- 1}](https://latex.codecogs.com/png.latex?%5Chat%7B%5Csigma%7D_%7Bp%7D%5E2%20%3D%20%5Cfrac%7B%5Csum%5Climits_%7Bi%5Cin%20r%7D%20w_i%20%5Cleft%28I_c%20-%20p%5Cright%29%5E2%7D%7B%5Cleft%28%5Csum%5Climits_%7Bi%20%5Cin%20r%7D%20w_i%20%5Cright%29-%201%7D "\hat{\sigma}_{p}^2 = \frac{\sum\limits_{i\in r} w_i \left(I_c - p\right)^2}{\left(\sum\limits_{i \in r} w_i \right)- 1}")
+![\hat{\sigma}\_{p}^2 = \frac{\sum\limits\_{i\in r} w_i \left(I_c - p\right)^2}{\left(\sum\limits\_{i \in r} w_i \right)- 1}](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Chat%7B%5Csigma%7D_%7Bp%7D%5E2%20%3D%20%5Cfrac%7B%5Csum%5Climits_%7Bi%5Cin%20r%7D%20w_i%20%5Cleft%28I_c%20-%20p%5Cright%29%5E2%7D%7B%5Cleft%28%5Csum%5Climits_%7Bi%20%5Cin%20r%7D%20w_i%20%5Cright%29-%201%7D "\hat{\sigma}_{p}^2 = \frac{\sum\limits_{i\in r} w_i \left(I_c - p\right)^2}{\left(\sum\limits_{i \in r} w_i \right)- 1}")
 
 Noting that
-![I_c^2 = I_c](https://latex.codecogs.com/png.latex?I_c%5E2%20%3D%20I_c "I_c^2 = I_c")
+![I_c^2 = I_c](https://latex.codecogs.com/png.image?%5Cbg_black&space;I_c%5E2%20%3D%20I_c "I_c^2 = I_c")
 and
-![\sum\limits_i w_i I_c = p \sum\limits_i w_i](https://latex.codecogs.com/png.latex?%5Csum%5Climits_i%20w_i%20I_c%20%3D%20p%20%5Csum%5Climits_i%20w_i "\sum\limits_i w_i I_c = p \sum\limits_i w_i"),
+![\sum\limits_i w_i I_c = p \sum\limits_i w_i](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Csum%5Climits_i%20w_i%20I_c%20%3D%20p%20%5Csum%5Climits_i%20w_i "\sum\limits_i w_i I_c = p \sum\limits_i w_i"),
 the nominator then becomes:
 
 ![\begin{aligned} \sum\limits\_{i\in r} w_i \left(I_c - p\right)^2 &=
@@ -406,7 +424,7 @@ the nominator then becomes:
 &= p \sum_i w_i + p^2 \sum_i w_i - 2p^2 \sum_i w_i\\
 &= p \sum_i w_i - p^2 \sum_i w_i\\
 &= p(1-p) \sum_i w_i
-\end{aligned}](https://latex.codecogs.com/png.latex?%5Cbegin%7Baligned%7D%20%5Csum%5Climits_%7Bi%5Cin%20r%7D%20w_i%20%5Cleft%28I_c%20-%20p%5Cright%29%5E2%20%26%3D%0A%5Csum_i%20w_i%20%5Cleft%28I_c%5E2%20%2Bp%5E2%20-2pI_c%5Cright%29%20%5C%5C%0A%26%3D%20%5Csum_i%20w_i%20I_c%20%2B%20p%5E2%20%5Csum_i%20w_i%20-2p%5Csum_i%20w_i%20I_c%5C%5C%0A%26%3D%20p%20%5Csum_i%20w_i%20%2B%20p%5E2%20%5Csum_i%20w_i%20-%202p%5E2%20%5Csum_i%20w_i%5C%5C%0A%26%3D%20p%20%5Csum_i%20w_i%20-%20p%5E2%20%5Csum_i%20w_i%5C%5C%0A%26%3D%20p%281-p%29%20%5Csum_i%20w_i%0A%5Cend%7Baligned%7D "\begin{aligned} \sum\limits_{i\in r} w_i \left(I_c - p\right)^2 &=
+\end{aligned}](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Cbegin%7Baligned%7D%20%5Csum%5Climits_%7Bi%5Cin%20r%7D%20w_i%20%5Cleft%28I_c%20-%20p%5Cright%29%5E2%20%26%3D%0A%5Csum_i%20w_i%20%5Cleft%28I_c%5E2%20%2Bp%5E2%20-2pI_c%5Cright%29%20%5C%5C%0A%26%3D%20%5Csum_i%20w_i%20I_c%20%2B%20p%5E2%20%5Csum_i%20w_i%20-2p%5Csum_i%20w_i%20I_c%5C%5C%0A%26%3D%20p%20%5Csum_i%20w_i%20%2B%20p%5E2%20%5Csum_i%20w_i%20-%202p%5E2%20%5Csum_i%20w_i%5C%5C%0A%26%3D%20p%20%5Csum_i%20w_i%20-%20p%5E2%20%5Csum_i%20w_i%5C%5C%0A%26%3D%20p%281-p%29%20%5Csum_i%20w_i%0A%5Cend%7Baligned%7D "\begin{aligned} \sum\limits_{i\in r} w_i \left(I_c - p\right)^2 &=
 \sum_i w_i \left(I_c^2 +p^2 -2pI_c\right) \\
 &= \sum_i w_i I_c + p^2 \sum_i w_i -2p\sum_i w_i I_c\\
 &= p \sum_i w_i + p^2 \sum_i w_i - 2p^2 \sum_i w_i\\
@@ -416,29 +434,30 @@ the nominator then becomes:
 
 Therefore, the estimated sample variance becomes:
 
-![\hat{\sigma}\_{p}^2 = \frac{p(1-p) \sum\limits\_{i} w_i}{\left(\sum\limits\_{i} w_i \right)- 1}](https://latex.codecogs.com/png.latex?%5Chat%7B%5Csigma%7D_%7Bp%7D%5E2%20%3D%20%5Cfrac%7Bp%281-p%29%20%5Csum%5Climits_%7Bi%7D%20w_i%7D%7B%5Cleft%28%5Csum%5Climits_%7Bi%7D%20w_i%20%5Cright%29-%201%7D "\hat{\sigma}_{p}^2 = \frac{p(1-p) \sum\limits_{i} w_i}{\left(\sum\limits_{i} w_i \right)- 1}")
+![\hat{\sigma}\_{p}^2 = \frac{p(1-p) \sum\limits\_{i} w_i}{\left(\sum\limits\_{i} w_i \right)- 1}](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Chat%7B%5Csigma%7D_%7Bp%7D%5E2%20%3D%20%5Cfrac%7Bp%281-p%29%20%5Csum%5Climits_%7Bi%7D%20w_i%7D%7B%5Cleft%28%5Csum%5Climits_%7Bi%7D%20w_i%20%5Cright%29-%201%7D "\hat{\sigma}_{p}^2 = \frac{p(1-p) \sum\limits_{i} w_i}{\left(\sum\limits_{i} w_i \right)- 1}")
 
 which when
-![\sum\limits_i w_i \>\> 1](https://latex.codecogs.com/png.latex?%5Csum%5Climits_i%20w_i%20%3E%3E%201 "\sum\limits_i w_i >> 1")
+![\sum\limits_i w_i \>\> 1](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Csum%5Climits_i%20w_i%20%3E%3E%201 "\sum\limits_i w_i >> 1")
 can be approximated with:
 
-![\hat{\sigma}\_{p}^2 \approx p(1-p)](https://latex.codecogs.com/png.latex?%5Chat%7B%5Csigma%7D_%7Bp%7D%5E2%20%5Capprox%20p%281-p%29 "\hat{\sigma}_{p}^2 \approx p(1-p)")
+![\hat{\sigma}\_{p}^2 \approx p(1-p)](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Chat%7B%5Csigma%7D_%7Bp%7D%5E2%20%5Capprox%20p%281-p%29 "\hat{\sigma}_{p}^2 \approx p(1-p)")
 
 The confidence interval for proportions could therefore be approximated
 with:
 
-![\text{CI} \approx 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)](https://latex.codecogs.com/png.latex?%5Ctext%7BCI%7D%20%5Capprox%201.14%20%5Ctimes%20%5Csqrt%7B%5Cfrac%7Bp%281-p%29%7D%7Bn%7D%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Cfrac%7B%5Calpha%7D%202%29 "\text{CI} \approx 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)")
+![\text{CI} \approx 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Ctext%7BCI%7D%20%5Capprox%201.14%20%5Ctimes%20%5Csqrt%7B%5Cfrac%7Bp%281-p%29%7D%7Bn%7D%7D%20%5Ctimes%20%5Ctext%7Bqnorm%7D%281%20-%20%5Cfrac%7B%5Calpha%7D%202%29 "\text{CI} \approx 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)")
 
 where:
 
-- ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha") is
-  the significance level;
-- ![\text{qnorm}](https://latex.codecogs.com/png.latex?%5Ctext%7Bqnorm%7D "\text{qnorm}")
+- ![\alpha](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Calpha "\alpha")
+  is the significance level;
+- ![\text{qnorm}](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Ctext%7Bqnorm%7D "\text{qnorm}")
   outputs the Z-score for the required significance level
-  ![\alpha](https://latex.codecogs.com/png.latex?%5Calpha "\alpha");
-- ![n](https://latex.codecogs.com/png.latex?n "n") is the size of set
-  ![r](https://latex.codecogs.com/png.latex?r "r"), i.e. number of
-  respondents.
+  ![\alpha](https://latex.codecogs.com/png.image?%5Cbg_black&space;%5Calpha "\alpha");
+- ![n](https://latex.codecogs.com/png.image?%5Cbg_black&space;n "n") is
+  the size of set
+  ![r](https://latex.codecogs.com/png.image?%5Cbg_black&space;r "r"),
+  i.e. number of respondents.
 
 # License
 
