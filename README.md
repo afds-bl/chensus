@@ -1,26 +1,31 @@
-# <img src='man/figures/logo.png' align='right' height='20%' width='20%'/>
-
-
-- [BFSestimates](#bfsestimates)
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Structural survey (*Strukturerhebung* / *relevé
-    structurel*)](#structural-survey-strukturerhebung--relevé-structurel)
-  - [Mobility and Transport Survey
-    (MZMV/MRMT)](#mobility-and-transport-survey-mzmvmrmt)
-- [More Information](#more-information)
-  - [Structural survey(*Strukturerhebung* / *relevé
-    structurel*)](#structural-surveystrukturerhebung--relevé-structurel)
-    - [Totals](#totals)
-    - [Means](#means)
-  - [Mobility and Transport Survey
-    (MZMV/MRMT)](#mobility-and-transport-survey-mzmvmrmt-1)
-    - [Means](#means-1)
-    - [Proportions](#proportions)
-- [License](#license)
-- [Contact](#contact)
-- [Acknowledgments](#acknowledgments)
-- [Citation](#citation)
+---
+title: "<img src='man/figures/logo.png' align='right' height='20%' width='20%'/>"
+output:
+  md_document:
+    variant: gfm+tex_math_dollars
+    preserve_yaml: true
+editor_options:
+  markdown:
+    mode: gfm
+    extensions: +tex_math_dollars+raw_tex
+# format:
+#   gfm:
+#     toc: true
+#     toc_depth: 4
+#     math: true
+#     preview-mode: raw
+    # html-math-method: 
+    #   method: webtex
+    #   url: https://latex.codecogs.com/png.image?%5Cbg_black&space; # for dark mode
+# output: 
+#   github_document:
+#     pandoc_args: "--webtex" #> Better maths rendering in Github https://github.com/rstudio/rmarkdown/issues/1886
+#     toc: true
+#     toc_depth: 4
+# editor_options: 
+#   markdown: 
+#     wrap: 72
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -153,12 +158,12 @@ From the survey data, `se_estimate_total()` estimates:
 
 - occurrences in the real population: sum of weights of sub-population
   of interest;
-- variance $\hat V$ of the estimate;
-- standard deviation ($sd = \sqrt{\hat{V}}$) of the estimate;
-- confidence interval of the estimate with significance level $\alpha$:
-  $\left[(1 - \alpha/2)\times 100\right]^{\text{th}}$ percentile of
-  normal distribution with mean $0$ and standard deviation
-  $\sqrt{\hat{V}}$.
+- variance $`\hat V`$ of the estimate;
+- standard deviation ($`sd = \sqrt{\hat{V}}`$) of the estimate;
+- confidence interval of the estimate with significance level
+  $`\alpha`$: $`\left[(1 - \alpha/2)\times 100\right]^{\text{th}}`$
+  percentile of normal distribution with mean $`0`$ and standard
+  deviation $`\sqrt{\hat{V}}`$.
 
 The BFS/OFS provides [formulas to estimate populations and variances of
 the Strukturerhebung](https://portal.collab.admin.ch/sites/317-SE-CUG)
@@ -168,87 +173,103 @@ in French (`do-f-40-se_METH.pdf`) and German (`do-d-40-se_METH.pdf`).
 
 The estimated populations from the population survey is given by:
 
-$$\hat{N}_c = \sum_{i \in r} w_i I_c$$
+``` math
+\hat{N}_c = \sum_{i \in r} w_i I_c
+```
 
 where:
 
-- $w_i$ is the weight for participant $i$;
-- $I_c = 1$ if condition(s) $c$ is true, 0 otherwise;
-- $r$ is the set of participants.
+- $`w_i`$ is the weight for participant $`i`$;
+- $`I_c = 1`$ if condition(s) $`c`$ is true, 0 otherwise;
+- $`r`$ is the set of participants.
 
 The estimated variance is given by:
 
-$$\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1} \left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h} \left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2$$
+``` math
+\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1} \left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h} \left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2
+```
 
 where:
 
-- $\hat{N}_c$ is the estimated occurrence of condition $c$;
-- $h$ designates a stratum (e.g., `zone`);
-- $\hat{N}_{hc}$ is the estimated occurrence of conditions $c$ in
-  stratum $h$;
-- $N_h$ is the total estimated population in stratum $h$ (sum of weights
-  in stratum $h$);
-- $r_h$ is the set of participants in stratum $h$;
-- $m_h$ is the number of participants in stratum $h$.
+- $`\hat{N}_c`$ is the estimated occurrence of condition $`c`$;
+- $`h`$ designates a stratum (e.g., `zone`);
+- $`\hat{N}_{hc}`$ is the estimated occurrence of conditions $`c`$ in
+  stratum $`h`$;
+- $`N_h`$ is the total estimated population in stratum $`h`$ (sum of
+  weights in stratum $`h`$);
+- $`r_h`$ is the set of participants in stratum $`h`$;
+- $`m_h`$ is the number of participants in stratum $`h`$.
 
-For condition $c$, this becomes:
+For condition $`c`$, this becomes:
 
-$$
+``` math
+
 \begin{aligned}
 \sum_{i \in r_h} \left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2 &= \sum_{i \notin r_{hc}} \left(\frac{\hat{N}_{hc}}{m_h}\right)^2 + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2 \\
 &= \left(m_h - m_{hc}\right) \left(\frac{\hat{N}_{hc}}{m_h}\right)^2 + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2
 \end{aligned}
-$$
+```
 
-where $r_{hc}$ is the set of respondents in stratum $h$ who fulfill
-condition $c$, and $m_{hc}$ is the number of respondents in $r_{hc}$.
+where $`r_{hc}`$ is the set of respondents in stratum $`h`$ who fulfill
+condition $`c`$, and $`m_{hc}`$ is the number of respondents in
+$`r_{hc}`$.
 
 Thus, the original variance estimate equation becomes:
 
-$$
+``` math
+
 \hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1} \left(1 - \frac{m_h}{N_h}\right) \left[(m_h - m_{hc}) \left(\frac{\hat{N}_{hc}}{m_h}\right)^2 + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2\right]
-$$
+```
 
 The confidence interval is given by:
 
-$$
-\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}\left(1 - \frac{\alpha}{2}\right)
-$$
+``` math
 
-where $\alpha$ is the significance level (e.g., 0.05 for a 95%
+\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}\left(1 - \frac{\alpha}{2}\right)
+```
+
+where $`\alpha`$ is the significance level (e.g., 0.05 for a 95%
 confidence interval).
 
 `se_summarise()` calculates
-$m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}$.
+$`m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}`$.
 
-`se_estimate_total()` calculates $\hat{V}(\hat{N}_c)$, the true
+`se_estimate_total()` calculates $`\hat{V}(\hat{N}_c)`$, the true
 occurrence in the survey sample and confidence intervals.
 
 ### Means
 
-The estimate of the mean of a continuous variable $y$, for example the
+The estimate of the mean of a continuous variable $`y`$, for example the
 average rent of an apartment `rentnet`, is given by the weighted mean:
 
-$$\bar y = \frac{\sum_k w_k y_k}{\sum_k w_k}$$
+``` math
+\bar y = \frac{\sum_k w_k y_k}{\sum_k w_k}
+```
 
-Variance of $\bar y$ is approximated by that of the total of variable
-$z$ where: $$z_k = \frac{y_k - \bar y}{\sum_i w_i}$$
+Variance of $`\bar y`$ is approximated by that of the total of variable
+$`z`$ where:
+``` math
+z_k = \frac{y_k - \bar y}{\sum_i w_i}
+```
 
 In other words:
 
-$$
+``` math
+
 \begin{align*} 
 \hat V(\bar y) & = \hat V(\hat z) \\
 & = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i z_i - \frac{\hat z_h}{m_h}\right)^2 \\
 & = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i z_i - \frac{\sum_{j \in r_h} w_j z_j}{m_h}\right)^2 \\
 & = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i \frac{y_i - \bar y}{\sum_{j \in r_h} w_j} - \frac{\sum_{j \in r_h} w_j \left(\frac{y_j - \bar y}{\sum_{k \in r_h} w_k}\right)}{m_h}\right)^2 \end{align*}
-$$
+```
 
 Here again the confidence interval is given by:
 
-$$\text{CI} = \sqrt{\hat{V}(\bar y)} \times \text{qnorm}(1 - \frac{\alpha}2)$$
+``` math
+\text{CI} = \sqrt{\hat{V}(\bar y)} \times \text{qnorm}(1 - \frac{\alpha}2)
+```
 
-`se_estimate_mean()` calculates $\bar y$, $\hat{V}(\bar y)$, the
+`se_estimate_mean()` calculates $`\bar y`$, $`\hat{V}(\bar y)`$, the
 frequency in the survey sample and confidence intervals.
 
 ## Mobility and Transport Survey (MZMV/MRMT)
@@ -257,13 +278,14 @@ From the survey data, `mzmv_estimate_mean()` estimates:
 
 - average occurrence in the real population: weighted mean of
   sub-population of interest;
-- confidence interval of the estimate with significance level $\alpha$,
+- confidence interval of the estimate with significance level
+  $`\alpha`$,
 
 while `mzmv_estimate_prop()` estimates:
 
 - proportions in the real population
 - confidence interval of the proportion estimate with significance level
-  $\alpha$.
+  $`\alpha`$.
 
 Note that one can simply use `mzmv_estimate_mean()` to estimate both
 proportions and means, as shown below.
@@ -275,62 +297,73 @@ MZMV/MRMT](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports
 
 The estimated mean is:
 
-$$\hat{Y} = \frac{1}{\sum\limits_{i\in r} w_i}\sum_{i \in r} w_i y_i$$
+``` math
+\hat{Y} = \frac{1}{\sum\limits_{i\in r} w_i}\sum_{i \in r} w_i y_i
+```
 where:
 
-- $w_i$ is the weight for participant $i$;
-- $y_i$ is the response of participant $i$;
-- $r$ is the set of respondents.
+- $`w_i`$ is the weight for participant $`i`$;
+- $`y_i`$ is the response of participant $`i`$;
+- $`r`$ is the set of respondents.
 
 The [confidence interval of the estimated
 mean](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html)
 is:
 
-$$
+``` math
+
 \begin{aligned}\text{CI} &= 
 1.14\times Z_{\alpha}\frac{\hat{\sigma}_{y}}{\sqrt{n}}\\
 &= 1.14 \times \frac{\hat{\sigma}_{y}}{\sqrt{n}} \times \text{qnorm}(1 - \frac{\alpha}2)
-\end{aligned}$$
+\end{aligned}
+```
 
 where:
 
 - 1.14 is a correction factor;
-- $\alpha$ is the significance level, for example 0.05 for confidence
+- $`\alpha`$ is the significance level, for example 0.05 for confidence
   interval 95%;
-- $Z_{\alpha}$ is the [Z-value](https://www.z-table.com/) for the
-  desired confidence level ($Z_{0.05} = 1.96$ for double-sided 95%
+- $`Z_{\alpha}`$ is the [Z-value](https://www.z-table.com/) for the
+  desired confidence level ($`Z_{0.05} = 1.96`$ for double-sided 95%
   confidence interval);
-- $n$ is the size of set $r$, i.e. number of respondents;
-- $\hat{\sigma}_{y}^2$ is the variance of variable $Y$ estimated with
-  sample $r$.
+- $`n`$ is the size of set $`r`$, i.e. number of respondents;
+- $`\hat{\sigma}_{y}^2`$ is the variance of variable $`Y`$ estimated
+  with sample $`r`$.
 
-The (sample) variance of variable $Y$ is estimated by:
+The (sample) variance of variable $`Y`$ is estimated by:
 
-$$\hat{\sigma}_{y}^2 = \frac{\sum\limits_{i\in r} w_i \left(y_i - \bar{y}\right)^2}{\left(\sum\limits_{i \in r} w_i \right)- 1}$$
-where $\bar{y}$ is the estimated mean $\hat{Y}$.
+``` math
+\hat{\sigma}_{y}^2 = \frac{\sum\limits_{i\in r} w_i \left(y_i - \bar{y}\right)^2}{\left(\sum\limits_{i \in r} w_i \right)- 1}
+```
+where $`\bar{y}`$ is the estimated mean $`\hat{Y}`$.
 
 ### Proportions
 
-If $y_i \in \{0, 1\}$, for example possession of a car, then the mean
+If $`y_i \in \{0, 1\}`$, for example possession of a car, then the mean
 estimate becomes the proportion estimate:
 
-$$p = \frac{1}{\sum\limits_{i \in r} w_i} \sum_{i \in r} w_i I_c$$
+``` math
+p = \frac{1}{\sum\limits_{i \in r} w_i} \sum_{i \in r} w_i I_c
+```
 where:
 
-- $w_i$ is the weight for participant $i$;
-- $I_c = 1$ if condition $c$ is true ($y_i = 1$), 0 otherwise
-  ($y_i = 0$);
-- $r$ is the set of participants.
+- $`w_i`$ is the weight for participant $`i`$;
+- $`I_c = 1`$ if condition $`c`$ is true ($`y_i = 1`$), 0 otherwise
+  ($`y_i = 0`$);
+- $`r`$ is the set of participants.
 
 The sample variance in the previous section then becomes:
 
-$$\hat{\sigma}_{p}^2 = \frac{\sum\limits_{i\in r} w_i \left(I_c - p\right)^2}{\left(\sum\limits_{i \in r} w_i \right)- 1}$$
+``` math
+\hat{\sigma}_{p}^2 = \frac{\sum\limits_{i\in r} w_i \left(I_c - p\right)^2}{\left(\sum\limits_{i \in r} w_i \right)- 1}
+```
 
-Noting that $I_c^2 = I_c$ and
-$\sum\limits_i w_i I_c = p \sum\limits_i w_i$, the nominator then
+Noting that $`I_c^2 = I_c`$ and
+$`\sum\limits_i w_i I_c = p \sum\limits_i w_i`$, the nominator then
 becomes:
 
-$$
+``` math
+
 \begin{aligned} \sum\limits_{i\in r} w_i \left(I_c - p\right)^2 &=
 \sum_i w_i \left(I_c^2 +p^2 -2pI_c\right) \\
 &= \sum_i w_i I_c + p^2 \sum_i w_i -2p\sum_i w_i I_c\\
@@ -338,26 +371,32 @@ $$
 &= p \sum_i w_i - p^2 \sum_i w_i\\
 &= p(1-p) \sum_i w_i
 \end{aligned}
-$$
+```
 
 Therefore, the estimated sample variance becomes:
 
-$$\hat{\sigma}_{p}^2 = \frac{p(1-p) \sum\limits_{i} w_i}{\left(\sum\limits_{i} w_i \right)- 1}$$
+``` math
+\hat{\sigma}_{p}^2 = \frac{p(1-p) \sum\limits_{i} w_i}{\left(\sum\limits_{i} w_i \right)- 1}
+```
 
-which when $\sum\limits_i w_i >> 1$ can be approximated with:
+which when $`\sum\limits_i w_i >> 1`$ can be approximated with:
 
-$$\hat{\sigma}_{p}^2 \approx p(1-p)$$
+``` math
+\hat{\sigma}_{p}^2 \approx p(1-p)
+```
 
 The confidence interval for proportions could therefore be approximated
 with:
 
-$$\text{CI} \approx 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)$$
+``` math
+\text{CI} \approx 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)
+```
 where:
 
-- $\alpha$ is the significance level;
-- $\text{qnorm}$ outputs the Z-score for the required significance level
-  $\alpha$;
-- $n$ is the size of set $r$, i.e. number of respondents.
+- $`\alpha`$ is the significance level;
+- $`\text{qnorm}`$ outputs the Z-score for the required significance
+  level $`\alpha`$;
+- $`n`$ is the size of set $`r`$, i.e. number of respondents.
 
 # License
 
