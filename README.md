@@ -168,53 +168,59 @@ in French (`do-f-40-se_METH.pdf`) and German (`do-d-40-se_METH.pdf`).
 
 The estimated populations from the population survey is given by:
 
-$$\hat{N}_c = \sum_{i \in r} w_i I_c$$
+$$
+\hat{N}_c = \sum_{i \in r} w_i I_c
+$$
 
 where:
 
 - $w_i$ is the weight for participant $i$;
 - $I_c = 1$ if condition(s) $c$ is true, 0 otherwise;
-- $r$ is the set of participants
+- $r$ is the set of participants.
 
 The estimated variance is given by:
 
-$$\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2$$
+$$
+\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1} \left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h} \left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2
+$$
 
 where:
 
 - $\hat{N}_c$ is the estimated occurrence of condition $c$;
-- $h$ designates a stratum (e.g. `zone`)
-- $\hat{N}_{hc}$ is the estimated occurrence of coditions $c$ in stratum
-  $h$;
+- $h$ designates a stratum (e.g., `zone`);
+- $\hat{N}_{hc}$ is the estimated occurrence of conditions $c$ in
+  stratum $h$;
 - $N_h$ is the total estimated population in stratum $h$ (sum of weights
-  in stratum h);
+  in stratum $h$);
 - $r_h$ is the set of participants in stratum $h$;
 - $m_h$ is the number of participants in stratum $h$.
 
-Note that the second summation is over the whole stratum, so for
-condition $c$ this becomes:
+For condition $c$, this becomes:
 
 $$
 \begin{aligned}
-\sum_{i \in r_h}\left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2 &=
-\sum_{i \notin r_{hc}} \left(\frac{\hat{N}_{hc}}{m_h}\right)^2 + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2 \\
-&= \left(m_h - m_{hc}\right) \left(\frac{\hat{N}_{hc}}{m_h}\right)^2  + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2
+\sum_{i \in r_h} \left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2 &= \sum_{i \notin r_{hc}} \left(\frac{\hat{N}_{hc}}{m_h}\right)^2 + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2 \\
+&= \left(m_h - m_{hc}\right) \left(\frac{\hat{N}_{hc}}{m_h}\right)^2 + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2
 \end{aligned}
 $$
 
 where $r_{hc}$ is the set of respondents in stratum $h$ who fulfill
 condition $c$, and $m_{hc}$ is the number of respondents in $r_{hc}$.
 
-Finally the original variance estimate equation becomes:
+Thus, the original variance estimate equation becomes:
 
-$$\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \left[(m_h - m_{hc}) \left(\frac{\hat{N}_{hc}}{m_h}\right)^2  + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2\right]$$
+$$
+\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1} \left(1 - \frac{m_h}{N_h}\right) \left[(m_h - m_{hc}) \left(\frac{\hat{N}_{hc}}{m_h}\right)^2 + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2\right]
+$$
 
 The confidence interval is given by:
 
-$$\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}\left(1 - \frac{\alpha}2\right)$$
+$$
+\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}\left(1 - \frac{\alpha}{2}\right)
+$$
 
-where $\alpha$ is the significance level, for example 0.05 for
-confidence interval 95%.
+where $\alpha$ is the significance level (e.g., 0.05 for a 95%
+confidence interval).
 
 `se_summarise()` calculates
 $m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}$.
