@@ -3,6 +3,7 @@ title: "<img src='man/figures/logo.png' align='right' height='20%' width='20%'/>
 editor_options:
   markdown:
     mode: gfm
+    extensions: +tex_math_dollars+raw_tex
 # format:
 #   gfm:
 #     toc: true
