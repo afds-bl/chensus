@@ -14,7 +14,7 @@ Description: Estimates population sizes, averages and confidence intervals
     Mobilität und Verkehr" / "Microrecensement mobilité et transports",
     and obtain estimates of totals and confidence intervals.
 License: GPL (>= 3)
-URL: https://kww.git.bl.ch/statistisches-amt/r-programming/bfsestimates
+URL: https://github.com/afds-bl/bfsestimates
 Imports: 
     dplyr,
     purrr,

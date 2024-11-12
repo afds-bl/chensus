@@ -350,7 +350,7 @@ Distributed under the GPL-3 License. See `LICENSE` for more information.
 
 # Contact
 
-[Souad Guemghar](souad.guemghar@bl.ch)
+[Souad Guemghar](mailto:souad.guemghar@bl.ch)
 
 # Acknowledgments
 
