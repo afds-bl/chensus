@@ -377,7 +377,7 @@ Distributed under the GPL-3 License. See `LICENSE` for more information.
 
 # Contact
 
-[Souad Guemghar](souad.guemghar@bl.ch)
+[Souad Guemghar](mailto:souad.guemghar@bl.ch)
 
 # Acknowledgments
 
@@ -397,16 +397,16 @@ utils::citation("BFSestimates")
       Guemghar, S. (2024). BFSestimates: Estimate Totals, Averages and
       Confidence Intervals of Bundesamt für Statistik's Surveys. R package
       version 2.2.0. Amt für Daten und Statistik, Basel-Landschaft.
-      https://kww.git.bl.ch/statistisches-amt/r-programming/bfsestimates
+      https://github.com/afds-bl/bfsestimates
 
     A BibTeX entry for LaTeX users is
 
       @Manual{,
-        title = {{BFSestimates}: Estimate Totals, Averages and Confidence Intervals of Bundesamt
-    für Statistik's Surveys},
+        title = {{BFSestimates}: Estimate Totals, Averages and Confidence Intervals of Bundesamt für
+    Statistik's Surveys},
         author = {Souad Guemghar},
         organization = {Amt für Daten und Statistik, Basel-Landschaft},
         note = {R package version 2.2.0},
         year = {2024},
-        url = {https://kww.git.bl.ch/statistisches-amt/r-programming/bfsestimates},
+        url = {https://github.com/afds-bl/bfsestimates},
       }
