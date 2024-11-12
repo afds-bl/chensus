@@ -4,9 +4,9 @@ format:
   gfm:
     toc: true
     toc_depth: 4
-    html-math-method: 
-      method: webtex
-      url: https://latex.codecogs.com/png.image?%5Cbg_black&space; # for dark mode
+    # html-math-method: 
+    #   method: webtex
+    #   url: https://latex.codecogs.com/png.image?%5Cbg_black&space; # for dark mode
 # output: 
 #   github_document:
 #     pandoc_args: "--webtex" #> Better maths rendering in Github https://github.com/rstudio/rmarkdown/issues/1886
