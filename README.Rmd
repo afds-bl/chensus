@@ -143,9 +143,7 @@ variances of the Strukturerhebung](https://portal.collab.admin.ch/sites/317-SE-C
 
 The estimated populations from the population survey is given by:
 
-<div>
 $$\hat{N}_c = \sum_{i \in r} w_i I_c$$
-</div>
 
 where:
 
@@ -154,6 +152,7 @@ where:
 -   $r$ is the set of participants
 
 The estimated variance is given by:
+
 $$\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2$$
 
 where:
@@ -168,14 +167,17 @@ where:
 -   $m_h$ is the number of participants in stratum $h$.
 
 Note that the second summation is over the whole stratum, so for
-condition $c$ this becomes: $$
+condition $c$ this becomes: 
+
+$$
 \begin{aligned}
 \sum_{i \in r_h}\left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2 &=
 \sum_{i \notin r_{hc}} \left(\frac{\hat{N}_{hc}}{m_h}\right)^2 + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2 \\
 &= \left(m_h - m_{hc}\right) \left(\frac{\hat{N}_{hc}}{m_h}\right)^2  + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2
 \end{aligned}
-$$ where $r_{hc}$ is the set of respondents in stratum $h$ who fulfil
-condition $c$ and $m_{hc}$ the number of respondents in $r_{hc}$.
+$$ 
+
+where $r_{hc}$ is the set of respondents in stratum $h$ who fulfill condition $c$, and $m_{hc}$ is the number of respondents in $r_{hc}$.
 
 Finally the original variance estimate equation becomes:
 
@@ -183,7 +185,8 @@ $$\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right
 
 The confidence interval is given by:
 
-$$\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}(1 - \frac{\alpha}2)$$
+$$\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}\left(1 - \frac{\alpha}2\right)$$
+
 where $\alpha$ is the significance level, for example 0.05 for
 confidence interval 95%.
 
