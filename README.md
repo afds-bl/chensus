@@ -159,7 +159,7 @@ From the survey data, `se_estimate_total()` estimates:
 - occurrences in the real population: sum of weights of sub-population
   of interest;
 - variance $`\hat V`$ of the estimate;
-- standard deviation ($`sd = \sqrt{\hat{V}}`$) of the estimate;
+- standard deviation ($`\sqrt{\hat{V}}`$) of the estimate;
 - confidence interval of the estimate with significance level
   $`\alpha`$: $`\left[(1 - \alpha/2)\times 100\right]^{\text{th}}`$
   percentile of normal distribution with mean $`0`$ and standard
