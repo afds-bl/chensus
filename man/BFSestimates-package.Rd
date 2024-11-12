@@ -13,7 +13,7 @@ Estimates population sizes, averages and confidence intervals from "Bundesamt f√
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://kww.git.bl.ch/statistisches-amt/r-programming/bfsestimates}
+  \item \url{https://github.com/afds-bl/bfsestimates}
 }
 
 }
