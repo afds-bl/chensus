@@ -21,10 +21,10 @@ weights}
 \value{
 Tibble (number of rows is length of \code{variable}) with the following columns:
 \itemize{
-\item{\code{id}: }{estimated item}
-\item{\code{nc}: }{number of survey responses}
-\item{\code{wmean}: }{weighted mean estimate}
-\item{\code{ci}: }{confidence interval estimate}
+\item \code{id}: estimated item
+\item \code{nc}: number of survey responses
+\item \code{wmean}: weighted mean estimate
+\item \code{ci}: confidence interval estimate
 }
 }
 \description{

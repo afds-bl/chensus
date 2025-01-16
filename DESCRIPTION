@@ -18,7 +18,8 @@ Imports:
     purrr,
     tidyr
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    tibble
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
