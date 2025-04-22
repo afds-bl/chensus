@@ -18,11 +18,11 @@
 #'
 #' @return Tibble, with the following columns:
 #'  \itemize{
-#'  \item{\code{occ}: }{true frequency in survey sample}
-#'  \item{\code{average}: }{estimated mean}
-#'  \item{\code{vhat}: }{estimated variance}
-#'  \item{\code{stand_dev}: }{standard deviation}
-#'  \item{\code{ci}: }{absolute confidence interval}
+#'  \item \code{occ}: true frequency in survey sample
+#'  \item \code{average}: estimated mean
+#'  \item \code{vhat}: estimated variance
+#'  \item \code{stand_dev}: standard deviation
+#'  \item \code{ci}: absolute confidence interval
 #'  }
 #' @import dplyr
 #' @export
