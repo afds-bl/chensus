@@ -1,9 +1,8 @@
-[![R-CMD-check.yaml](https://github.com/afds-bl/bfsestimates/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/afds-bl/bfsestimates/actions/workflows/R-CMD-check.yaml)
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<img src='man/figures/logo.png' style="float: right; width: 20%; height: auto;" />
+# BFSestimates <img src="man/figures/logo.png" align="right" />
 
-# BFSestimates
+[![R-CMD-check.yaml](https://github.com/afds-bl/bfsestimates/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/afds-bl/bfsestimates/actions/workflows/R-CMD-check.yaml)
 
 The goal of BFSestimates is to estimate population frequencies, means,
 proportions and confidence intervals from surveys conducted by the
