@@ -12,10 +12,10 @@
 #'
 #' @returns Tibble (number of rows is length of \code{variable}) with the following columns:
 #' \itemize{
-#' \item{\code{id}: }{estimated item}
-#' \item{\code{nc}: }{number of survey responses}
-#' \item{\code{wmean}: }{weighted mean estimate}
-#' \item{\code{ci}: }{confidence interval estimate}
+#' \item \code{id}: estimated item
+#' \item \code{nc}: number of survey responses
+#' \item \code{wmean}: weighted mean estimate
+#' \item \code{ci}: confidence interval estimate
 #' }
 #'
 #' @seealso See \code{\link{mzmv_estimate_mean_map}} for estimates on a set of conditions.
@@ -70,10 +70,10 @@ mzmv_estimate_mean <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
 #'
 #' @returns Tibble (number of rows is length of \code{variable}) with the following columns:
 #' \itemize{
-#' \item{\code{id}: }{estimated item}
-#' \item{\code{nc}: }{number of survey responses}
-#' \item{\code{wmean}: }{weighted mean estimate}
-#' \item{\code{ci}: }{confidence interval estimate}
+#' \item \code{id}: estimated item
+#' \item \code{nc}: number of survey responses
+#' \item \code{wmean}: weighted mean estimate
+#' \item \code{ci}: confidence interval estimate
 #' }
 #'
 #' @examples
@@ -127,9 +127,9 @@ mzmv_estimate_mean_map <- function(data, variable, condition = NULL, weight, cf 
 #' @param data Tibble
 #' @param variable Vector of strings, names of variables to be estimated. Variables are binary with integer values:
 #' \itemize{
-#' \item{1: }{if condition is present}
-#' \item{0: }{if condition is absent}
-#' \item{negative: }{if \code{NA}}
+#' \item 1: if condition is present
+#' \item 0: if condition is absent
+#' \item negative: if \code{NA}
 #' }
 #' @param weight Character string, name of the column containing the
 #' weights
@@ -138,8 +138,8 @@ mzmv_estimate_mean_map <- function(data, variable, condition = NULL, weight, cf 
 #'
 #' @returns Vector, with the following values:
 #' \itemize{
-#' \item{\code{p}: }{proportion estimate}
-#' \item{\code{ci}: }{confidence interval estimate}
+#' \item \code{p}: proportion estimate
+#' \item \code{ci}: confidence interval estimate
 #' }
 #'
 #' @examples

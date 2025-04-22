@@ -11,9 +11,9 @@ mzmv_estimate_prop(data, variable, weight, cf = 1.14, alpha = 0.1)
 
 \item{variable}{Vector of strings, names of variables to be estimated. Variables are binary with integer values:
 \itemize{
-\item{1: }{if condition is present}
-\item{0: }{if condition is absent}
-\item{negative: }{if \code{NA}}
+\item 1: if condition is present
+\item 0: if condition is absent
+\item negative: if \code{NA}
 }}
 
 \item{weight}{Character string, name of the column containing the
@@ -26,8 +26,8 @@ weights}
 \value{
 Vector, with the following values:
 \itemize{
-\item{\code{p}: }{proportion estimate}
-\item{\code{ci}: }{confidence interval estimate}
+\item \code{p}: proportion estimate
+\item \code{ci}: confidence interval estimate
 }
 }
 \description{
