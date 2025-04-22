@@ -14,10 +14,8 @@ Federal Statistical Office (FSO):
 
 # Installation
 
-You can install the development version of `BFSestimates` from
-[GitHub](https://github.com/afds-bl/BFSestimates):
-
 ``` r
+# Install from GitHub
 remotes::install_github("afds-bl/BFSestimates")
 ```
 
