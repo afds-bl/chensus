@@ -6,4 +6,4 @@
 *.html
 bfsestimates.Rproj
 *.Rproj
-*_Rcheck/
+*.Rcheck/
