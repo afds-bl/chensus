@@ -1,6 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# BFSestimates <img src="man/figures/logo.png" align="right" />
+# BFSestimates <img src="man/figures/logo.png" align="right" width="10%" />
 
 [![R-CMD-check.yaml](https://github.com/afds-bl/bfsestimates/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/afds-bl/bfsestimates/actions/workflows/R-CMD-check.yaml)
 
