@@ -25,7 +25,7 @@ editor_options:
 #   markdown: 
 #     wrap: 72
 ---
-
+[![R-CMD-check.yaml](https://github.com/afds-bl/bfsestimates/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/afds-bl/bfsestimates/actions/workflows/R-CMD-check.yaml)
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
