@@ -5,3 +5,6 @@
 README.html
 init.log
 ^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
