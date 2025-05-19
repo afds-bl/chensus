@@ -69,7 +69,10 @@ hexSticker::sticker(
 )
 
 # Load fonts
-font_add_google("Roboto", "roboto")
+# curl issues do not allow fetching font from internet
+# Download then fetch locally
+font_add(family = "Roboto", regular = "~/_home/.coderbar/Roboto-Regular.ttf")
+# font_add_google("Roboto", "roboto") 
 showtext_auto()
 
 # Create the sticker
@@ -83,7 +86,7 @@ sticker(
   s_width = 1.4,                   # Width of the plot
   s_height = 1.2,                  # Height of the plot
   h_fill = "#e6f2f2",              # Background color of the hex
-  h_color = mint1,             # Border color of the hex
+  h_color = mint_1,             # Border color of the hex
   h_size = 2,
   filename = "man/figures/logo_white.png"
   # p_family = "roboto"              # Font family for the package name
