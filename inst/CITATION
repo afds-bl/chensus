@@ -1,7 +1,7 @@
 citHeader("To cite 'chensus' in publications, please use:")
 
 note  <- paste("R package version", meta$Version)
-year <- "2024"
+year <- "2025"
 author <- sub("^(\\w+\\s+\\w+).*", "\\1", meta$Author)
 text_author <- "Guemghar, S."
 organization <- sub(".*\\n\\s*(.*?)\\s*\\[.*", "\\1", meta$Author)

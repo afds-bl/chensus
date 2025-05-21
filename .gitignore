@@ -4,7 +4,7 @@
 .Ruserdata
 .Rproj
 *.html
-bfsestimates.Rproj
+*.Rproj
 *.Rproj
 *.Rcheck/
 docs

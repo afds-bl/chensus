@@ -2,7 +2,7 @@
 
 # chensus <img src="man/figures/logo.png" align="right" width="10%" />
 
-[![R-CMD-check.yaml](https://github.com/afds-bl/bfsestimates/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/afds-bl/bfsestimates/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check.yaml](https://github.com/afds-bl/chensus/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/afds-bl/chensus/actions/workflows/R-CMD-check.yaml)
 
 The goal of chensus is to estimate population frequencies, means,
 proportions and confidence intervals from surveys conducted by the
@@ -391,10 +391,10 @@ utils::citation("chensus")
 
     To cite 'chensus' in publications, please use:
 
-      Guemghar, S. (2024). chensus: Estimate Totals, Averages and
+      Guemghar, S. (2025). chensus: Estimate Totals, Averages and
       Confidence Intervals of the Federal Statistic Office's Surveys. R
-      package version 2.2.0. Amt für Daten und Statistik, Basel-Landschaft.
-      https://github.com/afds-bl/bfsestimates
+      package version 1.0.0. Amt für Daten und Statistik, Basel-Landschaft.
+      https://github.com/afds-bl/chensus
 
     A BibTeX entry for LaTeX users is
 
@@ -402,7 +402,7 @@ utils::citation("chensus")
         title = {{chensus}: Estimate Totals, Averages and Confidence Intervals of the Federal Statistic Office's Surveys},
         author = {Souad Guemghar},
         organization = {Amt für Daten und Statistik, Basel-Landschaft},
-        note = {R package version 2.2.0},
-        year = {2024},
-        url = {https://github.com/afds-bl/bfsestimates},
+        note = {R package version 1.0.0},
+        year = {2025},
+        url = {https://github.com/afds-bl/chensus},
       }

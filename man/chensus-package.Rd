@@ -13,7 +13,7 @@ Estimates population sizes, averages and confidence intervals from the Federal S
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/afds-bl/bfsestimates}
+  \item \url{https://github.com/afds-bl/chensus}
 }
 
 }
