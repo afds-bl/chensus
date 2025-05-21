@@ -1,5 +1,5 @@
 Type: Package
-Package: BFSestimates
+Package: chensus
 Title: Estimate Totals, Averages and Confidence Intervals of the Federal Statistic Office's Surveys
 Version: 2.2.0
 Authors@R: c(

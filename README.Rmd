@@ -39,11 +39,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-# BFSestimates <img src="man/figures/logo.png" align="right" width="10%" />
+# chensus <img src="man/figures/logo.png" align="right" width="10%" />
 
 [![R-CMD-check.yaml](https://github.com/afds-bl/bfsestimates/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/afds-bl/bfsestimates/actions/workflows/R-CMD-check.yaml)
 
-The goal of BFSestimates is to estimate population frequencies, means,
+The goal of chensus is to estimate population frequencies, means,
 proportions and confidence intervals from surveys conducted by
 the Federal Statistical Office (FSO):
 
@@ -55,7 +55,7 @@ the Federal Statistical Office (FSO):
 
 ```{r eval = FALSE}
 # Install from GitHub
-remotes::install_github("afds-bl/BFSestimates")
+remotes::install_github("afds-bl/chensus")
 ```
 
 # Usage
@@ -65,7 +65,7 @@ As an example, we use the [National Health and Nutrition Examination Survey (NHA
 ```{r}
 #| echo: false
 
-library(BFSestimates)
+library(chensus)
 library(dplyr)
 
 glimpse(nhanes)
@@ -78,7 +78,7 @@ glimpse(nhanes)
 Here we estimate the male and female populations:
 
 ```{r example1}
-library(BFSestimates)
+library(chensus)
 
 se_estimate_total(
   data = nhanes,
@@ -89,7 +89,7 @@ se_estimate_total(
 ```
 
 ```{r example2}
-library(BFSestimates)
+library(chensus)
 se_estimate_mean(
   data = nhanes, 
   variable = "household_size", 
@@ -103,7 +103,7 @@ se_estimate_mean(
 Here we estimate the annual household and family incomes:
 
 ```{r example3}
-library(BFSestimates)
+library(chensus)
 
 mzmv_estimate_mean(
   data = nhanes,
@@ -115,7 +115,7 @@ mzmv_estimate_mean(
 We can also use the `mzmv_estimate_mean_map()` function with a set of conditions:
 
 ``` {r}
-library(BFSestimates)
+library(chensus)
 
 variable <- c("annual_household_income", "annual_family_income")
 condition <- c("gender", "interview_lang")
@@ -358,10 +358,10 @@ structurel*. Many thanks Sandro for the great work and support!
 # Citation
 
 ```{r eval = FALSE}
-utils::citation("BFSestimates")
+utils::citation("chensus")
 ```
 
 
 ```{r echo = FALSE}
-utils::citation("BFSestimates")
+utils::citation("chensus")
 ```

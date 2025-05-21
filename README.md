@@ -1,10 +1,10 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# BFSestimates <img src="man/figures/logo.png" align="right" width="10%" />
+# chensus <img src="man/figures/logo.png" align="right" width="10%" />
 
 [![R-CMD-check.yaml](https://github.com/afds-bl/bfsestimates/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/afds-bl/bfsestimates/actions/workflows/R-CMD-check.yaml)
 
-The goal of BFSestimates is to estimate population frequencies, means,
+The goal of chensus is to estimate population frequencies, means,
 proportions and confidence intervals from surveys conducted by the
 Federal Statistical Office (FSO):
 
@@ -16,7 +16,7 @@ Federal Statistical Office (FSO):
 
 ``` r
 # Install from GitHub
-remotes::install_github("afds-bl/BFSestimates")
+remotes::install_github("afds-bl/chensus")
 ```
 
 # Usage
@@ -49,7 +49,7 @@ and demographic features:
 Here we estimate the male and female populations:
 
 ``` r
-library(BFSestimates)
+library(chensus)
 
 se_estimate_total(
   data = nhanes,
@@ -65,7 +65,7 @@ se_estimate_total(
 ```
 
 ``` r
-library(BFSestimates)
+library(chensus)
 se_estimate_mean(
   data = nhanes, 
   variable = "household_size", 
@@ -80,7 +80,7 @@ se_estimate_mean(
 Here we estimate the annual household and family incomes:
 
 ``` r
-library(BFSestimates)
+library(chensus)
 
 mzmv_estimate_mean(
   data = nhanes,
@@ -96,7 +96,7 @@ We can also use the `mzmv_estimate_mean_map()` function with a set of
 conditions:
 
 ``` r
-library(BFSestimates)
+library(chensus)
 
 variable <- c("annual_household_income", "annual_family_income")
 condition <- c("gender", "interview_lang")
@@ -386,12 +386,12 @@ structurel*. Many thanks Sandro for the great work and support!
 # Citation
 
 ``` r
-utils::citation("BFSestimates")
+utils::citation("chensus")
 ```
 
-    To cite 'BFSestimates' in publications, please use:
+    To cite 'chensus' in publications, please use:
 
-      Guemghar, S. (2024). BFSestimates: Estimate Totals, Averages and
+      Guemghar, S. (2024). chensus: Estimate Totals, Averages and
       Confidence Intervals of the Federal Statistic Office's Surveys. R
       package version 2.2.0. Amt für Daten und Statistik, Basel-Landschaft.
       https://github.com/afds-bl/bfsestimates
@@ -399,7 +399,7 @@ utils::citation("BFSestimates")
     A BibTeX entry for LaTeX users is
 
       @Manual{,
-        title = {{BFSestimates}: Estimate Totals, Averages and Confidence Intervals of the Federal Statistic Office's Surveys},
+        title = {{chensus}: Estimate Totals, Averages and Confidence Intervals of the Federal Statistic Office's Surveys},
         author = {Souad Guemghar},
         organization = {Amt für Daten und Statistik, Basel-Landschaft},
         note = {R package version 2.2.0},

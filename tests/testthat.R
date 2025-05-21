@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(BFSestimates)
+library(chensus)
 
-test_check("BFSestimates")
+test_check("chensus")

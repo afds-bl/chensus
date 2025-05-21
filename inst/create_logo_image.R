@@ -45,7 +45,7 @@ ggsave("man/figures/dnorm.png")
 # Create and save sticker
 hexSticker::sticker(
   subplot = p,
-  package = "BFSestimates",
+  package = "chensus",
   p_size = 20,
   p_color = "white",
   p_x = .8,
@@ -78,7 +78,7 @@ showtext_auto()
 # Create the sticker
 sticker(
   p,                               # Plot to display
-  package = "BFSestimates",        # Text label for the package name
+  package = "chensus",        # Text label for the package name
   p_size = 20,                     # Package name font size
   p_color = "#cb1c32",             # Package name color (matching the red color in the plot)
   s_x = 1,                         # Position of the plot on the x-axis

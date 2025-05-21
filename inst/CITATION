@@ -1,4 +1,4 @@
-citHeader("To cite 'BFSestimates' in publications, please use:")
+citHeader("To cite 'chensus' in publications, please use:")
 
 note  <- paste("R package version", meta$Version)
 year <- "2024"
