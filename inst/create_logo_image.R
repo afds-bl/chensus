@@ -88,7 +88,7 @@ sticker(
   h_fill = "#e6f2f2",              # Background color of the hex
   h_color = mint_1,             # Border color of the hex
   h_size = 2,
-  filename = "man/figures/logo_white.png"
+  filename = "man/figures/logo.png"
   # p_family = "roboto"              # Font family for the package name
 )
 
