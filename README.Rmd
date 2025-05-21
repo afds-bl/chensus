@@ -47,7 +47,7 @@ The goal of chensus is to estimate population frequencies, means,
 proportions and confidence intervals from surveys conducted by
 the Federal Statistical Office (FSO):
 
--   structural survey: *Strukturerhebung* (SE) / *relevé structurel*,
+-   structural survey: *Strukturerhebung* (SE) / *relevé structurel* (RS),
 -   mobility and transport survey: *Mikrozensus Mobilität und Verkehr*
     (MZMV) / *Microrecensement mobilité et transports* (MRMT).
 
