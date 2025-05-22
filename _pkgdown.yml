@@ -1,5 +1,5 @@
-url: ~
 template:
-  bootstrap: 5
-logo: null
-favicon: false
+  opengraph: []
+  twitter:
+    card: false
+  favicon: false
