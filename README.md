@@ -6,9 +6,9 @@
 [![License: GPL
 v3](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
-`chensus` estimates population frequencies, means, proportions and
-confidence intervals from surveys conducted by the Federal Statistical
-Office (FSO):
+The `chensus` package estimates population frequencies, means,
+proportions and confidence intervals from surveys conducted by the
+Federal Statistical Office (FSO):
 
 - structural survey: *Strukturerhebung* (SE) / *relevé structurel* (RS),
 - mobility and transport survey: *Mikrozensus Mobilität und Verkehr*
@@ -32,16 +32,13 @@ remotes::install_github("afds-bl/chensus")
 
 # Usage
 
-As an example, we use the [National Health and Nutrition Examination
-Survey (NHANES)
-dataset](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) for the
-period 2015-2016 (more with `?nhanes`). Its structure is similar to FSO
-survey data in that it contains `strata` and `weights` columns and
-demographic features such as `gender` and `household_size`.
-
 ## Structural survey (*Strukturerhebung* / *relevé structurel*)
 
-Here we estimate the male and female populations:
+Here we estimate the male and female populations of the built-in
+`nhanes` dataset, which contains a subset of data from the [National
+Health and Nutrition Examination
+Survey](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) (more
+with `?nhanes`).
 
 ``` r
 library(chensus)

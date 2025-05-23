@@ -1,0 +1,103 @@
+---
+title: "chensus"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{chensus}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, warning=FALSE, message=FALSE}
+library(chensus)
+library(tidyverse)
+```
+
+# Introduction
+
+The `chensus` package estimates population frequencies, means,
+proportions and confidence intervals from surveys conducted by
+the Federal Statistical Office (FSO):
+
+-   structural survey: *Strukturerhebung* (SE) / *relevé structurel* (RS),
+-   mobility and transport survey: *Mikrozensus Mobilität und Verkehr*
+    (MZMV) / *Microrecensement mobilité et transports* (MRMT).
+
+## Example Data
+
+In this vignette, we demonstrate the main features of the package using the built-in `nhanes` dataset, which contains a subset of data from the [National Health and Nutrition Examination Survey](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) for the period 2015-2016 (more with `?nhanes`). Its structure is similar to FSO survey data in that it contains `strata` and `weights` columns and demographic features such as `gender` and `household_size`. 
+## Notes on Example Data and Interpretation
+
+The `nhanes` dataset included in this package is used solely as a publicly available example to demonstrate how to use `chensus`. In practice, the package is designed for use with FSO's structural survey and mobility and transport survey data. For any other use, results are illustrative only.
+
+The `nhanes` dataset is included with the package. Let's load and inspect it:
+```{r}
+data("nhanes")
+dplyr::glimpse(nhanes)
+nhanes |> count(gender)
+nhanes |> count(household_size)
+```
+# Structural Survery Example Analysis
+
+Suppose we want to estimate the population in the `nhanes` dataset by gender and age. We can use the main analysis function `chensus::se_estimate_total()`:
+
+```{r}
+se_estimate_total(
+  data = nhanes,
+  weight = "weights",
+  strata = "strata",
+  condition = c("gender", "age")
+)
+```
+If on the other hand we would like to estimate the average household size then we would use the function `chensus::se_estimate_mean()` setting the parameter for the variable type as numeric becaue the hosuehold size is a numeric variable:
+
+```{r}
+se_estimate_mean(
+  data = nhanes, 
+  variable = "household_size", 
+  var_type = "num", 
+  weight = "weights")
+```
+
+We could also estimate the proportion of males and females in the `nhanes` survey, setting the parameter `var_type = "cat"` because `gender` is a categorical variable. Note that we first have to create dummy variables of categorical variables:
+
+```{r}
+se_estimate_mean_cat <- function(data, variable, weight = NULL, ...) {
+  # 1. Add row id
+  data <- dplyr::mutate(data, id = dplyr::row_number(), .before = 1)
+  
+  # 2. Create dummy variables for the categorical variable
+  data <- se_dummy(data, column = variable, id = "id")
+  
+  # 3. Identify all dummy variables created
+  dummy_vars <- names(data)[grepl(paste0("^", variable, "_"), names(data))]
+  
+  # 4. For each dummy variable, estimate the mean and collect results
+  results <- purrr::map(dummy_vars, function(x) {
+    se_estimate_mean(
+      data = data,
+      variable = x,
+      var_type = "cat",
+      weight = weight,
+      ...
+    ) |> 
+      dplyr::mutate(dummy_var = x, .before = 1)
+  }) |> 
+    purrr::list_rbind()
+  
+  # 5. Return tidy results
+  return(results)
+}
+se_estimate_mean_cat(
+  data = nhanes,
+  variable = "gender",
+  weight = "weights"
+)
+```
+
