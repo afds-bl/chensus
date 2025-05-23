@@ -1,5 +1,5 @@
+url: "http://localhost"
 template:
-  opengraph: []
-  twitter:
-    card: false
-  favicon: false
+  bootstrap: 5
+  math-rendering: katex  # or mathjax
+favicon: favicon.ico  # just the filename, not the path
