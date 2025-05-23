@@ -8,3 +8,6 @@
 *.Rproj
 *.Rcheck/
 docs
+inst/doc
+/doc/
+/Meta/
