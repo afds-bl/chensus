@@ -56,9 +56,9 @@ se_estimate_mean <- function(data, variable, var_type, condition = NULL, strata 
       Nh = sum(.data[[weight]]),
       T1h = if_else(mh != 1, mh / (mh - 1) * (1 - mh / Nh), 0),
       zhat = .data[[weight]] * zk,
-      T2h = (.data[[weight]] * zk - zhat / mh)^2, .by = c(strata, all_of(condition))
+      T2h = (.data[[weight]] * zk - zhat / mh)^2, .by = c(all_of(strata), all_of(condition))
     ) |>
-    summarise(sum_T2h = sum(T2h), T1h = unique(T1h), occ = unique(occ), ybar = unique(ybar), .by = c(strata, all_of(condition))) |>
+    summarise(sum_T2h = sum(T2h), T1h = unique(T1h), occ = unique(occ), ybar = unique(ybar), .by = c(all_of(strata), all_of(condition))) |>
     summarise(
       occ = unique(occ),
       average = unique(ybar),

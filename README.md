@@ -56,16 +56,38 @@ se_estimate_total(
 2 Female 151475830. 7.30e12  4715  2702304. 5296418.   3.50
 ```
 
+We can also estimate the average household size:
+
+``` r
+se_mean_num(
+  data = nhanes,
+  variable = "household_size",
+  weight = "weights",
+  strata = "strata"
+  )
+   occ  average        vhat  stand_dev         ci
+1 9307 3.449383 0.000533299 0.02309327 0.04526197
+```
+
+and the proportion of the population for each household size:
+
 ``` r
 library(chensus)
 
-se_estimate_mean(
+se_mean_cat(
   data = nhanes, 
   variable = "household_size", 
-  var_type = "num", 
-  weight = "weights")
-   occ  average        vhat  stand_dev         ci
-1 9307 3.449383 0.000533299 0.02309327 0.04526197
+  weight = "weights",
+  strata = "strata"
+  )
+    stand_dev          ci        dummy_var  occ    average         vhat
+1 0.007301886 0.014311433 household_size_2 1630 0.25710445 5.331753e-05
+2 0.004798698 0.009405276 household_size_1  807 0.10700246 2.302751e-05
+3 0.004359628 0.008544714 household_size_5 1554 0.13231214 1.900636e-05
+4 0.002545700 0.004989480 household_size_7  917 0.06200017 6.480589e-06
+5 0.005523314 0.010825497 household_size_3 1588 0.16994437 3.050700e-05
+6 0.005924048 0.011610920 household_size_4 1914 0.20352104 3.509434e-05
+7 0.002970690 0.005822446 household_size_6  897 0.06811537 8.825002e-06
 ```
 
 ## Mobility and Transport Survey (MZMV/MRMT)

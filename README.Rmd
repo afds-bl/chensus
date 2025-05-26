@@ -62,16 +62,28 @@ se_estimate_total(
 )
 ```
 
+We can also estimate the average household size:
+
+```{r}
+se_mean_num(
+  data = nhanes,
+  variable = "household_size",
+  weight = "weights",
+  strata = "strata"
+  )
+```
+
+and the proportion of the population for each household size:
 ```{r example2}
 library(chensus)
 
-se_estimate_mean(
+se_mean_cat(
   data = nhanes, 
   variable = "household_size", 
-  var_type = "num", 
-  weight = "weights")
+  weight = "weights",
+  strata = "strata"
+  )
 ```
-
 
 ## Mobility and Transport Survey (MZMV/MRMT)
 

@@ -63,42 +63,18 @@ se_estimate_mean(
   data = nhanes, 
   variable = "household_size", 
   var_type = "num", 
+  strata = "strata",
   weight = "weights")
 ```
 
 We could also estimate the proportion of males and females in the `nhanes` survey, setting the parameter `var_type = "cat"` because `gender` is a categorical variable. Note that we first have to create dummy variables of categorical variables:
 
 ```{r}
-# se_mean_cat <- function(data, variable, weight = NULL, ...) {
-#   # 1. Add row id
-#   data <- dplyr::mutate(data, id = dplyr::row_number(), .before = 1)
-#   
-#   # 2. Create dummy variables for the categorical variable
-#   data <- se_dummy(data, column = variable, id = "id")
-#   
-#   # 3. Identify all dummy variables created
-#   dummy_vars <- names(data)[grepl(paste0("^", variable, "_"), names(data))]
-#   
-#   # 4. For each dummy variable, estimate the mean and collect results
-#   results <- purrr::map(dummy_vars, function(x) {
-#     se_estimate_mean(
-#       data = data,
-#       variable = x,
-#       var_type = "cat",
-#       weight = weight,
-#       ...
-#     ) |> 
-#       dplyr::mutate(dummy_var = x, .before = 1)
-#   }) |> 
-#     purrr::list_rbind()
-#   
-#   # 5. Return tidy results
-#   return(results)
-# }
 se_mean_cat(
   data = nhanes,
   variable = "gender",
-  weight = "weights"
+  weight = "weights",
+  strata = "strata"
 )
 ```
 

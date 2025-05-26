@@ -159,5 +159,6 @@ map(dummy_vars, function(x) {
       dummy_var = x, .before = 1
     )
 }) |>
-  list_rbind()
+  list_rbind() |> 
+  select(dummy_var, occ, average, vhat, stand_dev, ci)
 }

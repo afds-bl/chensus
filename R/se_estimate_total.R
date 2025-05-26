@@ -104,5 +104,5 @@ se_estimate_total <- function(data, weight,
       ci_per = ci / total * 100
     ) %>%
     # Order as desired
-    select(all_of(condition), total, vhat, occ, stand_dev, ci, ci_per)
+    select(all_of(condition), occ, total, vhat, stand_dev, ci, ci_per)
 }
