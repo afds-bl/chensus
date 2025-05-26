@@ -26,4 +26,14 @@ test_that("se_estimate_total computes population total and CI correctly", {
   # Basic value checks (within reasonable bounds)
   expect_true(all(result$total > 0))
   expect_true(all(result$ci >= 0))
+  
+  # Check deprecated still works
+  test_that("se_estimate_total still works (deprecated)", {
+    expect_warning(
+      result <- se_estimate_total(data = test_data, weight = "weight"),
+      "se_estimate_total.*deprecated"
+    )
+    expect_s3_class(result, "data.frame")
+  })
+  
 })

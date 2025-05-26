@@ -24,7 +24,7 @@
 #'
 #' @examples
 #' # One condition
-#' se_estimate_total(
+#' se_total(
 #'   data = nhanes,
 #'   weight = "weights",
 #'   strata = "strata",
@@ -35,7 +35,7 @@
 #' library(purrr)
 #' map(
 #'   c("gender", "marital_status"),
-#'   ~ se_estimate_total(
+#'   ~ se_total(
 #'     data = nhanes,
 #'     weight = "weights",
 #'     strata = "strata",
@@ -51,7 +51,7 @@
 #'
 #' @export
 
-se_estimate_total <- function(data, weight,
+se_total <- function(data, weight,
                         strata = "zone",
                         condition = NULL,
                         alpha = 0.05) {
@@ -105,4 +105,14 @@ se_estimate_total <- function(data, weight,
     ) %>%
     # Order as desired
     select(all_of(condition), occ, total, vhat, stand_dev, ci, ci_per)
+}
+
+#' @title Deprecated: se_estimate_total
+#' @description This function is deprecated. Use [se_total()] instead.
+#' @keywords internal
+#' @export
+#' @rdname se_total
+se_estimate_total <- function(...) {
+  .Deprecated("se_total", package = "chensus")
+  se_total(...)
 }
