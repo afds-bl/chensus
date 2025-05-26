@@ -14,6 +14,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+This vignette describes the mathematical method for estimating confidence intervals of the structural survey and mobility and trnsport survey.
+
 # Structural survey (*Strukturerhebung* / *relevé structurel*)
 
 From the structural survey data, `se_estimate_total()` estimates:
