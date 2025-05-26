@@ -1,13 +1,13 @@
-#' Estimate means of population surveys
+#' Estimate means of categorical and numeric variables in structural survey
 #'
 #' \code{se_estimate_mean()} estimates the proportions of categorical variables
 #' and averages of numeric variables along with the variance and confidence
-#' intervals of the Strukturerhebung / relevé struturel of FSO.
+#' intervals of FSO's structural survey (Strukturerhebung / relevé structurel).
 #'
 #' @param data Tibble
 #' @param variable Character string, name of the feature whose mean we would like
 #' to estimate
-#' @param var_type Charcter string, variable type, one of "cat" or "num"
+#' @param var_type Character string, variable type, one of "cat" or "num"
 #' @param strata Character string, name of the column containing the
 #' strata/zones
 #' @param weight Character string, name of the column containing the
