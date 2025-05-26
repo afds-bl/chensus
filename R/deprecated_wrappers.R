@@ -1,7 +1,3 @@
-#' @name chensus-deprecated
-#' @keywords internal
-NULL
-
 #' @rdname chensus-deprecated
 se_estimate_total <- function(...) {
   .Deprecated("se_total", package = "chensus")
