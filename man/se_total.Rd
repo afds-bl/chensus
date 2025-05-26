@@ -2,12 +2,9 @@
 % Please edit documentation in R/se_total.R
 \name{se_total}
 \alias{se_total}
-\alias{se_estimate_total}
 \title{Estimate totals of population survey}
 \usage{
 se_total(data, weight, strata = "zone", condition = NULL, alpha = 0.05)
-
-se_estimate_total(...)
 }
 \arguments{
 \item{data}{Tibble}
@@ -37,8 +34,6 @@ Tibble, with the following columns:
 \description{
 \code{se_estimate()} estimates the frequencies, variance and confidence
 intervals of FSO population surveys.
-
-This function is deprecated. Use [se_total()] instead.
 }
 \examples{
 # One condition
@@ -65,4 +60,3 @@ map(
   map_dfr(~ .x \%>\% as_tibble())
 
 }
-\keyword{internal}

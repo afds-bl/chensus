@@ -1,6 +1,6 @@
 #' Estimate means of mobility survey
 #'
-#' \code{mzmv_estimate_mean()} estimates the mean frequencies and confidence
+#' \code{mzmv_mean()} estimates the mean frequencies and confidence
 #' intervals of FSO mobility surveys.
 #'
 #' @param data Tibble
@@ -18,14 +18,14 @@
 #' \item \code{ci}: confidence interval estimate
 #' }
 #'
-#' @seealso See \code{\link{mzmv_estimate_mean_map}} for estimates on a set of conditions.
+#' @seealso See \code{\link{mzmv_mean_map}} for estimates on a set of conditions.
 #'
 #' @examples
 #' # We can use the nhanes dataset as an example even if it only contains population data
 #' library(dplyr)
 #' library(purrr)
 #' # Estimate two means
-#' mzmv_estimate_mean(
+#' mzmv_mean(
 #'   c("annual_household_income", "annual_family_income"),
 #'   data = nhanes,
 #'   weight = "weights",
@@ -36,7 +36,7 @@
 #'
 #' @export
 #'
-mzmv_estimate_mean <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
+mzmv_mean <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
   variable %>%
     purrr::set_names() %>% # Output is a list whose elements are named using variable
     map(\(v) {
@@ -56,7 +56,7 @@ mzmv_estimate_mean <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
 
 #' Estimate means of mobility survey with conditions
 #'
-#' \code{mzmv_estimate_mean_map()} estimates the mean frequencies and confidence
+#' \code{mzmv_mean_map()} estimates the mean frequencies and confidence
 #' intervals of FSO mobility surveys for a given set of features.
 #'
 #' @param data Tibble
@@ -80,7 +80,7 @@ mzmv_estimate_mean <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
 #' # We can use the nhanes dataset as an example even if it only contains population data
 #' library(dplyr)
 #' library(purrr)
-#' mzmv_estimate_mean_map(
+#' mzmv_mean_map(
 #' data = nhanes,
 #' variable = c("annual_household_income", "annual_family_income"),
 #' condition = c("gender", "interview_lang"),
@@ -92,7 +92,7 @@ mzmv_estimate_mean <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
 #'
 #' @export
 #'
-mzmv_estimate_mean_map <- function(data, variable, condition = NULL, weight, cf = 1.14, alpha = 0.1) {
+mzmv_mean_map <- function(data, variable, condition = NULL, weight, cf = 1.14, alpha = 0.1) {
 
   # If condition is "all", add a dummy column for grouping
   if (is.null(condition)) {
@@ -107,7 +107,7 @@ mzmv_estimate_mean_map <- function(data, variable, condition = NULL, weight, cf 
     purrr::set_names() |>
     map(\(cond) {
       cond_var <- sym(cond)
-      mzmv_estimate_mean(
+      mzmv_mean(
         data = data |> group_by(!!cond_var),
         variable = variable,
         weight = weight,
@@ -122,7 +122,7 @@ mzmv_estimate_mean_map <- function(data, variable, condition = NULL, weight, cf 
 
 #' Estimate proportions from mobility survey
 #'
-#' \code{mzmv_estimate_prop} estimates the proportions and confidence intervals of FSO mobility survey data
+#' \code{mzmv_prop} estimates the proportions and confidence intervals of FSO mobility survey data
 #'
 #' @param data Tibble
 #' @param variable Vector of strings, names of variables to be estimated. Variables are binary with integer values:
@@ -153,7 +153,7 @@ mzmv_estimate_mean_map <- function(data, variable, condition = NULL, weight, cf 
 #'         TRUE ~ 0
 #'       )
 #'   ) %>%
-#'   mzmv_estimate_prop(
+#'   mzmv_prop(
 #'     variable = "married",
 #'     weight = "weights"
 #'   )
@@ -162,7 +162,7 @@ mzmv_estimate_mean_map <- function(data, variable, condition = NULL, weight, cf 
 #'
 #' @export
 #'
-mzmv_estimate_prop <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
+mzmv_prop <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
   p <- NULL
   data %>%
     filter(.data[[variable]] >= 0) %>%

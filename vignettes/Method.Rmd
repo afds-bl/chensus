@@ -119,20 +119,20 @@ the survey sample and confidence intervals.
 
 # Mobility and Transport Survey (MZMV/MRMT)
 
-From the survey data, `mzmv_estimate_mean()` estimates:
+From the survey data, `mzmv_mean()` estimates:
 
 -   average occurrence in the real population: weighted mean of
     sub-population of interest;
 -   confidence interval of the estimate with significance level
     $\alpha$,
 
-while `mzmv_estimate_prop()` estimates:
+while `mzmv_prop()` estimates:
 
 -   proportions in the real population
 -   confidence interval of the proportion estimate with significance
     level $\alpha$.
 
-Note that one can simply use `mzmv_estimate_mean()` to estimate both
+Note that one can simply use `mzmv_mean()` to estimate both
 proportions and means, as shown below.
 
 The FSO provides [formulas to estimate

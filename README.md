@@ -97,7 +97,7 @@ Here we estimate the annual household and family incomes:
 ``` r
 library(chensus)
 
-mzmv_estimate_mean(
+mzmv_mean(
   data = nhanes,
   variable = c("annual_household_income", "annual_family_income"),
   weight = "weights"
@@ -107,7 +107,7 @@ mzmv_estimate_mean(
 2    annual_family_income 9307 11.42304 0.2413382
 ```
 
-We can also use the `mzmv_estimate_mean_map()` function with a set of
+We can also use the `mzmv_mean_map()` function with a set of
 conditions:
 
 ``` r
@@ -116,7 +116,7 @@ library(chensus)
 variable <- c("annual_household_income", "annual_family_income")
 condition <- c("gender", "interview_lang")
 
-mzmv_estimate_mean_map(
+mzmv_mean_map(
   data = nhanes,
   variable = variable,
   condition = condition,

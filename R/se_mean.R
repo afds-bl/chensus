@@ -35,7 +35,7 @@
 #' )
 #'
 se_mean_num <- function(data, variable, condition = NULL, strata = "zone", weight, alpha = 0.05) {
-  mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- occ <- nc <- ybar <- zk <- zhat <- vhat <- stand_dev <- ci <- total <- occ <- ci_per <- NULL
+  mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- occ <- nc <- ybar <- zk <- zhat <- vhat <- stand_dev <- ci <- total <- occ <- ci_per <- average <- NULL
   
   stopifnot("Variable must be numeric." = is.numeric(data[[variable]]))
   
@@ -114,7 +114,7 @@ se_mean_num <- function(data, variable, condition = NULL, strata = "zone", weigh
 #'
 
 se_mean_cat <- function(data, variable, condition = NULL, strata = "zone", weight, alpha = 0.05) {
-mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- occ <- nc <- ybar <- zk <- zhat <- vhat <- stand_dev <- ci <- total <- occ <- ci_per <- NULL
+mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- occ <- nc <- ybar <- zk <- zhat <- vhat <- stand_dev <- ci <- total <- occ <- ci_per <- dummy_vars <- dummy_var <- average <- NULL
 
 # Add row id and create dummy variables
 data <- data |>
