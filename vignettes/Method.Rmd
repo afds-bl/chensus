@@ -114,7 +114,7 @@ Here again the confidence interval is given by:
 
 $$\text{CI} = \sqrt{\hat{V}(\bar y)} \times \text{qnorm}(1 - \frac{\alpha}2)$$
 
-`se_estimate_mean()` calculates $\bar y$, $\hat{V}(\bar y)$, the frequency in
+`se_mean_num()` and `se_mean_cat()` calculate $\bar y$, $\hat{V}(\bar y)$, the frequency in
 the survey sample and confidence intervals.
 
 # Mobility and Transport Survey (MZMV/MRMT)

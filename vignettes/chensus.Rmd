@@ -56,18 +56,17 @@ se_estimate_total(
   condition = c("gender", "age")
 )
 ```
-If on the other hand we would like to estimate the average household size then we would use the function `chensus::se_estimate_mean()` setting the parameter for the variable type as numeric becaue the hosuehold size is a numeric variable:
+If on the other hand we would like to estimate the average household size then we would use the function `chensus::se_mean_num()`:
 
 ```{r}
-se_estimate_mean(
+se_mean_num(
   data = nhanes, 
   variable = "household_size", 
-  var_type = "num", 
   strata = "strata",
   weight = "weights")
 ```
 
-We could also estimate the proportion of males and females in the `nhanes` survey, setting the parameter `var_type = "cat"` because `gender` is a categorical variable. Note that we first have to create dummy variables of categorical variables:
+We could also estimate the proportion of males and females in the `nhanes` survey, `gender` being a categorical variable. 
 
 ```{r}
 se_mean_cat(
