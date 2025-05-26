@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 # Structural survey (*Strukturerhebung* / *relevé structurel*)
 
-From the survey data, `se_estimate_total()` estimates:
+From the structural survey data, `se_estimate_total()` estimates:
 
 -   occurrences in the real population: sum of weights of sub-population
     of interest;
@@ -28,7 +28,7 @@ From the survey data, `se_estimate_total()` estimates:
     deviation $\sqrt{\hat{V}}$.
 
 The FSO provides [formulas to estimate populations and
-variances of the Strukturerhebung](https://portal.collab.admin.ch/sites/317-SE-CUG) in French
+variances of the structural survey](https://portal.collab.admin.ch/sites/317-SE-CUG) in French
 (`do-f-40-se_METH.pdf`) and German (`do-d-40-se_METH.pdf`).
 
 ## Totals
