@@ -54,7 +54,7 @@ Here we estimate the male and female populations of the built-in `nhanes` datase
 ```{r example1}
 library(chensus)
 
-se_estimate_total(
+se_total(
   data = nhanes,
   weight = "weights",
   strata = "strata",
