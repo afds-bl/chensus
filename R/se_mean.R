@@ -53,14 +53,14 @@ se_mean_num <- function(data, variable, condition = NULL, strata = "zone", weigh
       Nh = sum(.data[[weight]]),
       T1h = ifelse(mh != 1, mh / (mh - 1) * (1 - mh / Nh), 0),
       zhat = .data[[weight]] * zk,
-      T2h = (.data[[weight]] * zk - zhat / mh)^2, .by = c(strata, all_of(condition))
+      T2h = (.data[[weight]] * zk - zhat / mh)^2, .by = c(all_of(strata), all_of(condition))
     ) |>
     summarise(
       sum_T2h = sum(T2h),
       T1h = unique(T1h),
       occ = unique(occ),
       ybar = unique(ybar),
-      .by = c(strata, all_of(condition))
+      .by = c(all_of(strata), all_of(condition))
     ) |>
     summarise(
       occ = unique(occ),
@@ -99,6 +99,8 @@ se_mean_num <- function(data, variable, condition = NULL, strata = "zone", weigh
 #'  \item \code{ci}: absolute confidence interval
 #'  }
 #' @import dplyr
+#' @import stringr
+#' @import purrr
 #' @export
 #'
 #' @examples
@@ -116,46 +118,46 @@ mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- occ <- nc <- ybar <- zk <- zhat <- vh
 
 # Add row id and create dummy variables
 data <- data |>
-  dplyr::mutate(id = dplyr::row_number(), .before = 1) |>
+  mutate(id = row_number(), .before = 1) |>
   se_dummy(column = variable, id = "id")
 
-dummy_vars <- names(data)[grepl(paste0("^", variable, "_"), names(data))]
+dummy_vars <- names(data)[str_starts(names(data), paste0(variable, "_"))]
 
-purrr::map(dummy_vars, function(x) {
+map(dummy_vars, function(x) {
   data |>
-    dplyr::filter(.data[[x]] >= 0) |>
-    dplyr::mutate(yk = .data[[x]]) |>
-    dplyr::mutate(
+    filter(.data[[x]] >= 0) |>
+    mutate(yk = .data[[x]]) |>
+    mutate(
       occ = sum(yk == 1),
       nc = sum(.data[[weight]]),
       ybar = weighted.mean(yk, w = .data[[weight]]),
       zk = (yk - ybar) / nc, .by = all_of(condition)
     ) |>
-    dplyr::mutate(
+    mutate(
       mh = n(),
       Nh = sum(.data[[weight]]),
       T1h = ifelse(mh != 1, mh / (mh - 1) * (1 - mh / Nh), 0),
       zhat = .data[[weight]] * zk,
-      T2h = (.data[[weight]] * zk - zhat / mh)^2, .by = c(strata, all_of(condition))
+      T2h = (.data[[weight]] * zk - zhat / mh)^2, .by = c(all_of(strata), all_of(condition))
     ) |>
-    dplyr::summarise(
+    summarise(
       sum_T2h = sum(T2h),
       T1h = unique(T1h),
       occ = unique(occ),
       ybar = unique(ybar),
-      .by = c(strata, all_of(condition))
+      .by = c(all_of(strata), all_of(condition))
     ) |>
-    dplyr::summarise(
+    summarise(
       occ = unique(occ),
       average = unique(ybar),
       vhat = sum(T1h * sum_T2h),
       .by = all_of(condition)
     ) |>
-    dplyr::mutate(
+    mutate(
       stand_dev = sqrt(vhat),
       ci = stand_dev * qnorm(1 - alpha / 2),
       dummy_var = x, .before = 1
     )
 }) |>
-  purrr::list_rbind()
+  list_rbind()
 }

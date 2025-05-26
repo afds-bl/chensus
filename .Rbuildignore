@@ -10,3 +10,4 @@ init.log
 ^pkgdown$
 ^doc$
 ^Meta$
+^dev$
