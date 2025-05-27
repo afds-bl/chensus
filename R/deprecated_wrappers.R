@@ -1,10 +1,12 @@
 #' @rdname chensus-deprecated
+#' @export
 se_estimate_total <- function(...) {
   .Deprecated("se_total", package = "chensus")
   se_total(...)
 }
 
 #' @rdname chensus-deprecated
+#' @export
 se_estimate_mean <- function(...) {
   .Deprecated("se_mean_num", package = "chensus")
   se_mean_num(...)
