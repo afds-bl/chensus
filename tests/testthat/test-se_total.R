@@ -1,4 +1,4 @@
-test_that("se_estimate_total computes population total and CI correctly", {
+test_that("se_total computes population total and CI correctly", {
   
   # Simulate minimal test dataset
   test_data <- data.frame(
@@ -7,11 +7,11 @@ test_that("se_estimate_total computes population total and CI correctly", {
     group = rep(c("X", "Y"), times = 5)
   )
   
-  result <- se_estimate_total(
+  result <- se_total(
     data = test_data,
     weight = "weight",
     strata = "zone",
-    condition = "group",
+    group_vars = "group",
     alpha = 0.05
   )
   
@@ -31,9 +31,31 @@ test_that("se_estimate_total computes population total and CI correctly", {
   test_that("se_estimate_total still works (deprecated)", {
     expect_warning(
       result <- se_estimate_total(data = test_data, weight = "weight"),
-      "se_estimate_total.*deprecated"
+      "se_total.*deprecated"
     )
     expect_s3_class(result, "data.frame")
   })
   
+})
+
+test_that("se_total works with deprecated argument `condition`", {
+  test_data <- data.frame(
+    zone = rep(c("A", "B"), each = 5),
+    weight = c(10, 12, 11, 13, 14, 8, 9, 10, 9, 11),
+    group = rep(c("X", "Y"), times = 5)
+  )
+  
+  expect_warning(
+    result <- se_total(
+      data = test_data,
+      weight = "weight",
+      strata = "zone",
+      condition = "group",  # deprecated argument
+      alpha = 0.05
+    ),
+    regexp = "condition.*deprecated"
+  )
+  
+  expect_s3_class(result, "data.frame")
+  expect_true("group" %in% names(result))
 })

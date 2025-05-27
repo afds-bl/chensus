@@ -11,7 +11,7 @@ test_that("se_mean_cat works correctly for categorical input", {
   result <- se_mean_cat(
     data = df,
     variable = "category",
-    condition = "group",
+    group_vars = "group",
     strata = "zone",
     weight = "weight"
   )
@@ -20,7 +20,7 @@ test_that("se_mean_cat works correctly for categorical input", {
   expect_s3_class(result, "data.frame")
   expect_true(all(c("dummy_var", "average", "stand_dev", "ci") %in% names(result)))
 
-  # One row per dummy variable * condition group
+  # One row per dummy variable * group_vars group
   expect_equal(length(unique(result$dummy_var)), 2)
   expect_true(all(result$average >= 0 & result$average <= 1))
   expect_true(all(result$stand_dev >= 0))

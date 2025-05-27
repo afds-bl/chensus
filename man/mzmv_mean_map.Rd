@@ -4,14 +4,22 @@
 \alias{mzmv_mean_map}
 \title{Estimate means of mobility survey with conditions}
 \usage{
-mzmv_mean_map(data, variable, condition = NULL, weight, cf = 1.14, alpha = 0.1)
+mzmv_mean_map(
+  data,
+  variable,
+  condition = NULL,
+  group_vars = NULL,
+  weight,
+  cf = 1.14,
+  alpha = 0.1
+)
 }
 \arguments{
 \item{data}{Tibble}
 
 \item{variable}{Vector of strings, names of variables to be estimated. Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent `NA`.}
 
-\item{condition}{Vector of character strings, names of additional
+\item{group_vars}{Vector of character strings, names of additional
 stratification variables}
 
 \item{weight}{Character string, name of the column containing the
@@ -41,7 +49,7 @@ library(purrr)
 mzmv_mean_map(
 data = nhanes,
 variable = c("annual_household_income", "annual_family_income"),
-condition = c("gender", "interview_lang"),
+group_vars = c("gender", "interview_lang"),
 weight = "weights"
 )
 

@@ -41,8 +41,8 @@ The `nhanes` dataset is included with the package. Let's load and inspect it:
 ```{r}
 data("nhanes")
 dplyr::glimpse(nhanes)
-nhanes |> count(gender)
-nhanes |> count(household_size)
+nhanes %>% count(gender)
+nhanes %>% count(household_size)
 ```
 # Structural Survery Example Analysis
 

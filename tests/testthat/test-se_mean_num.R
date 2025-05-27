@@ -8,7 +8,7 @@ test_that("se_mean_num computes mean and CI correctly", {
   )
   
   # Run function
-  result <- se_mean_num(data = df, variable = "score", condition = "group", strata = "zone", weight = "weight")
+  result <- se_mean_num(data = df, variable = "score", group_vars = "group", strata = "zone", weight = "weight")
   
   # Check structure
   expect_s3_class(result, "data.frame")

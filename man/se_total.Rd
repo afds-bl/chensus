@@ -4,7 +4,14 @@
 \alias{se_total}
 \title{Estimate totals of population survey}
 \usage{
-se_total(data, weight, strata = "zone", condition = NULL, alpha = 0.05)
+se_total(
+  data,
+  weight,
+  strata = "zone",
+  condition = NULL,
+  group_vars = NULL,
+  alpha = 0.05
+)
 }
 \arguments{
 \item{data}{Tibble}
@@ -15,7 +22,7 @@ weights}
 \item{strata}{Character string, name of the column containing the
 strata/zones}
 
-\item{condition}{Vector of character strings, names of the conditions to
+\item{group_vars}{Vector of character strings, names of the grouping variables to
 estimate, can be empty for total population estimate}
 
 \item{alpha}{Double, significance level. Default 0.05 for 95\% confidence interval.}
@@ -36,14 +43,14 @@ Tibble, with the following columns:
 intervals of FSO population surveys.
 }
 \examples{
-# One condition
+# One grouping variable
 se_total(
   data = nhanes,
   weight = "weights",
   strata = "strata",
-  condition = "gender"
+  group_vars = "gender"
 )
-# Multiple conditions
+# Multiple grouping variables
 library(dplyr)
 library(purrr)
 map(
@@ -52,7 +59,7 @@ map(
     data = nhanes,
     weight = "weights",
     strata = "strata",
-    condition = .x
+    group_vars = .x
   ) \%>\%
     mutate(variable = .x, .before = 1) \%>\%
     rename_with(~"value", all_of(.x))

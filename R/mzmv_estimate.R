@@ -38,7 +38,7 @@
 #'
 mzmv_mean <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
   variable %>%
-    purrr::set_names() %>% # Output is a list whose elements are named using variable
+    set_names() %>% 
     map(\(v) {
       group_var <- sym(v)
       weight_var <- sym(weight)
@@ -61,7 +61,7 @@ mzmv_mean <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
 #'
 #' @param data Tibble
 #' @param variable Vector of strings, names of variables to be estimated. Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent `NA`.
-#' @param condition Vector of character strings, names of additional
+#' @param group_vars Vector of character strings, names of additional
 #' stratification variables
  #' @param weight Character string, name of the column containing the
 #' weights
@@ -83,7 +83,7 @@ mzmv_mean <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
 #' mzmv_mean_map(
 #' data = nhanes,
 #' variable = c("annual_household_income", "annual_family_income"),
-#' condition = c("gender", "interview_lang"),
+#' group_vars = c("gender", "interview_lang"),
 #' weight = "weights"
 #' )
 #'
@@ -92,32 +92,32 @@ mzmv_mean <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
 #'
 #' @export
 #'
-mzmv_mean_map <- function(data, variable, condition = NULL, weight, cf = 1.14, alpha = 0.1) {
+mzmv_mean_map <- function(data, variable, condition = NULL, group_vars = NULL, weight, cf = 1.14, alpha = 0.1) {
 
-  # If condition is "all", add a dummy column for grouping
-  if (is.null(condition)) {
+  # If grouping variable is "all", add a dummy column for grouping
+  if (is.null(group_vars)) {
     # Add a dummy column for grouping
-    data <- data |>
+    data <- data %>%
       mutate(group_dummy = "all")
-    condition <- "group_dummy" # Set condition to the dummy column
+    group_vars <- "group_dummy" # Set grouping variable to the dummy column
   }
 
   # Continue as normal with grouping
-  condition |>
-    purrr::set_names() |>
+  group_vars %>%
+    purrr::set_names() %>%
     map(\(cond) {
       cond_var <- sym(cond)
       mzmv_mean(
-        data = data |> group_by(!!cond_var),
+        data = data %>% group_by(!!cond_var),
         variable = variable,
         weight = weight,
         alpha = alpha,
         cf = cf
       )
-    }) |>
-    purrr::list_rbind(names_to = "condition") |>
-    mutate(condition_value = coalesce(!!!syms(condition))) |>
-    select(variable, condition, condition_value, nc, wmean, ci)
+    }) %>%
+    purrr::list_rbind(names_to = "group_vars") %>%
+    mutate(group_vars_value = coalesce(!!!syms(group_vars))) %>%
+    select(variable, group_vars, group_vars_value, nc, wmean, ci)
 }
 
 #' Estimate proportions from mobility survey
@@ -127,8 +127,8 @@ mzmv_mean_map <- function(data, variable, condition = NULL, weight, cf = 1.14, a
 #' @param data Tibble
 #' @param variable Vector of strings, names of variables to be estimated. Variables are binary with integer values:
 #' \itemize{
-#' \item 1: if condition is present
-#' \item 0: if condition is absent
+#' \item 1: if group_vars is present
+#' \item 0: if group_vars is absent
 #' \item negative: if \code{NA}
 #' }
 #' @param weight Character string, name of the column containing the

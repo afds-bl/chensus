@@ -15,7 +15,7 @@ test_that("se_dummy creates correct dummy variables for a categorical column", {
   )
   
   # Actual result from the function
-  result <- se_dummy(test_data, column = "gender", id = "id") |>
+  result <- se_dummy(test_data, column = "gender", id = "id") %>%
     dplyr::select(id, gender, starts_with("gender_"))
   
   # Comparison

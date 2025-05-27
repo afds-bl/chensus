@@ -11,8 +11,8 @@ mzmv_prop(data, variable, weight, cf = 1.14, alpha = 0.1)
 
 \item{variable}{Vector of strings, names of variables to be estimated. Variables are binary with integer values:
 \itemize{
-\item 1: if condition is present
-\item 0: if condition is absent
+\item 1: if group_vars is present
+\item 0: if group_vars is absent
 \item negative: if \code{NA}
 }}
 
