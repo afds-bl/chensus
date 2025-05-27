@@ -31,7 +31,7 @@ p <- ggplot(df, aes(x = x, y = y)) +
   geom_ribbon(aes(ymin = 0, ymax = ifelse(x >= lower_limit & x <= upper_limit, y, NA)), 
               fill = rot0, alpha = 0.1) +
   # Add horizontal line for x-axis
-  geom_hline(yintercept = 0, color = blau_grau, linewidth = 0.4) +
+  geom_hline(yintercept = 0, color = blau_grau, linewidth = 1) +
   ggpubr::theme_transparent() +
   theme(
     axis.title.y = element_blank(),    # Hide y-axis label
@@ -48,7 +48,7 @@ ggsave("man/figures/dnorm.png")
 # curl issues do not allow fetching font from internet
 # Download then fetch locally
 
-font_add(family = "Arial", regular = "~/.coderbar/arial.ttf", bold = "~/.coderbar/arialbd.ttf")
+font_add(family = "Roboto", regular = "~/_home/.coderbar/Roboto-Regular.ttf", bold = "~/_home/.coderbar/Roboto-Bold.ttf")
 
 sticker(
   p,                               # Plot to display
@@ -64,7 +64,7 @@ sticker(
   # h_color = mint_1,
   h_color = rot0,           # Border color
   filename = "man/figures/logo.png",
-  p_family = "Arial",          # Optional font family
+  p_family = "Roboto",          # Optional font family
   p_fontface = "bold"
 )
 
