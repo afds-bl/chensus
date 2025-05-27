@@ -52,26 +52,26 @@
 #' @export
 
 se_total <- function(data, weight,
-                        strata = "zone",
-                        condition = NULL,
+                     strata = "zone",
                      group_vars = NULL,
-                        alpha = 0.05) {
+                     condition = NULL,
+                     alpha = 0.05) {
   mh <- Nh <- mhc <- Nhc <- T1h <- T1hc <- T2hc <- vhat <- stand_dev <- ci <- total <- occ <- ci_per <- NULL
-  
+
   if (!is.null(condition)) {
     warning("Argument `condition` is deprecated. Please use `group_vars` instead.", call. = FALSE)
     if (is.null(group_vars)) {
       group_vars <- condition
     }
   }
-  
+
   # Summarise by strata
   data <- se_summarise(
     data = data, strata = strata,
     weight = weight
   ) %>%
     # First summation term (1)
-    mutate(T1h =if_else(mh != 1, mh / (mh - 1) * (1 - mh / Nh), 0)) %>%
+    mutate(T1h = if_else(mh != 1, mh / (mh - 1) * (1 - mh / Nh), 0)) %>%
     # Summarise by strata and grouping_variables
     se_summarise(
       strata = c(strata, group_vars),

@@ -7,8 +7,8 @@
 se_mean_cat(
   data,
   variable,
-  condition = NULL,
   group_vars = NULL,
+  condition = NULL,
   strata = "zone",
   weight,
   alpha = 0.05
@@ -20,8 +20,9 @@ se_mean_cat(
 \item{variable}{Character string, name of the categorical variable whose proportion we would like
 to estimate}
 
-\item{group_vars}{Vector of character strings, names of additional
-stratification variables}
+\item{group_vars}{A character vector of grouping variables.}
+
+\item{condition}{[Deprecated] Use `group_vars` instead. A character vector of grouping variables.}
 
 \item{strata}{Character string, name of the column containing the
 strata/zones}

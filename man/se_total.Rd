@@ -8,8 +8,8 @@ se_total(
   data,
   weight,
   strata = "zone",
-  condition = NULL,
   group_vars = NULL,
+  condition = NULL,
   alpha = 0.05
 )
 }
@@ -22,8 +22,9 @@ weights}
 \item{strata}{Character string, name of the column containing the
 strata/zones}
 
-\item{group_vars}{Vector of character strings, names of the grouping variables to
-estimate, can be empty for total population estimate}
+\item{group_vars}{A character vector of grouping variables.}
+
+\item{condition}{[Deprecated] Use `group_vars` instead. A character vector of grouping variables.}
 
 \item{alpha}{Double, significance level. Default 0.05 for 95\% confidence interval.}
 }

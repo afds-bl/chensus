@@ -7,8 +7,8 @@
 mzmv_mean_map(
   data,
   variable,
-  condition = NULL,
   group_vars = NULL,
+  condition = NULL,
   weight,
   cf = 1.14,
   alpha = 0.1
@@ -19,8 +19,9 @@ mzmv_mean_map(
 
 \item{variable}{Vector of strings, names of variables to be estimated. Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent `NA`.}
 
-\item{group_vars}{Vector of character strings, names of additional
-stratification variables}
+\item{group_vars}{A character vector of grouping variables.}
+
+\item{condition}{[Deprecated] Use `group_vars` instead. A character vector of grouping variables.}
 
 \item{weight}{Character string, name of the column containing the
 weights}

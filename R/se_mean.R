@@ -34,7 +34,7 @@
 #'   group_vars = "gender"
 #' )
 #'
-se_mean_num <- function(data, variable, condition = NULL, group_vars = NULL, strata = "zone", weight, alpha = 0.05) {
+se_mean_num <- function(data, variable, group_vars = NULL, condition = NULL, strata = "zone", weight, alpha = 0.05) {
   mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- occ <- nc <- ybar <- zk <- zhat <- vhat <- stand_dev <- ci <- total <- occ <- ci_per <- average <- NULL
 
   if (!is.null(condition)) {
@@ -119,7 +119,7 @@ se_mean_num <- function(data, variable, condition = NULL, group_vars = NULL, str
 #'   group_vars = "gender"
 #' )
 #'
-se_mean_cat <- function(data, variable, condition = NULL, group_vars = NULL, strata = "zone", weight, alpha = 0.05) {
+se_mean_cat <- function(data, variable, group_vars = NULL, condition = NULL, strata = "zone", weight, alpha = 0.05) {
   mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- occ <- nc <- ybar <- zk <- zhat <- vhat <- stand_dev <- ci <- total <- occ <- ci_per <- dummy_vars <- dummy_var <- average <- NULL
 
   if (!is.null(condition)) {

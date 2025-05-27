@@ -95,7 +95,7 @@ mzmv_mean <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
 #'
 #' @export
 #'
-mzmv_mean_map <- function(data, variable, condition = NULL, group_vars = NULL, weight, cf = 1.14, alpha = 0.1) {
+mzmv_mean_map <- function(data, variable, group_vars = NULL, condition = NULL, weight, cf = 1.14, alpha = 0.1) {
 
   ci <- condition_value <- nc <- wmean <- group_vars_value <- NULL
   
