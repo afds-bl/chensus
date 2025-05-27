@@ -6,39 +6,35 @@
 [![License: GPL
 v3](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
-The `chensus` package estimates population frequencies, means,
-proportions and confidence intervals from surveys conducted by the
-Federal Statistical Office (FSO):
+`chensus` is an R package for estimating populations from surveys
+conducted by the Swiss Federal Statistical Office (FSO), sepcificially:
 
 - structural survey: *Strukturerhebung* (SE) / *relevé structurel* (RS),
 - mobility and transport survey: *Mikrozensus Mobilität und Verkehr*
   (MZMV) / *Microrecensement mobilité et transports* (MRMT).
 
-`chensus` implements closed-form formulas of confidence interval
-estimates as outlined in FSO’s methodological reports for the
-[structural
+It implements closed-form formulas for confidence intervals as described
+in the FSO’s methodological reports for the [structural
 survey](https://www.bfs.admin.ch/bfs/en/home/services/research/methodological-reports.assetdetail.11187024.html)
 and [mobility and transport
 survey](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.24266729.html).
 For mathematical details, see the [Method
 vignette](articles/method.html).
 
-# Installation
+## Installation
+
+You can install the development version from GitHub with:
 
 ``` r
 # Install from GitHub
 remotes::install_github("afds-bl/chensus")
 ```
 
-# Usage
+## Usage
 
-## Structural survey (*Strukturerhebung* / *relevé structurel*)
+### Structural survey (SE/RS)
 
-Here we estimate the male and female populations of the built-in
-`nhanes` dataset, which contains a subset of data from the [National
-Health and Nutrition Examination
-Survey](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) (more
-with `?nhanes`).
+Estimate population totals by gender
 
 ``` r
 library(chensus)
@@ -56,7 +52,7 @@ se_total(
 2 Female  4715 151475830. 7.30e12  2702304. 5296418.   3.50
 ```
 
-We can also estimate the average household size:
+Estimate average household size
 
 ``` r
 se_mean_num(
@@ -64,22 +60,22 @@ se_mean_num(
   variable = "household_size",
   weight = "weights",
   strata = "strata"
-  )
+)
    occ  average        vhat  stand_dev         ci
 1 9307 3.449383 0.000533299 0.02309327 0.04526197
 ```
 
-and the proportion of the population for each household size:
+Estimate population proportions by household size
 
 ``` r
 library(chensus)
 
 se_mean_cat(
-  data = nhanes, 
-  variable = "household_size", 
+  data = nhanes,
+  variable = "household_size",
   weight = "weights",
   strata = "strata"
-  )
+)
          dummy_var  occ    average         vhat   stand_dev          ci
 1 household_size_2 1630 0.25710445 5.331753e-05 0.007301886 0.014311433
 2 household_size_1  807 0.10700246 2.302751e-05 0.004798698 0.009405276
@@ -90,9 +86,9 @@ se_mean_cat(
 7 household_size_6  897 0.06811537 8.825002e-06 0.002970690 0.005822446
 ```
 
-## Mobility and Transport Survey (MZMV/MRMT)
+### Mobility and Transport Survey (MZMV/MRMT)
 
-Here we estimate the annual household and family incomes:
+Estimate average annual household and family incomes
 
 ``` r
 library(chensus)
@@ -107,7 +103,7 @@ mzmv_mean(
 2    annual_family_income 9307 11.42304 0.2413382
 ```
 
-We can also use the `mzmv_mean_map()` function with a set of conditions:
+Estimate by group (e.g., gender, interview language)
 
 ``` r
 library(chensus)
@@ -134,22 +130,30 @@ mzmv_mean_map(
 8 annual_family_income    interview_lang Spanish          1176  12.8 1.25 
 ```
 
-# License
+## Documentation
+
+- `?nhanes`: inspect the example dataset
+- `vignette("Method")`: mathematical background
+- `?se_total`, `?mzmv_mean`, etc.: function documentation
+
+## License
 
 Distributed under the GPL-3 License. See `LICENSE` for more information.
 
-# Contact
+## Contact
 
 [Souad Guemghar](mailto:souad.guemghar@bl.ch)
 
-# Acknowledgments
+Amt für Daten und Statistik, Basel-Landschaft
+
+## Acknowledgments
 
 This package is an extension of
-[vhatbfs](https://github.com/gibonet/vhatbfs) by Sandro Burri, a package
-to estimate the confidence intervals of *Strukturerhebung* / *relevé
-structurel*. Many thanks Sandro for the great work and support!
+[vhatbfs](https://github.com/gibonet/vhatbfs) by Sandro Burri, which
+estimates the confidence intervals of totals for the structural survey.
+Many thanks to Sandro for the foundational work and support.
 
-# Citation
+## Citation
 
 ``` r
 utils::citation("chensus")

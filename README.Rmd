@@ -27,29 +27,29 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/afds-bl/chensus/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/afds-bl/chensus/actions/workflows/R-CMD-check.yaml)
  [![License: GPL v3](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
-The `chensus` package estimates population frequencies, means,
-proportions and confidence intervals from surveys conducted by
-the Federal Statistical Office (FSO):
+`chensus` is an R package for estimating populations from surveys conducted by
+the Swiss Federal Statistical Office (FSO), sepcificially:
 
 -   structural survey: *Strukturerhebung* (SE) / *relevé structurel* (RS),
 -   mobility and transport survey: *Mikrozensus Mobilität und Verkehr*
     (MZMV) / *Microrecensement mobilité et transports* (MRMT).
-    
-`chensus` implements closed-form formulas of confidence interval estimates as outlined in FSO’s methodological reports for the [structural survey](https://www.bfs.admin.ch/bfs/en/home/services/research/methodological-reports.assetdetail.11187024.html) and [mobility and transport survey](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.24266729.html). For mathematical details, see the [Method vignette](articles/method.html).
 
-# Installation
+It implements closed-form formulas for confidence intervals as described in the FSO’s methodological reports for the [structural survey](https://www.bfs.admin.ch/bfs/en/home/services/research/methodological-reports.assetdetail.11187024.html) and [mobility and transport survey](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.24266729.html). For mathematical details, see the [Method vignette](articles/method.html).
+
+## Installation
+
+You can install the development version from GitHub with:
 
 ```{r eval = FALSE}
 # Install from GitHub
 remotes::install_github("afds-bl/chensus")
 ```
 
-# Usage
+## Usage
 
+### Structural survey (SE/RS)
 
-## Structural survey (*Strukturerhebung* / *relevé structurel*)
-
-Here we estimate the male and female populations of the built-in `nhanes` dataset, which contains a subset of data from the [National Health and Nutrition Examination Survey](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) (more with `?nhanes`).
+Estimate population totals by gender
 
 ```{r example1}
 library(chensus)
@@ -62,7 +62,7 @@ se_total(
 )
 ```
 
-We can also estimate the average household size:
+Estimate average household size
 
 ```{r}
 se_mean_num(
@@ -70,24 +70,25 @@ se_mean_num(
   variable = "household_size",
   weight = "weights",
   strata = "strata"
-  )
+)
 ```
 
-and the proportion of the population for each household size:
+Estimate population proportions by household size
+
 ```{r example2}
 library(chensus)
 
 se_mean_cat(
-  data = nhanes, 
-  variable = "household_size", 
+  data = nhanes,
+  variable = "household_size",
   weight = "weights",
   strata = "strata"
-  )
+)
 ```
 
-## Mobility and Transport Survey (MZMV/MRMT)
+### Mobility and Transport Survey (MZMV/MRMT)
 
-Here we estimate the annual household and family incomes:
+Estimate average annual household and family incomes
 
 ```{r example3}
 library(chensus)
@@ -99,7 +100,7 @@ mzmv_mean(
 )
 ```
 
-We can also use the `mzmv_mean_map()` function with a set of conditions:
+Estimate by group (e.g., gender, interview language)
 
 ``` {r}
 library(chensus)
@@ -115,22 +116,28 @@ mzmv_mean_map(
 )
 ```
 
-# License
+## Documentation
+
+- `?nhanes`: inspect the example dataset
+- `vignette("Method")`: mathematical background
+- `?se_total`, `?mzmv_mean`, etc.: function documentation
+
+## License
 
 Distributed under the GPL-3 License. See `LICENSE` for more information.
 
-# Contact
+## Contact
 
 [Souad Guemghar](mailto:souad.guemghar@bl.ch)
 
-# Acknowledgments
+Amt für Daten und Statistik, Basel-Landschaft
+
+## Acknowledgments
 
 This package is an extension of
-[vhatbfs](https://github.com/gibonet/vhatbfs) by Sandro Burri, a package
-to estimate the confidence intervals of *Strukturerhebung* / *relevé
-structurel*. Many thanks Sandro for the great work and support!
+[vhatbfs](https://github.com/gibonet/vhatbfs) by Sandro Burri, which estimates the confidence intervals of totals for the structural survey. Many thanks to Sandro for the foundational work and support.
 
-# Citation
+## Citation
 
 ```{r eval = FALSE}
 utils::citation("chensus")
