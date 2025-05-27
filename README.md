@@ -42,7 +42,7 @@ se_total(
   data = nhanes,
   weight = "weights",
   strata = "strata",
-  condition = "gender"
+  group_vars = "gender"
 )
 # A tibble: 2 × 7
   gender   occ      total    vhat stand_dev       ci ci_per
@@ -67,8 +67,6 @@ se_mean_num(
 Estimate population proportions by household size:
 
 ``` r
-library(chensus)
-
 se_mean_cat(
   data = nhanes,
   variable = "household_size",
@@ -90,8 +88,6 @@ se_mean_cat(
 Estimate average annual household and family incomes:
 
 ``` r
-library(chensus)
-
 mzmv_mean(
   data = nhanes,
   variable = c("annual_household_income", "annual_family_income"),
@@ -105,28 +101,23 @@ mzmv_mean(
 Estimate by group (e.g., gender, interview language):
 
 ``` r
-library(chensus)
-
-variable <- c("annual_household_income", "annual_family_income")
-condition <- c("gender", "interview_lang")
-
 mzmv_mean_map(
   data = nhanes,
-  variable = variable,
-  condition = condition,
+  variable = c("annual_household_income", "annual_family_income"),
+  group_vars = c("gender", "interview_lang"),
   weight = "weights"
 )
 # A tibble: 8 × 6
-  variable                condition      condition_value    nc wmean    ci
-  <chr>                   <chr>          <fct>           <int> <dbl> <dbl>
-1 annual_household_income gender         Male             4592  11.9 0.331
-2 annual_household_income gender         Female           4715  11.6 0.346
-3 annual_family_income    gender         Male             4592  11.5 0.330
-4 annual_family_income    gender         Female           4715  11.3 0.352
-5 annual_household_income interview_lang English          8131  11.7 0.233
-6 annual_household_income interview_lang Spanish          1176  13.2 1.24 
-7 annual_family_income    interview_lang English          8131  11.3 0.235
-8 annual_family_income    interview_lang Spanish          1176  12.8 1.25 
+  variable                group_vars     group_vars_value    nc wmean    ci
+  <chr>                   <chr>          <fct>            <int> <dbl> <dbl>
+1 annual_household_income gender         Male              4592  11.9 0.331
+2 annual_household_income gender         Female            4715  11.6 0.346
+3 annual_family_income    gender         Male              4592  11.5 0.330
+4 annual_family_income    gender         Female            4715  11.3 0.352
+5 annual_household_income interview_lang English           8131  11.7 0.233
+6 annual_household_income interview_lang Spanish           1176  13.2 1.24 
+7 annual_family_income    interview_lang English           8131  11.3 0.235
+8 annual_family_income    interview_lang Spanish           1176  12.8 1.25 
 ```
 
 ## Documentation
