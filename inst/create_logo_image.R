@@ -18,13 +18,7 @@ x_values <- seq(-3, 3, length.out = 1000)
 y_values <- dnorm(x_values, mean, sd)
 df <- data.frame(x = x_values, y = y_values)
 
-# Normal distribution with confidence intervals
-mint_1 <- "#317883"
-mint_plus2 <- "#1f4b52"
-rot1 <- "#a21628"
-swiss_red <- "#D52B1E"
-dark_grey <- "#444444"
-bl_grau <- "#808080"
+# Plot normal distribution with confidence intervals
 rot0 <- "#cb1c32"
 blau_grau <- "#242626"
 
