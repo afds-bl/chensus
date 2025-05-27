@@ -31,7 +31,7 @@ p <- ggplot(df, aes(x = x, y = y)) +
   geom_ribbon(aes(ymin = 0, ymax = ifelse(x >= lower_limit & x <= upper_limit, y, NA)), 
               fill = rot0, alpha = 0.1) +
   # Add horizontal line for x-axis
-  geom_hline(yintercept = 0, color = blau_grau, linewidth = 1) +
+  geom_hline(yintercept = 0, color = blau_grau, linewidth = 0.8) +
   ggpubr::theme_transparent() +
   theme(
     axis.title.y = element_blank(),    # Hide y-axis label
