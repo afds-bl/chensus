@@ -6,8 +6,8 @@
 #' @param data Tibble
 #' @param variable Character string, name of the feature whose mean we would like
 #' to estimate
-#' @param group_vars Vector of character strings, names of additional
-#' stratification variables
+#' @param group_vars A character vector of grouping variables.
+#' @param condition [Deprecated] Use `group_vars` instead. A character vector of grouping variables.
 #' @param strata Character string, name of the column containing the
 #' strata/zones
 #' @param weight Character string, name of the column containing the
@@ -89,8 +89,8 @@ se_mean_num <- function(data, variable, condition = NULL, group_vars = NULL, str
 #' @param data Tibble
 #' @param variable Character string, name of the categorical variable whose proportion we would like
 #' to estimate
-#' @param group_vars Vector of character strings, names of additional
-#' stratification variables
+#' @param group_vars A character vector of grouping variables.
+#' @param condition [Deprecated] Use `group_vars` instead. A character vector of grouping variables.
 #' @param strata Character string, name of the column containing the
 #' strata/zones
 #' @param weight Character string, name of the column containing the

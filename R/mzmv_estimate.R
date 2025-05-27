@@ -37,7 +37,10 @@
 #' @export
 #'
 mzmv_mean <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
-  variable %>%
+  
+  ci <- condition_value <- nc <- wmean <- NULL
+  
+    variable %>%
     set_names() %>% 
     map(\(v) {
       group_var <- sym(v)
@@ -61,9 +64,9 @@ mzmv_mean <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
 #'
 #' @param data Tibble
 #' @param variable Vector of strings, names of variables to be estimated. Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent `NA`.
-#' @param group_vars Vector of character strings, names of additional
-#' stratification variables
- #' @param weight Character string, name of the column containing the
+#' @param group_vars A character vector of grouping variables.
+#' @param condition [Deprecated] Use `group_vars` instead. A character vector of grouping variables.
+#' @param weight Character string, name of the column containing the
 #' weights
 #' @param cf Double, correction factor of the confidence interval, supplied by FSO
 #' @param alpha Double, significance level. Default 0.1 for 90\% confidence interval.
@@ -94,6 +97,8 @@ mzmv_mean <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
 #'
 mzmv_mean_map <- function(data, variable, condition = NULL, group_vars = NULL, weight, cf = 1.14, alpha = 0.1) {
 
+  ci <- condition_value <- nc <- wmean <- group_vars_value <- NULL
+  
   # If grouping variable is "all", add a dummy column for grouping
   if (is.null(group_vars)) {
     # Add a dummy column for grouping
@@ -163,6 +168,9 @@ mzmv_mean_map <- function(data, variable, condition = NULL, group_vars = NULL, w
 #' @export
 #'
 mzmv_prop <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
+  
+  ci <- p <- nc <- NULL
+  
   p <- NULL
   data %>%
     filter(.data[[variable]] >= 0) %>%

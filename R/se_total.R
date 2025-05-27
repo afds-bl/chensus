@@ -8,8 +8,8 @@
 #' weights
 #' @param strata Character string, name of the column containing the
 #' strata/zones
-#' @param group_vars Vector of character strings, names of the grouping variables to
-#' estimate, can be empty for total population estimate
+#' @param group_vars A character vector of grouping variables.
+#' @param condition [Deprecated] Use `group_vars` instead. A character vector of grouping variables.
 #' @param alpha Double, significance level. Default 0.05 for 95\% confidence interval.
 #'
 #' @returns Tibble, with the following columns:
