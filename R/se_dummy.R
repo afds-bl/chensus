@@ -22,15 +22,15 @@ se_dummy <- function(data, column, id) {
   dummy_value <- NULL
   # Create dummy variables
   dummy_data <- data |>
-    dplyr::select(all_of(column), all_of(id)) |>
-    dplyr::mutate(dummy_value = 1L) |>
-    tidyr::pivot_wider(
+    select(all_of(column), all_of(id)) |>
+    mutate(dummy_value = 1L) |>
+    pivot_wider(
       names_from = {{ column }}, values_from = dummy_value,
       values_fill = list(dummy_value = 0), names_prefix = ""
     ) |>
     # Prefix with original variable name
-    dplyr::rename_with(\(x) paste(column, x, sep = "_"), -id)
-  data <- dplyr::full_join(data, dummy_data, by = id)
+    rename_with(\(x) paste(column, x, sep = "_"), -id)
+  data <- full_join(data, dummy_data, by = id)
 
   return(data)
 }

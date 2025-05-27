@@ -114,25 +114,25 @@ Here again the confidence interval is given by:
 
 $$\text{CI} = \sqrt{\hat{V}(\bar y)} \times \text{qnorm}(1 - \frac{\alpha}2)$$
 
-`se_estimate_mean()` calculates $\bar y$, $\hat{V}(\bar y)$, the frequency in
+`se_mean_num()` and `se_mean_cat()` calculate $\bar y$, $\hat{V}(\bar y)$, the frequency in
 the survey sample and confidence intervals.
 
 # Mobility and Transport Survey (MZMV/MRMT)
 
-From the survey data, `mzmv_estimate_mean()` estimates:
+From the survey data, `mzmv_mean()` estimates:
 
 -   average occurrence in the real population: weighted mean of
     sub-population of interest;
 -   confidence interval of the estimate with significance level
     $\alpha$,
 
-while `mzmv_estimate_prop()` estimates:
+while `mzmv_prop()` estimates:
 
 -   proportions in the real population
 -   confidence interval of the proportion estimate with significance
     level $\alpha$.
 
-Note that one can simply use `mzmv_estimate_mean()` to estimate both
+Note that one can simply use `mzmv_mean()` to estimate both
 proportions and means, as shown below.
 
 The FSO provides [formulas to estimate

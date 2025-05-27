@@ -24,7 +24,7 @@
 #'
 #' @examples
 #' # One condition
-#' se_estimate_total(
+#' se_total(
 #'   data = nhanes,
 #'   weight = "weights",
 #'   strata = "strata",
@@ -35,7 +35,7 @@
 #' library(purrr)
 #' map(
 #'   c("gender", "marital_status"),
-#'   ~ se_estimate_total(
+#'   ~ se_total(
 #'     data = nhanes,
 #'     weight = "weights",
 #'     strata = "strata",
@@ -51,7 +51,7 @@
 #'
 #' @export
 
-se_estimate_total <- function(data, weight,
+se_total <- function(data, weight,
                         strata = "zone",
                         condition = NULL,
                         alpha = 0.05) {
@@ -104,5 +104,5 @@ se_estimate_total <- function(data, weight,
       ci_per = ci / total * 100
     ) %>%
     # Order as desired
-    select(all_of(condition), total, vhat, occ, stand_dev, ci, ci_per)
+    select(all_of(condition), occ, total, vhat, stand_dev, ci, ci_per)
 }

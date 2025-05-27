@@ -54,7 +54,7 @@ Here we estimate the male and female populations of the built-in `nhanes` datase
 ```{r example1}
 library(chensus)
 
-se_estimate_total(
+se_total(
   data = nhanes,
   weight = "weights",
   strata = "strata",
@@ -62,16 +62,28 @@ se_estimate_total(
 )
 ```
 
+We can also estimate the average household size:
+
+```{r}
+se_mean_num(
+  data = nhanes,
+  variable = "household_size",
+  weight = "weights",
+  strata = "strata"
+  )
+```
+
+and the proportion of the population for each household size:
 ```{r example2}
 library(chensus)
 
-se_estimate_mean(
+se_mean_cat(
   data = nhanes, 
   variable = "household_size", 
-  var_type = "num", 
-  weight = "weights")
+  weight = "weights",
+  strata = "strata"
+  )
 ```
-
 
 ## Mobility and Transport Survey (MZMV/MRMT)
 
@@ -80,14 +92,14 @@ Here we estimate the annual household and family incomes:
 ```{r example3}
 library(chensus)
 
-mzmv_estimate_mean(
+mzmv_mean(
   data = nhanes,
   variable = c("annual_household_income", "annual_family_income"),
   weight = "weights"
 )
 ```
 
-We can also use the `mzmv_estimate_mean_map()` function with a set of conditions:
+We can also use the `mzmv_mean_map()` function with a set of conditions:
 
 ``` {r}
 library(chensus)
@@ -95,7 +107,7 @@ library(chensus)
 variable <- c("annual_household_income", "annual_family_income")
 condition <- c("gender", "interview_lang")
 
-mzmv_estimate_mean_map(
+mzmv_mean_map(
   data = nhanes,
   variable = variable,
   condition = condition,

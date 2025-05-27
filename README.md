@@ -43,29 +43,51 @@ with `?nhanes`).
 ``` r
 library(chensus)
 
-se_estimate_total(
+se_total(
   data = nhanes,
   weight = "weights",
   strata = "strata",
   condition = "gender"
 )
 # A tibble: 2 × 7
-  gender      total    vhat   occ stand_dev       ci ci_per
-  <fct>       <dbl>   <dbl> <int>     <dbl>    <dbl>  <dbl>
-1 Male   146242153. 7.52e12  4592  2741918. 5374060.   3.67
-2 Female 151475830. 7.30e12  4715  2702304. 5296418.   3.50
+  gender   occ      total    vhat stand_dev       ci ci_per
+  <fct>  <int>      <dbl>   <dbl>     <dbl>    <dbl>  <dbl>
+1 Male    4592 146242153. 7.52e12  2741918. 5374060.   3.67
+2 Female  4715 151475830. 7.30e12  2702304. 5296418.   3.50
 ```
+
+We can also estimate the average household size:
+
+``` r
+se_mean_num(
+  data = nhanes,
+  variable = "household_size",
+  weight = "weights",
+  strata = "strata"
+  )
+   occ  average        vhat  stand_dev         ci
+1 9307 3.449383 0.000533299 0.02309327 0.04526197
+```
+
+and the proportion of the population for each household size:
 
 ``` r
 library(chensus)
 
-se_estimate_mean(
+se_mean_cat(
   data = nhanes, 
   variable = "household_size", 
-  var_type = "num", 
-  weight = "weights")
-   occ  average        vhat  stand_dev         ci
-1 9307 3.449383 0.000533299 0.02309327 0.04526197
+  weight = "weights",
+  strata = "strata"
+  )
+         dummy_var  occ    average         vhat   stand_dev          ci
+1 household_size_2 1630 0.25710445 5.331753e-05 0.007301886 0.014311433
+2 household_size_1  807 0.10700246 2.302751e-05 0.004798698 0.009405276
+3 household_size_5 1554 0.13231214 1.900636e-05 0.004359628 0.008544714
+4 household_size_7  917 0.06200017 6.480589e-06 0.002545700 0.004989480
+5 household_size_3 1588 0.16994437 3.050700e-05 0.005523314 0.010825497
+6 household_size_4 1914 0.20352104 3.509434e-05 0.005924048 0.011610920
+7 household_size_6  897 0.06811537 8.825002e-06 0.002970690 0.005822446
 ```
 
 ## Mobility and Transport Survey (MZMV/MRMT)
@@ -75,7 +97,7 @@ Here we estimate the annual household and family incomes:
 ``` r
 library(chensus)
 
-mzmv_estimate_mean(
+mzmv_mean(
   data = nhanes,
   variable = c("annual_household_income", "annual_family_income"),
   weight = "weights"
@@ -85,8 +107,7 @@ mzmv_estimate_mean(
 2    annual_family_income 9307 11.42304 0.2413382
 ```
 
-We can also use the `mzmv_estimate_mean_map()` function with a set of
-conditions:
+We can also use the `mzmv_mean_map()` function with a set of conditions:
 
 ``` r
 library(chensus)
@@ -94,7 +115,7 @@ library(chensus)
 variable <- c("annual_household_income", "annual_family_income")
 condition <- c("gender", "interview_lang")
 
-mzmv_estimate_mean_map(
+mzmv_mean_map(
   data = nhanes,
   variable = variable,
   condition = condition,
