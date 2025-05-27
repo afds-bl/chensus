@@ -26,7 +26,6 @@ vignette](articles/method.html).
 You can install the development version from GitHub with:
 
 ``` r
-# Install from GitHub
 remotes::install_github("afds-bl/chensus")
 ```
 
@@ -34,7 +33,7 @@ remotes::install_github("afds-bl/chensus")
 
 ### Structural survey (SE/RS)
 
-Estimate population totals by gender
+Estimate population totals by gender:
 
 ``` r
 library(chensus)
@@ -52,7 +51,7 @@ se_total(
 2 Female  4715 151475830. 7.30e12  2702304. 5296418.   3.50
 ```
 
-Estimate average household size
+Estimate average household size:
 
 ``` r
 se_mean_num(
@@ -65,7 +64,7 @@ se_mean_num(
 1 9307 3.449383 0.000533299 0.02309327 0.04526197
 ```
 
-Estimate population proportions by household size
+Estimate population proportions by household size:
 
 ``` r
 library(chensus)
@@ -88,7 +87,7 @@ se_mean_cat(
 
 ### Mobility and Transport Survey (MZMV/MRMT)
 
-Estimate average annual household and family incomes
+Estimate average annual household and family incomes:
 
 ``` r
 library(chensus)
@@ -103,7 +102,7 @@ mzmv_mean(
 2    annual_family_income 9307 11.42304 0.2413382
 ```
 
-Estimate by group (e.g., gender, interview language)
+Estimate by group (e.g., gender, interview language):
 
 ``` r
 library(chensus)

@@ -41,7 +41,6 @@ It implements closed-form formulas for confidence intervals as described in the 
 You can install the development version from GitHub with:
 
 ```{r eval = FALSE}
-# Install from GitHub
 remotes::install_github("afds-bl/chensus")
 ```
 
@@ -49,7 +48,7 @@ remotes::install_github("afds-bl/chensus")
 
 ### Structural survey (SE/RS)
 
-Estimate population totals by gender
+Estimate population totals by gender:
 
 ```{r example1}
 library(chensus)
@@ -62,7 +61,7 @@ se_total(
 )
 ```
 
-Estimate average household size
+Estimate average household size:
 
 ```{r}
 se_mean_num(
@@ -73,7 +72,7 @@ se_mean_num(
 )
 ```
 
-Estimate population proportions by household size
+Estimate population proportions by household size:
 
 ```{r example2}
 library(chensus)
@@ -88,7 +87,7 @@ se_mean_cat(
 
 ### Mobility and Transport Survey (MZMV/MRMT)
 
-Estimate average annual household and family incomes
+Estimate average annual household and family incomes:
 
 ```{r example3}
 library(chensus)
@@ -100,7 +99,7 @@ mzmv_mean(
 )
 ```
 
-Estimate by group (e.g., gender, interview language)
+Estimate by group (e.g., gender, interview language):
 
 ``` {r}
 library(chensus)
