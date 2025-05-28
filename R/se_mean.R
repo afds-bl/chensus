@@ -172,6 +172,6 @@ se_mean_cat <- function(data, variable, group_vars = NULL, condition = NULL, str
         dummy_var = x, .before = 1
       )
   }) %>%
-    list_rbind(names_to = "id") %>%
-    select(id, dummy_var, occ, average, vhat, stand_dev, ci)
+    list_rbind() %>%
+    select(dummy_var, all_of(group_vars), occ, average, vhat, stand_dev, ci)
 }
