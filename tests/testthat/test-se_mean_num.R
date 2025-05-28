@@ -1,10 +1,10 @@
 test_that("se_mean_num computes mean and CI correctly", {
   # Sample data
-  df <- tibble::tibble(
-    zone = c("A", "A", "B", "B", "B"),
-    weight = c(1.2, 0.8, 1, 1.5, 0.5),
-    score = c(10, 12, 8, 9, 11),
-    group = c("G1", "G1", "G2", "G2", "G2")
+  df <- tibble(
+    zone = c("A", "A", "B", "B", "A", "B", "A", "B", "A", "B"),
+    weight = c(1.1, 1.4, 2.0, 0.9, 1.6, 2.2, 1.3, 1.8, 1.0, 2.5),
+    score = c(10, 12, 9, 11, 8, 14, 7, 13, 10, 15),
+    group = c("G1", "G1", "G2", "G2", "G1", "G2", "G1", "G2", "G1", "G2")
   )
   
   # Run function
@@ -21,7 +21,7 @@ test_that("se_mean_num computes mean and CI correctly", {
 })
 
 test_that("se_mean_num throws error for non-numeric variable", {
-  df <- tibble::tibble(
+  df <- tibble(
     zone = c("A", "B"),
     weight = c(1, 2),
     text_var = c("x", "y")
