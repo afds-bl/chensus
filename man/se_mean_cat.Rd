@@ -49,10 +49,10 @@ intervals of FSO's structural survey (Strukturerhebung / relevé structurel).
 \examples{
 se_mean_cat(
   data = nhanes,
-  variable = "age",
+  variable = "interview_lang",
   strata = "strata",
   weight = "weights",
-  group_vars = "gender"
+  group_vars = "birth_country"
 )
 
 }

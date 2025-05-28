@@ -113,10 +113,10 @@ se_mean_num <- function(data, variable, group_vars = NULL, condition = NULL, str
 #' @examples
 #' se_mean_cat(
 #'   data = nhanes,
-#'   variable = "age",
+#'   variable = "interview_lang",
 #'   strata = "strata",
 #'   weight = "weights",
-#'   group_vars = "gender"
+#'   group_vars = "birth_country"
 #' )
 #'
 se_mean_cat <- function(data, variable, group_vars = NULL, condition = NULL, strata = "zone", weight, alpha = 0.05) {

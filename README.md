@@ -47,8 +47,8 @@ se_total(
 # A tibble: 2 × 7
   gender   occ      total    vhat stand_dev       ci ci_per
   <fct>  <int>      <dbl>   <dbl>     <dbl>    <dbl>  <dbl>
-1 Male    4592 146242153. 7.52e12  2741918. 5374060.   3.67
-2 Female  4715 151475830. 7.30e12  2702304. 5296418.   3.50
+1 Male    4892 154558598. 7.90e12  2810039. 5507576.   3.56
+2 Female  5079 161922446. 7.82e12  2795884. 5479833.   3.38
 ```
 
 Estimate average household size:
@@ -60,8 +60,10 @@ se_mean_num(
   weight = "weights",
   strata = "strata"
 )
-   occ  average        vhat  stand_dev         ci
-1 9307 3.449383 0.000533299 0.02309327 0.04526197
+# A tibble: 1 × 5
+    occ average     vhat stand_dev     ci
+  <int>   <dbl>    <dbl>     <dbl>  <dbl>
+1  9971    3.46 0.000495    0.0222 0.0436
 ```
 
 Estimate population proportions by household size:
@@ -73,14 +75,16 @@ se_mean_cat(
   weight = "weights",
   strata = "strata"
 )
-         dummy_var  occ    average         vhat   stand_dev          ci
-1 household_size_2 1630 0.25710445 5.331753e-05 0.007301886 0.014311433
-2 household_size_1  807 0.10700246 2.302751e-05 0.004798698 0.009405276
-3 household_size_5 1554 0.13231214 1.900636e-05 0.004359628 0.008544714
-4 household_size_7  917 0.06200017 6.480589e-06 0.002545700 0.004989480
-5 household_size_3 1588 0.16994437 3.050700e-05 0.005523314 0.010825497
-6 household_size_4 1914 0.20352104 3.509434e-05 0.005924048 0.011610920
-7 household_size_6  897 0.06811537 8.825002e-06 0.002970690 0.005822446
+# A tibble: 7 × 6
+  dummy_var          occ average       vhat stand_dev      ci
+  <chr>            <int>   <dbl>      <dbl>     <dbl>   <dbl>
+1 household_size_2  1723  0.254  0.0000499    0.00706 0.0138 
+2 household_size_1   828  0.103  0.0000209    0.00457 0.00896
+3 household_size_5  1672  0.134  0.0000180    0.00424 0.00831
+4 household_size_7   974  0.0613 0.00000592   0.00243 0.00477
+5 household_size_3  1719  0.175  0.0000297    0.00545 0.0107 
+6 household_size_4  2061  0.204  0.0000327    0.00572 0.0112 
+7 household_size_6   994  0.0696 0.00000826   0.00287 0.00563
 ```
 
 ### Mobility and Transport Survey (MZMV/MRMT)
@@ -93,9 +97,11 @@ mzmv_mean(
   variable = c("annual_household_income", "annual_family_income"),
   weight = "weights"
 )
-                 variable   nc    wmean        ci
-1 annual_household_income 9307 11.77473 0.2393474
-2    annual_family_income 9307 11.42304 0.2413382
+# A tibble: 2 × 4
+  variable                   nc wmean    ci
+  <chr>                   <int> <dbl> <dbl>
+1 annual_household_income  9626  11.9 0.240
+2 annual_family_income     9642  11.5 0.245
 ```
 
 Estimate by group (e.g., gender, interview language):
@@ -110,14 +116,14 @@ mzmv_mean_map(
 # A tibble: 8 × 6
   variable                group_vars     group_vars_value    nc wmean    ci
   <chr>                   <chr>          <fct>            <int> <dbl> <dbl>
-1 annual_household_income gender         Male              4592  11.9 0.331
-2 annual_household_income gender         Female            4715  11.6 0.346
-3 annual_family_income    gender         Male              4592  11.5 0.330
-4 annual_family_income    gender         Female            4715  11.3 0.352
-5 annual_household_income interview_lang English           8131  11.7 0.233
-6 annual_household_income interview_lang Spanish           1176  13.2 1.24 
-7 annual_family_income    interview_lang English           8131  11.3 0.235
-8 annual_family_income    interview_lang Spanish           1176  12.8 1.25 
+1 annual_household_income gender         Male              4720  12.0 0.328
+2 annual_household_income gender         Female            4906  11.8 0.350
+3 annual_family_income    gender         Male              4725  11.6 0.334
+4 annual_family_income    gender         Female            4917  11.5 0.358
+5 annual_household_income interview_lang English           8310  11.8 0.241
+6 annual_household_income interview_lang Spanish           1316  12.0 1.07 
+7 annual_family_income    interview_lang English           8326  11.5 0.247
+8 annual_family_income    interview_lang Spanish           1316  11.6 1.07 
 ```
 
 ## Documentation
