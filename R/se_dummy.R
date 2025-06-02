@@ -37,7 +37,7 @@ se_dummy <- function(data, column) {
     mutate(row_id___ = row_number()) %>%
     left_join(dummy_data, by = "row_id___") %>%
     select(-row_id___) %>% 
-    relocate(starts_with(col_name), .after = col_name)
+    relocate(starts_with(col_name), .after = all_of(col_name))
   
   return(data)
 }
