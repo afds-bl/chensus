@@ -11,33 +11,39 @@ test_that("se_mean_cat computes mean and CI of categorical input correctly", {
   # Run the function
   result <- se_mean_cat(
     data = df,
-    variable = "category",
-    group_vars = "group",
-    strata = "zone",
-    weight = "weight"
+    variable = category,
+    group_vars = group,
+    strata = zone,
+    weight = weight
   )
 
   # Check structure
   expect_s3_class(result, "data.frame")
-  expect_true(all(c("dummy_var", "average", "stand_dev", "ci") %in% names(result)))
+  expect_true(all(c("category_level", "occ", "prop","vhat", "stand_dev", "ci", "ci_l", "ci_u") %in% names(result)))
 
   # One row per dummy variable * group_vars group
-  expect_equal(length(unique(result$dummy_var)), 2)
-  expect_true(all(result$average >= 0 & result$average <= 1))
+  expect_equal(length(unique(result$category_level)), 2)
+  expect_true(all(result$prop >= 0 & result$prop <= 1))
   expect_true(all(result$stand_dev >= 0))
   expect_true(all(result$ci >= 0))
 })
 
-test_that("se_mean_cat errors with non-categorical input", {
-  df <- tibble::tibble(
+test_that("se_mean_cat works with numeric variable by treating it as categorical", {
+  df <- tibble(
     zone = c("A", "B"),
     weight = c(1, 2),
     category = c(1, 2)
   )
-
+  
+  expect_silent({
+    result <- se_mean_cat(df, variable = category, weight = weight)
+    expect_s3_class(result, "data.frame")
+    expect_true(all(c("category_1", "category_2") %in% result$category_level))
+  })
+  
   expect_error(
     {
-      se_mean_cat(df, variable = "notacolumn", weight = "weight")
+      se_mean_cat(df, variable = notacolumn, weight = weight)
     },
     regexp = "Can't subset elements that don't exist"
   )
