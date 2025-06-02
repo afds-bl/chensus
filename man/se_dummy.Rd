@@ -2,28 +2,26 @@
 % Please edit documentation in R/se_dummy.R
 \name{se_dummy}
 \alias{se_dummy}
-\title{Create dummy variables}
+\title{Create Dummy Variables from a Categorical Variable}
 \usage{
-se_dummy(data, column, id)
+se_dummy(data, column)
 }
 \arguments{
-\item{data}{Tibble}
+\item{data}{A data frame or tibble.}
 
-\item{column}{Character string, name of variable to dummify}
-
-\item{id}{Character string, name of unique identifier ID column}
+\item{column}{Unquoted categorical column name to dummify.}
 }
 \value{
-Tibble composed of original tibble and newly created dummy variables
+A tibble with the original data and newly created dummy variables added.
 }
 \description{
-Create dummy variables
+Create Dummy Variables from a Categorical Variable
 }
 \examples{
 data <- data.frame(
 id = 1:5,
 category = c("A", "B", "A", "C", "B")
 )
-se_dummy(data, "category", "id")
+se_dummy(data, category)
 
 }

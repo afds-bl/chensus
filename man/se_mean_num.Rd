@@ -44,7 +44,7 @@ A tibble with the following columns:
 }
 }
 \description{
-\code{se_mean_num()} estimates the averages of numeric variables,  the variance and confidence
+\code{se_mean_num()} estimates the averages of numeric variables, the variance and confidence
 intervals of FSO's structural survey (Strukturerhebung / relevé structurel).
 }
 \examples{

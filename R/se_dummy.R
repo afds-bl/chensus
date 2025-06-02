@@ -1,13 +1,13 @@
-#' Create dummy variables
+#' Create Dummy Variables from a Categorical Variable
 #'
-#' @param data Tibble
-#' @param column Character string, name of variable to dummify
-#' @param id Character string, name of unique identifier ID column
+#' @param data A data frame or tibble.
+#' @param column Unquoted categorical column name to dummify.
 #'
-#' @return Tibble composed of original tibble and newly created dummy variables
+#' @return A tibble with the original data and newly created dummy variables added.
 #'
-#' @import tidyr
-#' @import dplyr
+#' @importFrom tidyr pivot_wider
+#' @importFrom rlang as_label enquo
+#' @importFrom dplyr select mutate left_join relocate select
 #'
 #' @export
 #'
@@ -16,21 +16,28 @@
 #' id = 1:5,
 #' category = c("A", "B", "A", "C", "B")
 #' )
-#' se_dummy(data, "category", "id")
+#' se_dummy(data, category)
 #'
-se_dummy <- function(data, column, id) {
-  dummy_value <- NULL
-  # Create dummy variables
+se_dummy <- function(data, column) {
+  col_name <- as_label(enquo(column))
+  
+  # Dummify column
   dummy_data <- data %>%
-    select(all_of(column), all_of(id)) %>%
-    mutate(dummy_value = 1L) %>%
+    select(all_of(col_name)) |> 
+    mutate(dummy_value = 1L, row_id___ = row_number()) %>%
     pivot_wider(
-      names_from = {{ column }}, values_from = dummy_value,
-      values_fill = list(dummy_value = 0), names_prefix = ""
-    ) %>%
-    # Prefix with original variable name
-    rename_with(\(x) paste(column, x, sep = "_"), -id)
-  data <- full_join(data, dummy_data, by = id)
-
+      names_from = {{ column }},
+      values_from = dummy_value,
+      values_fill = list(dummy_value = 0),
+      names_prefix = paste0(col_name, "_")
+    )
+  
+  # Join dummy columns back to original data
+  data <- data %>%
+    mutate(row_id___ = row_number()) %>%
+    left_join(dummy_data, by = "row_id___") %>%
+    select(-row_id___) %>% 
+    relocate(starts_with(col_name), .after = col_name)
+  
   return(data)
 }

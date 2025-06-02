@@ -1,6 +1,6 @@
 #' Estimate means of numeric variables in structural survey
 #'
-#' \code{se_mean_num()} estimates the averages of numeric variables,  the variance and confidence
+#' \code{se_mean_num()} estimates the averages of numeric variables, the variance and confidence
 #' intervals of FSO's structural survey (Strukturerhebung / relevé structurel).
 #'
 #' @param data A tibble or data frame.
@@ -92,97 +92,113 @@ se_mean_num <- function(data, variable, group_vars = NULL, condition = NULL, str
     )
 }
 
-#' Estimate means of categorical variables in structural survey
+#' Estimate proportions and confidence intervals of categorical variables in structural survey
 #'
-#' \code{se_mean_cat()} estimates the proportion of categorical variables along with the variance and confidence
-#' intervals of FSO's structural survey (Strukturerhebung / relevé structurel).
+#' \code{se_mean_cat()} estimates the proportion of and confidence intervals for each level of a categorical variable
+#'of FSO's structural survey (Strukturerhebung / relevé structurel)
+#' by first converting it to dummy variables and then computing statistics within strata and optional groupings
 #'
-#' @param data Tibble
-#' @param variable Character string, name of the categorical variable whose proportion we would like
-#' to estimate
-#' @param group_vars A character vector of grouping variables.
-#' @param condition [Deprecated] Use `group_vars` instead. A character vector of grouping variables.
-#' @param strata Character string, name of the column containing the
-#' strata/zones
-#' @param weight Character string, name of the column containing the
-#' weights
-#' @param alpha Double, significance level. Default 0.05 for 95\% confidence interval.
+#' @param data A tibble or data frame.
+#' @param variable Unquoted column name of the categorical variable whose proportion is to be estimated.
+#'   This uses tidy evaluation, so pass the variable bare (e.g., \code{interview_lang}).
+#' @param group_vars Optional. Unquoted variable names or tidyselect helpers specifying grouping variables
+#'   (e.g., \code{c(gender, birth_country)}).
+#' @param condition [Deprecated] Use \code{group_vars} instead. Unquoted variable names for grouping.
+#' @param strata Unquoted variable name of the strata/zone column.
+#' @param weight Unquoted variable name of the sampling weights column.
+#' @param alpha Numeric, significance level for confidence interval calculation; default is 0.05 (95\% CI).
 #'
-#' @return Tibble, with the following columns:
-#'  \itemize{
-#'  \item \code{occ}: true frequency in survey sample
-#'  \item \code{average}: estimated mean
-#'  \item \code{vhat}: estimated variance
-#'  \item \code{stand_dev}: standard deviation
-#'  \item \code{ci}: absolute confidence interval
-#'  }
-#' @import dplyr
-#' @import stringr
-#' @import purrr
+#' @return A tibble with the following columns:
+#' \describe{
+#'   \item{occ}{Sample size (number of observations) per group.}
+#'   \item{prop}{Estimated proportion of the specified categorical variable}
+#'   \item{vhat}{Estimated variance of the mean.}
+#'   \item{stand_dev}{Standard deviation (square root of variance).}
+#'   \item{ci}{Half-width of the confidence interval.}
+#'   \item{ci_l}{Lower confidence interval bound.}
+#'   \item{ci_u}{Upper confidence interval bound.}
+#' }
+#' @importFrom dplyr select arrange filter mutate summarise group_by ungroup across all_of
+#' @importFrom rlang enquo as_label quo_get_expr
+#' @importFrom tidyr pivot_wider
+#' @importFrom stringr str_starts
+#' @importFrom purrr map list_rbind
 #' @export
 #'
 #' @examples
 #' se_mean_cat(
 #'   data = nhanes,
-#'   variable = "interview_lang",
-#'   strata = "strata",
-#'   weight = "weights",
-#'   group_vars = "birth_country"
+#'   variable = interview_lang,
+#'   group_vars = birth_country,
+#'   strata = strata,
+#'   weight = weights
 #' )
 #'
-se_mean_cat <- function(data, variable, group_vars = NULL, condition = NULL, strata = "zone", weight, alpha = 0.05) {
-  mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- occ <- nc <- ybar <- zk <- zhat <- vhat <- stand_dev <- ci <- total <- occ <- ci_per <- dummy_vars <- dummy_var <- average <- NULL
-
+se_mean_cat <- function(data, variable, group_vars = NULL, condition = NULL, strata = zone, weight, alpha = 0.05) {
+  mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- occ <- nc <- ybar <- zk <- zhat <- vhat <- stand_dev <- ci <- ci_l <- ci_u <- total <- occ <- ci_per <- dummy_vars <- category_level <- prop <- NULL
+  
+  variable <- enquo(variable)
+  strata <- enquo(strata)
+  weight <- enquo(weight)
+  group_vars <- enquos(group_vars)
+  
+  # Deprecated `condition`
   if (!is.null(condition)) {
-    warning("Argument `condition` is deprecated. Please use `group_vars` instead.", call. = FALSE)
-    if (is.null(group_vars)) {
-      group_vars <- condition
+    warning("Argument `condition` is deprecated. Use `group_vars` instead.", call. = FALSE)
+    if (length(group_vars) == 0) {
+      group_vars <- enquos(!!!condition)
     }
   }
-
-  # Add row id and create dummy variables
-  data <- data %>%
-    mutate(id = row_number(), .before = 1) %>%
-    se_dummy(column = variable, id = "id")
-
-  dummy_vars <- names(data)[str_starts(names(data), paste0(variable, "_"))]
-
+  
+  # Turn categorical variable into dummy variables
+  var_name <- as_label(quo_get_expr(variable))
+  
+  data <- se_dummy(data, !!variable)
+  
+  dummy_vars <- names(data)[stringr::str_starts(names(data), paste0(var_name, "_"))]
+  
   map(dummy_vars, function(x) {
     data %>%
       filter(.data[[x]] >= 0) %>%
       mutate(yk = .data[[x]]) %>%
       mutate(
         occ = sum(yk == 1),
-        nc = sum(.data[[weight]]),
-        ybar = weighted.mean(yk, w = .data[[weight]]),
-        zk = (yk - ybar) / nc, .by = all_of(group_vars)
+        nc = sum(!!weight),
+        ybar = weighted.mean(yk, w = !!weight),
+        zk = (yk - ybar) / nc,
+        .by = c(!!!group_vars)
       ) %>%
       mutate(
         mh = n(),
-        Nh = sum(.data[[weight]]),
+        Nh = sum(!!weight),
         T1h = ifelse(mh != 1, mh / (mh - 1) * (1 - mh / Nh), 0),
-        zhat = .data[[weight]] * zk,
-        T2h = (.data[[weight]] * zk - zhat / mh)^2, .by = c(all_of(strata), all_of(group_vars))
+        zhat = !!weight * zk,
+        T2h = (!!weight * zk - zhat / mh)^2,
+        .by = c(!!strata, !!!group_vars)
       ) %>%
       summarise(
         sum_T2h = sum(T2h),
         T1h = unique(T1h),
         occ = unique(occ),
         ybar = unique(ybar),
-        .by = c(all_of(strata), all_of(group_vars))
+        .by = c(!!strata, !!!group_vars)
       ) %>%
       summarise(
         occ = unique(occ),
-        average = unique(ybar),
+        prop = unique(ybar),
         vhat = sum(T1h * sum_T2h),
-        .by = all_of(group_vars)
+        .by = c(!!!group_vars)
       ) %>%
       mutate(
         stand_dev = sqrt(vhat),
         ci = stand_dev * qnorm(1 - alpha / 2),
-        dummy_var = x, .before = 1
+        ci_l = prop - ci,
+        ci_u = prop + ci,
+        category_level = x,
+        .before = 1
       )
   }) %>%
     list_rbind() %>%
-    select(dummy_var, all_of(group_vars), occ, average, vhat, stand_dev, ci)
+    select(category_level, !!!group_vars, occ, prop, vhat, stand_dev, starts_with("ci")) |> 
+    arrange(!!!group_vars)
 }
