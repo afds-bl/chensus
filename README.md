@@ -56,14 +56,14 @@ Estimate average household size:
 ``` r
 se_mean_num(
   data = nhanes,
-  variable = "household_size",
-  weight = "weights",
-  strata = "strata"
+  variable = household_size,
+  weight = weights,
+  strata = strata
 )
-# A tibble: 1 × 5
-    occ average     vhat stand_dev     ci
-  <int>   <dbl>    <dbl>     <dbl>  <dbl>
-1  9971    3.46 0.000495    0.0222 0.0436
+# A tibble: 1 × 7
+    occ household_size     vhat stand_dev     ci  ci_l  ci_u
+  <int>          <dbl>    <dbl>     <dbl>  <dbl> <dbl> <dbl>
+1  9971           3.46 0.000495    0.0222 0.0436  3.42  3.51
 ```
 
 Estimate population proportions by household size:

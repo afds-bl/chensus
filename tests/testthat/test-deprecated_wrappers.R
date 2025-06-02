@@ -2,7 +2,7 @@ test_that("deprecated wrappers issue warnings and call new functions", {
   
   # se_estimate_mean
   expect_warning(
-    se_estimate_mean(data = nhanes, variable = "family_size", weight = "weights", strata = "strata"),
+    se_estimate_mean(data = nhanes, variable = family_size, weight = weights, strata = strata),
     regexp = "deprecated"
   )
   

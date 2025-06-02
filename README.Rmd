@@ -66,9 +66,9 @@ Estimate average household size:
 ```{r}
 se_mean_num(
   data = nhanes,
-  variable = "household_size",
-  weight = "weights",
-  strata = "strata"
+  variable = household_size,
+  weight = weights,
+  strata = strata
 )
 ```
 

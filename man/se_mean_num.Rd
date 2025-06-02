@@ -15,44 +15,44 @@ se_mean_num(
 )
 }
 \arguments{
-\item{data}{Tibble}
+\item{data}{A tibble or data frame.}
 
-\item{variable}{Character string, name of the feature whose mean we would like
-to estimate}
+\item{variable}{Unquoted column name of the numeric variable whose mean is to be estimated.
+This uses tidy evaluation, so pass the variable bare (e.g., \code{age}).}
 
-\item{group_vars}{A character vector of grouping variables.}
+\item{group_vars}{Optional. Unquoted variable names or tidyselect helpers specifying grouping variables
+(e.g., \code{c(gender, birth_country)}).}
 
-\item{condition}{[Deprecated] Use `group_vars` instead. A character vector of grouping variables.}
+\item{condition}{[Deprecated] Use \code{group_vars} instead. Unquoted variable names for grouping.}
 
-\item{strata}{Character string, name of the column containing the
-strata/zones}
+\item{strata}{Unquoted variable name of the strata/zone column.}
 
-\item{weight}{Character string, name of the column containing the
-weights}
+\item{weight}{Unquoted variable name of the sampling weights column.}
 
-\item{alpha}{Double, significance level. Default 0.05 for 95\% confidence interval.}
+\item{alpha}{Numeric, significance level for confidence interval calculation; default is 0.05 (95\% CI).}
 }
 \value{
-Tibble, with the following columns:
- \itemize{
- \item \code{occ}: true frequency in survey sample
- \item \code{average}: estimated mean
- \item \code{vhat}: estimated variance
- \item \code{stand_dev}: standard deviation
- \item \code{ci}: absolute confidence interval
- }
+A tibble with the following columns:
+\describe{
+  \item{occ}{Sample size (number of observations) per group.}
+  \item{<variable>}{Estimated mean of the specified numeric variable, named dynamically.}
+  \item{vhat}{Estimated variance of the mean.}
+  \item{stand_dev}{Standard deviation (square root of variance).}
+  \item{ci}{Half-width of the confidence interval.}
+  \item{ci_l}{Lower confidence interval bound.}
+  \item{ci_u}{Upper confidence interval bound.}
+}
 }
 \description{
-\code{se_mean_num()} estimates the averages of numeric variables along with the variance and confidence
+\code{se_mean_num()} estimates the averages of numeric variables,  the variance and confidence
 intervals of FSO's structural survey (Strukturerhebung / relevé structurel).
 }
 \examples{
 se_mean_num(
   data = nhanes,
-  variable = "age",
-  strata = "strata",
-  weight = "weights",
-  group_vars = "gender"
+  variable = age,
+  strata = strata,
+  weight = weights,
+  group_vars = c(gender, birth_country)
 )
-
 }
