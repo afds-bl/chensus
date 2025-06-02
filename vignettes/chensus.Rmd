@@ -32,18 +32,20 @@ the Federal Statistical Office (FSO):
 
 ## Example Data
 
-In this vignette, we demonstrate the main features of the package using the built-in `nhanes` dataset, which contains a subset of data from the [National Health and Nutrition Examination Survey](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) for the period 2015-2016 (more with `?nhanes`). Its structure is similar to FSO survey data in that it contains `strata` and `weights` columns and demographic features such as `gender` and `household_size`. 
+In this vignette, we demonstrate the main features of the package using the built-in `nhanes` dataset, which contains a subset of data from the [National Health and Nutrition Examination Survey](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) for the period 2015-2016 (more with `?nhanes`). Its structure is similar to FSO survey data in that it contains `strata` and `weights` columns and demographic features such as `gender` and `household_size`.
+
 ## Notes on Example Data and Interpretation
 
 The `nhanes` dataset included in this package is used solely as a publicly available example to demonstrate how to use `chensus`. In practice, the package is designed for use with FSO's structural survey and mobility and transport survey data. For any other use, results are illustrative only.
 
-The `nhanes` dataset is included with the package. Let's load and inspect it:
+The `nhanes` dataset is included with the package. Let us load it and inspect it:
 ```{r}
 data("nhanes")
 dplyr::glimpse(nhanes)
 nhanes %>% count(gender)
 nhanes %>% count(household_size)
 ```
+
 # Structural Survery Example Analysis
 
 Suppose we want to estimate the population in the `nhanes` dataset by gender and age. We can use the main analysis function `chensus::se_total()`:
@@ -71,9 +73,9 @@ We could also estimate the proportion of males and females in the `nhanes` surve
 ```{r}
 se_mean_cat(
   data = nhanes,
-  variable = "gender",
-  weight = "weights",
-  strata = "strata"
+  variable = gender,
+  weight = weights,
+  strata = strata
 )
 ```
 
