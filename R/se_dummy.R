@@ -19,6 +19,8 @@
 #' se_dummy(data, category)
 #'
 se_dummy <- function(data, column) {
+  dummy_value <- row_id___ <- NULL
+  
   col_name <- as_label(enquo(column))
   
   # Dummify column

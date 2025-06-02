@@ -13,7 +13,7 @@ test_that("se_mean_cat computes mean and CI of categorical input correctly", {
     data = df,
     variable = category,
     group_vars = group,
-    strata = zone,
+    # strata = zone,
     weight = weight
   )
 

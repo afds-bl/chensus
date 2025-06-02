@@ -25,7 +25,7 @@
 #' }
 #'
 #' @importFrom dplyr filter mutate summarise group_by ungroup across all_of
-#' @importFrom rlang enquo as_label quo_get_expr
+#' @importFrom rlang enquo as_label quo_get_expr :=
 #' @export
 #'
 #' @examples
@@ -37,7 +37,7 @@
 #'   group_vars = c(gender, birth_country)
 #' )
 se_mean_num <- function(data, variable, group_vars = NULL, condition = NULL, strata = "zone", weight, alpha = 0.05) {
-  mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- occ <- nc <- ybar <- zk <- zhat <- vhat <- stand_dev <- ci <- total <- occ <- ci_l <- ci_u <- NULL
+  mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- nc <- ybar <- zk <- zhat <- total <- NULL
 
   # Capture quosures for tidy evaluation
   variable <- enquo(variable)
@@ -119,7 +119,7 @@ se_mean_num <- function(data, variable, group_vars = NULL, condition = NULL, str
 #'   \item{ci_u}{Upper confidence interval bound.}
 #' }
 #' @importFrom dplyr select arrange filter mutate summarise group_by ungroup across all_of
-#' @importFrom rlang enquo as_label quo_get_expr
+#' @importFrom rlang enquo as_label quo_get_expr sym
 #' @importFrom tidyr pivot_wider
 #' @importFrom stringr str_starts
 #' @importFrom purrr map list_rbind
@@ -134,11 +134,11 @@ se_mean_num <- function(data, variable, group_vars = NULL, condition = NULL, str
 #'   weight = weights
 #' )
 #'
-se_mean_cat <- function(data, variable, group_vars = NULL, condition = NULL, strata = zone, weight, alpha = 0.05) {
-  mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- occ <- nc <- ybar <- zk <- zhat <- vhat <- stand_dev <- ci <- ci_l <- ci_u <- total <- occ <- ci_per <- dummy_vars <- category_level <- prop <- NULL
+se_mean_cat <- function(data, variable, group_vars = NULL, condition = NULL, strata, weight, alpha = 0.05) {
+  mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- nc <- ybar <- zk <- zhat <- total <- occ <- dummy_vars <- category_level <- prop <- NULL
   
   variable <- enquo(variable)
-  strata <- enquo(strata)
+  strata <- if (missing(strata)) sym("zone") else enquo(strata)
   weight <- enquo(weight)
   group_vars <- enquos(group_vars)
   

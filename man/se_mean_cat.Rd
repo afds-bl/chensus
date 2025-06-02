@@ -9,7 +9,7 @@ se_mean_cat(
   variable,
   group_vars = NULL,
   condition = NULL,
-  strata = zone,
+  strata,
   weight,
   alpha = 0.05
 )
