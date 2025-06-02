@@ -77,9 +77,9 @@ Estimate population proportions by household size:
 ```{r example2}
 se_mean_cat(
   data = nhanes,
-  variable = "household_size",
-  weight = "weights",
-  strata = "strata"
+  variable = household_size,
+  weight = weights,
+  strata = strata
 )
 ```
 

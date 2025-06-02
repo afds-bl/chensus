@@ -71,20 +71,20 @@ Estimate population proportions by household size:
 ``` r
 se_mean_cat(
   data = nhanes,
-  variable = "household_size",
-  weight = "weights",
-  strata = "strata"
+  variable = household_size,
+  weight = weights,
+  strata = strata
 )
-# A tibble: 7 × 6
-  dummy_var          occ average       vhat stand_dev      ci
-  <chr>            <int>   <dbl>      <dbl>     <dbl>   <dbl>
-1 household_size_2  1723  0.254  0.0000499    0.00706 0.0138 
-2 household_size_1   828  0.103  0.0000209    0.00457 0.00896
-3 household_size_5  1672  0.134  0.0000180    0.00424 0.00831
-4 household_size_7   974  0.0613 0.00000592   0.00243 0.00477
-5 household_size_3  1719  0.175  0.0000297    0.00545 0.0107 
-6 household_size_4  2061  0.204  0.0000327    0.00572 0.0112 
-7 household_size_6   994  0.0696 0.00000826   0.00287 0.00563
+# A tibble: 7 × 8
+  category_level     occ   prop       vhat stand_dev      ci   ci_l   ci_u
+  <chr>            <int>  <dbl>      <dbl>     <dbl>   <dbl>  <dbl>  <dbl>
+1 household_size_2  1723 0.254  0.0000499    0.00706 0.0138  0.240  0.268 
+2 household_size_1   828 0.103  0.0000209    0.00457 0.00896 0.0940 0.112 
+3 household_size_5  1672 0.134  0.0000180    0.00424 0.00831 0.126  0.142 
+4 household_size_7   974 0.0613 0.00000592   0.00243 0.00477 0.0565 0.0660
+5 household_size_3  1719 0.175  0.0000297    0.00545 0.0107  0.164  0.185 
+6 household_size_4  2061 0.204  0.0000327    0.00572 0.0112  0.192  0.215 
+7 household_size_6   994 0.0696 0.00000826   0.00287 0.00563 0.0639 0.0752
 ```
 
 ### Mobility and Transport Survey (MZMV/MRMT)
