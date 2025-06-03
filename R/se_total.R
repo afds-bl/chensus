@@ -56,7 +56,7 @@ se_total <- function(data, weight,
                      group_vars = NULL,
                      condition = NULL,
                      alpha = 0.05) {
-  mh <- Nh <- mhc <- Nhc <- T1h <- T1hc <- T2hc <- vhat <- stand_dev <- ci <- total <- occ <- ci_per <- NULL
+  mh <- Nh <- mhc <- Nhc <- T1h <- T1hc <- T2hc <- total <- ci_per <- NULL
 
   if (!is.null(condition)) {
     warning("Argument `condition` is deprecated. Please use `group_vars` instead.", call. = FALSE)
