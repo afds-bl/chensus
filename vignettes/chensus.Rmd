@@ -58,6 +58,7 @@ se_total(
   condition = c("gender", "age")
 )
 ```
+
 If on the other hand we would like to estimate the average household size then we would use the function `chensus::se_mean_num()`:
 
 ```{r}
@@ -68,7 +69,7 @@ se_mean_num(
   weight = weights)
 ```
 
-We could also estimate the proportion of males and females in the `nhanes` survey, `gender` being a categorical variable. 
+We could also estimate the proportion of males and females in the `nhanes` survey, `gender` being a categorical variable, 
 
 ```{r}
 se_mean_cat(
@@ -78,5 +79,14 @@ se_mean_cat(
   strata = strata
 )
 ```
+and by birth country interview language:
 
-
+```{r}
+se_mean_cat(
+  data = nhanes,
+  variable = gender,
+  weight = weights,
+  strata = strata,
+  birth_country, interview_lang
+)
+```
