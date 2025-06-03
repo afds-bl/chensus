@@ -1,17 +1,15 @@
-#' Estimate means of numeric variables in structural survey
+#' Estimate Means of Numeric Variables in Structural Survey
 #'
-#' \code{se_mean_num()} estimates the averages of numeric variables, the variance and confidence
+#' \code{se_mean_num()} estimates the averages of numeric variables, the variance, and confidence
 #' intervals of FSO's structural survey (Strukturerhebung / relevé structurel).
 #'
 #' @param data A tibble or data frame.
 #' @param variable Unquoted column name of the numeric variable whose mean is to be estimated.
 #'   This uses tidy evaluation, so pass the variable bare (e.g., \code{age}).
-#' @param group_vars Optional. Unquoted variable names or tidyselect helpers specifying grouping variables
-#'   (e.g., \code{c(gender, birth_country)}).
-#' @param condition [Deprecated] Use \code{group_vars} instead. Unquoted variable names for grouping.
-#' @param strata Unquoted variable name of the strata/zone column.
+#' @param ... Optional. Unquoted grouping variables or tidyselect helpers (e.g., \code{gender}, \code{birth_country}).
+#' @param strata Unquoted variable name of the strata column. Default is \code{zone}.
 #' @param weight Unquoted variable name of the sampling weights column.
-#' @param alpha Numeric, significance level for confidence interval calculation; default is 0.05 (95\% CI).
+#' @param alpha Numeric, significance level for confidence interval calculation. Default is 0.05 (95\% CI).
 #'
 #' @return A tibble with the following columns:
 #' \describe{
@@ -24,8 +22,8 @@
 #'   \item{ci_u}{Upper confidence interval bound.}
 #' }
 #'
-#' @importFrom dplyr filter mutate summarise group_by ungroup across all_of
-#' @importFrom rlang enquo as_label quo_get_expr :=
+#' @importFrom dplyr filter mutate summarise
+#' @importFrom rlang enquo enquos as_label quo_get_expr
 #' @export
 #'
 #' @examples
@@ -34,14 +32,15 @@
 #'   variable = age,
 #'   strata = strata,
 #'   weight = weights,
-#'   group_vars = c(gender, birth_country)
+#'   gender, birth_country
 #' )
-se_mean_num <- function(data, variable, group_vars = NULL, condition = NULL, strata = "zone", weight, alpha = 0.05) {
+se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
   mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- nc <- ybar <- zk <- zhat <- total <- NULL
-
+  
   # Capture quosures for tidy evaluation
   variable <- enquo(variable)
-  group_vars <- enquos(group_vars)
+  strata <- if (missing(strata)) sym("zone") else enquo(strata)
+  group_vars <- enquos(...)
   strata <- enquo(strata)
   
   # Evaluate variable as string for .data
@@ -53,16 +52,16 @@ se_mean_num <- function(data, variable, group_vars = NULL, condition = NULL, str
     stop(paste("Variable", var_name, "must be numeric."))
   }
   
-  data %>%
-    filter(.data[[var_name]] >= 0) %>%
-    mutate(yk = .data[[var_name]]) %>%
+  data |>
+    filter(.data[[var_name]] >= 0) |>
+    mutate(yk = .data[[var_name]]) |>
     mutate(
       occ = n(),
       nc = sum(.data[[weight_name]]),
       ybar = weighted.mean(yk, w = .data[[weight_name]]),
       zk = (yk - ybar) / nc,
       .by = c(!!!group_vars)
-    ) %>%
+    ) |>
     mutate(
       mh = n(),
       Nh = sum(.data[[weight_name]]),
@@ -70,26 +69,27 @@ se_mean_num <- function(data, variable, group_vars = NULL, condition = NULL, str
       zhat = .data[[weight_name]] * zk,
       T2h = (.data[[weight_name]] * zk - zhat / mh)^2,
       .by = c(!!strata, !!!group_vars)
-    ) %>%
+    ) |>
     summarise(
       sum_T2h = sum(T2h),
       T1h = unique(T1h),
       occ = unique(occ),
       ybar = unique(ybar),
       .by = c(!!strata, !!!group_vars)
-    ) %>%
+    ) |>
     summarise(
       occ = unique(occ),
       !!var_name := unique(ybar),
       vhat = sum(T1h * sum_T2h),
       .by = c(!!!group_vars)
-    ) %>%
+    ) |>
     mutate(
       stand_dev = sqrt(vhat),
       ci = stand_dev * qnorm(1 - alpha / 2),
       ci_l = .data[[var_name]] - ci,
       ci_u = .data[[var_name]] + ci
-    )
+    ) |> 
+    arrange(!!!group_vars)
 }
 
 #' Estimate proportions and confidence intervals of categorical variables in structural survey
@@ -104,9 +104,9 @@ se_mean_num <- function(data, variable, group_vars = NULL, condition = NULL, str
 #' @param group_vars Optional. Unquoted variable names or tidyselect helpers specifying grouping variables
 #'   (e.g., \code{c(gender, birth_country)}).
 #' @param condition [Deprecated] Use \code{group_vars} instead. Unquoted variable names for grouping.
-#' @param strata Unquoted variable name of the strata/zone column.
+#' @param strata Unquoted variable name of the strata column. Default is \code{zone}.
 #' @param weight Unquoted variable name of the sampling weights column.
-#' @param alpha Numeric, significance level for confidence interval calculation; default is 0.05 (95\% CI).
+#' @param alpha Numeric, significance level for confidence interval calculation. Default is 0.05 (95\% CI).
 #'
 #' @return A tibble with the following columns:
 #' \describe{
@@ -158,16 +158,16 @@ se_mean_cat <- function(data, variable, group_vars = NULL, condition = NULL, str
   dummy_vars <- names(data)[stringr::str_starts(names(data), paste0(var_name, "_"))]
   
   map(dummy_vars, function(x) {
-    data %>%
-      filter(.data[[x]] >= 0) %>%
-      mutate(yk = .data[[x]]) %>%
+    data |>
+      filter(.data[[x]] >= 0) |>
+      mutate(yk = .data[[x]]) |>
       mutate(
         occ = sum(yk == 1),
         nc = sum(!!weight),
         ybar = weighted.mean(yk, w = !!weight),
         zk = (yk - ybar) / nc,
         .by = c(!!!group_vars)
-      ) %>%
+      ) |>
       mutate(
         mh = n(),
         Nh = sum(!!weight),
@@ -175,20 +175,20 @@ se_mean_cat <- function(data, variable, group_vars = NULL, condition = NULL, str
         zhat = !!weight * zk,
         T2h = (!!weight * zk - zhat / mh)^2,
         .by = c(!!strata, !!!group_vars)
-      ) %>%
+      ) |>
       summarise(
         sum_T2h = sum(T2h),
         T1h = unique(T1h),
         occ = unique(occ),
         ybar = unique(ybar),
         .by = c(!!strata, !!!group_vars)
-      ) %>%
+      ) |>
       summarise(
         occ = unique(occ),
         prop = unique(ybar),
         vhat = sum(T1h * sum_T2h),
         .by = c(!!!group_vars)
-      ) %>%
+      ) |>
       mutate(
         stand_dev = sqrt(vhat),
         ci = stand_dev * qnorm(1 - alpha / 2),
@@ -197,8 +197,8 @@ se_mean_cat <- function(data, variable, group_vars = NULL, condition = NULL, str
         category_level = x,
         .before = 1
       )
-  }) %>%
-    list_rbind() %>%
+  }) |>
+    list_rbind() |>
     select(category_level, !!!group_vars, occ, prop, vhat, stand_dev, starts_with("ci")) |> 
     arrange(!!!group_vars)
 }

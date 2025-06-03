@@ -25,11 +25,11 @@ This uses tidy evaluation, so pass the variable bare (e.g., \code{interview_lang
 
 \item{condition}{[Deprecated] Use \code{group_vars} instead. Unquoted variable names for grouping.}
 
-\item{strata}{Unquoted variable name of the strata/zone column.}
+\item{strata}{Unquoted variable name of the strata column. Default is \code{zone}.}
 
 \item{weight}{Unquoted variable name of the sampling weights column.}
 
-\item{alpha}{Numeric, significance level for confidence interval calculation; default is 0.05 (95\% CI).}
+\item{alpha}{Numeric, significance level for confidence interval calculation. Default is 0.05 (95\% CI).}
 }
 \value{
 A tibble with the following columns:

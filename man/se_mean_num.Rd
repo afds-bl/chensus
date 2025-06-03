@@ -2,17 +2,9 @@
 % Please edit documentation in R/se_mean.R
 \name{se_mean_num}
 \alias{se_mean_num}
-\title{Estimate means of numeric variables in structural survey}
+\title{Estimate Means of Numeric Variables in Structural Survey}
 \usage{
-se_mean_num(
-  data,
-  variable,
-  group_vars = NULL,
-  condition = NULL,
-  strata = "zone",
-  weight,
-  alpha = 0.05
-)
+se_mean_num(data, variable, ..., strata, weight, alpha = 0.05)
 }
 \arguments{
 \item{data}{A tibble or data frame.}
@@ -20,16 +12,13 @@ se_mean_num(
 \item{variable}{Unquoted column name of the numeric variable whose mean is to be estimated.
 This uses tidy evaluation, so pass the variable bare (e.g., \code{age}).}
 
-\item{group_vars}{Optional. Unquoted variable names or tidyselect helpers specifying grouping variables
-(e.g., \code{c(gender, birth_country)}).}
+\item{...}{Optional. Unquoted grouping variables or tidyselect helpers (e.g., \code{gender}, \code{birth_country}).}
 
-\item{condition}{[Deprecated] Use \code{group_vars} instead. Unquoted variable names for grouping.}
-
-\item{strata}{Unquoted variable name of the strata/zone column.}
+\item{strata}{Unquoted variable name of the strata column. Default is \code{zone}.}
 
 \item{weight}{Unquoted variable name of the sampling weights column.}
 
-\item{alpha}{Numeric, significance level for confidence interval calculation; default is 0.05 (95\% CI).}
+\item{alpha}{Numeric, significance level for confidence interval calculation. Default is 0.05 (95\% CI).}
 }
 \value{
 A tibble with the following columns:
@@ -44,7 +33,7 @@ A tibble with the following columns:
 }
 }
 \description{
-\code{se_mean_num()} estimates the averages of numeric variables, the variance and confidence
+\code{se_mean_num()} estimates the averages of numeric variables, the variance, and confidence
 intervals of FSO's structural survey (Strukturerhebung / relevé structurel).
 }
 \examples{
@@ -53,6 +42,6 @@ se_mean_num(
   variable = age,
   strata = strata,
   weight = weights,
-  group_vars = c(gender, birth_country)
+  gender, birth_country
 )
 }
