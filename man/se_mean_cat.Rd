@@ -2,12 +2,12 @@
 % Please edit documentation in R/se_mean.R
 \name{se_mean_cat}
 \alias{se_mean_cat}
-\title{Estimate proportions and confidence intervals of categorical variables in structural survey}
+\title{Estimate Proportions of Categorical Variables in Structural Survey}
 \usage{
 se_mean_cat(
   data,
   variable,
-  group_vars = NULL,
+  ...,
   condition = NULL,
   strata,
   weight,
@@ -20,8 +20,7 @@ se_mean_cat(
 \item{variable}{Unquoted column name of the categorical variable whose proportion is to be estimated.
 This uses tidy evaluation, so pass the variable bare (e.g., \code{interview_lang}).}
 
-\item{group_vars}{Optional. Unquoted variable names or tidyselect helpers specifying grouping variables
-(e.g., \code{c(gender, birth_country)}).}
+\item{...}{Optional. Unquoted grouping variables or tidyselect helpers (e.g., \code{gender}, \code{birth_country}).}
 
 \item{condition}{[Deprecated] Use \code{group_vars} instead. Unquoted variable names for grouping.}
 
@@ -45,8 +44,8 @@ A tibble with the following columns:
 }
 \description{
 \code{se_mean_cat()} estimates the proportion of and confidence intervals for each level of a categorical variable
-of FSO's structural survey (Strukturerhebung / relevé structurel)
-by first converting it to dummy variables and then computing statistics within strata and optional groupings
+of FSO's structural survey, 
+by first converting it to dummy variables and then computing statistics within strata and optional groupings.
 }
 \examples{
 se_mean_cat(

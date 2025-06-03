@@ -92,17 +92,16 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
     arrange(!!!group_vars)
 }
 
-#' Estimate proportions and confidence intervals of categorical variables in structural survey
+#' Estimate Proportions of Categorical Variables in Structural Survey
 #'
 #' \code{se_mean_cat()} estimates the proportion of and confidence intervals for each level of a categorical variable
-#'of FSO's structural survey (Strukturerhebung / relevé structurel)
-#' by first converting it to dummy variables and then computing statistics within strata and optional groupings
+#'of FSO's structural survey, 
+#' by first converting it to dummy variables and then computing statistics within strata and optional groupings.
 #'
 #' @param data A tibble or data frame.
 #' @param variable Unquoted column name of the categorical variable whose proportion is to be estimated.
 #'   This uses tidy evaluation, so pass the variable bare (e.g., \code{interview_lang}).
-#' @param group_vars Optional. Unquoted variable names or tidyselect helpers specifying grouping variables
-#'   (e.g., \code{c(gender, birth_country)}).
+#' @param ... Optional. Unquoted grouping variables or tidyselect helpers (e.g., \code{gender}, \code{birth_country}).
 #' @param condition [Deprecated] Use \code{group_vars} instead. Unquoted variable names for grouping.
 #' @param strata Unquoted variable name of the strata column. Default is \code{zone}.
 #' @param weight Unquoted variable name of the sampling weights column.
@@ -134,13 +133,13 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #'   weight = weights
 #' )
 #'
-se_mean_cat <- function(data, variable, group_vars = NULL, condition = NULL, strata, weight, alpha = 0.05) {
+se_mean_cat <- function(data, variable, ..., condition = NULL, strata, weight, alpha = 0.05) {
   mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- nc <- ybar <- zk <- zhat <- total <- occ <- dummy_vars <- category_level <- prop <- NULL
   
   variable <- enquo(variable)
   strata <- if (missing(strata)) sym("zone") else enquo(strata)
   weight <- enquo(weight)
-  group_vars <- enquos(group_vars)
+  group_vars <- enquos(...)
   
   # Deprecated `condition`
   if (!is.null(condition)) {
