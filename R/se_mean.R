@@ -109,6 +109,8 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #'
 #' @return A tibble with the following columns:
 #' \describe{
+#'    \item{variable}{Values of categorical variable.}
+#'    \item{...}{Grouping variables if provided.}
 #'   \item{occ}{Sample size (number of observations) per group.}
 #'   \item{prop}{Estimated proportion of the specified categorical variable}
 #'   \item{vhat}{Estimated variance of the mean.}
@@ -120,7 +122,7 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #' @importFrom dplyr select arrange filter mutate summarise group_by ungroup across all_of
 #' @importFrom rlang enquo as_label quo_get_expr sym
 #' @importFrom tidyr pivot_wider
-#' @importFrom stringr str_starts
+#' @importFrom stringr str_starts str_remove
 #' @importFrom purrr map list_rbind
 #' @export
 #'
@@ -134,7 +136,7 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #' )
 #'
 se_mean_cat <- function(data, variable, ..., condition = NULL, strata, weight, alpha = 0.05) {
-  mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- nc <- ybar <- zk <- zhat <- total <- occ <- dummy_vars <- category_level <- prop <- NULL
+  mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- nc <- ybar <- zk <- zhat <- total <- occ <- dummy_vars <- prop <- NULL
   
   variable <- enquo(variable)
   strata <- if (missing(strata)) sym("zone") else enquo(strata)
@@ -154,7 +156,7 @@ se_mean_cat <- function(data, variable, ..., condition = NULL, strata, weight, a
   
   data <- se_dummy(data, !!variable)
   
-  dummy_vars <- names(data)[stringr::str_starts(names(data), paste0(var_name, "_"))]
+  dummy_vars <- names(data)[str_starts(names(data), paste0(var_name, "_"))]
   
   map(dummy_vars, function(x) {
     data |>
@@ -193,11 +195,14 @@ se_mean_cat <- function(data, variable, ..., condition = NULL, strata, weight, a
         ci = stand_dev * qnorm(1 - alpha / 2),
         ci_l = prop - ci,
         ci_u = prop + ci,
-        category_level = x,
+        {{ variable}} := str_remove(
+          x,
+          paste0(var_name, "_")
+        ),
         .before = 1
       )
   }) |>
     list_rbind() |>
-    select(category_level, !!!group_vars, occ, prop, vhat, stand_dev, starts_with("ci")) |> 
+    select(!!variable, !!!group_vars, occ, prop, vhat, stand_dev, starts_with("ci")) |> 
     arrange(!!!group_vars)
 }

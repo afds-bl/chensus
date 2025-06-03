@@ -33,6 +33,8 @@ This uses tidy evaluation, so pass the variable bare (e.g., \code{interview_lang
 \value{
 A tibble with the following columns:
 \describe{
+   \item{variable}{Values of categorical variable.}
+   \item{...}{Grouping variables if provided.}
   \item{occ}{Sample size (number of observations) per group.}
   \item{prop}{Estimated proportion of the specified categorical variable}
   \item{vhat}{Estimated variance of the mean.}
