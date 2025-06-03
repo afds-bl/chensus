@@ -102,7 +102,6 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #' @param variable Unquoted column name of the categorical variable whose proportion is to be estimated.
 #'   This uses tidy evaluation, so pass the variable bare (e.g., \code{interview_lang}).
 #' @param ... Optional. Unquoted grouping variables or tidyselect helpers (e.g., \code{gender}, \code{birth_country}).
-#' @param condition [Deprecated] Use \code{group_vars} instead. Unquoted variable names for grouping.
 #' @param strata Unquoted variable name of the strata column. Default is \code{zone}.
 #' @param weight Unquoted variable name of the sampling weights column.
 #' @param alpha Numeric, significance level for confidence interval calculation. Default is 0.05 (95\% CI).
@@ -130,26 +129,18 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #' se_mean_cat(
 #'   data = nhanes,
 #'   variable = interview_lang,
-#'   group_vars = birth_country,
+#'   birth_country,
 #'   strata = strata,
 #'   weight = weights
 #' )
 #'
-se_mean_cat <- function(data, variable, ..., condition = NULL, strata, weight, alpha = 0.05) {
+se_mean_cat <- function(data, variable, ..., strata, weight, alpha = 0.05) {
   mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- nc <- ybar <- zk <- zhat <- total <- occ <- dummy_vars <- prop <- NULL
   
   variable <- enquo(variable)
   strata <- if (missing(strata)) sym("zone") else enquo(strata)
   weight <- enquo(weight)
   group_vars <- enquos(...)
-  
-  # Deprecated `condition`
-  if (!is.null(condition)) {
-    warning("Argument `condition` is deprecated. Use `group_vars` instead.", call. = FALSE)
-    if (length(group_vars) == 0) {
-      group_vars <- enquos(!!!condition)
-    }
-  }
   
   # Turn categorical variable into dummy variables
   var_name <- as_label(quo_get_expr(variable))

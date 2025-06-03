@@ -53,9 +53,9 @@ Suppose we want to estimate the population in the `nhanes` dataset by gender and
 ```{r}
 se_total(
   data = nhanes,
-  weight = "weights",
-  strata = "strata",
-  condition = c("gender", "age")
+  weight = weights,
+  strata = strata,
+  gender, age
 )
 ```
 

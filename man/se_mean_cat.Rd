@@ -4,15 +4,7 @@
 \alias{se_mean_cat}
 \title{Estimate Proportions of Categorical Variables in Structural Survey}
 \usage{
-se_mean_cat(
-  data,
-  variable,
-  ...,
-  condition = NULL,
-  strata,
-  weight,
-  alpha = 0.05
-)
+se_mean_cat(data, variable, ..., strata, weight, alpha = 0.05)
 }
 \arguments{
 \item{data}{A tibble or data frame.}
@@ -21,8 +13,6 @@ se_mean_cat(
 This uses tidy evaluation, so pass the variable bare (e.g., \code{interview_lang}).}
 
 \item{...}{Optional. Unquoted grouping variables or tidyselect helpers (e.g., \code{gender}, \code{birth_country}).}
-
-\item{condition}{[Deprecated] Use \code{group_vars} instead. Unquoted variable names for grouping.}
 
 \item{strata}{Unquoted variable name of the strata column. Default is \code{zone}.}
 
@@ -53,7 +43,7 @@ by first converting it to dummy variables and then computing statistics within s
 se_mean_cat(
   data = nhanes,
   variable = interview_lang,
-  group_vars = birth_country,
+  birth_country,
   strata = strata,
   weight = weights
 )

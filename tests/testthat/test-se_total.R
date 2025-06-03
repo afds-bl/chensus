@@ -37,25 +37,3 @@ test_that("se_total works with default strata", {
   })
   
 })
-
-# test_that("se_total works with deprecated argument `condition`", {
-#   df <- data.frame(
-#     zone = rep(c("A", "B"), each = 5),
-#     weight = c(10, 12, 11, 13, 14, 8, 9, 10, 9, 11),
-#     group = rep(c("X", "Y"), times = 5)
-#   )
-# 
-#   expect_warning(
-#     result <- se_total(
-#       data = df,
-#       weight = weight,
-#       strata = zone,
-#       condition = group,  # deprecated argument
-#       alpha = 0.05
-#     ),
-#     regexp = "condition.*deprecated"
-#   )
-# 
-#   expect_s3_class(result, "data.frame")
-#   expect_true("group" %in% names(result))
-# })
