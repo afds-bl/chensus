@@ -63,10 +63,11 @@ If on the other hand we would like to estimate the average household size then w
 
 ```{r}
 se_mean_num(
-  data = nhanes, 
-  variable = household_size, 
+  data = nhanes,
+  variable = household_size,
   strata = strata,
-  weight = weights)
+  weight = weights
+)
 ```
 
 We could also estimate the proportion of males and females in the `nhanes` survey, `gender` being a categorical variable, 

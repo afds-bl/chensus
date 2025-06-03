@@ -18,7 +18,7 @@ test_that("se_mean_cat computes mean and CI of categorical input correctly", {
 
   # Check structure
   expect_s3_class(result, "data.frame")
-  expect_true(all(c("occ", "prop","vhat", "stand_dev", "ci", "ci_l", "ci_u") %in% names(result)))
+  expect_true(all(c("occ", "prop", "vhat", "stand_dev", "ci", "ci_l", "ci_u") %in% names(result)))
 
   # One row per dummy variable * group_vars group
   expect_equal(length(unique(result$group)), 2)
@@ -33,13 +33,13 @@ test_that("se_mean_cat works with numeric variable by treating it as categorical
     weight = c(1, 2),
     category = c(1, 2)
   )
-  
+
   expect_silent({
     result <- se_mean_cat(df, variable = category, weight = weight)
     expect_s3_class(result, "data.frame")
     expect_true(all(c("1", "2") %in% result$category))
   })
-  
+
   expect_error(
     {
       se_mean_cat(df, variable = notacolumn, weight = weight)

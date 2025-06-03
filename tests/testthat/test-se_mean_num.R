@@ -7,17 +7,17 @@ test_that("se_mean_num computes mean and CI correctly with multiple groups", {
     group = c("G1", "G1", "G2", "G2", "G1", "G2", "G1", "G2", "G1", "G2"),
     category = rep(c("X", "Y"), each = 5)
   )
-  
+
   # Run function with unquoted column names
   result <- se_mean_num(data = df, variable = score, weight = weight, group, category)
-  
+
   # Extract dynamic column name
   var_name <- "score"
-  
+
   # Check structure
   expect_s3_class(result, "data.frame")
   expect_true(all(c(var_name, "stand_dev", "ci", "ci_l", "ci_u") %in% names(result)))
-  
+
   # Check numeric outputs
   expect_true(all(result[[var_name]] > 0))
   expect_true(all(result$stand_dev >= 0))

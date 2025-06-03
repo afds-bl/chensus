@@ -2,69 +2,55 @@
 % Please edit documentation in R/se_total.R
 \name{se_total}
 \alias{se_total}
-\title{Estimate totals of population survey}
+\title{Estimate Totals of Structural Survey}
 \usage{
-se_total(
-  data,
-  weight,
-  strata = "zone",
-  group_vars = NULL,
-  condition = NULL,
-  alpha = 0.05
-)
+se_total(data, ..., weight, strata, alpha = 0.05)
 }
 \arguments{
-\item{data}{Tibble}
+\item{data}{A tibble or data frame.}
 
-\item{weight}{Character string, name of the column containing the
-weights}
+\item{...}{Additional unquoted grouping variables (e.g., \code{gender}, \code{marital_status}).}
 
-\item{strata}{Character string, name of the column containing the
-strata/zones}
+\item{weight}{Unquoted column name of the column containing the weights.}
 
-\item{group_vars}{A character vector of grouping variables.}
-
-\item{condition}{[Deprecated] Use `group_vars` instead. A character vector of grouping variables.}
+\item{strata}{Unquoted column name of the column containing the strata. Default is \code{zone}.}
 
 \item{alpha}{Double, significance level. Default 0.05 for 95\% confidence interval.}
 }
 \value{
-Tibble, with the following columns:
- \itemize{
- \item \code{total}: population estimate
- \item \code{vhat}: estimated variance
- \item \code{occ}: true frequency in survey sample
- \item \code{stand_dev}: standard deviation
- \item \code{ci}: absolute confidence interval
- \item \code{ci_per}: percent confidence interval.
+A tibble with estimates for all grouping column combinations, including:
+\describe{
+   \item{total}{population estimate.}
+   \item{vhat}{estimated variance.}
+   \item{occ}{true frequency in survey sample.}
+   \item{stand_dev}{standard deviation.}
+   \item{ci}{absolute confidence interval.}
+   \item{ci_per}{percent confidence interval.}
+   \item{ci_l}{Lower confidence interval bound.}
+   \item{ci_u}{Upper confidence interval bound.}
  }
 }
 \description{
-\code{se_estimate()} estimates the frequencies, variance and confidence
-intervals of FSO population surveys.
+\code{se_total()} estimates the totals, variance, and confidence
+intervals of FSO structural surveys.
 }
 \examples{
 # One grouping variable
 se_total(
   data = nhanes,
-  weight = "weights",
-  strata = "strata",
-  group_vars = "gender"
+  weight = weights,
+  strata = strata,
+  gender
 )
 # Multiple grouping variables
-library(dplyr)
-library(purrr)
-map(
-  c("gender", "marital_status"),
-  ~ se_total(
-    data = nhanes,
-    weight = "weights",
-    strata = "strata",
-    group_vars = .x
-  ) \%>\%
-    mutate(variable = .x, .before = 1) \%>\%
-    rename_with(~"value", all_of(.x))
-) \%>\%
-  map_dfr(~ .x \%>\% as_tibble())
+se_total(
+  data = nhanes,
+  weight = weights,
+  strata = strata,
+  gender, marital_status, birth_country
+)
 
+}
+\seealso{
+\code{\link[=se_total_map]{se_total_map()}}
 }

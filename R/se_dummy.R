@@ -24,9 +24,9 @@ se_dummy <- function(data, column) {
   col_name <- as_label(enquo(column))
   
   # Dummify column
-  dummy_data <- data %>%
+  dummy_data <- data |>
     select(all_of(col_name)) |> 
-    mutate(dummy_value = 1L, row_id___ = row_number()) %>%
+    mutate(dummy_value = 1L, row_id___ = row_number()) |>
     pivot_wider(
       names_from = {{ column }},
       values_from = dummy_value,
@@ -35,10 +35,10 @@ se_dummy <- function(data, column) {
     )
   
   # Join dummy columns back to original data
-  data <- data %>%
-    mutate(row_id___ = row_number()) %>%
-    left_join(dummy_data, by = "row_id___") %>%
-    select(-row_id___) %>% 
+  data <- data |>
+    mutate(row_id___ = row_number()) |>
+    left_join(dummy_data, by = "row_id___") |>
+    select(-row_id___) |> 
     relocate(starts_with(col_name), .after = all_of(col_name))
   
   return(data)
