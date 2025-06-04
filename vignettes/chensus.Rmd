@@ -42,8 +42,8 @@ The `nhanes` dataset is included with the package. Let us load it and inspect it
 ```{r}
 data("nhanes")
 dplyr::glimpse(nhanes)
-nhanes %>% count(gender)
-nhanes %>% count(household_size)
+nhanes |> count(gender)
+nhanes |> count(household_size)
 ```
 
 # Structural Survery Example Analysis
@@ -56,6 +56,17 @@ se_total(
   weight = weights,
   strata = strata,
   gender, age
+)
+```
+
+We could also estimate population in parallel groups:
+
+```{r}
+se_total_map(
+  nhanes,
+  weight = weights,
+  strata = strata,
+  gender, birth_country
 )
 ```
 

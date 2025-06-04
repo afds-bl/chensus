@@ -24,6 +24,7 @@
 #'
 #' @importFrom dplyr filter mutate summarise
 #' @importFrom rlang enquo enquos as_label quo_get_expr
+#' @importFrom stats weighted.mean
 #' @export
 #'
 #' @examples
@@ -123,6 +124,7 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #' @importFrom tidyr pivot_wider
 #' @importFrom stringr str_starts str_remove
 #' @importFrom purrr map list_rbind
+#' @importFrom stats weighted.mean
 #' @export
 #'
 #' @examples

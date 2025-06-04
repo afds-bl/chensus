@@ -35,7 +35,7 @@ participants, including sampling weights.
 \examples{
 library(dplyr)
 glimpse(nhanes)
-nhanes \%>\% count(edu_level)
+nhanes |> count(edu_level)
 }
 \references{
 \href{https://wwwn.cdc.gov/nchs/nhanes/}{CDC}

@@ -36,14 +36,14 @@ Vector, with the following values:
 \examples{
 # We can use the nhanes dataset
 library(dplyr)
-nhanes \%>\%
+nhanes |>
   mutate(
     married =
       case_when(
         marital_status == "Married" ~ 1,
         TRUE ~ 0
       )
-  ) \%>\%
+  ) |>
   mzmv_prop(
     variable = "married",
     weight = "weights"

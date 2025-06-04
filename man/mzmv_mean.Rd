@@ -2,19 +2,19 @@
 % Please edit documentation in R/mzmv_estimate.R
 \name{mzmv_mean}
 \alias{mzmv_mean}
-\title{Estimate means of mobility survey}
+\title{Estimate Means of Mobility Survey}
 \usage{
-mzmv_mean(data, variable, weight, cf = 1.14, alpha = 0.1)
+mzmv_mean(data, ..., weight, cf = 1.14, alpha = 0.1)
 }
 \arguments{
-\item{data}{Tibble}
+\item{data}{A tibble or data frame.}
 
-\item{variable}{Vector of strings, names of variables to be estimated. Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent `NA`.}
+\item{...}{Unquoted names of variables to be estimated. Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent `NA`.}
 
-\item{weight}{Character string, name of the column containing the
-weights}
+\item{weight}{Unquoted name of the column containing the sample
+weights.}
 
-\item{cf}{Double, correction factor of the confidence interval, supplied by FSO}
+\item{cf}{Double, correction factor of the confidence interval, supplied by FSO. Default is 1.14.}
 
 \item{alpha}{Double, significance level. Default 0.1 for 90\% confidence interval.}
 }
@@ -32,15 +32,13 @@ Tibble (number of rows is length of \code{variable}) with the following columns:
 intervals of FSO mobility surveys.
 }
 \examples{
-# We can use the nhanes dataset as an example even if it only contains population data
 library(dplyr)
 library(purrr)
 # Estimate two means
 mzmv_mean(
-  c("annual_household_income", "annual_family_income"),
-  data = nhanes,
-  weight = "weights",
-  alpha = 0.1
+data = nhanes,
+annual_household_income, annual_family_income,
+weight = weights
 )
 }
 \seealso{
