@@ -21,22 +21,35 @@
 #' }
 #'
 #' @import dplyr
-#' @importFrom rlang ensym enquos sym syms as_label
+#' @importFrom rlang ensym enquos as_label sym ensym
 #' @importFrom stats weighted.mean qnorm
 #' @export
 #'
 #' @examples
 #' # Direct column references (unquoted)
-#' se_mean_num(data = nhanes, variable = age, strata = strata, weight = weights, gender, birth_country)
+#' se_mean_num(
+#' data = nhanes, 
+#' variable = age, 
+#' strata = strata, 
+#' weight = weights, 
+#' gender, birth_country
+#' )
 #'
 #' # Quoted column names
-#' se_mean_num(data = nhanes, variable = "age", strata = "strata", weight = "weights", gender, birth_country)
+#' se_mean_num(
+#' data = nhanes, 
+#' variable = "age", strata = "strata", weight = "weights", gender, birth_country)
 #'
 #' # Programmatic use with strings
 #' v <- "age"
 #' wt <- "weights"
 #' vars <- c("gender", "birth_country")
-#' se_mean_num(data = nhanes, variable = !!sym(v), strata = strata, weight = !!sym(wt), !!!syms(vars))
+#' se_mean_num(
+#' data = nhanes, 
+#' variable = !!rlang::sym(v), 
+#' strata = strata, 
+#' weight = !!rlang::sym(wt),
+#'  !!!rlang::syms(vars))
 #'
 se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
   # Capture symbols and quosures for tidy evaluation
@@ -117,7 +130,7 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #'   \item{ci, ci_l, ci_u}{Confidence interval: half-width (\code{ci}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
 #' }
 #' @import dplyr
-#' @importFrom rlang ensym enquo as_label  sym
+#' @importFrom rlang ensym enquos as_label sym ensym
 #' @importFrom tidyr pivot_wider
 #' @importFrom stringr str_starts str_remove
 #' @importFrom purrr map list_rbind
@@ -149,10 +162,10 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #' vars <- c("gender", "birth_country")
 #' se_mean_cat(
 #'   data = nhanes,
-#'   variable = !!sym(v),
+#'   variable = !!rlang::sym(v),
 #'   strata = strata,
-#'   weight = !!sym(wt),
-#'   !!!syms(vars)
+#'   weight = !!rlang::sym(wt),
+#'   !!!rlang::syms(vars)
 #' )
 #'
 se_mean_cat <- function(data, variable, ..., strata, weight, alpha = 0.05) {

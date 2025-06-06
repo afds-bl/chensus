@@ -61,10 +61,10 @@ wt <- "weights"
 vars <- c("gender", "birth_country")
 se_mean_cat(
   data = nhanes,
-  variable = !!sym(v),
+  variable = !!rlang::sym(v),
   strata = strata,
-  weight = !!sym(wt),
-  !!!syms(vars)
+  weight = !!rlang::sym(wt),
+  !!!rlang::syms(vars)
 )
 
 }

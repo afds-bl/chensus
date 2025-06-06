@@ -52,7 +52,7 @@ se_total_map(
   nhanes,
   weight = "weights",
   strata = "strata",
-  !!!syms(v)
+  !!!rlang::syms(v)
 )
 
 }

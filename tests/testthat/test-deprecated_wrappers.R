@@ -8,7 +8,7 @@ test_that("deprecated wrappers issue warnings and call new functions", {
   
   # mzmv_mean
   expect_warning(
-    mzmv_estimate_mean(data = nhanes, variable = "household_size", weight = "weights"),
+    mzmv_estimate_mean(data = nhanes, variable = household_size, weight = weights),
     regexp = "deprecated"
   )
   

@@ -23,7 +23,7 @@
 #'
 #' @import dplyr
 #' @importFrom purrr map_chr
-#' @importFrom rlang enquo enquos as_label
+#' @importFrom rlang enquo enquos as_label sym syms
 #' @importFrom stats qnorm
 #'
 #' @export
@@ -121,7 +121,10 @@ se_total <- function(data, ..., strata, weight, alpha = 0.05) {
 #' This function iterates over each grouping variable supplied via `...`, applies `se_total()` to the data grouped by that variable, and combines the results into a single tibble. The grouping variable is renamed to `value` and its name is stored in the `variable` column for clarity.
 #'
 #' @seealso \code{\link[=se_total]{se_total()}}
-#'
+#' @import dplyr
+#' @importFrom purrr map_chr
+#' @importFrom rlang enquo enquos as_label sym syms
+#' @importFrom stats qnorm
 #' @examples
 #' # Estimate totals for gender, marital_status, and birth_country in parallel
 #' se_total_map(
@@ -136,7 +139,7 @@ se_total <- function(data, ..., strata, weight, alpha = 0.05) {
 #'   nhanes,
 #'   weight = "weights",
 #'   strata = "strata",
-#'   !!!syms(v)
+#'   !!!rlang::syms(v)
 #' )
 #'
 #' @export
