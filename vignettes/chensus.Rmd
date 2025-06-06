@@ -48,18 +48,32 @@ nhanes |> count(household_size)
 
 # Structural Survery Example Analysis
 
-Suppose we want to estimate the population in the `nhanes` dataset by gender and age. We can use the main analysis function `chensus::se_total()`:
+Suppose we want to estimate the population in the `nhanes` dataset by gender and birth country We can use the main analysis function `chensus::se_total()`:
 
 ```{r}
 se_total(
   data = nhanes,
   weight = weights,
   strata = strata,
-  gender, age
+  gender, birth_country
 )
 ```
 
-We could also estimate population in parallel groups:
+Column names can be passed programmatically with the help of `!!sym()` and `!!!syms()` in the function call:
+
+```{r}
+w <- "weights"
+s <- "strata"
+v <- c("gender", "birth_country")
+
+se_total(
+  data = nhanes,
+  strata = !!sym(s),
+  weight = !!sym(w),
+  !!!syms(v)
+)
+```
+We could also estimate population in parallel groups (without combining the variable levels):
 
 ```{r}
 se_total_map(
