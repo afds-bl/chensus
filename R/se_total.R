@@ -4,10 +4,11 @@
 #' intervals of FSO structural surveys.
 #'
 #' @param data A tibble or data frame.
-#' @param weight Unquoted column name of the column containing the weights.
-#' @param strata Unquoted column name of the column containing the strata. Default is \code{zone}.
-#' @param ... Additional unquoted grouping variables (e.g., \code{gender}, \code{marital_status}).
-#' @param alpha Double, significance level. Default 0.05 for 95\% confidence interval.
+#' @param ... Optional grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.
+#' @param strata Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.
+#' @param weight Unquoted or quoted name of the sampling weights column. For programmatic use
+#'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
+#' @param alpha Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).
 #'
 #' @return A tibble with estimates for all grouping column combinations, including:
 #' \describe{
@@ -31,28 +32,29 @@
 #' # One grouping variable
 #' se_total(
 #'   data = nhanes,
-#'   weight = weights,
 #'   strata = strata,
+#'   weight = weights,
 #'   gender
 #' )
 #' # Multiple grouping variables
 #' se_total(
 #'   data = nhanes,
-#'   weight = weights,
 #'   strata = strata,
+#'   weight = weights,
 #'   gender, marital_status, birth_country
 #' )
 #'
-se_total <- function(data, ..., weight, strata, alpha = 0.05) {
-  # Capture quosures for tidy evaluation
-  weight <- enquo(weight)
-  strata <- if (missing(strata)) sym("zone") else enquo(strata)
+se_total <- function(data, ..., strata, weight, alpha = 0.05) {
+  
+  # Capture symbols for tidy evaluation
+  weight <- ensym(weight)
+  strata <- if (missing(strata)) sym("zone") else ensym(strata)
   group_vars <- enquos(...)
-
+  
   # Named joining vector
   by_cols <- c(as_label(strata), map_chr(group_vars, as_label))
   by_vec <- set_names(by_cols)
-
+  
   # Summarise by strata
   data <- se_summarise(
     data = data,
@@ -67,7 +69,7 @@ se_total <- function(data, ..., weight, strata, alpha = 0.05) {
       !!strata, !!!group_vars
     ) |>
     mutate(T1hc = (mh - mhc) * (Nhc / mh)^2)
-
+  
   data |>
     group_by(!!strata, !!!group_vars) |>
     summarise(T2hc = sum((!!weight - Nhc / mh)^2), .groups = "drop") |>
@@ -96,12 +98,14 @@ se_total <- function(data, ..., weight, strata, alpha = 0.05) {
 #'
 #' `se_total_map()` applies `se_total()` to a data frame for each of several grouping variables, returning a combined tibble of results.
 #'
-#' This wrapper function allows to efficiently compute totals, variances, and confidence intervals for each grouping variable in the structural survey data, using the tidyverse with unquoted column names.
+#' This wrapper function allows to efficiently compute totals and confidence intervals for each grouping variable in the structural survey data in parallel.
 #'
 #' @param data A tibble or data frame.
-#' @param weight Unquoted column name for the sampling weights.
-#' @param strata Unquoted column name for the strata. Default is \code{zone}.
-#' @param ... One or more unquoted grouping variables (e.g., `gender`, `marital_status`, `birth_country`).
+#' @param ... One or more grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.
+#' @param strata Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.
+#' @param weight Unquoted or quoted name of the sampling weights column. For programmatic use
+#'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
+#' @param alpha Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).
 #'
 #' @return A tibble with results for each grouping variable, including:
 #' \describe{
@@ -119,26 +123,34 @@ se_total <- function(data, ..., weight, strata, alpha = 0.05) {
 #' @seealso \code{\link[=se_total]{se_total()}}
 #'
 #' @examples
-#' # Estimate totals for gender, marital_status, and birth_country
+#' # Estimate totals for gender, marital_status, and birth_country in parallel
 #' se_total_map(
 #'   nhanes,
 #'   weight = weights,
 #'   strata = strata,
 #'   gender, marital_status, birth_country
 #' )
+#' # Programmatic use with strings
+#' v <- c("gender", "marital_status", "birth_country")
+#' se_total_map(
+#'   nhanes,
+#'   weight = "weights",
+#'   strata = "strata",
+#'   !!!syms(v)
+#' )
 #'
 #' @export
 #'
-se_total_map <- function(data, ..., weight, strata) {
+se_total_map <- function(data, ..., strata, weight, alpha = 0.05) {
   group_quos <- enquos(...)
-
+  
   map(
     group_quos,
     ~ {
       # .x is a quosure
       col_name <- as_label(.x)
       data |>
-        se_total(weight = {{ weight }}, strata = {{ strata }}, !!.x) |>
+        se_total(strata = {{ strata }}, weight = {{ weight }}, alpha = alpha, !!.x) |>
         mutate(variable = col_name, .before = 1) |>
         rename_with(~"value", all_of(col_name))
     }

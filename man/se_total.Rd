@@ -4,18 +4,19 @@
 \alias{se_total}
 \title{Estimate Totals of Structural Survey}
 \usage{
-se_total(data, ..., weight, strata, alpha = 0.05)
+se_total(data, ..., strata, weight, alpha = 0.05)
 }
 \arguments{
 \item{data}{A tibble or data frame.}
 
-\item{...}{Additional unquoted grouping variables (e.g., \code{gender}, \code{marital_status}).}
+\item{...}{Optional grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.}
 
-\item{weight}{Unquoted column name of the column containing the weights.}
+\item{strata}{Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.}
 
-\item{strata}{Unquoted column name of the column containing the strata. Default is \code{zone}.}
+\item{weight}{Unquoted or quoted name of the sampling weights column. For programmatic use
+with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.}
 
-\item{alpha}{Double, significance level. Default 0.05 for 95\% confidence interval.}
+\item{alpha}{Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).}
 }
 \value{
 A tibble with estimates for all grouping column combinations, including:
@@ -35,15 +36,15 @@ intervals of FSO structural surveys.
 # One grouping variable
 se_total(
   data = nhanes,
-  weight = weights,
   strata = strata,
+  weight = weights,
   gender
 )
 # Multiple grouping variables
 se_total(
   data = nhanes,
-  weight = weights,
   strata = strata,
+  weight = weights,
   gender, marital_status, birth_country
 )
 

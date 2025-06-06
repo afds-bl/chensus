@@ -4,16 +4,19 @@
 \alias{se_total_map}
 \title{Estimate Totals in Parallel for Multiple Grouping Variables in Structural Survey}
 \usage{
-se_total_map(data, ..., weight, strata)
+se_total_map(data, ..., strata, weight, alpha = 0.05)
 }
 \arguments{
 \item{data}{A tibble or data frame.}
 
-\item{...}{One or more unquoted grouping variables (e.g., `gender`, `marital_status`, `birth_country`).}
+\item{...}{One or more grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.}
 
-\item{weight}{Unquoted column name for the sampling weights.}
+\item{strata}{Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.}
 
-\item{strata}{Unquoted column name for the strata. Default is \code{zone}.}
+\item{weight}{Unquoted or quoted name of the sampling weights column. For programmatic use
+with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.}
+
+\item{alpha}{Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).}
 }
 \value{
 A tibble with results for each grouping variable, including:
@@ -30,18 +33,26 @@ A tibble with results for each grouping variable, including:
 `se_total_map()` applies `se_total()` to a data frame for each of several grouping variables, returning a combined tibble of results.
 }
 \details{
-This wrapper function allows to efficiently compute totals, variances, and confidence intervals for each grouping variable in the structural survey data, using the tidyverse with unquoted column names.
+This wrapper function allows to efficiently compute totals and confidence intervals for each grouping variable in the structural survey data in parallel.
 
 
 This function iterates over each grouping variable supplied via `...`, applies `se_total()` to the data grouped by that variable, and combines the results into a single tibble. The grouping variable is renamed to `value` and its name is stored in the `variable` column for clarity.
 }
 \examples{
-# Estimate totals for gender, marital_status, and birth_country
+# Estimate totals for gender, marital_status, and birth_country in parallel
 se_total_map(
   nhanes,
   weight = weights,
   strata = strata,
   gender, marital_status, birth_country
+)
+# Programmatic use with strings
+v <- c("gender", "marital_status", "birth_country")
+se_total_map(
+  nhanes,
+  weight = "weights",
+  strata = "strata",
+  !!!syms(v)
 )
 
 }

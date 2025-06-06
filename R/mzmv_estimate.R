@@ -107,8 +107,6 @@ mzmv_mean <- function(data, ..., weight, cf = 1.14, alpha = 0.1) {
 #'
 mzmv_mean_map <- function(data, variable, group_vars = NULL, condition = NULL, weight, cf = 1.14, alpha = 0.1) {
 
-  # ci <- condition_value <- nc <- wmean <- group_vars_value <- NULL
-  # 
   # # If grouping variable is "all", add a dummy column for grouping
   # if (is.null(group_vars)) {
   #   # Add a dummy column for grouping
