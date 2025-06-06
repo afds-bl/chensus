@@ -24,7 +24,7 @@ with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in t
 \value{
 A tibble with the following columns:
 \describe{
-   \item{variable}{Values of categorical variable.}
+   \item{<variable>}{Values of categorical variable named dynamically.}
    \item{...}{Grouping variables if provided.}
   \item{occ}{Sample size (number of observations) per group.}
   \item{prop}{Estimated proportion of the specified categorical variable}

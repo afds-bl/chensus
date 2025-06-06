@@ -109,7 +109,7 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #'
 #' @return A tibble with the following columns:
 #' \describe{
-#'    \item{variable}{Values of categorical variable.}
+#'    \item{<variable>}{Values of categorical variable named dynamically.}
 #'    \item{...}{Grouping variables if provided.}
 #'   \item{occ}{Sample size (number of observations) per group.}
 #'   \item{prop}{Estimated proportion of the specified categorical variable}
