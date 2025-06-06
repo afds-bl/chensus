@@ -55,9 +55,8 @@ library(chensus)
 
 se_total(
   data = nhanes,
-  weight = "weights",
-  strata = "strata",
-  group_vars = "gender"
+  weight = weights,
+  strata = strata
 )
 ```
 
@@ -89,9 +88,9 @@ Estimate average annual household and family incomes:
 
 ```{r example3}
 mzmv_mean(
-  data = nhanes,
-  variable = c("annual_household_income", "annual_family_income"),
-  weight = "weights"
+data = nhanes,
+annual_household_income, annual_family_income,
+weight = weights
 )
 ```
 
