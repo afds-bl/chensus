@@ -20,14 +20,11 @@ se_total(data, ..., weight, strata, alpha = 0.05)
 \value{
 A tibble with estimates for all grouping column combinations, including:
 \describe{
+  \item{<variable>}{Value of the grouping variables passed in \code{...}.}
+   \item{occ}{number of observations in survey sample.}
    \item{total}{population estimate.}
-   \item{vhat}{estimated variance.}
-   \item{occ}{true frequency in survey sample.}
-   \item{stand_dev}{standard deviation.}
-   \item{ci}{absolute confidence interval.}
-   \item{ci_per}{percent confidence interval.}
-   \item{ci_l}{Lower confidence interval bound.}
-   \item{ci_u}{Upper confidence interval bound.}
+   \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev} (square root of the variance).}
+  \item{ci, ci_per, ci_l, ci_u}{Confidence interval:  half-width (\code{ci}), percentage of the mean (\code{ci_per}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
  }
 }
 \description{

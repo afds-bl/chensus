@@ -27,7 +27,7 @@ A tibble with columns:
   \item{occ}{Sample size (number of observations) per group.}
   \item{<variable>}{Estimated mean of the specified numeric variable, named dynamically.}
   \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev} (square root of the variance).}
-  \item{ci, ci_l, ci_u}{Confidence interval: half-width (\code{ci}), lower bound (\code{ci_l}), and upper bound (\code{ci_u}).}
+  \item{ci, ci_l, ci_u}{Confidence interval: half-width (\code{ci}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
 }
 }
 \description{

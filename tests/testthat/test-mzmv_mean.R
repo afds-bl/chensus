@@ -9,7 +9,7 @@ test_that("mzmv_mean computes weighted means and CI correctly", {
   )
   
   # Run the function
-  result <- mzmv_mean(df, variable = c("annual_household_income", "household_size"), weight = "weights")
+  result <- mzmv_mean(df, annual_household_income, household_size, weight = weights)
   
   # Check it returns a tibble with expected columns
   expect_true(all(c("variable", "nc", "wmean", "ci") %in% colnames(result)))
