@@ -9,7 +9,7 @@ se_mean_num(data, variable, ..., strata, weight, alpha = 0.05)
 \arguments{
 \item{data}{A tibble or data frame.}
 
-\item{variable}{Unquoted or quoted name of the numeric variable to estimate the mean for.
+\item{variable}{Unquoted or quoted name of the numeric variable whose mean is to be estimated.
 Programmatic usage (e.g., using \code{!!sym()}) is supported.}
 
 \item{...}{Optional grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.}

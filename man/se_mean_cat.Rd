@@ -7,18 +7,19 @@
 se_mean_cat(data, variable, ..., strata, weight, alpha = 0.05)
 }
 \arguments{
-\item{data}{A tibble or data frame.}
+\item{data}{A data frame or tibble.}
 
-\item{variable}{Unquoted column name of the categorical variable whose proportion is to be estimated.
-This uses tidy evaluation, so pass the variable bare (e.g., \code{interview_lang}).}
+\item{variable}{Unquoted or quoted name of the categorical variable whose mean is to be estimated.
+Programmatic usage (e.g., using \code{!!sym()}) is supported.}
 
-\item{...}{Optional. Unquoted grouping variables or tidyselect helpers (e.g., \code{gender}, \code{birth_country}).}
+\item{...}{Optional grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.}
 
-\item{strata}{Unquoted variable name of the strata column. Default is \code{zone}.}
+\item{strata}{Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.}
 
-\item{weight}{Unquoted variable name of the sampling weights column.}
+\item{weight}{Unquoted or quoted name of the sampling weights column. For programmatic use
+with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.}
 
-\item{alpha}{Numeric, significance level for confidence interval calculation. Default is 0.05 (95\% CI).}
+\item{alpha}{Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).}
 }
 \value{
 A tibble with the following columns:
@@ -27,25 +28,43 @@ A tibble with the following columns:
    \item{...}{Grouping variables if provided.}
   \item{occ}{Sample size (number of observations) per group.}
   \item{prop}{Estimated proportion of the specified categorical variable}
-  \item{vhat}{Estimated variance of the mean.}
-  \item{stand_dev}{Standard deviation (square root of variance).}
-  \item{ci}{Half-width of the confidence interval.}
-  \item{ci_l}{Lower confidence interval bound.}
-  \item{ci_u}{Upper confidence interval bound.}
+  \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev} (square root of the variance).}
+  \item{ci, ci_l, ci_u}{Confidence interval: half-width (\code{ci}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
 }
 }
 \description{
 \code{se_mean_cat()} estimates the proportion of and confidence intervals for each level of a categorical variable
-of FSO's structural survey, 
-by first converting it to dummy variables and then computing statistics within strata and optional groupings.
+of FSO's structural survey, by first converting it to dummy variables and then computing statistics within strata and optional groupings.
 }
 \examples{
+# Direct column references (unquoted)
 se_mean_cat(
   data = nhanes,
   variable = interview_lang,
   birth_country,
   strata = strata,
   weight = weights
+)
+
+# Quoted column names
+se_mean_cat(
+  data = nhanes,
+  variable = "interview_lang",
+  strata = "strata",
+  weight = "weights",
+  gender, birth_country
+)
+
+# Programmatic use with strings
+v <- "interview_lang"
+wt <- "weights"
+vars <- c("gender", "birth_country")
+se_mean_cat(
+  data = nhanes,
+  variable = !!sym(v),
+  strata = strata,
+  weight = !!sym(wt),
+  !!!syms(vars)
 )
 
 }

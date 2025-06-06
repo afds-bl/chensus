@@ -4,7 +4,7 @@
 #' and confidence intervals for FSO's structural survey.
 #'
 #' @param data A tibble or data frame.
-#' @param variable Unquoted or quoted name of the numeric variable to estimate the mean for.
+#' @param variable Unquoted or quoted name of the numeric variable whose mean is to be estimated.
 #'   Programmatic usage (e.g., using \code{!!sym()}) is supported.
 #' @param ... Optional grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.
 #' @param strata Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.
@@ -38,23 +38,21 @@
 #' vars <- c("gender", "birth_country")
 #' se_mean_num(data = nhanes, variable = !!sym(v), strata = strata, weight = !!sym(wt), !!!syms(vars))
 #'
-
 se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
-
   # Capture symbols and quosures for tidy evaluation
   variable <- ensym(variable)
   group_vars <- enquos(...)
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
   weight <- ensym(weight)
-  
+
   # Evaluate variable as string for safety check
   var_name <- as_label(variable)
-  
+
   # Safety check for numeric
   if (!is.numeric(data[[var_name]])) {
     stop(paste("Variable", var_name, "must be numeric."))
   }
-  
+
   data |>
     filter(!!variable >= 0) |>
     mutate(yk = !!variable) |>
@@ -82,7 +80,7 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
     ) |>
     summarise(
       occ = unique(occ),
-      {{variable}} := unique(ybar),
+      {{ variable }} := unique(ybar),
       vhat = sum(T1h * sum_T2h),
       .by = c(!!!group_vars)
     ) |>
@@ -91,23 +89,23 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
       ci = stand_dev * qnorm(1 - alpha / 2),
       ci_l = !!variable - ci,
       ci_u = !!variable + ci
-    ) |> 
+    ) |>
     arrange(!!!group_vars)
 }
 
 #' Estimate Proportions of Categorical Variables in Structural Survey
 #'
 #' \code{se_mean_cat()} estimates the proportion of and confidence intervals for each level of a categorical variable
-#'of FSO's structural survey, 
-#' by first converting it to dummy variables and then computing statistics within strata and optional groupings.
+#' of FSO's structural survey, by first converting it to dummy variables and then computing statistics within strata and optional groupings.
 #'
-#' @param data A tibble or data frame.
-#' @param variable Unquoted column name of the categorical variable whose proportion is to be estimated.
-#'   This uses tidy evaluation, so pass the variable bare (e.g., \code{interview_lang}).
-#' @param ... Optional. Unquoted grouping variables or tidyselect helpers (e.g., \code{gender}, \code{birth_country}).
-#' @param strata Unquoted variable name of the strata column. Default is \code{zone}.
-#' @param weight Unquoted variable name of the sampling weights column.
-#' @param alpha Numeric, significance level for confidence interval calculation. Default is 0.05 (95\% CI).
+#' @param data A data frame or tibble.
+#' @param variable Unquoted or quoted name of the categorical variable whose mean is to be estimated.
+#'   Programmatic usage (e.g., using \code{!!sym()}) is supported.
+#' @param ... Optional grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.
+#' @param strata Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.
+#' @param weight Unquoted or quoted name of the sampling weights column. For programmatic use
+#'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
+#' @param alpha Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).
 #'
 #' @return A tibble with the following columns:
 #' \describe{
@@ -115,14 +113,11 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #'    \item{...}{Grouping variables if provided.}
 #'   \item{occ}{Sample size (number of observations) per group.}
 #'   \item{prop}{Estimated proportion of the specified categorical variable}
-#'   \item{vhat}{Estimated variance of the mean.}
-#'   \item{stand_dev}{Standard deviation (square root of variance).}
-#'   \item{ci}{Half-width of the confidence interval.}
-#'   \item{ci_l}{Lower confidence interval bound.}
-#'   \item{ci_u}{Upper confidence interval bound.}
+#'   \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev} (square root of the variance).}
+#'   \item{ci, ci_l, ci_u}{Confidence interval: half-width (\code{ci}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
 #' }
-#' @importFrom dplyr select arrange filter mutate summarise group_by ungroup across all_of
-#' @importFrom rlang enquo as_label quo_get_expr sym
+#' @import dplyr
+#' @importFrom rlang ensym enquo as_label  sym
 #' @importFrom tidyr pivot_wider
 #' @importFrom stringr str_starts str_remove
 #' @importFrom purrr map list_rbind
@@ -130,6 +125,7 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #' @export
 #'
 #' @examples
+#' # Direct column references (unquoted)
 #' se_mean_cat(
 #'   data = nhanes,
 #'   variable = interview_lang,
@@ -138,19 +134,38 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #'   weight = weights
 #' )
 #'
+#' # Quoted column names
+#' se_mean_cat(
+#'   data = nhanes,
+#'   variable = "interview_lang",
+#'   strata = "strata",
+#'   weight = "weights",
+#'   gender, birth_country
+#' )
+#'
+#' # Programmatic use with strings
+#' v <- "interview_lang"
+#' wt <- "weights"
+#' vars <- c("gender", "birth_country")
+#' se_mean_cat(
+#'   data = nhanes,
+#'   variable = !!sym(v),
+#'   strata = strata,
+#'   weight = !!sym(wt),
+#'   !!!syms(vars)
+#' )
+#'
 se_mean_cat <- function(data, variable, ..., strata, weight, alpha = 0.05) {
-  # mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- nc <- ybar <- zk <- zhat <- total <- occ <- dummy_vars <- prop <- NULL
-  
-  variable <- enquo(variable)
+  variable <- ensym(variable)
   group_vars <- enquos(...)
-  strata <- if (missing(strata)) sym("zone") else enquo(strata)
-  weight <- enquo(weight)
-  
+  strata <- if (missing(strata)) sym("zone") else ensym(strata)
+  weight <- ensym(weight)
+
   # Turn categorical variable into dummy variables
   var_name <- as_label(variable)
   data <- se_dummy(data, !!variable)
   dummy_vars <- names(data)[str_starts(names(data), paste0(var_name, "_"))]
-  
+
   map(dummy_vars, function(x) {
     data |>
       filter(.data[[x]] >= 0) |>
@@ -188,7 +203,7 @@ se_mean_cat <- function(data, variable, ..., strata, weight, alpha = 0.05) {
         ci = stand_dev * qnorm(1 - alpha / 2),
         ci_l = prop - ci,
         ci_u = prop + ci,
-        {{ variable}} := str_remove(
+        {{ variable }} := str_remove(
           x,
           paste0(var_name, "_")
         ),
@@ -196,6 +211,6 @@ se_mean_cat <- function(data, variable, ..., strata, weight, alpha = 0.05) {
       )
   }) |>
     list_rbind() |>
-    select(!!variable, !!!group_vars, occ, prop, vhat, stand_dev, starts_with("ci")) |> 
+    select(!!variable, !!!group_vars, occ, prop, vhat, stand_dev, starts_with("ci")) |>
     arrange(!!!group_vars)
 }
