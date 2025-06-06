@@ -1,52 +1,54 @@
-#' Estimate Means of Numeric Variables in Structural Survey
+#' Estimate Averages of Numeric Variables in Structural Survey
 #'
-#' \code{se_mean_num()} estimates the averages of numeric variables, the variance, and confidence
-#' intervals of FSO's structural survey (Strukturerhebung / relevé structurel).
+#' \code{se_mean_num()} estimates the averages of numeric variables along with variance
+#' and confidence intervals for FSO's structural survey.
 #'
 #' @param data A tibble or data frame.
-#' @param variable Unquoted column name of the numeric variable whose mean is to be estimated.
-#'   This uses tidy evaluation, so pass the variable bare (e.g., \code{age}).
-#' @param ... Optional. Unquoted grouping variables or tidyselect helpers (e.g., \code{gender}, \code{birth_country}).
-#' @param strata Unquoted variable name of the strata column. Default is \code{zone}.
-#' @param weight Unquoted variable name of the sampling weights column.
-#' @param alpha Numeric, significance level for confidence interval calculation. Default is 0.05 (95\% CI).
+#' @param variable Unquoted or quoted name of the numeric variable to estimate the mean for.
+#'   Programmatic usage (e.g., using \code{!!sym()}) is supported.
+#' @param ... Optional grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.
+#' @param strata Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.
+#' @param weight Unquoted or quoted name of the sampling weights column. For programmatic use
+#'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
+#' @param alpha Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).
 #'
-#' @return A tibble with the following columns:
+#' @return A tibble with columns:
 #' \describe{
 #'   \item{occ}{Sample size (number of observations) per group.}
 #'   \item{<variable>}{Estimated mean of the specified numeric variable, named dynamically.}
-#'   \item{vhat}{Estimated variance of the mean.}
-#'   \item{stand_dev}{Standard deviation (square root of variance).}
-#'   \item{ci}{Half-width of the confidence interval.}
-#'   \item{ci_l}{Lower confidence interval bound.}
-#'   \item{ci_u}{Upper confidence interval bound.}
+#'   \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev} (square root of the variance).}
+#'   \item{ci, ci_l, ci_u}{Confidence interval: half-width (\code{ci}), lower bound (\code{ci_l}), and upper bound (\code{ci_u}).}
 #' }
 #'
-#' @importFrom dplyr filter mutate summarise
-#' @importFrom rlang enquo enquos as_label quo_get_expr
-#' @importFrom stats weighted.mean
+#' @import dplyr
+#' @importFrom rlang ensym enquos sym syms as_label
+#' @importFrom stats weighted.mean qnorm
 #' @export
 #'
 #' @examples
-#' se_mean_num(
-#'   data = nhanes,
-#'   variable = age,
-#'   strata = strata,
-#'   weight = weights,
-#'   gender, birth_country
-#' )
+#' # Direct column references (unquoted)
+#' se_mean_num(data = nhanes, variable = age, strata = strata, weight = weights, gender, birth_country)
+#'
+#' # Quoted column names
+#' se_mean_num(data = nhanes, variable = "age", strata = "strata", weight = "weights", gender, birth_country)
+#'
+#' # Programmatic use with strings
+#' v <- "age"
+#' wt <- "weights"
+#' vars <- c("gender", "birth_country")
+#' se_mean_num(data = nhanes, variable = !!sym(v), strata = strata, weight = !!sym(wt), !!!syms(vars))
+#'
+
 se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
-  mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- nc <- ybar <- zk <- zhat <- total <- NULL
-  
-  # Capture quosures for tidy evaluation
-  variable <- enquo(variable)
-  strata <- if (missing(strata)) sym("zone") else enquo(strata)
+
+  # Capture symbols and quosures for tidy evaluation
+  variable <- ensym(variable)
   group_vars <- enquos(...)
-  strata <- enquo(strata)
+  strata <- if (missing(strata)) sym("zone") else ensym(strata)
+  weight <- ensym(weight)
   
-  # Evaluate variable as string for .data
-  var_name <- as_label(quo_get_expr(variable))
-  weight_name <- as_label(substitute(weight))
+  # Evaluate variable as string for safety check
+  var_name <- as_label(variable)
   
   # Safety check for numeric
   if (!is.numeric(data[[var_name]])) {
@@ -54,21 +56,21 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
   }
   
   data |>
-    filter(.data[[var_name]] >= 0) |>
-    mutate(yk = .data[[var_name]]) |>
+    filter(!!variable >= 0) |>
+    mutate(yk = !!variable) |>
     mutate(
       occ = n(),
-      nc = sum(.data[[weight_name]]),
-      ybar = weighted.mean(yk, w = .data[[weight_name]]),
+      nc = sum(!!weight),
+      ybar = weighted.mean(yk, w = !!weight),
       zk = (yk - ybar) / nc,
       .by = c(!!!group_vars)
     ) |>
     mutate(
       mh = n(),
-      Nh = sum(.data[[weight_name]]),
+      Nh = sum(!!weight),
       T1h = ifelse(mh != 1, mh / (mh - 1) * (1 - mh / Nh), 0),
-      zhat = .data[[weight_name]] * zk,
-      T2h = (.data[[weight_name]] * zk - zhat / mh)^2,
+      zhat = !!weight * zk,
+      T2h = (!!weight * zk - zhat / mh)^2,
       .by = c(!!strata, !!!group_vars)
     ) |>
     summarise(
@@ -80,15 +82,15 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
     ) |>
     summarise(
       occ = unique(occ),
-      !!var_name := unique(ybar),
+      {{variable}} := unique(ybar),
       vhat = sum(T1h * sum_T2h),
       .by = c(!!!group_vars)
     ) |>
     mutate(
       stand_dev = sqrt(vhat),
       ci = stand_dev * qnorm(1 - alpha / 2),
-      ci_l = .data[[var_name]] - ci,
-      ci_u = .data[[var_name]] + ci
+      ci_l = !!variable - ci,
+      ci_u = !!variable + ci
     ) |> 
     arrange(!!!group_vars)
 }
@@ -137,18 +139,16 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #' )
 #'
 se_mean_cat <- function(data, variable, ..., strata, weight, alpha = 0.05) {
-  mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- nc <- ybar <- zk <- zhat <- total <- occ <- dummy_vars <- prop <- NULL
+  # mh <- Nh <- T1h <- T2h <- sum_T2h <- yk <- nc <- ybar <- zk <- zhat <- total <- occ <- dummy_vars <- prop <- NULL
   
   variable <- enquo(variable)
+  group_vars <- enquos(...)
   strata <- if (missing(strata)) sym("zone") else enquo(strata)
   weight <- enquo(weight)
-  group_vars <- enquos(...)
   
   # Turn categorical variable into dummy variables
-  var_name <- as_label(quo_get_expr(variable))
-  
+  var_name <- as_label(variable)
   data <- se_dummy(data, !!variable)
-  
   dummy_vars <- names(data)[str_starts(names(data), paste0(var_name, "_"))]
   
   map(dummy_vars, function(x) {

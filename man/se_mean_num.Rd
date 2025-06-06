@@ -2,46 +2,49 @@
 % Please edit documentation in R/se_mean.R
 \name{se_mean_num}
 \alias{se_mean_num}
-\title{Estimate Means of Numeric Variables in Structural Survey}
+\title{Estimate Averages of Numeric Variables in Structural Survey}
 \usage{
 se_mean_num(data, variable, ..., strata, weight, alpha = 0.05)
 }
 \arguments{
 \item{data}{A tibble or data frame.}
 
-\item{variable}{Unquoted column name of the numeric variable whose mean is to be estimated.
-This uses tidy evaluation, so pass the variable bare (e.g., \code{age}).}
+\item{variable}{Unquoted or quoted name of the numeric variable to estimate the mean for.
+Programmatic usage (e.g., using \code{!!sym()}) is supported.}
 
-\item{...}{Optional. Unquoted grouping variables or tidyselect helpers (e.g., \code{gender}, \code{birth_country}).}
+\item{...}{Optional grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.}
 
-\item{strata}{Unquoted variable name of the strata column. Default is \code{zone}.}
+\item{strata}{Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.}
 
-\item{weight}{Unquoted variable name of the sampling weights column.}
+\item{weight}{Unquoted or quoted name of the sampling weights column. For programmatic use
+with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.}
 
-\item{alpha}{Numeric, significance level for confidence interval calculation. Default is 0.05 (95\% CI).}
+\item{alpha}{Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).}
 }
 \value{
-A tibble with the following columns:
+A tibble with columns:
 \describe{
   \item{occ}{Sample size (number of observations) per group.}
   \item{<variable>}{Estimated mean of the specified numeric variable, named dynamically.}
-  \item{vhat}{Estimated variance of the mean.}
-  \item{stand_dev}{Standard deviation (square root of variance).}
-  \item{ci}{Half-width of the confidence interval.}
-  \item{ci_l}{Lower confidence interval bound.}
-  \item{ci_u}{Upper confidence interval bound.}
+  \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev} (square root of the variance).}
+  \item{ci, ci_l, ci_u}{Confidence interval: half-width (\code{ci}), lower bound (\code{ci_l}), and upper bound (\code{ci_u}).}
 }
 }
 \description{
-\code{se_mean_num()} estimates the averages of numeric variables, the variance, and confidence
-intervals of FSO's structural survey (Strukturerhebung / relevé structurel).
+\code{se_mean_num()} estimates the averages of numeric variables along with variance
+and confidence intervals for FSO's structural survey.
 }
 \examples{
-se_mean_num(
-  data = nhanes,
-  variable = age,
-  strata = strata,
-  weight = weights,
-  gender, birth_country
-)
+# Direct column references (unquoted)
+se_mean_num(data = nhanes, variable = age, strata = strata, weight = weights, gender, birth_country)
+
+# Quoted column names
+se_mean_num(data = nhanes, variable = "age", strata = "strata", weight = "weights", gender, birth_country)
+
+# Programmatic use with strings
+v <- "age"
+wt <- "weights"
+vars <- c("gender", "birth_country")
+se_mean_num(data = nhanes, variable = !!sym(v), strata = strata, weight = !!sym(wt), !!!syms(vars))
+
 }
