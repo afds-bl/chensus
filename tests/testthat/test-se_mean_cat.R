@@ -7,19 +7,19 @@ test_that("se_mean_cat computes mean and CI of categorical input correctly with 
     group = c("G1", "G1", "G2", "G2", "G1", "G2", "G1", "G2", "G1", "G2"),
     category = rep(c("X", "Y"), each = 5)
   )
-  
+
   # Case 1: Unquoted
   res_unquoted <- se_mean_cat(df, variable = category, weight = weight, group)
-  
+
   # Case 2: Quoted
   res_quoted <- se_mean_cat(df, variable = "category", weight = "weight", "group")
-  
+
   # Case 3: Programmatic
   v <- "category"
   w <- "weight"
   g <- "group"
   res_prog <- se_mean_cat(df, variable = !!sym(v), weight = !!sym(w), !!!syms(g))
-  
+
   for (res in list(res_unquoted, res_quoted, res_prog)) {
     expect_s3_class(res, "data.frame")
     expect_true(all(c("occ", "prop", "vhat", "stand_dev", "ci", "ci_l", "ci_u") %in% names(res)))
@@ -35,13 +35,13 @@ test_that("se_mean_cat works with numeric variable by treating it as categorical
     weight = c(1, 2),
     category = c(1, 2)
   )
-  
+
   expect_silent({
     result <- se_mean_cat(df, variable = category, weight = weight)
     expect_s3_class(result, "data.frame")
     expect_true(all(c("1", "2") %in% result$category))
   })
-  
+
   expect_error(
     {
       se_mean_cat(df, variable = notacolumn, weight = weight)

@@ -1,7 +1,7 @@
 #' Summarise Structural Survey Data by Group
-#' 
+#'
 #' \code{se_summarise()} calculates group-wise survey statistics, augmenting the input data with columns for the number of observations and estimated population per group.
-#' 
+#'
 #' @param data A tibble or a data frame.
 #' @param ... One or more grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.
 #' @param weight Unquoted or quoted name of the sampling weights column. For programmatic use
@@ -11,7 +11,7 @@
 #'
 #' @returns
 #' A tibble: the input \code{data} augmented with new columns \code{mh_col} and \code{Nh_col} (or their specified names).
-#' 
+#'
 #' @examples
 #' # One grouping variable
 #' suppressPackageStartupMessages(library(dplyr))
@@ -19,9 +19,9 @@
 #'   glimpse()
 #' # Two grouping variables
 #' se_summarise(nhanes,
-#'   weight = weights, 
-#'   mh_col = "mhc", 
-#'   Nh_col = "Nhc", 
+#'   weight = weights,
+#'   mh_col = "mhc",
+#'   Nh_col = "Nhc",
 #'   strata, gender
 #' )
 #'
@@ -33,7 +33,7 @@
 se_summarise <- function(data, ..., weight, mh_col = "mh", Nh_col = "Nh") {
   weight_quo <- ensym(weight)
   group_quos <- enquos(...)
-  
+
   data |>
     group_by(!!!group_quos) |>
     add_count(name = mh_col) |>

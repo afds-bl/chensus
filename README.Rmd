@@ -88,9 +88,9 @@ Estimate average annual household and family incomes:
 
 ```{r example3}
 mzmv_mean(
-data = nhanes,
-annual_household_income, annual_family_income,
-weight = weights
+  data = nhanes,
+  annual_household_income, annual_family_income,
+  weight = weights
 )
 ```
 

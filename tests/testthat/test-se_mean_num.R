@@ -7,13 +7,13 @@ test_that("se_mean_num computes mean and CI correctly with different argument ty
     group = c("G1", "G1", "G2", "G2", "G1", "G2", "G1", "G2", "G1", "G2"),
     category = rep(c("X", "Y"), each = 5)
   )
-  
+
   # Unquoted column names
   res_unquoted <- se_mean_num(data = df, variable = score, weight = weight, group, category)
-  
+
   # Quoted arguments
   res_quoted <- se_mean_num(data = df, variable = "score", weight = "weight", "group", "category")
-  
+
   # Programmatic use
   v <- "score"
   w <- "weight"
@@ -24,15 +24,15 @@ test_that("se_mean_num computes mean and CI correctly with different argument ty
     weight = !!sym(w),
     !!!syms(groups)
   )
-  
+
   # Extract expected column name
   var_name <- "score"
-  
+
   for (res in list(res_unquoted, res_quoted, res_prog)) {
     # Check structure
     expect_s3_class(res, "data.frame")
     expect_true(all(c(var_name, "stand_dev", "ci", "ci_l", "ci_u") %in% names(res)))
-    
+
     # Check numeric outputs
     expect_type(res[[var_name]], "double")
     expect_true(all(res[[var_name]] > 0))

@@ -1,5 +1,4 @@
 test_that("se_total works with various argument styles", {
-  
   # Sample data
   df <- tibble(
     zone = c("A", "A", "B", "B", "A", "B", "A", "B", "A", "B"),
@@ -8,17 +7,17 @@ test_that("se_total works with various argument styles", {
     group = c("G1", "G1", "G2", "G2", "G1", "G2", "G1", "G2", "G1", "G2"),
     category = rep(c("X", "Y"), each = 5)
   )
-  
+
   # Unquoted argument test (default zone)
   res1 <- se_total(data = df, !!sym("group"), weight = weight)
   expect_s3_class(res1, "data.frame")
   expect_true(all(c("group", "occ", "total", "vhat", "stand_dev", "ci", "ci_per") %in% names(res1)))
-  
+
   # Quoted arguments test
   res2 <- se_total(data = df, !!sym("group"), weight = "weight", strata = "zone")
   expect_s3_class(res2, "data.frame")
   expect_true(all(c("group", "occ", "total", "vhat", "stand_dev", "ci", "ci_per") %in% names(res2)))
-  
+
   # Programmatic test
   g <- "group"
   w <- "weight"
@@ -26,7 +25,7 @@ test_that("se_total works with various argument styles", {
   res3 <- se_total(data = df, !!!syms(g), weight = !!sym(w), strata = !!sym(s))
   expect_s3_class(res3, "data.frame")
   expect_true(all(c("group", "occ", "total", "vhat", "stand_dev", "ci", "ci_per") %in% names(res3)))
-  
+
   # Check value types and sanity
   for (res in list(res1, res2, res3)) {
     expect_type(res$total, "double")

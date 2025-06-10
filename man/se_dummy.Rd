@@ -19,8 +19,8 @@ Create Dummy Variables from a Categorical Variable
 }
 \examples{
 data <- data.frame(
-id = 1:5,
-category = c("A", "B", "A", "C", "B")
+  id = 1:5,
+  category = c("A", "B", "A", "C", "B")
 )
 se_dummy(data, category)
 

@@ -91,9 +91,9 @@ Estimate average annual household and family incomes:
 
 ``` r
 mzmv_mean(
-data = nhanes,
-annual_household_income, annual_family_income,
-weight = weights
+  data = nhanes,
+  annual_household_income, annual_family_income,
+  weight = weights
 )
 # A tibble: 2 × 4
   variable                  occ wmean    ci

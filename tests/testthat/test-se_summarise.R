@@ -1,5 +1,4 @@
 test_that("se_summarise works with one grouping variable", {
-  
   # Sample data
   df <- tibble(
     zone = c("A", "A", "B", "B", "A", "B", "A", "B", "A", "B"),
@@ -17,12 +16,12 @@ test_that("se_summarise works with one grouping variable", {
     ungroup() |>
     distinct(zone, mh, Nh) |>
     arrange(zone)
-  
+
   # Actual result from the function
   result <- se_summarise(df, weight = weight, zone) |>
     distinct(zone, mh, Nh) |>
     arrange(zone)
-  
+
   expect_equal(result, expected)
 })
 
@@ -32,7 +31,7 @@ test_that("se_summarise works with multiple grouping variables", {
     group = rep(c("G1", "G2"), times = 5),
     weight = c(1.161500, 2.668666, 2.201522, 1.314417, 1.014799, 1.932787, 1.995555, 1.579534, 2.465764, 2.545043)
   )
-  
+
   # Expected output
   expected <- df |>
     group_by(zone, group) |>
@@ -41,9 +40,9 @@ test_that("se_summarise works with multiple grouping variables", {
     ungroup() |>
     distinct(zone, group, mh, Nh) |>
     arrange(zone)
-  
+
   # Actual result from the function
-  result <- se_summarise(df, weight = weight, zone, group) |> 
+  result <- se_summarise(df, weight = weight, zone, group) |>
     distinct(zone, group, mh, Nh) |>
     arrange(zone)
   expect_true(all(c("mh", "Nh") %in% names(result)))

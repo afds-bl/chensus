@@ -45,16 +45,15 @@
 #' )
 #'
 se_total <- function(data, ..., strata, weight, alpha = 0.05) {
-  
   # Capture symbols for tidy evaluation
   weight <- ensym(weight)
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
   group_vars <- enquos(...)
-  
+
   # Named joining vector
   by_cols <- c(as_label(strata), map_chr(group_vars, as_label))
   by_vec <- set_names(by_cols)
-  
+
   # Summarise by strata
   data <- se_summarise(
     data = data,
@@ -69,7 +68,7 @@ se_total <- function(data, ..., strata, weight, alpha = 0.05) {
       !!strata, !!!group_vars
     ) |>
     mutate(T1hc = (mh - mhc) * (Nhc / mh)^2)
-  
+
   data |>
     group_by(!!strata, !!!group_vars) |>
     summarise(T2hc = sum((!!weight - Nhc / mh)^2), .groups = "drop") |>
@@ -146,7 +145,7 @@ se_total <- function(data, ..., strata, weight, alpha = 0.05) {
 #'
 se_total_map <- function(data, ..., strata, weight, alpha = 0.05) {
   group_quos <- enquos(...)
-  
+
   map(
     group_quos,
     ~ {

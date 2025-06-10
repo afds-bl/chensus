@@ -7,7 +7,7 @@ test_that("se_total_map works with multiple grouping variables in parallel", {
     group = c("G1", "G1", "G2", "G2", "G1", "G2", "G1", "G2", "G1", "G2"),
     category = rep(c("X", "Y"), each = 5)
   )
-  
+
   # Run se_total_map with two grouping variables
   result <- se_total_map(
     data = df,
@@ -15,26 +15,25 @@ test_that("se_total_map works with multiple grouping variables in parallel", {
     strata = zone,
     group, category
   )
-  
+
   # Expected columns
   expected_cols <- c(
     "variable", "value", "occ", "total", "vhat", "stand_dev", "ci", "ci_per"
   )
-  
+
   # Check output type and columns
   expect_s3_class(result, "data.frame")
   expect_true(all(expected_cols %in% names(result)))
-  
+
   # Check that all grouping variables are present in the 'variable' column
   expect_true(all(c("group", "category") %in% unique(result$variable)))
-  
+
   # Check that totals and variances are non-negative
   expect_true(all(result$total >= 0))
   expect_true(all(result$vhat >= 0))
-  
+
   # Check that the number of rows matches the sum of unique levels in each grouping variable
   n_group <- length(unique(df$group))
   n_category <- length(unique(df$category))
   expect_equal(nrow(result), n_group + n_category)
 })
-

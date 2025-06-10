@@ -31,9 +31,9 @@ se_summarise(nhanes, weight = weights, strata) |>
   glimpse()
 # Two grouping variables
 se_summarise(nhanes,
-  weight = weights, 
-  mh_col = "mhc", 
-  Nh_col = "Nhc", 
+  weight = weights,
+  mh_col = "mhc",
+  Nh_col = "Nhc",
   strata, gender
 )
 

@@ -13,18 +13,18 @@
 #'
 #' @examples
 #' data <- data.frame(
-#' id = 1:5,
-#' category = c("A", "B", "A", "C", "B")
+#'   id = 1:5,
+#'   category = c("A", "B", "A", "C", "B")
 #' )
 #' se_dummy(data, category)
 #'
 se_dummy <- function(data, column) {
   column <- ensym(column)
   col_name <- as_label(column)
-  
+
   # Dummify column
   dummy_data <- data |>
-    select(all_of(col_name)) |> 
+    select(all_of(col_name)) |>
     mutate(dummy_value = 1L, row_id___ = row_number()) |>
     pivot_wider(
       names_from = {{ column }},
@@ -32,13 +32,13 @@ se_dummy <- function(data, column) {
       values_fill = list(dummy_value = 0),
       names_prefix = paste0(col_name, "_")
     )
-  
+
   # Join dummy columns back to original data
   data <- data |>
     mutate(row_id___ = row_number()) |>
     left_join(dummy_data, by = "row_id___") |>
-    select(-row_id___) |> 
+    select(-row_id___) |>
     relocate(starts_with(col_name), .after = all_of(col_name))
-  
+
   return(data)
 }

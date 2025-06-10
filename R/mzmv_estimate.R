@@ -133,7 +133,6 @@ mzmv_mean <- function(data, ..., weight, cf = 1.14, alpha = 0.1) {
 #'   birth_country,
 #'   weight = !!rlang::sym(wt)
 #' )
-
 mzmv_mean_map <- function(data, variable, ..., weight, cf = 1.14, alpha = 0.1) {
   # Capture grouping variables
   group_quo <- enquos(...)

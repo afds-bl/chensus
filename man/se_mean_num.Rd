@@ -37,27 +37,29 @@ and confidence intervals for FSO's structural survey.
 \examples{
 # Direct column references (unquoted)
 se_mean_num(
-data = nhanes, 
-variable = age, 
-strata = strata, 
-weight = weights, 
-gender, birth_country
+  data = nhanes,
+  variable = age,
+  strata = strata,
+  weight = weights,
+  gender, birth_country
 )
 
 # Quoted column names
 se_mean_num(
-data = nhanes, 
-variable = "age", strata = "strata", weight = "weights", gender, birth_country)
+  data = nhanes,
+  variable = "age", strata = "strata", weight = "weights", gender, birth_country
+)
 
 # Programmatic use with strings
 v <- "age"
 wt <- "weights"
 vars <- c("gender", "birth_country")
 se_mean_num(
-data = nhanes, 
-variable = !!rlang::sym(v), 
-strata = strata, 
-weight = !!rlang::sym(wt),
- !!!rlang::syms(vars))
+  data = nhanes,
+  variable = !!rlang::sym(v),
+  strata = strata,
+  weight = !!rlang::sym(wt),
+  !!!rlang::syms(vars)
+)
 
 }
