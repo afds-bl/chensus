@@ -96,7 +96,7 @@ annual_household_income, annual_family_income,
 weight = weights
 )
 # A tibble: 2 × 4
-  variable                   nc wmean    ci
+  variable                  occ wmean    ci
   <chr>                   <int> <dbl> <dbl>
 1 annual_household_income  9626  11.9 0.240
 2 annual_family_income     9642  11.5 0.245
@@ -105,13 +105,24 @@ weight = weights
 Estimate by group (e.g., gender, interview language):
 
 ``` r
+v <- c("gender", "interview_lang")
 mzmv_mean_map(
   data = nhanes,
   variable = c("annual_household_income", "annual_family_income"),
-  group_vars = c("gender", "interview_lang"),
-  weight = "weights"
+  !!!rlang::syms(v),
+  weight = weights
 )
-NULL
+# A tibble: 8 × 6
+  variable                group_vars     group_vars_value   occ wmean    ci
+  <chr>                   <chr>          <fct>            <int> <dbl> <dbl>
+1 annual_household_income gender         Male              4720  12.0 0.328
+2 annual_household_income gender         Female            4906  11.8 0.350
+3 annual_household_income interview_lang English           8310  11.8 0.241
+4 annual_household_income interview_lang Spanish           1316  12.0 1.07 
+5 annual_family_income    gender         Male              4725  11.6 0.334
+6 annual_family_income    gender         Female            4917  11.5 0.358
+7 annual_family_income    interview_lang English           8326  11.5 0.247
+8 annual_family_income    interview_lang Spanish           1316  11.6 1.07 
 ```
 
 ## Documentation

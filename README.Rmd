@@ -97,11 +97,12 @@ weight = weights
 Estimate by group (e.g., gender, interview language):
 
 ``` {r}
+v <- c("gender", "interview_lang")
 mzmv_mean_map(
   data = nhanes,
   variable = c("annual_household_income", "annual_family_income"),
-  group_vars = c("gender", "interview_lang"),
-  weight = "weights"
+  !!!rlang::syms(v),
+  weight = weights
 )
 ```
 
