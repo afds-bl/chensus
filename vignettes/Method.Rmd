@@ -126,11 +126,7 @@ From the survey data, `mzmv_mean()` estimates:
 -   confidence interval of the estimate with significance level
     $\alpha$,
 
-while `mzmv_prop()` estimates:
-
--   proportions in the real population
--   confidence interval of the proportion estimate with significance
-    level $\alpha$.
+while `mzmv_mean_map()` additionally uses grouping variables.
 
 Note that one can simply use `mzmv_mean()` to estimate both
 proportions and means, as shown below.

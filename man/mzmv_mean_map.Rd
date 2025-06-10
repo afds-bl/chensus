@@ -2,56 +2,69 @@
 % Please edit documentation in R/mzmv_estimate.R
 \name{mzmv_mean_map}
 \alias{mzmv_mean_map}
-\title{Estimate means of mobility survey with conditions}
+\title{Estimate means of mobility survey with grouping variables}
 \usage{
-mzmv_mean_map(
-  data,
-  variable,
-  group_vars = NULL,
-  condition = NULL,
-  weight,
-  cf = 1.14,
-  alpha = 0.1
-)
+mzmv_mean_map(data, variable, ..., weight, cf = 1.14, alpha = 0.1)
 }
 \arguments{
-\item{data}{Tibble}
+\item{data}{A tibble or data frame.}
 
-\item{variable}{Vector of strings, names of variables to be estimated. Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent `NA`.}
+\item{variable}{Character vector of variable names to be estimated. Must be quoted (e.g., `"annual_family_income"`). For multiple variables, pass as a vector (e.g., `c("annual_family_income", "annual_household_income")`). Does not support bare (unquoted) variable names.}
 
-\item{group_vars}{A character vector of grouping variables.}
+\item{...}{Grouping variables. Can be passed unquoted (e.g., `gender`, `birth_country`) or quoted (e.g., `"gender"`, `"birth_country"`). If omitted, results are aggregated across the whole dataset.}
 
-\item{condition}{[Deprecated] Use `group_vars` instead. A character vector of grouping variables.}
+\item{weight}{Unquoted or quoted name of the sampling weights column (must exist in `data`). For programmatic use with a string variable (e.g., `wt <- "weights"`), use `!!sym(wt)` in the function call.}
 
-\item{weight}{Character string, name of the column containing the
-weights}
+\item{cf}{Numeric correction factor for the confidence interval. Default is 1.14.}
 
-\item{cf}{Double, correction factor of the confidence interval, supplied by FSO}
-
-\item{alpha}{Double, significance level. Default 0.1 for 90\% confidence interval.}
+\item{alpha}{Numeric significance level for confidence intervals. Default is 0.1 (90\% CI).}
 }
 \value{
-Tibble (number of rows is length of \code{variable}) with the following columns:
-\itemize{
-\item \code{id}: estimated item
-\item \code{nc}: number of survey responses
-\item \code{wmean}: weighted mean estimate
-\item \code{ci}: confidence interval estimate
+A tibble with columns:
+\describe{
+  \item{variable}{Name of the estimated variable.}
+  \item{group_vars}{Name of the grouping variable.}
+  \item{group_vars_value}{Value of the grouping variable.}
+  \item{occ}{Number of cases or observations.}
+  \item{wmean}{Weighted mean.}
+  \item{ci}{Confidence interval.}
 }
 }
 \description{
-\code{mzmv_mean_map()} estimates the mean frequencies and confidence
-intervals of FSO mobility surveys for a given set of features.
+\code{mzmv_mean_map()} estimates weighted means and confidence intervals for a set of features of the mobility survey, optionally grouped by one or more variables.
 }
 \examples{
-# We can use the nhanes dataset as an example even if it only contains population data
-library(dplyr)
-library(purrr)
+# Multiple quoted variables
 mzmv_mean_map(
-data = nhanes,
-variable = c("annual_household_income", "annual_family_income"),
-group_vars = c("gender", "interview_lang"),
-weight = "weights"
+  nhanes,
+  variable = c("annual_family_income", "annual_household_income"),
+  gender,
+  birth_country,
+  weight = weights
 )
 
+# Single quoted variable
+mzmv_mean_map(
+  nhanes,
+  variable = "annual_family_income",
+  gender, birth_country,
+  weight = weights
+)
+
+# No grouping variables
+mzmv_mean_map(
+  nhanes,
+  variable = "annual_family_income",
+  weight = weights
+)
+
+# Programmatic use (with a string for weight)
+wt <- "weights"
+mzmv_mean_map(
+  nhanes,
+  variable = "annual_family_income",
+  gender,
+  birth_country,
+  weight = !!rlang::sym(wt)
+)
 }

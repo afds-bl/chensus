@@ -12,7 +12,7 @@
 #'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
 #' @param alpha Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).
 #'
-#' @return A tibble with columns:
+#' @returns A tibble with columns:
 #' \describe{
 #'   \item{occ}{Sample size (number of observations) per group.}
 #'   \item{<variable>}{Estimated mean of the specified numeric variable, named dynamically.}
@@ -120,7 +120,7 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
 #' @param alpha Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).
 #'
-#' @return A tibble with the following columns:
+#' @returns A tibble with the following columns:
 #' \describe{
 #'    \item{<variable>}{Values of categorical variable named dynamically.}
 #'    \item{...}{Grouping variables if provided.}

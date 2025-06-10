@@ -3,7 +3,7 @@
 #' @param data A data frame or tibble.
 #' @param column Unquoted categorical column name to dummify.
 #'
-#' @return A tibble with the original data and newly created dummy variables added.
+#' @returns A tibble with the original data and newly created dummy variables added.
 #'
 #' @importFrom tidyr pivot_wider
 #' @importFrom rlang as_label enquo

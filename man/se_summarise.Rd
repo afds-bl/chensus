@@ -4,19 +4,19 @@
 \alias{se_summarise}
 \title{Summarise Structural Survey Data by Group}
 \usage{
-se_summarise(data, weight, ..., mh_col = "mh", Nh_col = "Nh")
+se_summarise(data, ..., weight, mh_col = "mh", Nh_col = "Nh")
 }
 \arguments{
 \item{data}{A tibble or a data frame.}
 
-\item{weight}{Unquoted name of column containing the survey
-weights.}
+\item{...}{One or more grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.}
 
-\item{...}{One or more unquoted grouping variables (e.g., \code{strata}, \code{gender}). These define the groups for summarisation.}
+\item{weight}{Unquoted or quoted name of the sampling weights column. For programmatic use
+with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.}
 
-\item{mh_col}{Character string, desired column name of number of observations (respondents) per group. Default is "mh".}
+\item{mh_col}{Character string, column name of number of observations (respondents) per group. Default is "mh".}
 
-\item{Nh_col}{Character string, desired column name of estimated population per group. Default is "Nh".}
+\item{Nh_col}{Character string, column name of estimated population per group. Default is "Nh".}
 }
 \value{
 A tibble: the input \code{data} augmented with new columns \code{mh_col} and \code{Nh_col} (or their specified names).

@@ -6,7 +6,6 @@
 \alias{se_estimate_mean}
 \alias{mzmv_estimate_mean}
 \alias{mzmv_estimate_mean_map}
-\alias{mzmv_estimate_prop}
 \title{Deprecated functions in chensus}
 \usage{
 se_estimate_total(...)
@@ -16,8 +15,6 @@ se_estimate_mean(...)
 mzmv_estimate_mean(...)
 
 mzmv_estimate_mean_map(...)
-
-mzmv_estimate_prop(...)
 }
 \description{
 These functions are provided for compatibility with older versions of `chensus`.

@@ -9,20 +9,20 @@ mzmv_mean(data, ..., weight, cf = 1.14, alpha = 0.1)
 \arguments{
 \item{data}{A tibble or data frame.}
 
-\item{...}{Unquoted names of variables to be estimated. Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent `NA`.}
+\item{...}{Names of variables to be estimated. Can be passed unquoted (e.g., \code{household_size}) or programmatically using \code{!!!syms(c("annual_household_income", "household_size"))}.Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent `NA`.}
 
-\item{weight}{Unquoted name of the column containing the sample
-weights.}
+\item{weight}{Unquoted or quoted name of the sampling weights column. For programmatic use
+with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.}
 
-\item{cf}{Double, correction factor of the confidence interval, supplied by FSO. Default is 1.14.}
+\item{cf}{Numeric correction factor of the confidence interval, supplied by FSO. Default is 1.14.}
 
-\item{alpha}{Double, significance level. Default 0.1 for 90\% confidence interval.}
+\item{alpha}{Numeric significance level for confidence intervals. Default is 0.1 (90\% CI).}
 }
 \value{
 Tibble (number of rows is length of \code{variable}) with the following columns:
 \itemize{
 \item \code{id}: estimated item
-\item \code{nc}: number of survey responses
+\item \code{occ}: number of survey responses
 \item \code{wmean}: weighted mean estimate
 \item \code{ci}: confidence interval estimate
 }
@@ -36,10 +36,14 @@ library(dplyr)
 library(purrr)
 # Estimate two means
 mzmv_mean(
-data = nhanes,
-annual_household_income, annual_family_income,
-weight = weights
+  data = nhanes,
+  annual_household_income, annual_family_income,
+  weight = weights
 )
+# Programmatic use with strings
+v <- c("annual_household_income", "household_size")
+mzmv_mean(nhanes, weight = "weights", !!!syms(v))
+
 }
 \seealso{
 See \code{\link{mzmv_mean_map}} for estimates on a set of conditions.

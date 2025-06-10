@@ -10,7 +10,7 @@
 #'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
 #' @param alpha Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).
 #'
-#' @return A tibble with estimates for all grouping column combinations, including:
+#' @returns A tibble with estimates for all grouping column combinations, including:
 #' \describe{
 #'   \item{<variable>}{Value of the grouping variables passed in \code{...}.}
 #'    \item{occ}{number of observations in survey sample.}
@@ -23,7 +23,7 @@
 #'
 #' @import dplyr
 #' @importFrom purrr map_chr
-#' @importFrom rlang enquo enquos as_label sym syms
+#' @importFrom rlang enquo enquos as_label sym syms ensym
 #' @importFrom stats qnorm
 #'
 #' @export
@@ -107,7 +107,7 @@ se_total <- function(data, ..., strata, weight, alpha = 0.05) {
 #'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
 #' @param alpha Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).
 #'
-#' @return A tibble with results for each grouping variable, including:
+#' @returns A tibble with results for each grouping variable, including:
 #' \describe{
 #'    \item{variable}{The name of the grouping variable.}
 #'    \item{value}{The value of the grouping variable.}
