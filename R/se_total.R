@@ -9,7 +9,23 @@
 #' @param weight Unquoted or quoted name of the sampling weights column. For programmatic use
 #'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
 #' @param alpha Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).
+#' @param condition (deprecated) A character vector of grouping variables. Use \code{...} instead.
 #'
+#' @details
+#' 
+#' The \code{condition} argument has been removed and should not be used. Grouping variables 
+#' can be passed unquoted or programmatically using \code{rlang}:
+#' 
+#' * Interactive use:
+#' 
+#'   \code{se_total(data, weight = my_weight, group1, group2)}
+#'   
+#' * Programmatic use:
+#'   
+#'   \code{group_vars <- c("group1", "group2")}
+#'   
+#'   \code{se_total(data, weight = !!rlang::sym(weight_var), !!!rlang::syms(group_vars))}
+#' 
 #' @returns A tibble with estimates for all grouping column combinations, including:
 #' \describe{
 #'   \item{<variable>}{Value of the grouping variables passed in \code{...}.}
@@ -104,8 +120,7 @@ se_total <- function(data, ..., strata, weight, alpha = 0.05) {
 #' @param strata Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.
 #' @param weight Unquoted or quoted name of the sampling weights column. For programmatic use
 #'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
-#' @param alpha Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).
-#'
+#' 
 #' @returns A tibble with results for each grouping variable, including:
 #' \describe{
 #'    \item{variable}{The name of the grouping variable.}
