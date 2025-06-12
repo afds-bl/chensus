@@ -157,7 +157,7 @@ utils::citation("chensus")
 
     To cite 'chensus' in publications, please use:
 
-      Guemghar, S. (2025). chensus: Estimate Totals, Averages and
+      Guemghar, S. (2025). chensus: Estimate Totals, Means, Proportions and
       Confidence Intervals of the Federal Statistic Office's Surveys. R
       package version 1.0.0. Amt für Daten und Statistik, Basel-Landschaft.
       https://github.com/afds-bl/chensus
@@ -165,7 +165,7 @@ utils::citation("chensus")
     A BibTeX entry for LaTeX users is
 
       @Manual{,
-        title = {{chensus}: Estimate Totals, Averages and Confidence Intervals of the Federal Statistic Office's Surveys},
+        title = {{chensus}: Estimate Totals, Means, Proportions and Confidence Intervals of the Federal Statistic Office's Surveys},
         author = {Souad Guemghar},
         organization = {Amt für Daten und Statistik, Basel-Landschaft},
         note = {R package version 1.0.0},
