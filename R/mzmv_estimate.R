@@ -1,19 +1,20 @@
-#' Estimate means of mobility survey
+#' Estimate Means of Mobility Survey
 #'
-#' \code{mzmv_mean()} estimates the mean frequencies and confidence
+#' \code{mzmv_mean()} estimates the means, proportions and confidence
 #' intervals of FSO mobility surveys.
 #'
-#' @param data Tibble
-#' @param variable Vector of strings, names of variables to be estimated. Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent `NA`.
-#' @param weight Character string, name of the column containing the
-#' weights
-#' @param cf Double, correction factor of the confidence interval, supplied by FSO
-#' @param alpha Double, significance level. Default 0.1 for 90\% confidence interval.
+#' @param data A data frame or tibble.
+#' @param ... Names of variables to be estimated. Can be passed unquoted (e.g., \code{household_size}) or programmatically using \code{!!!syms(c("annual_household_income", "household_size"))}. 
+#' Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent \code{NA}.
+#' @param weight Unquoted or quoted name of the sampling weights column. For programmatic use
+#'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
+#' @param cf Numeric correction factor of the confidence interval, supplied by FSO. Default is 1.14.
+#' @param alpha Numeric significance level for confidence intervals. Default is 0.1 (90\% CI).
 #'
 #' @returns Tibble (number of rows is length of \code{variable}) with the following columns:
 #' \itemize{
 #' \item \code{id}: estimated item
-#' \item \code{nc}: number of survey responses
+#' \item \code{occ}: number of survey responses
 #' \item \code{wmean}: weighted mean estimate
 #' \item \code{ci}: confidence interval estimate
 #' }
@@ -21,162 +22,164 @@
 #' @seealso See \code{\link{mzmv_mean_map}} for estimates on a set of conditions.
 #'
 #' @examples
-#' # We can use the nhanes dataset as an example even if it only contains population data
-#' library(dplyr)
-#' library(purrr)
 #' # Estimate two means
 #' mzmv_mean(
-#'   c("annual_household_income", "annual_family_income"),
 #'   data = nhanes,
-#'   weight = "weights",
-#'   alpha = 0.1
+#'   annual_household_income, annual_family_income,
+#'   weight = weights
 #' )
+#' # Programmatic use with strings
+#' v <- c("annual_household_income", "annual_family_income")
+#' mzmv_mean(nhanes, weight = "weights", !!!rlang::syms(v))
+#'
 #' @import dplyr
 #' @import purrr
+#' @importFrom rlang enquos ensym as_label
+#' @importFrom stats weighted.mean
 #'
 #' @export
 #'
-mzmv_mean <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
+
+mzmv_mean <- function(data, ..., weight, cf = 1.14, alpha = 0.1) {
   
-  ci <- condition_value <- nc <- wmean <- NULL
-  
-    variable %>%
-    set_names() %>% 
-    map(\(v) {
-      group_var <- sym(v)
-      weight_var <- sym(weight)
-      data %>%
-        filter(!!group_var >= 0) %>%
-        summarise(
-          nc = n(),
-          wmean = if_else(nc == 0, NA, weighted.mean(x = !!group_var, w = !!weight_var)),
-          ci = if_else(nc == 0, NA, cf * sqrt(sum(!!weight_var * (!!group_var - wmean)^2) / (sum(!!weight_var) - 1) / nc) * qnorm(1 - alpha / 2)),
-          .groups = "drop"
-        )
-    }) %>%
-    list_rbind(names_to = "variable") # Convert into a table
+  variables <- enquos(...)
+  weight <- ensym(weight)
+
+  map(variables, function(var_quo) {
+    var_name <- as_label(var_quo) # For labeling output
+
+    data |>
+      filter(!!var_quo >= 0) |>
+      summarise(
+        occ = n(),
+        wmean = if_else(occ == 0, NA_real_,
+          weighted.mean(x = !!var_quo, w = !!weight)
+        ),
+        ci = if_else(
+          occ == 0,
+          NA_real_,
+          cf * sqrt(sum(!!weight * (!!var_quo - wmean)^2) /
+            (sum(!!weight) - 1) / occ) *
+            qnorm(1 - alpha / 2)
+        ),
+        .groups = "drop"
+      ) |>
+      mutate(variable = var_name, .before = 1)
+  }) |>
+    list_rbind()
 }
 
-#' Estimate means of mobility survey with conditions
+#' Estimate Means in Parallel for Multiple Grouping Variables in Mobility Survey 
 #'
-#' \code{mzmv_mean_map()} estimates the mean frequencies and confidence
-#' intervals of FSO mobility surveys for a given set of features.
+#' @description
+#' \code{mzmv_mean_map()} estimates weighted means and confidence intervals for a set of features of the mobility survey, optionally grouped by one or more variables.
 #'
-#' @param data Tibble
-#' @param variable Vector of strings, names of variables to be estimated. Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent `NA`.
-#' @param group_vars A character vector of grouping variables.
-#' @param condition [Deprecated] Use `group_vars` instead. A character vector of grouping variables.
-#' @param weight Character string, name of the column containing the
-#' weights
-#' @param cf Double, correction factor of the confidence interval, supplied by FSO
-#' @param alpha Double, significance level. Default 0.1 for 90\% confidence interval.
+#' @param data A data frame or tibble.
+#' @param variable Character vector of variable names to be estimated. Must be quoted (e.g., \code{"annual_family_income"}). For multiple variables, pass as a vector (e.g., \code{c("annual_family_income", "annual_household_income")}). 
+#' Does not support bare (unquoted) variable names.
+#' @param ... Grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or quoted (e.g., \code{"gender"}, \code{"birth_country"}). If omitted, results are aggregated across the whole dataset.
+#' @param weight Unquoted or quoted name of the sampling weights column (must exist in \code{data}). For programmatic use with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
+#' @param cf Numeric correction factor for the confidence interval. Default is 1.14.
+#' @param alpha Numeric significance level for confidence intervals. Default is 0.1 (90\% CI).
 #'
-#' @returns Tibble (number of rows is length of \code{variable}) with the following columns:
-#' \itemize{
-#' \item \code{id}: estimated item
-#' \item \code{nc}: number of survey responses
-#' \item \code{wmean}: weighted mean estimate
-#' \item \code{ci}: confidence interval estimate
+#' @returns A tibble with columns:
+#' \describe{
+#'   \item{variable}{Name of the estimated variable.}
+#'   \item{group_vars}{Name of the grouping variable.}
+#'   \item{group_vars_value}{Value of the grouping variable.}
+#'   \item{occ}{Number of cases or observations.}
+#'   \item{wmean}{Weighted mean.}
+#'   \item{ci}{Confidence interval.}
 #' }
 #'
-#' @examples
-#' # We can use the nhanes dataset as an example even if it only contains population data
-#' library(dplyr)
-#' library(purrr)
-#' mzmv_mean_map(
-#' data = nhanes,
-#' variable = c("annual_household_income", "annual_family_income"),
-#' group_vars = c("gender", "interview_lang"),
-#' weight = "weights"
-#' )
-#'
-#' @import dplyr
-#' @import purrr
+#' @importFrom dplyr group_by mutate select
+#' @importFrom purrr map map_dfr set_names
+#' @importFrom rlang enquos as_label sym syms ensym is_symbolic
 #'
 #' @export
 #'
-mzmv_mean_map <- function(data, variable, group_vars = NULL, condition = NULL, weight, cf = 1.14, alpha = 0.1) {
-
-  ci <- condition_value <- nc <- wmean <- group_vars_value <- NULL
+#' @examples
+#' # Multiple quoted variables
+#' mzmv_mean_map(
+#'   nhanes,
+#'   variable = c("annual_family_income", "annual_household_income"),
+#'   gender,
+#'   birth_country,
+#'   weight = weights
+#' )
+#' # No grouping variables
+#' mzmv_mean_map(
+#'   nhanes,
+#'   variable = "annual_family_income",
+#'   weight = weights
+#' )
+#' # Programmatic use
+#' wt <- "weights"
+#' mzmv_mean_map(
+#'   nhanes,
+#'   variable = "annual_family_income",
+#'   gender,
+#'   birth_country,
+#'   weight = !!rlang::sym(wt)
+#' )
+#' 
+mzmv_mean_map <- function(data, variable, ..., weight, cf = 1.14, alpha = 0.1) {
   
-  # If grouping variable is "all", add a dummy column for grouping
-  if (is.null(group_vars)) {
-    # Add a dummy column for grouping
-    data <- data %>%
-      mutate(group_dummy = "all")
-    group_vars <- "group_dummy" # Set grouping variable to the dummy column
+  group_quo <- enquos(...)
+  group_vars <- map_chr(group_quo, as_label)
+  weight <- ensym(weight)
+  variable_syms <- map(variable, sym)
+  
+  # Ensure variable is a character vector or list of symbols
+  if (is_symbolic(variable)) {
+    variable <- as_label(variable)
+  }
+  if (is.character(variable)) {
+    variable <- as.list(variable)
+  }
+  if (!is.list(variable)) {
+    variable <- list(variable)
+  }
+  
+  # Handle empty group_vars case
+  if (length(group_vars) == 0) {
+    data <- data |> mutate(.dummy_group = "all")
+    group_vars <- ".dummy_group"
   }
 
-  # Continue as normal with grouping
-  group_vars %>%
-    purrr::set_names() %>%
-    map(\(cond) {
-      cond_var <- sym(cond)
-      mzmv_mean(
-        data = data %>% group_by(!!cond_var),
-        variable = variable,
-        weight = weight,
-        alpha = alpha,
-        cf = cf
-      )
-    }) %>%
-    purrr::list_rbind(names_to = "group_vars") %>%
-    mutate(group_vars_value = coalesce(!!!syms(group_vars))) %>%
-    select(variable, group_vars, group_vars_value, nc, wmean, ci)
-}
+  # Validate columns
+  validate_column <- function(col) {
+    if (!col %in% names(data)) {
+      stop(paste("Column", col, "not found in data frame"))
+    }
+  }
+  walk(group_vars, validate_column)
+  walk(variable, validate_column)
+  validate_column(as_label(weight))
 
-#' Estimate proportions from mobility survey
-#'
-#' \code{mzmv_prop} estimates the proportions and confidence intervals of FSO mobility survey data
-#'
-#' @param data Tibble
-#' @param variable Vector of strings, names of variables to be estimated. Variables are binary with integer values:
-#' \itemize{
-#' \item 1: if group_vars is present
-#' \item 0: if group_vars is absent
-#' \item negative: if \code{NA}
-#' }
-#' @param weight Character string, name of the column containing the
-#' weights
-#' @param cf Double, correction factor of the confidence interval, supplied by FSO
-#' @param alpha Double, significance level. Default 0.05 for 95\% confidence interval.
-#'
-#' @returns Vector, with the following values:
-#' \itemize{
-#' \item \code{p}: proportion estimate
-#' \item \code{ci}: confidence interval estimate
-#' }
-#'
-#' @examples
-#' # We can use the nhanes dataset
-#' library(dplyr)
-#' nhanes %>%
-#'   mutate(
-#'     married =
-#'       case_when(
-#'         marital_status == "Married" ~ 1,
-#'         TRUE ~ 0
-#'       )
-#'   ) %>%
-#'   mzmv_prop(
-#'     variable = "married",
-#'     weight = "weights"
-#'   )
-#'
-#' @import dplyr
-#'
-#' @export
-#'
-mzmv_prop <- function(data, variable, weight, cf = 1.14, alpha = 0.1) {
-  
-  ci <- p <- nc <- NULL
-  
-  p <- NULL
-  data %>%
-    filter(.data[[variable]] >= 0) %>%
-    summarise(
-      nc = n(),
-      p = weighted.mean(x = .data[[variable]], w = .data[[weight]]),
-      ci = cf * sqrt(p * (1 - p) / n()) * qnorm(1 - alpha / 2)
-    )
+  map_dfr(variable_syms, function(v) {
+    group_vars |>
+      set_names() |>
+      map(~ {
+        data |>
+          group_by(!!sym(.x)) |>
+          mzmv_mean(
+            !!v,
+            weight = !!weight,
+            cf = cf,
+            alpha = alpha
+          )
+      }) |>
+      list_rbind(names_to = "group_vars") |>
+      mutate(
+        variable = as_label(v),
+        group_vars_value = coalesce(!!!syms(group_vars))
+      ) |>
+      select(
+        variable,
+        group_vars,
+        group_vars_value,
+        occ, wmean, ci
+      )
+  })
 }

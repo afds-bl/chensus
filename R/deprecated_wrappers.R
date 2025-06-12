@@ -25,11 +25,3 @@ mzmv_estimate_mean_map <- function(...) {
   .Deprecated("mzmv_mean_map", package = "chensus")
   mzmv_mean_map(...)
 }
-
-#' @rdname chensus-deprecated
-#' @export
-mzmv_estimate_prop <- function(...) {
-  .Deprecated("mzmv_prop", package = "chensus")
-  mzmv_prop(...)
-}
-

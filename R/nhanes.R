@@ -31,5 +31,5 @@
 #' @examples
 #' library(dplyr)
 #' glimpse(nhanes)
-#' nhanes %>% count(edu_level)
+#' nhanes |> count(edu_level)
 "nhanes"

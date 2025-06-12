@@ -2,43 +2,37 @@
 % Please edit documentation in R/se_summarise.R
 \name{se_summarise}
 \alias{se_summarise}
-\title{Summarise totals of population survey}
+\title{Summarise Structural Survey Data by Group}
 \usage{
-se_summarise(data, weight, strata, mh_col = "mh", Nh_col = "Nh")
+se_summarise(data, ..., weight, mh_col = "mh", Nh_col = "Nh")
 }
 \arguments{
-\item{data}{Tibble}
+\item{data}{A data frame or tibble.}
 
-\item{weight}{Character string, name of the column containing the
-weights}
+\item{...}{One or more grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.}
 
-\item{strata}{Vector of character strings, names of the columns containing the
-strata}
+\item{weight}{The name of the weight column. Can be passed unquoted, quoted, or programmatically using \code{!!sym(wt)} where \code{wt} is a character variable.}
 
-\item{mh_col}{Character string, desired column name of number of true occurrences per stratum}
+\item{mh_col}{A character string specifying the name of the column for the number of observations (respondents) per group. Default is `"mh"`.}
 
-\item{Nh_col}{Character string, desired column name of estimated population per stratum}
+\item{Nh_col}{A character string specifying the name of the column for the estimated population size per group. Default is `"Nh"`.}
 }
 \value{
-Tibble \code{data} augmented with columns \code{mh_col} and \code{Nhcol}
+A tibble containing the original data with two additional columns \code{mh_col} and \code{Nh_col} (or their specified names).
 }
 \description{
-\code{se_summarise()} stratifies the number of true occurrences and
-estimated populations in population surveys provided by the FSO.
+\code{se_summarise()} is a helper function for \code{\link[=se_total]{se_total()}}. It calculates survey-weighted group-level summaries by adding columns for the number 
+of observations and the estimated population size per group.
 }
 \examples{
-# One strata variable
-library(dplyr)
-se_summarise(nhanes, weight = "weights", strata = "strata") \%>\%
-  glimpse()
-# Two strata variables
+# One grouping variable
+se_summarise(nhanes, weight = weights, strata)
+# Two grouping variables
 se_summarise(nhanes,
-  weight = "weights", strata = c("strata", "gender"),
-  mh_col = "mhc", Nh_col = "Nhc"
-) \%>\%
-  select(weights, strata, gender, mhc, Nhc) \%>\%
-  group_by(strata, gender) \%>\%
-  slice_sample(n = 2) \%>\%
-  head(10)
+  weight = weights,
+  mh_col = "mhc",
+  Nh_col = "Nhc",
+  strata, gender
+)
 
 }

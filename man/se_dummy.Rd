@@ -2,28 +2,22 @@
 % Please edit documentation in R/se_dummy.R
 \name{se_dummy}
 \alias{se_dummy}
-\title{Create dummy variables}
+\title{Create Dummy Variables from a Categorical Column}
 \usage{
-se_dummy(data, column, id)
+se_dummy(data, column)
 }
 \arguments{
-\item{data}{Tibble}
+\item{data}{A data frame or tibble.}
 
-\item{column}{Character string, name of variable to dummify}
-
-\item{id}{Character string, name of unique identifier ID column}
+\item{column}{The name of the categorical column to convert into dummy variables. Can be provided unquoted, quoted, or programmatically using \code{!!sym(col_name)}.}
 }
 \value{
-Tibble composed of original tibble and newly created dummy variables
+A tibble containing the original data with one additional dummy column for each level of the specified categorical variable.
 }
 \description{
-Create dummy variables
+\code{se_dummy()} is a helper function used by \code{\link[=se_mean_cat]{se_mean_cat()}}. It generates dummy (0/1) variables for each level of a categorical variable.
 }
 \examples{
-data <- data.frame(
-id = 1:5,
-category = c("A", "B", "A", "C", "B")
-)
-se_dummy(data, "category", "id")
+se_dummy(mtcars, cyl)
 
 }

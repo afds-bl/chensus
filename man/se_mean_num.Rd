@@ -2,57 +2,67 @@
 % Please edit documentation in R/se_mean.R
 \name{se_mean_num}
 \alias{se_mean_num}
-\title{Estimate means of numeric variables in structural survey}
+\title{Estimate Averages of Numeric Variables in Structural Survey}
 \usage{
-se_mean_num(
-  data,
-  variable,
-  group_vars = NULL,
-  condition = NULL,
-  strata = "zone",
-  weight,
-  alpha = 0.05
-)
+se_mean_num(data, variable, ..., strata, weight, alpha = 0.05)
 }
 \arguments{
-\item{data}{Tibble}
+\item{data}{A data frame or tibble.}
 
-\item{variable}{Character string, name of the feature whose mean we would like
-to estimate}
+\item{variable}{Unquoted or quoted name of the numeric variable whose mean is to be estimated.
+Programmatic usage (e.g., using \code{!!sym()}) is supported.}
 
-\item{group_vars}{A character vector of grouping variables.}
+\item{...}{Optional grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.}
 
-\item{condition}{[Deprecated] Use `group_vars` instead. A character vector of grouping variables.}
+\item{strata}{Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.}
 
-\item{strata}{Character string, name of the column containing the
-strata/zones}
+\item{weight}{Unquoted or quoted name of the sampling weights column. For programmatic use
+with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.}
 
-\item{weight}{Character string, name of the column containing the
-weights}
-
-\item{alpha}{Double, significance level. Default 0.05 for 95\% confidence interval.}
+\item{alpha}{Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).}
 }
 \value{
-Tibble, with the following columns:
- \itemize{
- \item \code{occ}: true frequency in survey sample
- \item \code{average}: estimated mean
- \item \code{vhat}: estimated variance
- \item \code{stand_dev}: standard deviation
- \item \code{ci}: absolute confidence interval
- }
+A tibble with columns:
+\describe{
+  \item{occ}{Sample size (number of observations) per group.}
+  \item{<variable>}{Estimated mean of the specified numeric variable, named dynamically.}
+  \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev}, square root of the variance).}
+  \item{ci, ci_l, ci_u}{Confidence interval: half-width (\code{ci}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
+}
 }
 \description{
-\code{se_mean_num()} estimates the averages of numeric variables along with the variance and confidence
-intervals of FSO's structural survey (Strukturerhebung / relevé structurel).
+\code{se_mean_num()} estimates the averages of numeric variables along with variance
+and confidence intervals for FSO's structural survey.
 }
 \examples{
+# Direct column references (unquoted)
 se_mean_num(
   data = nhanes,
-  variable = "age",
-  strata = "strata",
-  weight = "weights",
-  group_vars = "gender"
+  variable = age,
+  strata = strata,
+  weight = weights,
+  gender, birth_country
 )
 
+# Quoted column names
+se_mean_num(
+  data = nhanes,
+  variable = "age", strata = "strata", weight = "weights", gender, birth_country
+)
+
+# Programmatic use with strings
+v <- "age"
+wt <- "weights"
+vars <- c("gender", "birth_country")
+se_mean_num(
+  data = nhanes,
+  variable = !!rlang::sym(v),
+  strata = strata,
+  weight = !!rlang::sym(wt),
+  !!!rlang::syms(vars)
+)
+
+}
+\seealso{
+\code{\link[=se_mean_cat]{se_mean_cat()}}
 }

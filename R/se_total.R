@@ -1,117 +1,186 @@
-#' Estimate totals of population survey
+#' Estimate Totals of Structural Survey
 #'
-#' \code{se_estimate()} estimates the frequencies, variance and confidence
-#' intervals of FSO population surveys.
+#' \code{se_total()} estimates the totals  and confidence intervals of FSO structural surveys.
 #'
-#' @param data Tibble
-#' @param weight Character string, name of the column containing the
-#' weights
-#' @param strata Character string, name of the column containing the
-#' strata/zones
-#' @param group_vars A character vector of grouping variables.
-#' @param condition [Deprecated] Use `group_vars` instead. A character vector of grouping variables.
-#' @param alpha Double, significance level. Default 0.05 for 95\% confidence interval.
+#' @param data A data frame or tibble.
+#' @param ... Optional grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.
+#' @param strata Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.
+#' @param weight Unquoted or quoted name of the sampling weights column. For programmatic use
+#'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
+#' @param alpha Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).
 #'
-#' @returns Tibble, with the following columns:
-#'  \itemize{
-#'  \item \code{total}: population estimate
-#'  \item \code{vhat}: estimated variance
-#'  \item \code{occ}: true frequency in survey sample
-#'  \item \code{stand_dev}: standard deviation
-#'  \item \code{ci}: absolute confidence interval
-#'  \item \code{ci_per}: percent confidence interval.
+#' @details
+#' 
+#' The \code{condition} argument has been deprecated and is no longer supported. 
+#' Please use \code{...} to pass grouping variables either unquoted or programmatically using \code{rlang}:
+#' 
+#' * Interactive use:
+#' 
+#'   \code{se_total(data, weight = my_weight, group1, group2)}
+#'   
+#' * Programmatic use:
+#'   
+#'   \code{weight_var <- "my_weight"}
+#'   
+#'   \code{group_vars <- c("group1", "group2")}
+#'   
+#'   \code{se_total(data, weight = !!rlang::sym(weight_var), !!!rlang::syms(group_vars))}
+#' 
+#' @returns A tibble with estimates for all grouping column combinations, including:
+#' \describe{
+#'   \item{<variable>}{Value of the grouping variables passed in \code{...}.}
+#'    \item{occ}{number of observations in survey sample.}
+#'    \item{total}{population estimate.}
+#'    \item{vhat, stand_dev}{Estimated variance of the total (\code{vhat}) and its standard deviation (\code{stand_dev}, square root of the variance).}
+#'   \item{ci, ci_per, ci_l, ci_u}{Confidence interval:  half-width (\code{ci}), percentage of the total (\code{ci_per}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
 #'  }
+#'
+#' @seealso \code{\link[=se_total_map]{se_total_map()}}
+#'
+#' @import dplyr
+#' @importFrom purrr map_chr
+#' @importFrom rlang enquo enquos as_label sym syms ensym
+#' @importFrom stats qnorm
+#'
+#' @export
 #'
 #' @examples
 #' # One grouping variable
 #' se_total(
 #'   data = nhanes,
-#'   weight = "weights",
-#'   strata = "strata",
-#'   group_vars = "gender"
+#'   strata = strata,
+#'   weight = weights,
+#'   gender
 #' )
 #' # Multiple grouping variables
-#' library(dplyr)
-#' library(purrr)
-#' map(
-#'   c("gender", "marital_status"),
-#'   ~ se_total(
-#'     data = nhanes,
-#'     weight = "weights",
-#'     strata = "strata",
-#'     group_vars = .x
-#'   ) %>%
-#'     mutate(variable = .x, .before = 1) %>%
-#'     rename_with(~"value", all_of(.x))
-#' ) %>%
-#'   map_dfr(~ .x %>% as_tibble())
-#'
-#' @import dplyr
-#' @importFrom stats qnorm weighted.mean
-#'
-#' @export
+#' se_total(
+#'   data = nhanes,
+#'   strata = strata,
+#'   weight = weights,
+#'   gender, marital_status, birth_country
+#' )
+#' # Programmatic use and quoted variables
+#' v <- c("gender", "marital_status", "birth_country")
+#' se_total(
+#'   nhanes,
+#'   weight = "weights",
+#'   strata = "strata",
+#'   !!!rlang::syms(v)
+#' )
+#' 
+se_total <- function(data, ..., strata, weight, alpha = 0.05) {
+  # Capture symbols for tidy evaluation
+  weight <- ensym(weight)
+  strata <- if (missing(strata)) sym("zone") else ensym(strata)
+  group_vars <- enquos(...)
 
-se_total <- function(data, weight,
-                     strata = "zone",
-                     group_vars = NULL,
-                     condition = NULL,
-                     alpha = 0.05) {
-  mh <- Nh <- mhc <- Nhc <- T1h <- T1hc <- T2hc <- vhat <- stand_dev <- ci <- total <- occ <- ci_per <- NULL
-
-  if (!is.null(condition)) {
-    warning("Argument `condition` is deprecated. Please use `group_vars` instead.", call. = FALSE)
-    if (is.null(group_vars)) {
-      group_vars <- condition
-    }
-  }
+  # Named joining vector
+  by_cols <- c(as_label(strata), map_chr(group_vars, as_label))
+  by_vec <- set_names(by_cols)
 
   # Summarise by strata
   data <- se_summarise(
-    data = data, strata = strata,
-    weight = weight
-  ) %>%
-    # First summation term (1)
-    mutate(T1h = if_else(mh != 1, mh / (mh - 1) * (1 - mh / Nh), 0)) %>%
-    # Summarise by strata and grouping_variables
+    data = data,
+    weight = !!weight,
+    !!strata
+  ) |>
+    mutate(T1h = if_else(mh != 1, mh / (mh - 1) * (1 - mh / Nh), 0)) |>
+    # Summarise by strata and grouping variables
     se_summarise(
-      strata = c(strata, group_vars),
-      weight = weight,
-      mh_col = "mhc", Nh_col = "Nhc"
-    ) %>%
-    # Second summation term 1/2
+      weight = !!weight,
+      mh_col = "mhc", Nh_col = "Nhc",
+      !!strata, !!!group_vars
+    ) |>
     mutate(T1hc = (mh - mhc) * (Nhc / mh)^2)
 
-  data %>%
-    group_by(across(c(all_of(strata), all_of(group_vars)))) %>%
-    # Second summation term 2/2
-    summarise(T2hc = sum((.data[[weight]] - Nhc / mh)^2)) %>%
+  data |>
+    group_by(!!strata, !!!group_vars) |>
+    summarise(T2hc = sum((!!weight - Nhc / mh)^2), .groups = "drop") |>
     left_join(
-      distinct(data, across(c(
-        all_of(strata),
-        all_of(group_vars), T1h, T1hc, mhc, Nhc
-      ))),
-      .,
-      by = c(strata, group_vars)
-    ) %>%
-    ungroup() %>%
-    group_by(across(all_of(group_vars))) %>%
+      distinct(data, !!strata, !!!group_vars, T1h, T1hc, mhc, Nhc),
+      by = by_vec
+    ) |>
+    group_by(!!!group_vars) |>
     summarise(
-      # Variance estimate
       vhat = sum(T1h * (T1hc + T2hc)),
-      # Population estimate
       total = sum(Nhc),
-      # True occurrence in survey sample
-      occ = sum(mhc)
-    ) %>%
-    ungroup() %>%
+      occ = sum(mhc),
+      .groups = "drop"
+    ) |>
     mutate(
-      # Standard deviation
       stand_dev = sqrt(vhat),
-      # Absolute confidence interval
       ci = stand_dev * qnorm(1 - alpha / 2),
-      # Percent confidence interval
-      ci_per = ci / total * 100
-    ) %>%
-    # Order as desired
-    select(all_of(group_vars), occ, total, vhat, stand_dev, ci, ci_per)
+      ci_per = ci / total * 100,
+      ci_l = total - ci,
+      ci_u = total + ci
+    ) |>
+    select(!!!group_vars, occ, total, vhat, stand_dev, starts_with("ci"))
+}
+
+#' Estimate Totals in Parallel for Multiple Grouping Variables in Structural Survey
+#'
+#' \code{se_total_map()} applies \code{\link[=se_total]{se_total()}} to a data frame for each of several grouping variables, returning a combined tibble of results.
+#'
+#' This wrapper function allows to efficiently compute totals and confidence intervals for each grouping variable in the structural survey data in parallel.
+#'
+#' @param data A data frame or tibble.
+#' @param ... One or more grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.
+#' @param strata Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.
+#' @param weight Unquoted or quoted name of the sampling weights column. For programmatic use
+#'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
+#' @param alpha Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).
+#' 
+#' @returns A tibble with results for each grouping variable, including:
+#' \describe{
+#'    \item{variable}{The name of the grouping variable.}
+#'    \item{value}{The value of the grouping variable.}
+#'    \item{occ}{Sample size for the group.}
+#'    \item{total}{Estimated total for the group.}
+#'    \item{vhat, stand_dev}{Estimated variance of the total (\code{vhat}) and its standard deviation (\code{stand_dev}, square root of the variance).}
+#'    \item{ci, ci_per, ci_l, ci_u}{Confidence interval:  half-width (\code{ci}), percentage of the total (\code{ci_per}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
+#' }
+#'
+#' @details
+#' This function iterates over each grouping variable supplied via `...`, applies \code{se_total()} to the data grouped by that variable, and combines the results into a single tibble. The grouping variable is renamed to `value` and its name is stored in the `variable` column for clarity.
+#'
+#' @seealso \code{\link[=se_total]{se_total()}}
+#' @import dplyr
+#' @importFrom purrr map_chr
+#' @importFrom rlang enquo enquos as_label sym syms
+#' @importFrom stats qnorm
+#' 
+#' @examples
+#' # Unquoted variables
+#' se_total_map(
+#'   nhanes,
+#'   weight = weights,
+#'   strata = strata,
+#'   gender, marital_status, birth_country
+#' )
+#' # Programmatic use and quoted variables
+#' v <- c("gender", "marital_status", "birth_country")
+#' se_total_map(
+#'   nhanes,
+#'   weight = "weights",
+#'   strata = "strata",
+#'   !!!rlang::syms(v)
+#' )
+#'
+#' @export
+#'
+se_total_map <- function(data, ..., strata, weight, alpha = 0.05) {
+  group_quos <- enquos(...)
+
+  map(
+    group_quos,
+    ~ {
+      # .x is a quosure
+      col_name <- as_label(.x)
+      data |>
+        se_total(strata = {{ strata }}, weight = {{ weight }}, alpha = alpha, !!.x) |>
+        mutate(variable = col_name, .before = 1) |>
+        rename_with(~"value", all_of(col_name))
+    }
+  ) |>
+    bind_rows()
 }

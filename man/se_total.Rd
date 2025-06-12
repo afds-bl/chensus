@@ -2,69 +2,76 @@
 % Please edit documentation in R/se_total.R
 \name{se_total}
 \alias{se_total}
-\title{Estimate totals of population survey}
+\title{Estimate Totals of Structural Survey}
 \usage{
-se_total(
-  data,
-  weight,
-  strata = "zone",
-  group_vars = NULL,
-  condition = NULL,
-  alpha = 0.05
-)
+se_total(data, ..., strata, weight, alpha = 0.05)
 }
 \arguments{
-\item{data}{Tibble}
+\item{data}{A data frame or tibble.}
 
-\item{weight}{Character string, name of the column containing the
-weights}
+\item{...}{Optional grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.}
 
-\item{strata}{Character string, name of the column containing the
-strata/zones}
+\item{strata}{Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.}
 
-\item{group_vars}{A character vector of grouping variables.}
+\item{weight}{Unquoted or quoted name of the sampling weights column. For programmatic use
+with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.}
 
-\item{condition}{[Deprecated] Use `group_vars` instead. A character vector of grouping variables.}
-
-\item{alpha}{Double, significance level. Default 0.05 for 95\% confidence interval.}
+\item{alpha}{Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).}
 }
 \value{
-Tibble, with the following columns:
- \itemize{
- \item \code{total}: population estimate
- \item \code{vhat}: estimated variance
- \item \code{occ}: true frequency in survey sample
- \item \code{stand_dev}: standard deviation
- \item \code{ci}: absolute confidence interval
- \item \code{ci_per}: percent confidence interval.
+A tibble with estimates for all grouping column combinations, including:
+\describe{
+  \item{<variable>}{Value of the grouping variables passed in \code{...}.}
+   \item{occ}{number of observations in survey sample.}
+   \item{total}{population estimate.}
+   \item{vhat, stand_dev}{Estimated variance of the total (\code{vhat}) and its standard deviation (\code{stand_dev}, square root of the variance).}
+  \item{ci, ci_per, ci_l, ci_u}{Confidence interval:  half-width (\code{ci}), percentage of the total (\code{ci_per}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
  }
 }
 \description{
-\code{se_estimate()} estimates the frequencies, variance and confidence
-intervals of FSO population surveys.
+\code{se_total()} estimates the totals  and confidence intervals of FSO structural surveys.
+}
+\details{
+The \code{condition} argument has been deprecated and is no longer supported. 
+Please use \code{...} to pass grouping variables either unquoted or programmatically using \code{rlang}:
+
+* Interactive use:
+
+  \code{se_total(data, weight = my_weight, group1, group2)}
+  
+* Programmatic use:
+  
+  \code{weight_var <- "my_weight"}
+  
+  \code{group_vars <- c("group1", "group2")}
+  
+  \code{se_total(data, weight = !!rlang::sym(weight_var), !!!rlang::syms(group_vars))}
 }
 \examples{
 # One grouping variable
 se_total(
   data = nhanes,
-  weight = "weights",
-  strata = "strata",
-  group_vars = "gender"
+  strata = strata,
+  weight = weights,
+  gender
 )
 # Multiple grouping variables
-library(dplyr)
-library(purrr)
-map(
-  c("gender", "marital_status"),
-  ~ se_total(
-    data = nhanes,
-    weight = "weights",
-    strata = "strata",
-    group_vars = .x
-  ) \%>\%
-    mutate(variable = .x, .before = 1) \%>\%
-    rename_with(~"value", all_of(.x))
-) \%>\%
-  map_dfr(~ .x \%>\% as_tibble())
+se_total(
+  data = nhanes,
+  strata = strata,
+  weight = weights,
+  gender, marital_status, birth_country
+)
+# Programmatic use and quoted variables
+v <- c("gender", "marital_status", "birth_country")
+se_total(
+  nhanes,
+  weight = "weights",
+  strata = "strata",
+  !!!rlang::syms(v)
+)
 
+}
+\seealso{
+\code{\link[=se_total_map]{se_total_map()}}
 }

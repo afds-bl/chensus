@@ -40,15 +40,13 @@ library(chensus)
 
 se_total(
   data = nhanes,
-  weight = "weights",
-  strata = "strata",
-  group_vars = "gender"
+  weight = weights,
+  strata = strata
 )
-# A tibble: 2 × 7
-  gender   occ      total    vhat stand_dev       ci ci_per
-  <fct>  <int>      <dbl>   <dbl>     <dbl>    <dbl>  <dbl>
-1 Male    4892 154558598. 7.90e12  2810039. 5507576.   3.56
-2 Female  5079 161922446. 7.82e12  2795884. 5479833.   3.38
+# A tibble: 1 × 8
+    occ      total    vhat stand_dev       ci ci_per       ci_l       ci_u
+  <int>      <dbl>   <dbl>     <dbl>    <dbl>  <dbl>      <dbl>      <dbl>
+1  9971 316481044. 1.06e13  3250407. 6370681.   2.01 310110363. 322851725.
 ```
 
 Estimate average household size:
@@ -56,14 +54,14 @@ Estimate average household size:
 ``` r
 se_mean_num(
   data = nhanes,
-  variable = "household_size",
-  weight = "weights",
-  strata = "strata"
+  variable = household_size,
+  weight = weights,
+  strata = strata
 )
-# A tibble: 1 × 5
-    occ average     vhat stand_dev     ci
-  <int>   <dbl>    <dbl>     <dbl>  <dbl>
-1  9971    3.46 0.000495    0.0222 0.0436
+# A tibble: 1 × 7
+    occ household_size     vhat stand_dev     ci  ci_l  ci_u
+  <int>          <dbl>    <dbl>     <dbl>  <dbl> <dbl> <dbl>
+1  9971           3.46 0.000495    0.0222 0.0436  3.42  3.51
 ```
 
 Estimate population proportions by household size:
@@ -71,20 +69,20 @@ Estimate population proportions by household size:
 ``` r
 se_mean_cat(
   data = nhanes,
-  variable = "household_size",
-  weight = "weights",
-  strata = "strata"
+  variable = household_size,
+  weight = weights,
+  strata = strata
 )
-# A tibble: 7 × 6
-  dummy_var          occ average       vhat stand_dev      ci
-  <chr>            <int>   <dbl>      <dbl>     <dbl>   <dbl>
-1 household_size_2  1723  0.254  0.0000499    0.00706 0.0138 
-2 household_size_1   828  0.103  0.0000209    0.00457 0.00896
-3 household_size_5  1672  0.134  0.0000180    0.00424 0.00831
-4 household_size_7   974  0.0613 0.00000592   0.00243 0.00477
-5 household_size_3  1719  0.175  0.0000297    0.00545 0.0107 
-6 household_size_4  2061  0.204  0.0000327    0.00572 0.0112 
-7 household_size_6   994  0.0696 0.00000826   0.00287 0.00563
+# A tibble: 7 × 8
+  household_size   occ   prop       vhat stand_dev      ci   ci_l   ci_u
+  <chr>          <int>  <dbl>      <dbl>     <dbl>   <dbl>  <dbl>  <dbl>
+1 2               1723 0.254  0.0000499    0.00706 0.0138  0.240  0.268 
+2 1                828 0.103  0.0000209    0.00457 0.00896 0.0940 0.112 
+3 5               1672 0.134  0.0000180    0.00424 0.00831 0.126  0.142 
+4 7                974 0.0613 0.00000592   0.00243 0.00477 0.0565 0.0660
+5 3               1719 0.175  0.0000297    0.00545 0.0107  0.164  0.185 
+6 4               2061 0.204  0.0000327    0.00572 0.0112  0.192  0.215 
+7 6                994 0.0696 0.00000826   0.00287 0.00563 0.0639 0.0752
 ```
 
 ### Mobility and Transport Survey (MZMV/MRMT)
@@ -94,11 +92,11 @@ Estimate average annual household and family incomes:
 ``` r
 mzmv_mean(
   data = nhanes,
-  variable = c("annual_household_income", "annual_family_income"),
-  weight = "weights"
+  annual_household_income, annual_family_income,
+  weight = weights
 )
 # A tibble: 2 × 4
-  variable                   nc wmean    ci
+  variable                  occ wmean    ci
   <chr>                   <int> <dbl> <dbl>
 1 annual_household_income  9626  11.9 0.240
 2 annual_family_income     9642  11.5 0.245
@@ -107,21 +105,22 @@ mzmv_mean(
 Estimate by group (e.g., gender, interview language):
 
 ``` r
+v <- c("gender", "interview_lang")
 mzmv_mean_map(
   data = nhanes,
   variable = c("annual_household_income", "annual_family_income"),
-  group_vars = c("gender", "interview_lang"),
-  weight = "weights"
+  !!!rlang::syms(v),
+  weight = weights
 )
 # A tibble: 8 × 6
-  variable                group_vars     group_vars_value    nc wmean    ci
+  variable                group_vars     group_vars_value   occ wmean    ci
   <chr>                   <chr>          <fct>            <int> <dbl> <dbl>
 1 annual_household_income gender         Male              4720  12.0 0.328
 2 annual_household_income gender         Female            4906  11.8 0.350
-3 annual_family_income    gender         Male              4725  11.6 0.334
-4 annual_family_income    gender         Female            4917  11.5 0.358
-5 annual_household_income interview_lang English           8310  11.8 0.241
-6 annual_household_income interview_lang Spanish           1316  12.0 1.07 
+3 annual_household_income interview_lang English           8310  11.8 0.241
+4 annual_household_income interview_lang Spanish           1316  12.0 1.07 
+5 annual_family_income    gender         Male              4725  11.6 0.334
+6 annual_family_income    gender         Female            4917  11.5 0.358
 7 annual_family_income    interview_lang English           8326  11.5 0.247
 8 annual_family_income    interview_lang Spanish           1316  11.6 1.07 
 ```
@@ -129,6 +128,7 @@ mzmv_mean_map(
 ## Documentation
 
 - `?nhanes`: inspect the example dataset
+- `vignette("chensus")`: detailed examples
 - `vignette("Method")`: mathematical background
 - `?se_total`, `?mzmv_mean`, etc.: function documentation
 

@@ -17,21 +17,22 @@ raw_nhanes <- read_xpt(here::here("data-raw", "DEMO_I.xpt"))
 code_marital_status <- read_tsv(here::here("data-raw", "code_marital_status.tsv"))
 code_edu_level <- read_tsv(here::here("data-raw", "code_edu_level.tsv"))
 
-nhanes <- raw_nhanes %>%
-  select(PSU = SDMVPSU, 
-         weights = WTINT2YR, 
-         strata = SDMVSTRA,
-         gender = RIAGENDR,
-         age = RIDAGEYR,
-         birth_country = DMDBORN4,
-         marital_status = DMDMARTL,
-         interview_lang = SIALANG,
-         edu_level = DMDHREDU,
-         household_size = DMDHHSIZ,
-         family_size = DMDFMSIZ,
-         annual_household_income = INDHHIN2,
-         annual_family_income = INDFMIN2
-         )  %>%
+nhanes <- raw_nhanes |>
+  select(
+    PSU = SDMVPSU,
+    weights = WTINT2YR,
+    strata = SDMVSTRA,
+    gender = RIAGENDR,
+    age = RIDAGEYR,
+    birth_country = DMDBORN4,
+    marital_status = DMDMARTL,
+    interview_lang = SIALANG,
+    edu_level = DMDHREDU,
+    household_size = DMDHHSIZ,
+    family_size = DMDFMSIZ,
+    annual_household_income = INDHHIN2,
+    annual_family_income = INDFMIN2
+  ) |>
   mutate(
     gender = factor(gender, levels = 1:2, labels = c("Male", "Female")),
     birth_country = factor(birth_country, levels = 1:2, labels = c("US", "Other")),

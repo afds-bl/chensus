@@ -55,9 +55,8 @@ library(chensus)
 
 se_total(
   data = nhanes,
-  weight = "weights",
-  strata = "strata",
-  group_vars = "gender"
+  weight = weights,
+  strata = strata
 )
 ```
 
@@ -66,9 +65,9 @@ Estimate average household size:
 ```{r}
 se_mean_num(
   data = nhanes,
-  variable = "household_size",
-  weight = "weights",
-  strata = "strata"
+  variable = household_size,
+  weight = weights,
+  strata = strata
 )
 ```
 
@@ -77,9 +76,9 @@ Estimate population proportions by household size:
 ```{r example2}
 se_mean_cat(
   data = nhanes,
-  variable = "household_size",
-  weight = "weights",
-  strata = "strata"
+  variable = household_size,
+  weight = weights,
+  strata = strata
 )
 ```
 
@@ -90,25 +89,27 @@ Estimate average annual household and family incomes:
 ```{r example3}
 mzmv_mean(
   data = nhanes,
-  variable = c("annual_household_income", "annual_family_income"),
-  weight = "weights"
+  annual_household_income, annual_family_income,
+  weight = weights
 )
 ```
 
 Estimate by group (e.g., gender, interview language):
 
 ``` {r}
+v <- c("gender", "interview_lang")
 mzmv_mean_map(
   data = nhanes,
   variable = c("annual_household_income", "annual_family_income"),
-  group_vars = c("gender", "interview_lang"),
-  weight = "weights"
+  !!!rlang::syms(v),
+  weight = weights
 )
 ```
 
 ## Documentation
 
 - `?nhanes`: inspect the example dataset
+- `vignette("chensus")`: detailed examples
 - `vignette("Method")`: mathematical background
 - `?se_total`, `?mzmv_mean`, etc.: function documentation
 

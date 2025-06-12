@@ -12,3 +12,4 @@ init.log
 ^Meta$
 ^dev$
 ^data-raw$
+Makefile

@@ -1,4 +1,4 @@
-test_that("se_mean_num computes mean and CI correctly", {
+test_that("se_mean_num computes mean and CI correctly with different argument types", {
   # Sample data
   df <- tibble(
     zone = c("A", "A", "B", "B", "A", "B", "A", "B", "A", "B"),
@@ -7,18 +7,38 @@ test_that("se_mean_num computes mean and CI correctly", {
     group = c("G1", "G1", "G2", "G2", "G1", "G2", "G1", "G2", "G1", "G2"),
     category = rep(c("X", "Y"), each = 5)
   )
-  
-  # Run function
-  result <- se_mean_num(data = df, variable = "score", group_vars = "group", strata = "zone", weight = "weight")
-  
-  # Check structure
-  expect_s3_class(result, "data.frame")
-  expect_true(all(c("average", "stand_dev", "ci") %in% names(result)))
-  
-  # Check numeric outputs
-  expect_true(all(result$average > 0))
-  expect_true(all(result$stand_dev >= 0))
-  expect_true(all(result$ci >= 0))
+
+  # Unquoted column names
+  res_unquoted <- se_mean_num(data = df, variable = score, weight = weight, group, category)
+
+  # Quoted arguments
+  res_quoted <- se_mean_num(data = df, variable = "score", weight = "weight", "group", "category")
+
+  # Programmatic use
+  v <- "score"
+  w <- "weight"
+  groups <- c("group", "category")
+  res_prog <- se_mean_num(
+    data = df,
+    variable = !!sym(v),
+    weight = !!sym(w),
+    !!!syms(groups)
+  )
+
+  # Extract expected column name
+  var_name <- "score"
+
+  for (res in list(res_unquoted, res_quoted, res_prog)) {
+    # Check structure
+    expect_s3_class(res, "data.frame")
+    expect_true(all(c(var_name, "stand_dev", "ci", "ci_l", "ci_u") %in% names(res)))
+
+    # Check numeric outputs
+    expect_type(res[[var_name]], "double")
+    expect_true(all(res[[var_name]] > 0))
+    expect_true(all(res$stand_dev >= 0))
+    expect_true(all(res$ci >= 0))
+  }
 })
 
 test_that("se_mean_num throws error for non-numeric variable", {
@@ -28,7 +48,7 @@ test_that("se_mean_num throws error for non-numeric variable", {
     text_var = c("x", "y")
   )
   expect_error(
-    se_mean_num(data = df, variable = "text_var", weight = "weight"),
-    "Variable must be numeric."
+    se_mean_num(data = df, variable = text_var, weight = weight),
+    "must be numeric"
   )
 })

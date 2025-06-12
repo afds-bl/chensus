@@ -2,57 +2,72 @@
 % Please edit documentation in R/se_mean.R
 \name{se_mean_cat}
 \alias{se_mean_cat}
-\title{Estimate means of categorical variables in structural survey}
+\title{Estimate Proportions of Categorical Variables in Structural Survey}
 \usage{
-se_mean_cat(
-  data,
-  variable,
-  group_vars = NULL,
-  condition = NULL,
-  strata = "zone",
-  weight,
-  alpha = 0.05
-)
+se_mean_cat(data, variable, ..., strata, weight, alpha = 0.05)
 }
 \arguments{
-\item{data}{Tibble}
+\item{data}{A data frame or tibble.}
 
-\item{variable}{Character string, name of the categorical variable whose proportion we would like
-to estimate}
+\item{variable}{Unquoted or quoted name of the categorical variable whose mean is to be estimated.
+Programmatic usage using \code{!!sym()} is supported.}
 
-\item{group_vars}{A character vector of grouping variables.}
+\item{...}{Optional grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.}
 
-\item{condition}{[Deprecated] Use `group_vars` instead. A character vector of grouping variables.}
+\item{strata}{Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.}
 
-\item{strata}{Character string, name of the column containing the
-strata/zones}
+\item{weight}{Unquoted or quoted name of the sampling weights column. For programmatic use
+with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.}
 
-\item{weight}{Character string, name of the column containing the
-weights}
-
-\item{alpha}{Double, significance level. Default 0.05 for 95\% confidence interval.}
+\item{alpha}{Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).}
 }
 \value{
-Tibble, with the following columns:
- \itemize{
- \item \code{occ}: true frequency in survey sample
- \item \code{average}: estimated mean
- \item \code{vhat}: estimated variance
- \item \code{stand_dev}: standard deviation
- \item \code{ci}: absolute confidence interval
- }
+A tibble with the following columns:
+\describe{
+   \item{<variable>}{Values of categorical variable named dynamically.}
+   \item{...}{Grouping variables if provided.}
+  \item{occ}{Sample size (number of observations) per group.}
+  \item{prop}{Estimated proportion of the specified categorical variable}
+  \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev}, square root of the variance).}
+  \item{ci, ci_l, ci_u}{Confidence interval: half-width (\code{ci}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
+}
 }
 \description{
-\code{se_mean_cat()} estimates the proportion of categorical variables along with the variance and confidence
-intervals of FSO's structural survey (Strukturerhebung / relevé structurel).
+\code{se_mean_cat()} estimates the proportions and confidence intervals for each level of a categorical variable
+of FSO's structural survey, by first converting it to dummy variables and then computing statistics within strata and optional groups.
 }
 \examples{
+# Direct column references (unquoted)
+se_mean_cat(
+  data = nhanes,
+  variable = interview_lang,
+  birth_country,
+  strata = strata,
+  weight = weights
+)
+
+# Quoted column names
 se_mean_cat(
   data = nhanes,
   variable = "interview_lang",
   strata = "strata",
   weight = "weights",
-  group_vars = "birth_country"
+  gender, birth_country
 )
 
+# Programmatic use with strings
+v <- "interview_lang"
+wt <- "weights"
+vars <- c("gender", "birth_country")
+se_mean_cat(
+  data = nhanes,
+  variable = !!rlang::sym(v),
+  strata = strata,
+  weight = !!rlang::sym(wt),
+  !!!rlang::syms(vars)
+)
+
+}
+\seealso{
+\code{\link[=se_mean_num]{se_mean_num()}}, \code{\link[=se_dummy]{se_dummy()}}
 }
