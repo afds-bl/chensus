@@ -7,5 +7,5 @@
 ## Changes
 
 - Updated functions to support tidy evaluation (unquoted arguments).
-
-## Bug fixes
+- Separated `se_mean()` into two functions: `se_mean_num()` and `se_mean_cat()`.
+- Replaced the `condition` argument with the ellipsis `...`.
