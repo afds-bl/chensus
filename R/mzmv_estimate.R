@@ -4,7 +4,7 @@
 #' intervals of FSO mobility surveys.
 #'
 #' @param data A data frame or tibble.
-#' @param ... Names of variables to be estimated. Can be passed unquoted (e.g., \code{household_size}) or programmatically using \code{!!!syms(c("annual_household_income", "household_size"))}. 
+#' @param ... Names of variables to be estimated. Can be passed unquoted (e.g., \code{household_size}) or programmatically using \code{!!!syms(c("annual_household_income", "household_size"))}.
 #' Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent \code{NA}.
 #' @param weight Unquoted or quoted name of the sampling weights column. For programmatic use
 #'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
@@ -41,12 +41,11 @@
 #'
 
 mzmv_mean <- function(data, ..., weight, cf = 1.14, alpha = 0.1) {
-  
   variables <- enquos(...)
   weight <- ensym(weight)
 
   map(variables, function(var_quo) {
-    var_name <- as_label(var_quo) # For labeling output
+    var_name <- as_label(var_quo)
 
     data |>
       filter(!!var_quo >= 0) |>
@@ -69,13 +68,13 @@ mzmv_mean <- function(data, ..., weight, cf = 1.14, alpha = 0.1) {
     list_rbind()
 }
 
-#' Estimate Means in Parallel for Multiple Grouping Variables in Mobility Survey 
+#' Estimate Means in Parallel for Multiple Grouping Variables in Mobility Survey
 #'
 #' @description
 #' \code{mzmv_mean_map()} estimates weighted means and confidence intervals for a set of features of the mobility survey, optionally grouped by one or more variables.
 #'
 #' @param data A data frame or tibble.
-#' @param variable Character vector of variable names to be estimated. Must be quoted (e.g., \code{"annual_family_income"}). For multiple variables, pass as a vector (e.g., \code{c("annual_family_income", "annual_household_income")}). 
+#' @param variable Character vector of variable names to be estimated. Must be quoted (e.g., \code{"annual_family_income"}). For multiple variables, pass as a vector (e.g., \code{c("annual_family_income", "annual_household_income")}).
 #' Does not support bare (unquoted) variable names.
 #' @param ... Grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or quoted (e.g., \code{"gender"}, \code{"birth_country"}). If omitted, results are aggregated across the whole dataset.
 #' @param weight Unquoted or quoted name of the sampling weights column (must exist in \code{data}). For programmatic use with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
@@ -122,14 +121,13 @@ mzmv_mean <- function(data, ..., weight, cf = 1.14, alpha = 0.1) {
 #'   birth_country,
 #'   weight = !!rlang::sym(wt)
 #' )
-#' 
+#'
 mzmv_mean_map <- function(data, variable, ..., weight, cf = 1.14, alpha = 0.1) {
-  
   group_quo <- enquos(...)
   group_vars <- map_chr(group_quo, as_label)
   weight <- ensym(weight)
   variable_syms <- map(variable, sym)
-  
+
   # Ensure variable is a character vector or list of symbols
   if (is_symbolic(variable)) {
     variable <- as_label(variable)
@@ -140,7 +138,7 @@ mzmv_mean_map <- function(data, variable, ..., weight, cf = 1.14, alpha = 0.1) {
   if (!is.list(variable)) {
     variable <- list(variable)
   }
-  
+
   # Handle empty group_vars case
   if (length(group_vars) == 0) {
     data <- data |> mutate(.dummy_group = "all")

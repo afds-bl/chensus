@@ -10,22 +10,22 @@
 #' @param alpha Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).
 #'
 #' @details
-#' 
-#' The \code{condition} argument has been deprecated and is no longer supported. 
+#'
+#' The \code{condition} argument has been deprecated and is no longer supported.
 #' Please use \code{...} to pass grouping variables either unquoted or programmatically using \code{rlang}:
-#' 
+#'
 #' * Interactive use:
-#' 
+#'
 #'   \code{se_total(data, weight = my_weight, group1, group2)}
-#'   
+#'
 #' * Programmatic use:
-#'   
+#'
 #'   \code{weight_var <- "my_weight"}
-#'   
+#'
 #'   \code{group_vars <- c("group1", "group2")}
-#'   
+#'
 #'   \code{se_total(data, weight = !!rlang::sym(weight_var), !!!rlang::syms(group_vars))}
-#' 
+#'
 #' @returns A tibble with estimates for all grouping column combinations, including:
 #' \describe{
 #'   \item{<variable>}{Value of the grouping variables passed in \code{...}.}
@@ -67,14 +67,12 @@
 #'   strata = "strata",
 #'   !!!rlang::syms(v)
 #' )
-#' 
+#'
 se_total <- function(data, ..., strata, weight, alpha = 0.05) {
-  # Capture symbols for tidy evaluation
   weight <- ensym(weight)
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
   group_vars <- enquos(...)
 
-  # Named joining vector
   by_cols <- c(as_label(strata), map_chr(group_vars, as_label))
   by_vec <- set_names(by_cols)
 
@@ -129,7 +127,7 @@ se_total <- function(data, ..., strata, weight, alpha = 0.05) {
 #' @param weight Unquoted or quoted name of the sampling weights column. For programmatic use
 #'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
 #' @param alpha Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).
-#' 
+#'
 #' @returns A tibble with results for each grouping variable, including:
 #' \describe{
 #'    \item{variable}{The name of the grouping variable.}
@@ -148,7 +146,7 @@ se_total <- function(data, ..., strata, weight, alpha = 0.05) {
 #' @importFrom purrr map_chr
 #' @importFrom rlang enquo enquos as_label sym syms
 #' @importFrom stats qnorm
-#' 
+#'
 #' @examples
 #' # Unquoted variables
 #' se_total_map(

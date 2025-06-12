@@ -122,9 +122,9 @@ se_mean_cat(
 If we would like to estimate the mean household income then we can use the `mzmv_mean()`:
 ```{r}
 mzmv_mean(
- data = nhanes,
- variable = annual_household_income,
- weight = weights
+  data = nhanes,
+  variable = annual_household_income,
+  weight = weights
 )
 ```
 
@@ -133,9 +133,9 @@ and grouped by gender (note the variable argument must be quoted here):
 ```{r}
 mzmv_mean_map(
   data = nhanes,
- variable = "annual_household_income",
- gender,
- weight = weights 
+  variable = "annual_household_income",
+  gender,
+  weight = weights
 )
 ```
 

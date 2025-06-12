@@ -1,6 +1,6 @@
 #' Create Dummy Variables from a Categorical Column
 #'
-#'\code{se_dummy()} is a helper function used by \code{\link[=se_mean_cat]{se_mean_cat()}}. It generates dummy (0/1) variables for each level of a categorical variable.
+#' \code{se_dummy()} is a helper function used by \code{\link[=se_mean_cat]{se_mean_cat()}}. It generates dummy (0/1) variables for each level of a categorical variable.
 #'
 #' @param data A data frame or tibble.
 #' @param column The name of the categorical column to convert into dummy variables. Can be provided unquoted, quoted, or programmatically using \code{!!sym(col_name)}.
@@ -20,7 +20,6 @@ se_dummy <- function(data, column) {
   column <- ensym(column)
   col_name <- as_label(column)
 
-  # Dummify column
   dummy_data <- data |>
     select(all_of(col_name)) |>
     mutate(dummy_value = 1L, row_id___ = row_number()) |>
@@ -31,7 +30,6 @@ se_dummy <- function(data, column) {
       names_prefix = paste0(col_name, "_")
     )
 
-  # Join dummy columns back to original data
   data <- data |>
     mutate(row_id___ = row_number()) |>
     left_join(dummy_data, by = "row_id___") |>

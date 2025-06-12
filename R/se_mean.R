@@ -55,13 +55,10 @@
 #' )
 #'
 se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
-  # Capture symbols and quosures for tidy evaluation
   variable <- ensym(variable)
   group_vars <- enquos(...)
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
   weight <- ensym(weight)
-
-  # Evaluate variable as string for safety check
   var_name <- as_label(variable)
 
   # Safety check for numeric
@@ -178,7 +175,6 @@ se_mean_cat <- function(data, variable, ..., strata, weight, alpha = 0.05) {
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
   weight <- ensym(weight)
 
-  # Turn categorical variable into dummy variables
   var_name <- as_label(variable)
   data <- se_dummy(data, !!variable)
   dummy_vars <- names(data)[str_starts(names(data), paste0(var_name, "_"))]
