@@ -1,3 +1,11 @@
 # chensus 1.0.0
 
-* Initial CRAN submission.
+## New features
+
+- Initial release of `chensus` package.
+
+## Changes
+
+- Updated functions to support tidy evaluation (unquoted arguments).
+
+## Bug fixes
