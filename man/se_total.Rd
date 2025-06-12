@@ -17,8 +17,6 @@ se_total(data, ..., strata, weight, alpha = 0.05)
 with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.}
 
 \item{alpha}{Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).}
-
-\item{condition}{(deprecated) A character vector of grouping variables. Use \code{...} instead.}
 }
 \value{
 A tibble with estimates for all grouping column combinations, including:
@@ -35,8 +33,9 @@ A tibble with estimates for all grouping column combinations, including:
 intervals of FSO structural surveys.
 }
 \details{
-The \code{condition} argument has been removed and should not be used. Grouping variables 
-can be passed unquoted or programmatically using \code{rlang}:
+The \code{condition} argument has been deprecated and is no longer supported. 
+Please use \code{...} to pass grouping variables
+Grouping variables can be passed unquoted or programmatically using \code{rlang}:
 
 * Interactive use:
 

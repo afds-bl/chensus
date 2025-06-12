@@ -15,6 +15,8 @@ se_total_map(data, ..., strata, weight, alpha = 0.05)
 
 \item{weight}{Unquoted or quoted name of the sampling weights column. For programmatic use
 with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.}
+
+\item{alpha}{Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).}
 }
 \value{
 A tibble with results for each grouping variable, including:
