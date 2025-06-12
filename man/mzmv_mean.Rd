@@ -7,9 +7,10 @@
 mzmv_mean(data, ..., weight, cf = 1.14, alpha = 0.1)
 }
 \arguments{
-\item{data}{A tibble or data frame.}
+\item{data}{A data frame or tibble.}
 
-\item{...}{Names of variables to be estimated. Can be passed unquoted (e.g., \code{household_size}) or programmatically using \code{!!!syms(c("annual_household_income", "household_size"))}.Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent `NA`.}
+\item{...}{Names of variables to be estimated. Can be passed unquoted (e.g., \code{household_size}) or programmatically using \code{!!!syms(c("annual_household_income", "household_size"))}. 
+Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent \code{NA}.}
 
 \item{weight}{Unquoted or quoted name of the sampling weights column. For programmatic use
 with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.}
@@ -28,12 +29,10 @@ Tibble (number of rows is length of \code{variable}) with the following columns:
 }
 }
 \description{
-\code{mzmv_mean()} estimates the mean frequencies and confidence
+\code{mzmv_mean()} estimates the means, proportions and confidence
 intervals of FSO mobility surveys.
 }
 \examples{
-library(dplyr)
-library(purrr)
 # Estimate two means
 mzmv_mean(
   data = nhanes,
@@ -41,8 +40,8 @@ mzmv_mean(
   weight = weights
 )
 # Programmatic use with strings
-v <- c("annual_household_income", "household_size")
-mzmv_mean(nhanes, weight = "weights", !!!syms(v))
+v <- c("annual_household_income", "annual_family_income")
+mzmv_mean(nhanes, weight = "weights", !!!rlang::syms(v))
 
 }
 \seealso{

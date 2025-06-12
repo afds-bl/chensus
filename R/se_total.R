@@ -1,9 +1,8 @@
 #' Estimate Totals of Structural Survey
 #'
-#' \code{se_total()} estimates the totals, variance, and confidence
-#' intervals of FSO structural surveys.
+#' \code{se_total()} estimates the totals  and confidence intervals of FSO structural surveys.
 #'
-#' @param data A tibble or data frame.
+#' @param data A data frame or tibble.
 #' @param ... Optional grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.
 #' @param strata Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.
 #' @param weight Unquoted or quoted name of the sampling weights column. For programmatic use
@@ -13,14 +12,15 @@
 #' @details
 #' 
 #' The \code{condition} argument has been deprecated and is no longer supported. 
-#' Please use \code{...} to pass grouping variables
-#' Grouping variables can be passed unquoted or programmatically using \code{rlang}:
+#' Please use \code{...} to pass grouping variables either unquoted or programmatically using \code{rlang}:
 #' 
 #' * Interactive use:
 #' 
 #'   \code{se_total(data, weight = my_weight, group1, group2)}
 #'   
 #' * Programmatic use:
+#'   
+#'   \code{weight_var <- "my_weight"}
 #'   
 #'   \code{group_vars <- c("group1", "group2")}
 #'   
@@ -31,8 +31,8 @@
 #'   \item{<variable>}{Value of the grouping variables passed in \code{...}.}
 #'    \item{occ}{number of observations in survey sample.}
 #'    \item{total}{population estimate.}
-#'    \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev} (square root of the variance).}
-#'   \item{ci, ci_per, ci_l, ci_u}{Confidence interval:  half-width (\code{ci}), percentage of the mean (\code{ci_per}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
+#'    \item{vhat, stand_dev}{Estimated variance of the total (\code{vhat}) and its standard deviation (\code{stand_dev}, square root of the variance).}
+#'   \item{ci, ci_per, ci_l, ci_u}{Confidence interval:  half-width (\code{ci}), percentage of the total (\code{ci_per}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
 #'  }
 #'
 #' @seealso \code{\link[=se_total_map]{se_total_map()}}
@@ -59,7 +59,15 @@
 #'   weight = weights,
 #'   gender, marital_status, birth_country
 #' )
-#'
+#' # Programmatic use and quoted variables
+#' v <- c("gender", "marital_status", "birth_country")
+#' se_total(
+#'   nhanes,
+#'   weight = "weights",
+#'   strata = "strata",
+#'   !!!rlang::syms(v)
+#' )
+#' 
 se_total <- function(data, ..., strata, weight, alpha = 0.05) {
   # Capture symbols for tidy evaluation
   weight <- ensym(weight)
@@ -111,11 +119,11 @@ se_total <- function(data, ..., strata, weight, alpha = 0.05) {
 
 #' Estimate Totals in Parallel for Multiple Grouping Variables in Structural Survey
 #'
-#' `se_total_map()` applies `se_total()` to a data frame for each of several grouping variables, returning a combined tibble of results.
+#' \code{se_total_map()} applies \code{\link[=se_total]{se_total()}} to a data frame for each of several grouping variables, returning a combined tibble of results.
 #'
 #' This wrapper function allows to efficiently compute totals and confidence intervals for each grouping variable in the structural survey data in parallel.
 #'
-#' @param data A tibble or data frame.
+#' @param data A data frame or tibble.
 #' @param ... One or more grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.
 #' @param strata Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.
 #' @param weight Unquoted or quoted name of the sampling weights column. For programmatic use
@@ -128,27 +136,28 @@ se_total <- function(data, ..., strata, weight, alpha = 0.05) {
 #'    \item{value}{The value of the grouping variable.}
 #'    \item{occ}{Sample size for the group.}
 #'    \item{total}{Estimated total for the group.}
-#'    \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev} (square root of the variance).}
-#'    \item{ci, ci_per, ci_l, ci_u}{Confidence interval:  half-width (\code{ci}), percentage of the mean (\code{ci_per}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
+#'    \item{vhat, stand_dev}{Estimated variance of the total (\code{vhat}) and its standard deviation (\code{stand_dev}, square root of the variance).}
+#'    \item{ci, ci_per, ci_l, ci_u}{Confidence interval:  half-width (\code{ci}), percentage of the total (\code{ci_per}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
 #' }
 #'
 #' @details
-#' This function iterates over each grouping variable supplied via `...`, applies `se_total()` to the data grouped by that variable, and combines the results into a single tibble. The grouping variable is renamed to `value` and its name is stored in the `variable` column for clarity.
+#' This function iterates over each grouping variable supplied via `...`, applies \code{se_total()} to the data grouped by that variable, and combines the results into a single tibble. The grouping variable is renamed to `value` and its name is stored in the `variable` column for clarity.
 #'
 #' @seealso \code{\link[=se_total]{se_total()}}
 #' @import dplyr
 #' @importFrom purrr map_chr
 #' @importFrom rlang enquo enquos as_label sym syms
 #' @importFrom stats qnorm
+#' 
 #' @examples
-#' # Estimate totals for gender, marital_status, and birth_country in parallel
+#' # Unquoted variables
 #' se_total_map(
 #'   nhanes,
 #'   weight = weights,
 #'   strata = strata,
 #'   gender, marital_status, birth_country
 #' )
-#' # Programmatic use with strings
+#' # Programmatic use and quoted variables
 #' v <- c("gender", "marital_status", "birth_country")
 #' se_total_map(
 #'   nhanes,

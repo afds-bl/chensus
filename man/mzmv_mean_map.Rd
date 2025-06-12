@@ -2,18 +2,19 @@
 % Please edit documentation in R/mzmv_estimate.R
 \name{mzmv_mean_map}
 \alias{mzmv_mean_map}
-\title{Estimate means of mobility survey with grouping variables}
+\title{Estimate Means in Parallel for Multiple Grouping Variables in Mobility Survey}
 \usage{
 mzmv_mean_map(data, variable, ..., weight, cf = 1.14, alpha = 0.1)
 }
 \arguments{
-\item{data}{A tibble or data frame.}
+\item{data}{A data frame or tibble.}
 
-\item{variable}{Character vector of variable names to be estimated. Must be quoted (e.g., `"annual_family_income"`). For multiple variables, pass as a vector (e.g., `c("annual_family_income", "annual_household_income")`). Does not support bare (unquoted) variable names.}
+\item{variable}{Character vector of variable names to be estimated. Must be quoted (e.g., \code{"annual_family_income"}). For multiple variables, pass as a vector (e.g., \code{c("annual_family_income", "annual_household_income")}). 
+Does not support bare (unquoted) variable names.}
 
-\item{...}{Grouping variables. Can be passed unquoted (e.g., `gender`, `birth_country`) or quoted (e.g., `"gender"`, `"birth_country"`). If omitted, results are aggregated across the whole dataset.}
+\item{...}{Grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or quoted (e.g., \code{"gender"}, \code{"birth_country"}). If omitted, results are aggregated across the whole dataset.}
 
-\item{weight}{Unquoted or quoted name of the sampling weights column (must exist in `data`). For programmatic use with a string variable (e.g., `wt <- "weights"`), use `!!sym(wt)` in the function call.}
+\item{weight}{Unquoted or quoted name of the sampling weights column (must exist in \code{data}). For programmatic use with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.}
 
 \item{cf}{Numeric correction factor for the confidence interval. Default is 1.14.}
 
@@ -42,23 +43,13 @@ mzmv_mean_map(
   birth_country,
   weight = weights
 )
-
-# Single quoted variable
-mzmv_mean_map(
-  nhanes,
-  variable = "annual_family_income",
-  gender, birth_country,
-  weight = weights
-)
-
 # No grouping variables
 mzmv_mean_map(
   nhanes,
   variable = "annual_family_income",
   weight = weights
 )
-
-# Programmatic use (with a string for weight)
+# Programmatic use
 wt <- "weights"
 mzmv_mean_map(
   nhanes,
@@ -67,4 +58,5 @@ mzmv_mean_map(
   birth_country,
   weight = !!rlang::sym(wt)
 )
+
 }

@@ -7,28 +7,26 @@
 se_summarise(data, ..., weight, mh_col = "mh", Nh_col = "Nh")
 }
 \arguments{
-\item{data}{A tibble or a data frame.}
+\item{data}{A data frame or tibble.}
 
 \item{...}{One or more grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.}
 
-\item{weight}{Unquoted or quoted name of the sampling weights column. For programmatic use
-with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.}
+\item{weight}{The name of the weight column. Can be passed unquoted, quoted, or programmatically using \code{!!sym(wt)} where \code{wt} is a character variable.}
 
-\item{mh_col}{Character string, column name of number of observations (respondents) per group. Default is "mh".}
+\item{mh_col}{A character string specifying the name of the column for the number of observations (respondents) per group. Default is `"mh"`.}
 
-\item{Nh_col}{Character string, column name of estimated population per group. Default is "Nh".}
+\item{Nh_col}{A character string specifying the name of the column for the estimated population size per group. Default is `"Nh"`.}
 }
 \value{
-A tibble: the input \code{data} augmented with new columns \code{mh_col} and \code{Nh_col} (or their specified names).
+A tibble containing the original data with two additional columns \code{mh_col} and \code{Nh_col} (or their specified names).
 }
 \description{
-\code{se_summarise()} calculates group-wise survey statistics, augmenting the input data with columns for the number of observations and estimated population per group.
+\code{se_summarise()} is a helper function for \code{\link[=se_total]{se_total()}}. It calculates survey-weighted group-level summaries by adding columns for the number 
+of observations and the estimated population size per group.
 }
 \examples{
 # One grouping variable
-suppressPackageStartupMessages(library(dplyr))
-se_summarise(nhanes, weight = weights, strata) |>
-  glimpse()
+se_summarise(nhanes, weight = weights, strata)
 # Two grouping variables
 se_summarise(nhanes,
   weight = weights,

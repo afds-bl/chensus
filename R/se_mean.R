@@ -3,7 +3,7 @@
 #' \code{se_mean_num()} estimates the averages of numeric variables along with variance
 #' and confidence intervals for FSO's structural survey.
 #'
-#' @param data A tibble or data frame.
+#' @param data A data frame or tibble.
 #' @param variable Unquoted or quoted name of the numeric variable whose mean is to be estimated.
 #'   Programmatic usage (e.g., using \code{!!sym()}) is supported.
 #' @param ... Optional grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.
@@ -16,7 +16,7 @@
 #' \describe{
 #'   \item{occ}{Sample size (number of observations) per group.}
 #'   \item{<variable>}{Estimated mean of the specified numeric variable, named dynamically.}
-#'   \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev} (square root of the variance).}
+#'   \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev}, square root of the variance).}
 #'   \item{ci, ci_l, ci_u}{Confidence interval: half-width (\code{ci}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
 #' }
 #'
@@ -25,6 +25,7 @@
 #' @importFrom stats weighted.mean qnorm
 #' @export
 #'
+#' @seealso \code{\link[=se_mean_cat]{se_mean_cat()}}
 #' @examples
 #' # Direct column references (unquoted)
 #' se_mean_num(
@@ -110,12 +111,12 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 
 #' Estimate Proportions of Categorical Variables in Structural Survey
 #'
-#' \code{se_mean_cat()} estimates the proportion of and confidence intervals for each level of a categorical variable
-#' of FSO's structural survey, by first converting it to dummy variables and then computing statistics within strata and optional groupings.
+#' \code{se_mean_cat()} estimates the proportions and confidence intervals for each level of a categorical variable
+#' of FSO's structural survey, by first converting it to dummy variables and then computing statistics within strata and optional groups.
 #'
 #' @param data A data frame or tibble.
 #' @param variable Unquoted or quoted name of the categorical variable whose mean is to be estimated.
-#'   Programmatic usage (e.g., using \code{!!sym()}) is supported.
+#'   Programmatic usage using \code{!!sym()} is supported.
 #' @param ... Optional grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}.
 #' @param strata Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.
 #' @param weight Unquoted or quoted name of the sampling weights column. For programmatic use
@@ -128,7 +129,7 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #'    \item{...}{Grouping variables if provided.}
 #'   \item{occ}{Sample size (number of observations) per group.}
 #'   \item{prop}{Estimated proportion of the specified categorical variable}
-#'   \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev} (square root of the variance).}
+#'   \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev}, square root of the variance).}
 #'   \item{ci, ci_l, ci_u}{Confidence interval: half-width (\code{ci}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
 #' }
 #' @import dplyr
@@ -138,6 +139,7 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #' @importFrom purrr map list_rbind
 #' @importFrom stats weighted.mean
 #' @export
+#' @seealso \code{\link[=se_mean_num]{se_mean_num()}}, \code{\link[=se_dummy]{se_dummy()}}
 #'
 #' @examples
 #' # Direct column references (unquoted)

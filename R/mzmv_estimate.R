@@ -1,10 +1,11 @@
 #' Estimate Means of Mobility Survey
 #'
-#' \code{mzmv_mean()} estimates the mean frequencies and confidence
+#' \code{mzmv_mean()} estimates the means, proportions and confidence
 #' intervals of FSO mobility surveys.
 #'
-#' @param data A tibble or data frame.
-#' @param ... Names of variables to be estimated. Can be passed unquoted (e.g., \code{household_size}) or programmatically using \code{!!!syms(c("annual_household_income", "household_size"))}.Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent `NA`.
+#' @param data A data frame or tibble.
+#' @param ... Names of variables to be estimated. Can be passed unquoted (e.g., \code{household_size}) or programmatically using \code{!!!syms(c("annual_household_income", "household_size"))}. 
+#' Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent \code{NA}.
 #' @param weight Unquoted or quoted name of the sampling weights column. For programmatic use
 #'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
 #' @param cf Numeric correction factor of the confidence interval, supplied by FSO. Default is 1.14.
@@ -21,8 +22,6 @@
 #' @seealso See \code{\link{mzmv_mean_map}} for estimates on a set of conditions.
 #'
 #' @examples
-#' library(dplyr)
-#' library(purrr)
 #' # Estimate two means
 #' mzmv_mean(
 #'   data = nhanes,
@@ -30,23 +29,22 @@
 #'   weight = weights
 #' )
 #' # Programmatic use with strings
-#' v <- c("annual_household_income", "household_size")
-#' mzmv_mean(nhanes, weight = "weights", !!!syms(v))
+#' v <- c("annual_household_income", "annual_family_income")
+#' mzmv_mean(nhanes, weight = "weights", !!!rlang::syms(v))
 #'
 #' @import dplyr
 #' @import purrr
-#' @importFrom rlang enquo enquos as_label
+#' @importFrom rlang enquos ensym as_label
 #' @importFrom stats weighted.mean
 #'
 #' @export
 #'
 
 mzmv_mean <- function(data, ..., weight, cf = 1.14, alpha = 0.1) {
-  # Capture variables and weight as quosures
+  
   variables <- enquos(...)
   weight <- ensym(weight)
 
-  # Loop over each quosure variable
   map(variables, function(var_quo) {
     var_name <- as_label(var_quo) # For labeling output
 
@@ -71,15 +69,16 @@ mzmv_mean <- function(data, ..., weight, cf = 1.14, alpha = 0.1) {
     list_rbind()
 }
 
-#' Estimate means of mobility survey with grouping variables
+#' Estimate Means in Parallel for Multiple Grouping Variables in Mobility Survey 
 #'
 #' @description
 #' \code{mzmv_mean_map()} estimates weighted means and confidence intervals for a set of features of the mobility survey, optionally grouped by one or more variables.
 #'
-#' @param data A tibble or data frame.
-#' @param variable Character vector of variable names to be estimated. Must be quoted (e.g., `"annual_family_income"`). For multiple variables, pass as a vector (e.g., `c("annual_family_income", "annual_household_income")`). Does not support bare (unquoted) variable names.
-#' @param ... Grouping variables. Can be passed unquoted (e.g., `gender`, `birth_country`) or quoted (e.g., `"gender"`, `"birth_country"`). If omitted, results are aggregated across the whole dataset.
-#' @param weight Unquoted or quoted name of the sampling weights column (must exist in `data`). For programmatic use with a string variable (e.g., `wt <- "weights"`), use `!!sym(wt)` in the function call.
+#' @param data A data frame or tibble.
+#' @param variable Character vector of variable names to be estimated. Must be quoted (e.g., \code{"annual_family_income"}). For multiple variables, pass as a vector (e.g., \code{c("annual_family_income", "annual_household_income")}). 
+#' Does not support bare (unquoted) variable names.
+#' @param ... Grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or quoted (e.g., \code{"gender"}, \code{"birth_country"}). If omitted, results are aggregated across the whole dataset.
+#' @param weight Unquoted or quoted name of the sampling weights column (must exist in \code{data}). For programmatic use with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
 #' @param cf Numeric correction factor for the confidence interval. Default is 1.14.
 #' @param alpha Numeric significance level for confidence intervals. Default is 0.1 (90\% CI).
 #'
@@ -108,23 +107,13 @@ mzmv_mean <- function(data, ..., weight, cf = 1.14, alpha = 0.1) {
 #'   birth_country,
 #'   weight = weights
 #' )
-#'
-#' # Single quoted variable
-#' mzmv_mean_map(
-#'   nhanes,
-#'   variable = "annual_family_income",
-#'   gender, birth_country,
-#'   weight = weights
-#' )
-#'
 #' # No grouping variables
 #' mzmv_mean_map(
 #'   nhanes,
 #'   variable = "annual_family_income",
 #'   weight = weights
 #' )
-#'
-#' # Programmatic use (with a string for weight)
+#' # Programmatic use
 #' wt <- "weights"
 #' mzmv_mean_map(
 #'   nhanes,
@@ -133,11 +122,14 @@ mzmv_mean <- function(data, ..., weight, cf = 1.14, alpha = 0.1) {
 #'   birth_country,
 #'   weight = !!rlang::sym(wt)
 #' )
+#' 
 mzmv_mean_map <- function(data, variable, ..., weight, cf = 1.14, alpha = 0.1) {
-  # Capture grouping variables
+  
   group_quo <- enquos(...)
   group_vars <- map_chr(group_quo, as_label)
-
+  weight <- ensym(weight)
+  variable_syms <- map(variable, sym)
+  
   # Ensure variable is a character vector or list of symbols
   if (is_symbolic(variable)) {
     variable <- as_label(variable)
@@ -148,12 +140,7 @@ mzmv_mean_map <- function(data, variable, ..., weight, cf = 1.14, alpha = 0.1) {
   if (!is.list(variable)) {
     variable <- list(variable)
   }
-  # Convert to symbols for later evaluation
-  variable_syms <- map(variable, sym)
-
-  # Capture weight
-  weight <- ensym(weight)
-
+  
   # Handle empty group_vars case
   if (length(group_vars) == 0) {
     data <- data |> mutate(.dummy_group = "all")
@@ -170,7 +157,6 @@ mzmv_mean_map <- function(data, variable, ..., weight, cf = 1.14, alpha = 0.1) {
   walk(variable, validate_column)
   validate_column(as_label(weight))
 
-  # Process for each variable
   map_dfr(variable_syms, function(v) {
     group_vars |>
       set_names() |>

@@ -7,7 +7,7 @@
 se_mean_num(data, variable, ..., strata, weight, alpha = 0.05)
 }
 \arguments{
-\item{data}{A tibble or data frame.}
+\item{data}{A data frame or tibble.}
 
 \item{variable}{Unquoted or quoted name of the numeric variable whose mean is to be estimated.
 Programmatic usage (e.g., using \code{!!sym()}) is supported.}
@@ -26,7 +26,7 @@ A tibble with columns:
 \describe{
   \item{occ}{Sample size (number of observations) per group.}
   \item{<variable>}{Estimated mean of the specified numeric variable, named dynamically.}
-  \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev} (square root of the variance).}
+  \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev}, square root of the variance).}
   \item{ci, ci_l, ci_u}{Confidence interval: half-width (\code{ci}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
 }
 }
@@ -62,4 +62,7 @@ se_mean_num(
   !!!rlang::syms(vars)
 )
 
+}
+\seealso{
+\code{\link[=se_mean_cat]{se_mean_cat()}}
 }
