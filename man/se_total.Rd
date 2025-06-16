@@ -32,19 +32,19 @@ A tibble with estimates for all grouping column combinations, including:
 \code{se_total()} estimates the totals  and confidence intervals of FSO structural surveys.
 }
 \details{
-The \code{condition} argument has been deprecated and is no longer supported. 
+The \code{condition} argument has been deprecated and is no longer supported.
 Please use \code{...} to pass grouping variables either unquoted or programmatically using \code{rlang}:
 
 * Interactive use:
 
   \code{se_total(data, weight = my_weight, group1, group2)}
-  
+
 * Programmatic use:
-  
+
   \code{weight_var <- "my_weight"}
-  
+
   \code{group_vars <- c("group1", "group2")}
-  
+
   \code{se_total(data, weight = !!rlang::sym(weight_var), !!!rlang::syms(group_vars))}
 }
 \examples{
