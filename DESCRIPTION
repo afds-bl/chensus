@@ -18,7 +18,8 @@ Imports:
     purrr,
     rlang,
     stringr,
-    tidyr
+    tidyr,
+    forcats
 Suggests: 
     knitr,
     rmarkdown,

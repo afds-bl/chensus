@@ -17,7 +17,8 @@
 #'
 #' @import purrr
 #' @import dplyr
-#' @import forcats
+#' @importFrom forcats fct_na_value_to_level
+#' @importFrom rlang ensyms syms as_label
 #'
 #' @export
 #'
@@ -34,7 +35,7 @@
 #'   nhanes,
 #'   strata = "strata",
 #'   weight = "weights",
-#'   !!!syms(vars)
+#'   !!!rlang::syms(vars)
 #' )
 #'
 se_total_comb <- function(data, ..., strata, weight) {
@@ -77,6 +78,7 @@ se_total_comb <- function(data, ..., strata, weight) {
 #'
 #' @keywords internal
 #' @importFrom purrr map list_c
+#' @importFrom utils combn
 #' @export
 #' 
 #' @examples

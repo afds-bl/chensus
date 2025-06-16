@@ -38,7 +38,7 @@ se_total_comb(
   nhanes,
   strata = "strata",
   weight = "weights",
-  !!!syms(vars)
+  !!!rlang::syms(vars)
 )
 
 }
