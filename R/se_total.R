@@ -35,7 +35,7 @@
 #'   \item{ci, ci_per, ci_l, ci_u}{Confidence interval:  half-width (\code{ci}), percentage of the total (\code{ci_per}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
 #'  }
 #'
-#' @seealso \code{\link[=se_total_map]{se_total_map()}}
+#' @seealso \code{\link[=se_total_map]{se_total_map()}}, \code{\link[=se_total_comb]{se_total_comb()}}
 #'
 #' @import dplyr
 #' @importFrom purrr map_chr
@@ -181,4 +181,27 @@ se_total_map <- function(data, ..., strata, weight, alpha = 0.05) {
     }
   ) |>
     bind_rows()
+}
+
+#' Generate All Combinations of Strings from a Character Vector
+#' 
+#' \code{se_combn()} is a helper function used internally to create all possible combinations
+#' of a set of variables. It is typically used for generating grouped summary tables as per Open Government Data formats.
+#' #' @param vars A character vector of variable names.
+#'
+#' @returns
+#' A list of character vectors, each representing a unique combination of the input strings.
+#' The list includes the empty combination of length 0.
+#'
+#' @keywords internal
+#' @importFrom purrr map list_c
+#' @export
+#' 
+#' @examples
+#' vars <- c("gender", "birth_country")
+#' se_combn(vars)
+#' 
+se_combn <- function(vars) {
+  map(0:length(vars), \(n) combn(vars, n, simplify = FALSE)) |>
+    list_c()
 }
