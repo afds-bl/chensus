@@ -9,7 +9,7 @@ mzmv_mean(data, ..., weight, cf = 1.14, alpha = 0.1)
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{...}{Names of variables to be estimated. Can be passed unquoted (e.g., \code{household_size}) or programmatically using \code{!!!syms(c("annual_household_income", "household_size"))}. 
+\item{...}{Names of variables to be estimated. Can be passed unquoted (e.g., \code{household_size}) or programmatically using \code{!!!syms(c("annual_household_income", "household_size"))}.
 Variables have integer values, representing a quantity (number of cars per household) or presence/absence (possession of a car). Negative numbers represent \code{NA}.}
 
 \item{weight}{Unquoted or quoted name of the sampling weights column. For programmatic use

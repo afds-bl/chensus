@@ -35,7 +35,7 @@
 #'   \item{ci, ci_per, ci_l, ci_u}{Confidence interval:  half-width (\code{ci}), percentage of the total (\code{ci_per}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
 #'  }
 #'
-#' @seealso \code{\link[=se_total_map]{se_total_map()}}
+#' @seealso \code{\link[=se_total_map]{se_total_map()}}, \code{\link[=se_total_comb]{se_total_comb()}}
 #'
 #' @import dplyr
 #' @importFrom purrr map_chr
@@ -182,3 +182,4 @@ se_total_map <- function(data, ..., strata, weight, alpha = 0.05) {
   ) |>
     bind_rows()
 }
+

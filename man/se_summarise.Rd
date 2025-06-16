@@ -21,7 +21,7 @@ se_summarise(data, ..., weight, mh_col = "mh", Nh_col = "Nh")
 A tibble containing the original data with two additional columns \code{mh_col} and \code{Nh_col} (or their specified names).
 }
 \description{
-\code{se_summarise()} is a helper function for \code{\link[=se_total]{se_total()}}. It calculates survey-weighted group-level summaries by adding columns for the number 
+\code{se_summarise()} is a helper function for \code{\link[=se_total]{se_total()}}. It calculates survey-weighted group-level summaries by adding columns for the number
 of observations and the estimated population size per group.
 }
 \examples{

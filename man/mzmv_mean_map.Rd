@@ -9,7 +9,7 @@ mzmv_mean_map(data, variable, ..., weight, cf = 1.14, alpha = 0.1)
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{variable}{Character vector of variable names to be estimated. Must be quoted (e.g., \code{"annual_family_income"}). For multiple variables, pass as a vector (e.g., \code{c("annual_family_income", "annual_household_income")}). 
+\item{variable}{Character vector of variable names to be estimated. Must be quoted (e.g., \code{"annual_family_income"}). For multiple variables, pass as a vector (e.g., \code{c("annual_family_income", "annual_household_income")}).
 Does not support bare (unquoted) variable names.}
 
 \item{...}{Grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or quoted (e.g., \code{"gender"}, \code{"birth_country"}). If omitted, results are aggregated across the whole dataset.}
