@@ -1,4 +1,4 @@
-#' Calculate Survey Estimates for All Combinations of Grouping Variables in Structural Survey
+#' Calculate Estimates for All Combinations of Grouping Variables in Structural Survey
 #'
 #' \code{se_total_comb()} computes structural survey totals for every combination of the supplied grouping variables.
 #' It uses \code{se_total()} and \code{se_combn()} internally and returns a combined tibble with results for each grouping subset,
@@ -11,7 +11,7 @@
 #'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
 #'
 #' @return A tibble combining survey estimates for all combinations of \code{group_vars},
-#'   with grouping variables converted to factors where missing values are replaced by "Total".
+#'   with grouping variables converted to factors where "Total" means .
 #'
 #' @seealso \code{\link[=se_total]{se_total()}}, \code{\link[=se_total_map]{se_total_map()}}
 #'

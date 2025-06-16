@@ -2,7 +2,7 @@
 % Please edit documentation in R/se_total_comb.R
 \name{se_total_comb}
 \alias{se_total_comb}
-\title{Calculate Survey Estimates for All Combinations of Grouping Variables in Structural Survey}
+\title{Calculate Estimates for All Combinations of Grouping Variables in Structural Survey}
 \usage{
 se_total_comb(data, ..., strata, weight)
 }
@@ -18,7 +18,7 @@ with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in t
 }
 \value{
 A tibble combining survey estimates for all combinations of \code{group_vars},
-  with grouping variables converted to factors where missing values are replaced by "Total".
+  with grouping variables converted to factors where "Total" means .
 }
 \description{
 \code{se_total_comb()} computes structural survey totals for every combination of the supplied grouping variables.
