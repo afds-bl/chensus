@@ -30,25 +30,11 @@ the Federal Statistical Office (FSO):
 -   mobility and transport survey: *Mikrozensus Mobilität und Verkehr*
     (MZMV) / *Microrecensement mobilité et transports* (MRMT).
 
-## Example Data
+In this vignette, we demonstrate the main features of the package using the built-in `nhanes` dataset, which contains a subset of data from the [National Health and Nutrition Examination Survey](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) for the period 2015-2016 (more with `?nhanes` and `vignette("nhanes)`). Its structure is similar to FSO survey data in that it contains `strata` and `weights` columns and demographic features such as `gender` and `household_size`.
 
-In this vignette, we demonstrate the main features of the package using the built-in `nhanes` dataset, which contains a subset of data from the [National Health and Nutrition Examination Survey](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) for the period 2015-2016 (more with `?nhanes`). Its structure is similar to FSO survey data in that it contains `strata` and `weights` columns and demographic features such as `gender` and `household_size`.
+# Structural Survery Example
 
-## Notes on Example Data and Interpretation
-
-The `nhanes` dataset included in this package is used solely as a publicly available example to demonstrate how to use `chensus`. In practice, the package is designed for use with FSO's structural survey and mobility and transport survey data. For any other use, results are illustrative only.
-
-The `nhanes` dataset is included with the package. Let us load it and inspect it:
-```{r}
-data("nhanes")
-dplyr::glimpse(nhanes)
-nhanes |> count(gender)
-nhanes |> count(household_size)
-```
-
-# Structural Survery Example Analysis
-
-Suppose we want to estimate the population in the `nhanes` data set by gender and birth country We can use the main analysis function `chensus::se_total()`:
+Suppose we want to estimate the population in the `nhanes` data set by gender and birth country. We can use the main analysis function `se_total()`:
 
 ```{r}
 se_total(
@@ -58,19 +44,18 @@ se_total(
   gender, birth_country
 )
 ```
-
-Column names can be passed programmatically with the help of `!!sym()` and `!!!syms()` in the function call:
+Column names can be passed programmatically with the help of `rlang`'s `!!sym()` and `!!!syms()` in the function call:
 
 ```{r}
 w <- "weights"
 s <- "strata"
-v <- "gender"
+v <- c("gender", "birth_country")
 
 se_total(
   data = nhanes,
   strata = !!sym(s),
   weight = !!sym(w),
-  !!sym(v)
+  !!!syms(v)
 )
 ```
 We could also estimate population in parallel for multiple groups:
@@ -84,7 +69,13 @@ se_total_map(
 )
 ```
 
-If on the other hand we would like to estimate the average household size then we would use the function `chensus::se_mean_num()`:
+Sometimes we would like to estimate population for all combinations of grouping variables including no or partial grouping. In this case we can make use of `se_total_comb()`, a wrapper function for the main `se_total()` function:
+
+```{r}
+se_total_comb(nhanes, strata = strata, weight = weights, gender, birth_country)
+```
+
+If on the other hand we would like to estimate the average household size then we would use the function `se_mean_num()`:
 
 ```{r}
 se_mean_num(
@@ -95,7 +86,7 @@ se_mean_num(
 )
 ```
 
-We could also estimate the proportion of males and females in the `nhanes` survey, `gender` being a categorical variable, 
+We could also estimate the proportion of males and females in the `nhanes` survey, `gender` being a categorical variable:
 
 ```{r}
 se_mean_cat(
@@ -105,7 +96,7 @@ se_mean_cat(
   strata = strata
 )
 ```
-and by birth country and interview language:
+and by birth country:
 
 ```{r}
 se_mean_cat(
@@ -113,13 +104,13 @@ se_mean_cat(
   variable = gender,
   weight = weights,
   strata = strata,
-  birth_country, interview_lang
+  birth_country
 )
 ```
 
-# Mobility Survey
+# Mobility Survey Example
 
-If we would like to estimate the mean household income then we can use the `mzmv_mean()`:
+If we would like to estimate the mean household income then we can use `mzmv_mean()`:
 ```{r}
 mzmv_mean(
   data = nhanes,
