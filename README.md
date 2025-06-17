@@ -128,12 +128,6 @@ mzmv_mean_map(
 
 Distributed under the GPL-3 License. See `LICENSE` for more information.
 
-## Code of Conduct
-
-The `chensus` project is released with a [Contributor Code of
-Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
-By contributing to this project, you agree to abide by its terms.
-
 ## Contact
 
 [Souad Guemghar](mailto:souad.guemghar@bl.ch)
@@ -176,3 +170,9 @@ utils::citation("chensus")
         year = {2025},
         url = {https://github.com/afds-bl/chensus},
       }
+
+## Code of Conduct
+
+The `chensus` project is released with a [Contributor Code of
+Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
