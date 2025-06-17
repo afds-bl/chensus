@@ -13,3 +13,4 @@ init.log
 ^dev$
 ^data-raw$
 Makefile
+^CODE_OF_CONDUCT\.md$

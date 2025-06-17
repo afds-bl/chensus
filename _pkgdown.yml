@@ -1,9 +1,9 @@
-url: "https://afds-bl.github.io/chensus"
+url: https://afds-bl.github.io/chensus
 template:
   bootstrap: 5
   math-rendering: katex
 favicon: favicon.ico
 authors:
-  Souad Guemghar
-  Amt für Daten und Statistik, Basel-Landschaft:
+  "Souad Guemghar"
+  "Amt für Daten und Statistik, Basel-Landschaft":
     href: https://github.com/afds-bl
