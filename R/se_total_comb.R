@@ -1,7 +1,7 @@
 #' Estimate Totals for All Combinations of Grouping Variables in Structural Survey
 #'
 #' \code{se_total_comb()} computes structural survey totals for every combination of the supplied grouping variables.
-#' This wrapper function uses \code{\link[=se_total]{se_total()}} and the helper function \code{\link[=se_combn]{se_combn()}} and returns a combined tibble with results 
+#' This wrapper function uses \code{\link[=se_total]{se_total()}} and the helper function \code{\link[=se_combn]{se_combn()}} and returns a combined tibble with results
 #' for each grouping subset, including totals across all groups. This formatting can be useful for Open Government Data platforms.
 #'
 #' @param data A data frame or tibble.
@@ -150,7 +150,7 @@ se_combn <- function(vars) {
 #'
 se_total_map <- function(data, ..., strata, weight, alpha = 0.05) {
   group_quos <- enquos(...)
-  
+
   map(
     group_quos,
     ~ {

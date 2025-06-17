@@ -68,9 +68,8 @@ The included `nhanes` data frame contains 9,971 participants and 13 variables. B
 glimpse(nhanes)
 
 # Count participants by education level
-nhanes |> 
+nhanes |>
   count(edu_level)
-
 ```
 
 ## Best Practices and References

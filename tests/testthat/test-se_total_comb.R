@@ -16,7 +16,7 @@ test_that("se_total_comb uses default strata and handles numeric variables", {
     weight = c(1.1, 1.4, 2.0, 0.9, 1.6, 2.2, 1.3, 1.8, 1.0, 2.5),
     size = c(1, 1, 2, 2, 2, 2, 1, 2, 1, 1)
   )
-  
+
   result <- se_total_comb(data = df, weight = weight, size, alpha = 0.1)
   expect_true(is.factor(result$size))
 })
@@ -31,4 +31,3 @@ test_that("se_combn returns all combinations of input vars", {
   expect_true(any(vapply(result, identical, logical(1), "y")))
   expect_true(any(vapply(result, identical, logical(1), c("x", "y"))))
 })
-

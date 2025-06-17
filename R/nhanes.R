@@ -24,7 +24,7 @@
 #' @note
 #' The data sets provided in this package are derived from the NHANES database and have been adapted for educational purposes. As such, they are NOT suitable for use as a research database.
 #' For research purposes, you should download original data files from the NHANES website and follow the analysis instructions given there.
-#' 
+#'
 #' @keywords datasets
 #'
 #' @references
