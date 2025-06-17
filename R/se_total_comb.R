@@ -38,7 +38,7 @@
 #'   !!!rlang::syms(vars)
 #' )
 #'
-se_total_comb <- function(data, ..., strata, weight) {
+se_total_comb <- function(data, ..., strata, weight, alpha = 0.05) {
   weight <- ensym(weight)
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
 
@@ -54,6 +54,7 @@ se_total_comb <- function(data, ..., strata, weight) {
           data,
           strata = {{ strata }},
           weight = {{ weight }},
+          alpha = alpha,
           !!!syms(group_vars)
         )
       }

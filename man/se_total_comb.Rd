@@ -4,7 +4,7 @@
 \alias{se_total_comb}
 \title{Calculate Estimates for All Combinations of Grouping Variables in Structural Survey}
 \usage{
-se_total_comb(data, ..., strata, weight)
+se_total_comb(data, ..., strata, weight, alpha = 0.05)
 }
 \arguments{
 \item{data}{A data frame or tibble.}
