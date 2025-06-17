@@ -36,6 +36,8 @@ the Swiss Federal Statistical Office (FSO), sepcificially:
 
 It implements closed-form formulas for confidence intervals as described in the FSO’s methodological reports for the [structural survey](https://www.bfs.admin.ch/bfs/en/home/services/research/methodological-reports.assetdetail.11187024.html) and [mobility and transport survey](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.24266729.html). For mathematical details, see the [Method vignette](articles/method.html).
 
+This package uses data derived from the National Health and Nutrition Examination Survey (NHANES), provided by the CDC/NCHS and available at [](https://www.cdc.gov/nchs/nhanes/.) Data are adapted for educational or demonstration purposes and are not suitable for research unless downloaded directly from the official source.
+
 ## Installation
 
 You can install the development version from GitHub with:

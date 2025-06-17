@@ -21,6 +21,12 @@ survey](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/en
 For mathematical details, see the [Method
 vignette](articles/method.html).
 
+This package uses data derived from the National Health and Nutrition
+Examination Survey (NHANES), provided by the CDC/NCHS and available at
+[](https://www.cdc.gov/nchs/nhanes/.) Data are adapted for educational
+or demonstration purposes and are not suitable for research unless
+downloaded directly from the official source.
+
 ## Installation
 
 You can install the development version from GitHub with:
@@ -115,12 +121,12 @@ mzmv_mean_map(
 # A tibble: 8 × 6
   variable                group_vars     group_vars_value   occ wmean    ci
   <chr>                   <chr>          <fct>            <int> <dbl> <dbl>
-1 annual_household_income gender         Male              4720  12.0 0.328
-2 annual_household_income gender         Female            4906  11.8 0.350
+1 annual_household_income gender         Female            4906  11.8 0.350
+2 annual_household_income gender         Male              4720  12.0 0.328
 3 annual_household_income interview_lang English           8310  11.8 0.241
 4 annual_household_income interview_lang Spanish           1316  12.0 1.07 
-5 annual_family_income    gender         Male              4725  11.6 0.334
-6 annual_family_income    gender         Female            4917  11.5 0.358
+5 annual_family_income    gender         Female            4917  11.5 0.358
+6 annual_family_income    gender         Male              4725  11.6 0.334
 7 annual_family_income    interview_lang English           8326  11.5 0.247
 8 annual_family_income    interview_lang Spanish           1316  11.6 1.07 
 ```

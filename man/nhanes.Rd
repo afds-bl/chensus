@@ -32,10 +32,13 @@ nhanes
 Demographic survey data from NHANES 2015 to 2016, with data on 9971
 participants, including sampling weights.
 }
+\note{
+The data sets provided in this package are derived from the NHANES database and have been adapted for educational purposes. As such, they are NOT suitable for use as a research database.
+For research purposes, you should download original data files from the NHANES website and follow the analysis instructions given there.
+}
 \examples{
-library(dplyr)
 glimpse(nhanes)
-nhanes |> count(edu_level)
+nhanes |> dplyr::count(edu_level)
 }
 \references{
 \href{https://wwwn.cdc.gov/nchs/nhanes/}{CDC}

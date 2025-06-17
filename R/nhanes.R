@@ -21,6 +21,10 @@
 #' }
 #' @docType data
 #'
+#' @note
+#' The data sets provided in this package are derived from the NHANES database and have been adapted for educational purposes. As such, they are NOT suitable for use as a research database.
+#' For research purposes, you should download original data files from the NHANES website and follow the analysis instructions given there.
+#' 
 #' @keywords datasets
 #'
 #' @references
@@ -29,7 +33,6 @@
 #' @source \href{https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Demographics&CycleBeginYear=2015}{NHANES 2015-2016}
 #'
 #' @examples
-#' library(dplyr)
 #' glimpse(nhanes)
-#' nhanes |> count(edu_level)
+#' nhanes |> dplyr::count(edu_level)
 "nhanes"
