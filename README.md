@@ -136,6 +136,7 @@ mzmv_mean_map(
 - `?nhanes`: inspect the example dataset
 - `vignette("chensus")`: detailed examples
 - `vignette("Method")`: mathematical background
+- `vignette("nhanes")`: example dataset
 - `?se_total`, `?mzmv_mean`, etc.: function documentation
 
 ## License
