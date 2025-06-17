@@ -3,7 +3,7 @@ name: pkgdown
 on:
   push:
     branches:
-      - main  # Change to your default branch if not 'main'
+      - main
 
 jobs:
   build:
@@ -18,8 +18,16 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libfontconfig1-dev libpng-dev
-          
+          sudo apt-get install -y \
+            libcurl4-openssl-dev \
+            libharfbuzz-dev \
+            libfribidi-dev \
+            libfreetype6-dev \
+            libfontconfig1-dev \
+            libpng-dev \
+            libjpeg-dev \
+            zlib1g-dev
+            
       - name: Install dependencies
         run: |
           Rscript -e "install.packages('remotes')"
