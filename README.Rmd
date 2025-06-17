@@ -76,7 +76,7 @@ Estimate population proportions by household size:
 ```{r example2}
 se_mean_cat(
   data = nhanes,
-  variable = household_size,
+  variable = gender,
   weight = weights,
   strata = strata
 )
@@ -97,7 +97,7 @@ mzmv_mean(
 Estimate by group (e.g., gender, interview language):
 
 ``` {r}
-v <- c("gender", "interview_lang")
+v <- "gender"
 mzmv_mean_map(
   data = nhanes,
   variable = c("annual_household_income", "annual_family_income"),

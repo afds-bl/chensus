@@ -69,20 +69,15 @@ Estimate population proportions by household size:
 ``` r
 se_mean_cat(
   data = nhanes,
-  variable = household_size,
+  variable = gender,
   weight = weights,
   strata = strata
 )
-# A tibble: 7 × 8
-  household_size   occ   prop       vhat stand_dev      ci   ci_l   ci_u
-  <chr>          <int>  <dbl>      <dbl>     <dbl>   <dbl>  <dbl>  <dbl>
-1 2               1723 0.254  0.0000499    0.00706 0.0138  0.240  0.268 
-2 1                828 0.103  0.0000209    0.00457 0.00896 0.0940 0.112 
-3 5               1672 0.134  0.0000180    0.00424 0.00831 0.126  0.142 
-4 7                974 0.0613 0.00000592   0.00243 0.00477 0.0565 0.0660
-5 3               1719 0.175  0.0000297    0.00545 0.0107  0.164  0.185 
-6 4               2061 0.204  0.0000327    0.00572 0.0112  0.192  0.215 
-7 6                994 0.0696 0.00000826   0.00287 0.00563 0.0639 0.0752
+# A tibble: 2 × 8
+  gender   occ  prop      vhat stand_dev     ci  ci_l  ci_u
+  <chr>  <int> <dbl>     <dbl>     <dbl>  <dbl> <dbl> <dbl>
+1 Male    4892 0.488 0.0000520   0.00721 0.0141 0.474 0.502
+2 Female  5079 0.512 0.0000520   0.00721 0.0141 0.498 0.526
 ```
 
 ### Mobility and Transport Survey (MZMV/MRMT)
@@ -105,24 +100,20 @@ mzmv_mean(
 Estimate by group (e.g., gender, interview language):
 
 ``` r
-v <- c("gender", "interview_lang")
+v <- "gender"
 mzmv_mean_map(
   data = nhanes,
   variable = c("annual_household_income", "annual_family_income"),
   !!!rlang::syms(v),
   weight = weights
 )
-# A tibble: 8 × 6
-  variable                group_vars     group_vars_value   occ wmean    ci
-  <chr>                   <chr>          <fct>            <int> <dbl> <dbl>
-1 annual_household_income gender         Female            4906  11.8 0.350
-2 annual_household_income gender         Male              4720  12.0 0.328
-3 annual_household_income interview_lang English           8310  11.8 0.241
-4 annual_household_income interview_lang Spanish           1316  12.0 1.07 
-5 annual_family_income    gender         Female            4917  11.5 0.358
-6 annual_family_income    gender         Male              4725  11.6 0.334
-7 annual_family_income    interview_lang English           8326  11.5 0.247
-8 annual_family_income    interview_lang Spanish           1316  11.6 1.07 
+# A tibble: 4 × 6
+  variable                group_vars group_vars_value   occ wmean    ci
+  <chr>                   <chr>      <fct>            <int> <dbl> <dbl>
+1 annual_household_income gender     Female            4906  11.8 0.350
+2 annual_household_income gender     Male              4720  12.0 0.328
+3 annual_family_income    gender     Female            4917  11.5 0.358
+4 annual_family_income    gender     Male              4725  11.6 0.334
 ```
 
 ## Documentation
