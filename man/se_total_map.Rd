@@ -57,5 +57,5 @@ se_total_map(
 
 }
 \seealso{
-\code{\link[=se_total]{se_total()}}
+\code{\link[=se_total]{se_total()}}, \code{\link[=se_total_comb]{se_total_comb()}}.
 }
