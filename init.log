@@ -1,7 +1,0 @@
-DEBUG:__main__: - mount drive => //faintapfkd1/udata$/U224338/Documents -> /home/rstudio/_home
-DEBUG:__main__: -> still mounted
-DEBUG:__main__: - sync ssh keys
-DEBUG:__main__: - mount drive => //faintapfkd1/Groups$/fst/data -> /home/rstudio/A
-DEBUG:__main__: -> still mounted
-DEBUG:__main__: - mount drive => //faintapfkd1/Programm$/FstAppl/ProdDaten -> /home/rstudio/B
-DEBUG:__main__: -> still mounted
