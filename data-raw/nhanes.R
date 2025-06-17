@@ -17,9 +17,8 @@ raw_nhanes <- read_xpt(here::here("data-raw", "DEMO_I.xpt"))
 code_marital_status <- read_tsv(here::here("data-raw", "code_marital_status.tsv"))
 code_edu_level <- read_tsv(here::here("data-raw", "code_edu_level.tsv"))
 
-group_vars <- 
-
-nhanes <- raw_nhanes |>
+group_vars <-
+  nhanes <- raw_nhanes |>
   select(
     PSU = SDMVPSU,
     weights = WTINT2YR,
@@ -41,8 +40,8 @@ nhanes <- raw_nhanes |>
     marital_status = factor(marital_status, levels = code_marital_status$Code, labels = code_marital_status$Value),
     interview_lang = factor(interview_lang, levels = 1:2, labels = c("English", "Spanish")),
     edu_level = factor(edu_level, levels = code_edu_level$Code, labels = code_edu_level$Value)
-  ) |> 
-  mutate(across(where(is.factor), \(v) fct_na_value_to_level(v, "Missing"))) |> 
+  ) |>
+  mutate(across(where(is.factor), \(v) fct_na_value_to_level(v, "Missing"))) |>
   mutate(across(where(is.factor), \(v) fct_infreq(v)))
 
 usethis::use_data(nhanes, overwrite = TRUE)

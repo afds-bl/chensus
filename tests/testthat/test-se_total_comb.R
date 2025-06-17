@@ -1,7 +1,7 @@
 test_that("se_total_comb returns correct structure and content", {
   df <- nhanes
   result <- se_total_comb(df, strata = strata, weight = weights, gender, birth_country)
-  
+
   expect_s3_class(result, "data.frame")
   expect_true(all(c("gender", "birth_country", "total") %in% names(result)))
   expect_true("Total" %in% unique(result$gender))
@@ -20,4 +20,3 @@ test_that("se_combn returns all combinations of input vars", {
   expect_true(any(vapply(result, identical, logical(1), "y")))
   expect_true(any(vapply(result, identical, logical(1), c("x", "y"))))
 })
-

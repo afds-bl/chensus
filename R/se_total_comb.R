@@ -18,7 +18,7 @@
 #' @import purrr
 #' @import dplyr
 #' @importFrom forcats fct_na_value_to_level
-#' @importFrom rlang ensyms syms as_label
+#' @importFrom rlang ensym ensyms syms as_label
 #'
 #' @export
 #'
@@ -30,7 +30,7 @@
 #' wt <- "weights"
 #' strata <- "strata"
 #' vars <- c("gender", "birth_country")
-#' 
+#'
 #' se_total_comb(
 #'   nhanes,
 #'   strata = "strata",
@@ -39,8 +39,11 @@
 #' )
 #'
 se_total_comb <- function(data, ..., strata, weight) {
-  group_var_syms <- rlang::ensyms(...)
-  group_var_names <- purrr::map_chr(group_var_syms, rlang::as_label)
+  weight <- ensym(weight)
+  strata <- if (missing(strata)) sym("zone") else ensym(strata)
+
+  group_var_syms <- ensyms(...)
+  group_var_names <- purrr::map_chr(group_var_syms, as_label)
 
   group_var_list <- se_combn(group_var_names)
 
@@ -60,17 +63,19 @@ se_total_comb <- function(data, ..., strata, weight) {
     mutate(
       across(
         all_of(group_var_names),
-        \(v) fct_na_value_to_level(v, "Total")
+        \(v) {
+          fct_na_value_to_level(as.character(v), "Total")
+        }
       )
     )
 }
 
 
 #' Generate All Combinations of Strings from a Character Vector
-#' 
+#'
 #' \code{se_combn()} is a helper function used internally to create all possible combinations
 #' of a set of variables. It is typically used for generating grouped summary tables as per Open Government Data formats.
-#' #' @param vars A character vector of variable names.
+#' @param vars A character vector of variable names.
 #'
 #' @returns
 #' A list of character vectors, each representing a unique combination of the input strings.
@@ -80,11 +85,11 @@ se_total_comb <- function(data, ..., strata, weight) {
 #' @importFrom purrr map list_c
 #' @importFrom utils combn
 #' @export
-#' 
+#'
 #' @examples
-#' vars <- c("gender", "birth_country")
+#' vars <- letters[1:3]
 #' se_combn(vars)
-#' 
+#'
 se_combn <- function(vars) {
   map(0:length(vars), \(n) combn(vars, n, simplify = FALSE)) |>
     list_c()

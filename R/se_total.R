@@ -182,4 +182,3 @@ se_total_map <- function(data, ..., strata, weight, alpha = 0.05) {
   ) |>
     bind_rows()
 }
-

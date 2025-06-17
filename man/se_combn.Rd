@@ -6,6 +6,9 @@
 \usage{
 se_combn(vars)
 }
+\arguments{
+\item{vars}{A character vector of variable names.}
+}
 \value{
 A list of character vectors, each representing a unique combination of the input strings.
 The list includes the empty combination of length 0.
@@ -13,10 +16,9 @@ The list includes the empty combination of length 0.
 \description{
 \code{se_combn()} is a helper function used internally to create all possible combinations
 of a set of variables. It is typically used for generating grouped summary tables as per Open Government Data formats.
-#' @param vars A character vector of variable names.
 }
 \examples{
-vars <- c("gender", "birth_country")
+vars <- letters[1:3]
 se_combn(vars)
 
 }
