@@ -1,0 +1,87 @@
+---
+title: "NHANES Survey Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{nhanes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+library(chensus)
+library(dplyr)
+```
+
+## Introduction
+
+This vignette demonstrates how the NHANES 2015–2016 demographic data included in this package were obtained, processed, and are intended to be used. The data are adapted from the [National Health and Nutrition Examination Survey NHANES](https://www.cdc.gov/nchs/nhanes/), conducted by the National Center for Health Statistics (NCHS), Centers for Disease Control and Prevention (CDC). **These data are provided for educational and demonstration purposes only and are not suitable for research**. For research purposes, users must obtain the original data directly from the NHANES website.
+
+## Data Source and Disclaimer
+
+```         
+Disclaimer:
+The data sets provided in this package are derived from the NHANES database and have been adapted for educational purposes. As such, they are NOT suitable for use as a research database.
+For research purposes, you should download original data files from the NHANES website and follow the analysis instructions given there.
+```
+
+## Data Preparation
+
+The raw NHANES data were downloaded in SAS transport format (.xpt) and processed using R, with the following key steps:
+
+-   Reading the demographic file (DEMO_I.xpt) using the haven package.
+-   Selecting and renaming key demographic variables (e.g., gender, age, education, income) and survey design variables (strata, weights, PSU).
+-   Recoding categorical variables using external code files for clarity (e.g., marital status, education level).
+-   Labelling missing values and infrequent categories appropriately.
+-   Saving the processed data frame as `nhanes`, which is then loaded with the package for easy access.
+
+## Data Structure
+
+The included `nhanes` data frame contains 9,971 participants and 13 variables. Below is a summary of the variables:
+
+| Variable                | Description                    | Original Name |
+|-------------------------|--------------------------------|---------------|
+| PSU                     | Masked variance pseudo-PSU     | SDMVPSU       |
+| weights                 | 2-year interview weight        | WTINT2YR      |
+| strata                  | Masked variance pseudo-stratum | SDMVSTRA      |
+| gender                  | Gender (Male/Female)           | RIAGENDR      |
+| age                     | Age in years at screening      | RIDAGEYR      |
+| birth_country           | Country of birth               | DMDBORN4      |
+| marital_status          | Marital status                 | DMDMARTL      |
+| interview_lang          | Interview language             | SIALANG       |
+| edu_level               | Education level                | DMDHREDU      |
+| household_size          | Number of people in household  | DMDHHSIZ      |
+| family_size             | Number of people in family     | DMDFMSIZ      |
+| annual_household_income | Annual household income        | INDHHIN2      |
+| annual_family_income    | Annual family income           | INDFMIN2      |
+
+## Example Usage
+
+```{r}
+# View the structure of the data
+glimpse(nhanes)
+
+# Count participants by education level
+nhanes |> 
+  count(edu_level)
+
+```
+
+## Best Practices and References
+
+- For research: Always download the latest, official data directly from the [NHANES website](https://www.cdc.gov/nchs/nhanes/).
+- Documentation: Refer to the official NHANES codebooks for detailed variable definitions and survey methodology.
+- Acknowledgement: Data were obtained from the National Health and Nutrition Examination Survey (NHANES), conducted by the National Center for Health Statistics (NCHS), Centers for Disease Control and Prevention (CDC).
+
+## Further Information
+
+- [NHANES main website](https://www.cdc.gov/nchs/nhanes/)
+- [NHANES 2015–2016 Data Page](https://wwwn.cdc.gov/nchs/nhanes/search/DataPage.aspx?Component=Demographics&Cycle=2015-2016)
+
+**Note**: This vignette is intended to ensure transparency and proper attribution for the use of NHANES data in this package. Always consult the official NHANES documentation for authoritative guidance.

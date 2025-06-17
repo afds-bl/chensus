@@ -37,6 +37,7 @@ The data sets provided in this package are derived from the NHANES database and 
 For research purposes, you should download original data files from the NHANES website and follow the analysis instructions given there.
 }
 \examples{
+library(dplyr)
 glimpse(nhanes)
 nhanes |> dplyr::count(edu_level)
 }

@@ -33,6 +33,7 @@
 #' @source \href{https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Demographics&CycleBeginYear=2015}{NHANES 2015-2016}
 #'
 #' @examples
+#' library(dplyr)
 #' glimpse(nhanes)
 #' nhanes |> dplyr::count(edu_level)
 "nhanes"
