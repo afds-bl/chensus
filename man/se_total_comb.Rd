@@ -2,7 +2,7 @@
 % Please edit documentation in R/se_total_comb.R
 \name{se_total_comb}
 \alias{se_total_comb}
-\title{Calculate Estimates for All Combinations of Grouping Variables in Structural Survey}
+\title{Estimate Totals for All Combinations of Grouping Variables in Structural Survey}
 \usage{
 se_total_comb(data, ..., strata, weight, alpha = 0.05)
 }
@@ -15,15 +15,17 @@ se_total_comb(data, ..., strata, weight, alpha = 0.05)
 
 \item{weight}{Unquoted or quoted name of the sampling weights column. For programmatic use.
 with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.}
+
+\item{alpha}{Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).}
 }
 \value{
 A tibble combining survey estimates for all combinations of \code{group_vars},
-  with grouping variables converted to factors where "Total" means .
+  with grouping variables converted to factors where "Total" means no grouping.
 }
 \description{
 \code{se_total_comb()} computes structural survey totals for every combination of the supplied grouping variables.
-It uses \code{se_total()} and \code{se_combn()} internally and returns a combined tibble with results for each grouping subset,
-including totals across all groups. This formatting can be useful to publish on Open Government Data platforms.
+This wrapper function uses \code{\link[=se_total]{se_total()}} and the helper function \code{\link[=se_combn]{se_combn()}} and returns a combined tibble with results 
+for each grouping subset, including totals across all groups. This formatting can be useful for Open Government Data platforms.
 }
 \examples{
 # Unquoted variables
@@ -43,5 +45,5 @@ se_total_comb(
 
 }
 \seealso{
-\code{\link[=se_total]{se_total()}}, \code{\link[=se_total_map]{se_total_map()}}
+\code{\link[=se_total]{se_total()}}, \code{\link[=se_total_map]{se_total_map()}}, \code{\link[=se_combn]{se_combn()}}.
 }
