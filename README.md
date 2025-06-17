@@ -23,8 +23,8 @@ vignette](articles/method.html).
 
 This package uses data derived from the National Health and Nutrition
 Examination Survey (NHANES), provided by the CDC/NCHS and available at
-[](https://www.cdc.gov/nchs/nhanes/.) Data are adapted for educational
-or demonstration purposes and are not suitable for research unless
+<https://www.cdc.gov/nchs/nhanes/>. Data are adapted for educational or
+demonstration purposes and are not suitable for research unless
 downloaded directly from the official source.
 
 ## Installation
