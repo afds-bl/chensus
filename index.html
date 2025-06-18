@@ -137,20 +137,19 @@
 <span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="dv">1</span> annual_household_income  <span class="dv">9626</span>  <span class="fl">11.9</span> <span class="fl">0.240</span></span>
 <span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="dv">2</span> annual_family_income     <span class="dv">9642</span>  <span class="fl">11.5</span> <span class="fl">0.245</span></span></code></pre></div>
 <p>Estimate average annual household and family incomes by gender:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="st">"gender"</span></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">mzmv_mean_map</span>(</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="at">data =</span> nhanes,</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="at">variable =</span> <span class="fu">c</span>(<span class="st">"annual_household_income"</span>, <span class="st">"annual_family_income"</span>),</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="sc">!!!</span>rlang<span class="sc">::</span><span class="fu">syms</span>(v),</span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="at">weight =</span> weights</span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>)</span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co"># A tibble: 4 × 6</span></span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>  variable                group_vars group_vars_value   occ wmean    ci</span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>                   <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>fct<span class="sc">&gt;</span>            <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="dv">1</span> annual_household_income gender     Female            <span class="dv">4906</span>  <span class="fl">11.8</span> <span class="fl">0.350</span></span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="dv">2</span> annual_household_income gender     Male              <span class="dv">4720</span>  <span class="fl">12.0</span> <span class="fl">0.328</span></span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="dv">3</span> annual_family_income    gender     Female            <span class="dv">4917</span>  <span class="fl">11.5</span> <span class="fl">0.358</span></span>
-<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="dv">4</span> annual_family_income    gender     Male              <span class="dv">4725</span>  <span class="fl">11.6</span> <span class="fl">0.334</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">mzmv_mean_map</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="at">data =</span> nhanes,</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="at">variable =</span> <span class="fu">c</span>(<span class="st">"annual_household_income"</span>, <span class="st">"annual_family_income"</span>),</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  gender,</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="at">weight =</span> weights</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>)</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co"># A tibble: 4 × 6</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>  variable                group_vars group_vars_value   occ wmean    ci</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>                   <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>fct<span class="sc">&gt;</span>            <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="dv">1</span> annual_household_income gender     Female            <span class="dv">4906</span>  <span class="fl">11.8</span> <span class="fl">0.350</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="dv">2</span> annual_household_income gender     Male              <span class="dv">4720</span>  <span class="fl">12.0</span> <span class="fl">0.328</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="dv">3</span> annual_family_income    gender     Female            <span class="dv">4917</span>  <span class="fl">11.5</span> <span class="fl">0.358</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="dv">4</span> annual_family_income    gender     Male              <span class="dv">4725</span>  <span class="fl">11.6</span> <span class="fl">0.334</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -198,14 +197,13 @@
 <span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="st">A BibTeX entry for LaTeX users is</span></span>
 <span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a></span>
 <span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="st">  @Manual{,</span></span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="st">    title = {{chensus}: Estimate Totals, Means, Proportions and Confidence Intervals of</span></span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="st">the Federal Statistic Office'</span>s Surveys<span class="er">}</span>,</span>
-<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>    author <span class="ot">=</span> {Souad Guemghar},</span>
-<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>    organization <span class="ot">=</span> {Amt für Daten und Statistik, Basel<span class="sc">-</span>Landschaft},</span>
-<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">1</span>.<span class="fl">0.0</span>},</span>
-<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>    year <span class="ot">=</span> {<span class="dv">2025</span>},</span>
-<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>    url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>afds<span class="sc">-</span>bl<span class="sc">/</span>chensus},</span>
-<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a>  <span class="er">}</span></span></code></pre></div>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="st">    title = {{chensus}: Estimate Totals, Means, Proportions and Confidence Intervals of the Federal Statistic Office'</span>s Surveys<span class="er">}</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>    author <span class="ot">=</span> {Souad Guemghar},</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>    organization <span class="ot">=</span> {Amt für Daten und Statistik, Basel<span class="sc">-</span>Landschaft},</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">1</span>.<span class="fl">0.0</span>},</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>    year <span class="ot">=</span> {<span class="dv">2025</span>},</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>    url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>afds<span class="sc">-</span>bl<span class="sc">/</span>chensus},</span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>  <span class="er">}</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
