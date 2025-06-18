@@ -30,7 +30,7 @@ Please note that this project is released with a [Contributor Code of Conduct](C
 
 ## Recognition
 
-All contributors will be acknowledged in the [NEWS](../NEWS.md) file and, where appropriate, in the package documentation.
+All contributors will be acknowledged in the [NEWS](news/index.html) file and, where appropriate, in the package documentation.
 
 ## Questions
 

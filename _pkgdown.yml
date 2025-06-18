@@ -6,11 +6,6 @@ template:
   
 favicon: favicon.ico
 
-navbar:
-  components:
-    articles:
-      text: Vignettes
-    
 reference:
   - title: "Structural Survey"
     contents:

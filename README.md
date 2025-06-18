@@ -7,7 +7,7 @@
 v3](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 `chensus` is an R package for estimating populations from surveys
-conducted by the Swiss Federal Statistical Office (FSO), sepcificially:
+conducted by the Swiss Federal Statistical Office (FSO), specificially:
 
 - structural survey: *Strukturerhebung* (SE) / *relevé structurel* (RS),
 - mobility and transport survey: *Mikrozensus Mobilität und Verkehr*
@@ -125,9 +125,6 @@ The package includes the following vignettes:
 - [Method](articles/Method.html) details the mathematical background of
   the confidence interval estimates.
 - [nhanes](articles/nhanes.html) inspects the example dataset.
-
-In addition, you can access help pages of individual functions with
-`?se_total`, `?mzmv_mean`.
 
 ## License
 
