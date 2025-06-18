@@ -1,0 +1,11 @@
+pandoc: 3.1.11
+pkgdown: 2.1.3
+pkgdown_sha: ~
+articles:
+  chensus: chensus.html
+  Method: Method.html
+  nhanes: nhanes.html
+last_built: 2025-06-18T06:24Z
+urls:
+  reference: https://afds-bl.github.io/chensus/reference
+  article: https://afds-bl.github.io/chensus/articles
