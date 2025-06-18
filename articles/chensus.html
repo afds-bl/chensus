@@ -257,6 +257,56 @@ here):</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> annual_household_income gender     Female            <span style="text-decoration: underline;">4</span>906  11.8 0.350</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> annual_household_income gender     Male              <span style="text-decoration: underline;">4</span>720  12.0 0.328</span></span></code></pre></div>
 </div>
+<div class="section level2">
+<h2 id="flagging-estimate-reliability">Flagging Estimate Reliability<a class="anchor" aria-label="anchor" href="#flagging-estimate-reliability"></a>
+</h2>
+<p><code>fso_flag_mask</code> applies FSO’s reliability rules for survey
+estimates, based on the number of observations (<code>occ</code>). It
+flags low reliability estimates and masks them when sample size is too
+small (occ &lt;= 4) as follows:</p>
+<table class="table"><tbody>
+<tr class="odd">
+<td><code>occ \&lt;= 4</code></td>
+<td>No estimate (confidential)</td>
+</tr>
+<tr class="even">
+<td><code>occ \&lt;= 49</code></td>
+<td>Estimate of low reliability</td>
+</tr>
+<tr class="odd">
+<td><code>occ \&gt; 49</code></td>
+<td>Reliable estimate</td>
+</tr>
+</tbody></table>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="va">nhanes</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/se_total.html">se_total</a></span><span class="op">(</span></span>
+<span>    strata <span class="op">=</span> <span class="va">strata</span>,</span>
+<span>    weight <span class="op">=</span> <span class="va">weights</span>,</span>
+<span>    <span class="va">gender</span>,</span>
+<span>    <span class="va">birth_country</span>,</span>
+<span>    <span class="va">interview_lang</span>,</span>
+<span>    <span class="va">edu_level</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="va">results</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">occ</span> <span class="op">&lt;</span> <span class="fl">60</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/fso_flag_mask.html">fso_flag_mask</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">gender</span>, <span class="va">birth_country</span>, <span class="va">interview_lang</span>, <span class="va">occ</span>, <span class="va">total</span>, <span class="va">ci</span>, <span class="va">obs_status</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 26 × 7</span></span></span>
+<span><span class="co">#&gt;    gender birth_country interview_lang   occ    total      ci obs_status        </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Female US            English           14  <span style="text-decoration: underline;">403</span>508. <span style="text-decoration: underline;">277</span>121. Schätzwert beding…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Female US            Spanish           21  <span style="text-decoration: underline;">258</span>146. <span style="text-decoration: underline;">114</span>605. Schätzwert beding…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Female US            Spanish           13  <span style="text-decoration: underline;">208</span>119. <span style="text-decoration: underline;">116</span>775. Schätzwert beding…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Female US            Spanish           37  <span style="text-decoration: underline;">501</span>480. <span style="text-decoration: underline;">172</span>472. Schätzwert beding…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Female US            Spanish            7   <span style="text-decoration: underline;">86</span>022.  <span style="text-decoration: underline;">68</span>362. Schätzwert beding…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Female US            Spanish           <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>  Kein Schätzwert (…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Female Other         English           57 1<span style="text-decoration: underline;">098</span>021. <span style="text-decoration: underline;">301</span>680. Schätzwert verläs…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Female Other         English           41  <span style="text-decoration: underline;">883</span>410. <span style="text-decoration: underline;">287</span>543. Schätzwert beding…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Female Other         Spanish           45  <span style="text-decoration: underline;">673</span>772. <span style="text-decoration: underline;">217</span>372. Schätzwert beding…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Female Other         Spanish           18  <span style="text-decoration: underline;">310</span>672. <span style="text-decoration: underline;">154</span>623. Schätzwert beding…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 16 more rows</span></span></span></code></pre></div>
+</div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
