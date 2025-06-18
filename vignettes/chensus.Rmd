@@ -30,7 +30,7 @@ the Federal Statistical Office (FSO):
 -   mobility and transport survey: *Mikrozensus Mobilität und Verkehr*
     (MZMV) / *Microrecensement mobilité et transports* (MRMT).
 
-In this vignette, we demonstrate the main features of the package using the built-in `nhanes` dataset, which contains a subset of data from the [National Health and Nutrition Examination Survey](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) for the period 2015-2016 (more with `?nhanes` and `vignette("nhanes)`). Its structure is similar to FSO survey data in that it contains `strata` and `weights` columns and demographic features such as `gender` and `household_size`.
+In this vignette, we demonstrate the main features of the package using the built-in `nhanes` dataset, which contains a subset of data from the [National Health and Nutrition Examination Survey](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) for the period 2015-2016 (more with `?nhanes` and `vignette("nhanes")`). Its structure is similar to FSO survey data in that it contains `strata` and `weights` columns and demographic features such as `gender` and `household_size`.
 
 # Structural Survery Example
 
@@ -58,7 +58,7 @@ se_total(
   !!!syms(v)
 )
 ```
-We could also estimate population in parallel for multiple groups:
+We can also estimate population in parallel for multiple groups:
 
 ```{r}
 se_total_map(
@@ -69,13 +69,13 @@ se_total_map(
 )
 ```
 
-Sometimes we would like to estimate population for all combinations of grouping variables including no or partial grouping. In this case we can make use of `se_total_comb()`, a wrapper function for the main `se_total()` function:
+If we wish to estimate population for all combinations of grouping variables including no or partial grouping, we can use `se_total_comb()`, a wrapper function for the main `se_total()` function:
 
 ```{r}
 se_total_comb(nhanes, strata = strata, weight = weights, gender, birth_country)
 ```
 
-If on the other hand we would like to estimate the average household size then we would use the function `se_mean_num()`:
+If on the other hand we wish to estimate the average household size then we can use the function `se_mean_num()`:
 
 ```{r}
 se_mean_num(
@@ -86,7 +86,7 @@ se_mean_num(
 )
 ```
 
-We could also estimate the proportion of males and females in the `nhanes` survey, `gender` being a categorical variable:
+We can also estimate the proportion of males and females in the `nhanes` survey, `gender` being a categorical variable:
 
 ```{r}
 se_mean_cat(
@@ -110,7 +110,7 @@ se_mean_cat(
 
 # Mobility Survey Example
 
-If we would like to estimate the mean household income then we can use `mzmv_mean()`:
+If we want to estimate the mean household income then we can use `mzmv_mean()`:
 ```{r}
 mzmv_mean(
   data = nhanes,
