@@ -26,6 +26,7 @@ reference:
       - se_combn
       - se_dummy
       - se_summarise
+      - fso_flag_mask
       
   - title: "Example Data"
     contents:

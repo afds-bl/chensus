@@ -14,7 +14,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-
 ```{r setup, warning=FALSE, message=FALSE}
 library(chensus)
 library(dplyr)
@@ -22,13 +21,10 @@ library(dplyr)
 
 # Introduction
 
-The `chensus` package estimates population frequencies, means,
-proportions and confidence intervals from surveys conducted by
-the Federal Statistical Office (FSO):
+The `chensus` package estimates population frequencies, means, proportions and confidence intervals from surveys conducted by the Federal Statistical Office (FSO):
 
 -   structural survey: *Strukturerhebung* (SE) / *relevé structurel* (RS),
--   mobility and transport survey: *Mikrozensus Mobilität und Verkehr*
-    (MZMV) / *Microrecensement mobilité et transports* (MRMT).
+-   mobility and transport survey: *Mikrozensus Mobilität und Verkehr* (MZMV) / *Microrecensement mobilité et transports* (MRMT).
 
 In this vignette, we demonstrate the main features of the package using the built-in `nhanes` dataset, which contains a subset of data from the [National Health and Nutrition Examination Survey](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) for the period 2015-2016 (more with `?nhanes` and `vignette("nhanes")`). Its structure is similar to FSO survey data in that it contains `strata` and `weights` columns and demographic features such as `gender` and `household_size`.
 
@@ -44,6 +40,7 @@ se_total(
   gender, birth_country
 )
 ```
+
 Column names can be passed programmatically with the help of `rlang`'s `!!sym()` and `!!!syms()` in the function call:
 
 ```{r}
@@ -58,6 +55,7 @@ se_total(
   !!!syms(v)
 )
 ```
+
 We can also estimate population in parallel for multiple groups:
 
 ```{r}
@@ -96,6 +94,7 @@ se_mean_cat(
   strata = strata
 )
 ```
+
 and by birth country:
 
 ```{r}
@@ -111,6 +110,7 @@ se_mean_cat(
 # Mobility Survey Example
 
 If we want to estimate the mean household income then we can use `mzmv_mean()`:
+
 ```{r}
 mzmv_mean(
   data = nhanes,
@@ -130,3 +130,28 @@ mzmv_mean_map(
 )
 ```
 
+# Flagging Estimate Reliability
+
+`fso_flag_mask` applies FSO's reliability rules for survey estimates, based on the number of observations (`occ`). It flags low reliability estimates and masks them when sample size is too small (occ \<= 4) as follows:
+
+|              |                             |
+|--------------|-----------------------------|
+| `occ \<= 4`  | No estimate (confidential)  |
+| `occ \<= 49` | Estimate of low reliability |
+| `occ \> 49`  | Reliable estimate           |
+
+```{r}
+results <- nhanes |>
+  se_total(
+    strata = strata,
+    weight = weights,
+    gender,
+    birth_country,
+    interview_lang,
+    edu_level
+  )
+results |>
+  filter(occ < 60) |>
+  fso_flag_mask() |>
+  select(gender, birth_country, interview_lang, occ, total, ci, obs_status)
+```
