@@ -3,6 +3,11 @@ url: https://afds-bl.github.io/chensus
 template:
   bootstrap: 5
   math-rendering: katex
+
+authors:
+  - "Souad Guemghar"
+  - "Amt für Daten und Statistik, Basel-Landschaft":
+      href: "https://www.baselland.ch/politik-und-behorden/direktionen/finanz-und-kirchendirektion/daten-statistik"
   
 favicon: favicon.ico
 
