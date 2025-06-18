@@ -31,7 +31,7 @@ remotes::install_github("afds-bl/chensus")
 
 ## Usage
 
-### Structural survey (SE/RS)
+### Structural survey
 
 Estimate population totals by gender:
 
@@ -80,7 +80,7 @@ se_mean_cat(
 2 Female  5079 0.512 0.0000520   0.00721 0.0141 0.498 0.526
 ```
 
-### Mobility and Transport Survey (MZMV/MRMT)
+### Mobility and Transport Survey
 
 Estimate average annual household and family incomes:
 
@@ -124,7 +124,7 @@ The package includes the following vignettes:
   the package.
 - [Method](articles/Method.html) details the mathematical background of
   the confidence interval estimates.
-- [nhanes](articles/nhanes.html) inspects the example dataset.
+- [nhanes](articles/nhanes.html) inspects the example data set.
 
 ## License
 
@@ -134,7 +134,7 @@ Distributed under the GPL-3 License. See `LICENSE` for more information.
 
 [Souad Guemghar](mailto:souad.guemghar@bl.ch)
 
-Amt für Daten und Statistik, Basel-Landschaft
+Amt für Daten und Statistik, Basel-Landschaft.
 
 ## Acknowledgments
 
@@ -165,7 +165,8 @@ utils::citation("chensus")
     A BibTeX entry for LaTeX users is
 
       @Manual{,
-        title = {{chensus}: Estimate Totals, Means, Proportions and Confidence Intervals of the Federal Statistic Office's Surveys},
+        title = {{chensus}: Estimate Totals, Means, Proportions and Confidence Intervals of
+    the Federal Statistic Office's Surveys},
         author = {Souad Guemghar},
         organization = {Amt für Daten und Statistik, Basel-Landschaft},
         note = {R package version 1.0.0},
