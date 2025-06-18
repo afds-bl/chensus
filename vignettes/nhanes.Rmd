@@ -14,22 +14,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r}
-library(chensus)
-library(dplyr)
-```
+This vignette demonstrates how the NHANES 2015–2016 demographic data included in this package were obtained, processed, and are intended to be used. The data are adapted from the [National Health and Nutrition Examination Survey NHANES](https://www.cdc.gov/nchs/nhanes/), conducted by the National Center for Health Statistics (NCHS), Centers for Disease Control and Prevention (CDC). 
 
-## Introduction
-
-This vignette demonstrates how the NHANES 2015–2016 demographic data included in this package were obtained, processed, and are intended to be used. The data are adapted from the [National Health and Nutrition Examination Survey NHANES](https://www.cdc.gov/nchs/nhanes/), conducted by the National Center for Health Statistics (NCHS), Centers for Disease Control and Prevention (CDC). **These data are provided for educational and demonstration purposes only and are not suitable for research**. For research purposes, users must obtain the original data directly from the NHANES website.
-
-## Data Source and Disclaimer
-
-```         
-Disclaimer:
-The data sets provided in this package are derived from the NHANES database and have been adapted for educational purposes. As such, they are NOT suitable for use as a research database.
-For research purposes, you should download original data files from the NHANES website and follow the analysis instructions given there.
-```
+> **Disclaimer**: The data sets provided in this package are derived from the NHANES database and have been adapted for educational purposes. As such, they are NOT suitable for use as a research database. For research purposes, you should download original data files from the NHANES website and follow the analysis instructions given there.
 
 ## Data Preparation
 
@@ -62,6 +49,11 @@ The included `nhanes` data frame contains 9,971 participants and 13 variables. B
 | annual_family_income    | Annual family income           | INDFMIN2      |
 
 ## Example Usage
+
+```{r message=FALSE}
+library(chensus)
+library(dplyr)
+```
 
 ```{r}
 # View the structure of the data

@@ -1,5 +1,5 @@
 ---
-title: "Method"
+title: "Mathematical Method"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Method}
@@ -14,11 +14,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignette describes the mathematical method for estimating confidence intervals of the structural survey and mobility and trnsport survey.
+This vignette describes the mathematical method for estimating confidence intervals of the structural survey and mobility and transport survey.
 
-# Structural survey (*Strukturerhebung* / *relevé structurel*)
+# Structural survey
 
-From the structural survey data, `se_estimate_total()` estimates:
+From the structural survey ( (*Strukturerhebung* / *relevé structurel*)) data, `se_total()` estimates:
 
 -   occurrences in the real population: sum of weights of sub-population
     of interest;
@@ -87,7 +87,7 @@ where $\alpha$ is the significance level (e.g., 0.05 for a 95% confidence interv
 `se_summarise()` calculates
 $m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}$.
 
-`se_estimate_total()` calculates $\hat{V}(\hat{N}_c)$, the true occurrence in
+`se_total()` calculates $\hat{V}(\hat{N}_c)$, the true occurrence in
 the survey sample and confidence intervals.
 
 ## Means
@@ -117,9 +117,9 @@ $$\text{CI} = \sqrt{\hat{V}(\bar y)} \times \text{qnorm}(1 - \frac{\alpha}2)$$
 `se_mean_num()` and `se_mean_cat()` calculate $\bar y$, $\hat{V}(\bar y)$, the frequency in
 the survey sample and confidence intervals.
 
-# Mobility and Transport Survey (MZMV/MRMT)
+# Mobility and Transport Survey
 
-From the survey data, `mzmv_mean()` estimates:
+From the survey (MZMV/MRMT) data, `mzmv_mean()` estimates:
 
 -   average occurrence in the real population: weighted mean of
     sub-population of interest;
