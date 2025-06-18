@@ -22,7 +22,7 @@ Useful links:
 
 Other contributors:
 \itemize{
-  \item Amt für Daten und Statistik, Basel-Landschaft (https://www.baselland.ch/politik-und-behorden/direktionen/finanz-und-kirchendirektion/daten-statistik) [copyright holder, funder]
+  \item Amt für Daten und Statistik, Basel-Landschaft [copyright holder, funder]
 }
 
 }
