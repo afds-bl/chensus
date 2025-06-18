@@ -19,7 +19,7 @@ survey](https://www.bfs.admin.ch/bfs/en/home/services/research/methodological-re
 and [mobility and transport
 survey](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.24266729.html).
 For mathematical details, see the [Method
-vignette](articles/method.html).
+vignette](articles/Method.html).
 
 ## Installation
 
@@ -118,11 +118,16 @@ mzmv_mean_map(
 
 ## Documentation
 
-- `?se_total`, `?mzmv_mean`, etc.: function documentation
-- `?nhanes`: inspect the example dataset
-- `vignette("chensus")`: detailed examples
-- `vignette("Method")`: mathematical background
-- `vignette("nhanes")`: example dataset
+The package includes the following vignettes:
+
+- [chensus](articles/chensus.html) gives detailed examples of how to use
+  the package.
+- [Method](articles/Method.html) details the mathematical background of
+  the confidence interval estimates.
+- [nhanes](articles/nhanes.html) inspects the example dataset.
+
+In addition, you can access help pages of individual functions with
+`?se_total`, `?mzmv_mean`.
 
 ## License
 
