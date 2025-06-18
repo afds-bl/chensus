@@ -100,11 +100,10 @@ mzmv_mean(
 Estimate average annual household and family incomes by gender:
 
 ``` r
-v <- "gender"
 mzmv_mean_map(
   data = nhanes,
   variable = c("annual_household_income", "annual_family_income"),
-  !!!rlang::syms(v),
+  gender,
   weight = weights
 )
 # A tibble: 4 × 6
@@ -165,8 +164,7 @@ utils::citation("chensus")
     A BibTeX entry for LaTeX users is
 
       @Manual{,
-        title = {{chensus}: Estimate Totals, Means, Proportions and Confidence Intervals of
-    the Federal Statistic Office's Surveys},
+        title = {{chensus}: Estimate Totals, Means, Proportions and Confidence Intervals of the Federal Statistic Office's Surveys},
         author = {Souad Guemghar},
         organization = {Amt für Daten und Statistik, Basel-Landschaft},
         note = {R package version 1.0.0},

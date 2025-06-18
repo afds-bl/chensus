@@ -97,11 +97,10 @@ mzmv_mean(
 Estimate average annual household and family incomes by gender:
 
 ``` {r}
-v <- "gender"
 mzmv_mean_map(
   data = nhanes,
   variable = c("annual_household_income", "annual_family_income"),
-  !!!rlang::syms(v),
+  gender,
   weight = weights
 )
 ```
