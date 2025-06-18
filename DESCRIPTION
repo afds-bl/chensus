@@ -4,7 +4,8 @@ Title: Estimate Totals, Means, Proportions and Confidence Intervals of the Feder
 Version: 1.0.0
 Authors@R: c(
     person("Souad", "Guemghar", , "souad.guemghar@bl.ch", role = c("aut", "cre")),
-    person("Amt für Daten und Statistik, Basel-Landschaft", role = c("cph", "fnd"))
+    person("Amt für Daten und Statistik, Basel-Landschaft", role = c("cph", "fnd"), 
+    comment = c(url = "https://www.baselland.ch/politik-und-behorden/direktionen/finanz-und-kirchendirektion/daten-statistik"))
   )
 Description: Estimates population totals, means, proportions and confidence intervals
     from the Federal Statistic Office's (FSO) structural and mobility surveys. Give it data from
