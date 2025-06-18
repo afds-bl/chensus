@@ -136,9 +136,9 @@ mzmv_mean_map(
 
 |              |                             |
 |--------------|-----------------------------|
-| `occ \<= 4`  | No estimate (confidential)  |
-| `occ \<= 49` | Estimate of low reliability |
-| `occ \> 49`  | Reliable estimate           |
+| `occ <= 4`  | No estimate (confidential)  |
+| `occ <= 49` | Estimate of low reliability |
+| `occ > 49`  | Reliable estimate           |
 
 ```{r}
 results <- nhanes |>
