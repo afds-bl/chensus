@@ -1,13 +1,5 @@
 url: https://afds-bl.github.io/chensus
 
-home:
-  title: FSO Survey Estimates
-
-authors:
-  Souad Guemghar
-  Amt für Daten und Statistik, Basel-Landschaft:
-    href: https://github.com/afds-bl
-
 template:
   bootstrap: 5
   math-rendering: katex
