@@ -86,7 +86,7 @@
 <div class="section level3">
 <h3 id="structural-survey">Structural survey<a class="anchor" aria-label="anchor" href="#structural-survey"></a>
 </h3>
-<p>Estimate population totals by gender:</p>
+<p>Estimate total population:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(chensus)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">se_total</span>(</span>
@@ -109,7 +109,7 @@
 <span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>    occ household_size     vhat stand_dev     ci  ci_l  ci_u</span>
 <span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="sc">&lt;</span>int<span class="sc">&gt;</span>          <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>    <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">9971</span>           <span class="fl">3.46</span> <span class="fl">0.000495</span>    <span class="fl">0.0222</span> <span class="fl">0.0436</span>  <span class="fl">3.42</span>  <span class="fl">3.51</span></span></code></pre></div>
-<p>Estimate population proportions by household size:</p>
+<p>Estimate population proportions by gender:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">se_mean_cat</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="at">data =</span> nhanes,</span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="at">variable =</span> gender,</span>
@@ -136,7 +136,7 @@
 <span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>                   <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
 <span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="dv">1</span> annual_household_income  <span class="dv">9626</span>  <span class="fl">11.9</span> <span class="fl">0.240</span></span>
 <span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="dv">2</span> annual_family_income     <span class="dv">9642</span>  <span class="fl">11.5</span> <span class="fl">0.245</span></span></code></pre></div>
-<p>Estimate by group (e.g., gender, interview language):</p>
+<p>Estimate average annual household and family incomes by gender:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="st">"gender"</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">mzmv_mean_map</span>(</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="at">data =</span> nhanes,</span>
