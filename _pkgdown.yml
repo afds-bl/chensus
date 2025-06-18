@@ -6,6 +6,11 @@ template:
   
 favicon: favicon.ico
 
+navbar:
+  components:
+    articles:
+      text: Vignettes
+    
 reference:
   - title: "Structural Survey"
     contents:
@@ -18,7 +23,7 @@ reference:
   - title: "Mobility Survey"
     contents:
       - mzmv_mean
-      - mzmv_mean
+      - mzmv_mean_map
 
   - title: "Helper Functions"
     desc: "General helper functions used throughout the package."
