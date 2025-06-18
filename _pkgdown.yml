@@ -5,3 +5,28 @@ template:
   math-rendering: katex
   
 favicon: favicon.ico
+
+reference:
+  - title: "Structural Survey"
+    contents:
+      - se_total
+      - se_total_comb
+      - se_total_map
+      - se_mean_num
+      - se_mean_cat
+
+  - title: "Mobility Survey"
+    contents:
+      - mzmv_mean
+      - mzmv_mean
+
+  - title: "Helper Functions"
+    desc: "General helper functions used throughout the package."
+    contents:
+      - se_combn
+      - se_dummy
+      - se_summarise
+      
+  - title: "Example Data"
+    contents:
+      - nhanes
