@@ -48,7 +48,7 @@ remotes::install_github("afds-bl/chensus")
 
 ### Structural survey
 
-Estimate population totals by gender:
+Estimate total population:
 
 ```{r example1}
 library(chensus)
@@ -71,7 +71,7 @@ se_mean_num(
 )
 ```
 
-Estimate population proportions by household size:
+Estimate population proportions by gender:
 
 ```{r example2}
 se_mean_cat(
@@ -94,7 +94,7 @@ mzmv_mean(
 )
 ```
 
-Estimate by group (e.g., gender, interview language):
+Estimate average annual household and family incomes by gender:
 
 ``` {r}
 v <- "gender"
