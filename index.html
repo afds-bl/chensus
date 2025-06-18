@@ -40,7 +40,13 @@
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="articles/chensus.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
-<li class="nav-item"><h6 class="dropdown-header" data-toc-skip>Vignettes</h6></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="articles/Method.html">Mathematical Method</a></li>
+    <li><a class="dropdown-item" href="articles/nhanes.html">NHANES Survey Data</a></li>
+  </ul>
+</li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -61,7 +67,7 @@
 </h1>
 </div>
 <p><a href="https://github.com/afds-bl/chensus/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/afds-bl/chensus/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" class="external-link"><img src="https://img.shields.io/badge/license-GPL--3-blue.svg" alt="License: GPL v3"></a></p>
-<p><code>chensus</code> is an R package for estimating populations from surveys conducted by the Swiss Federal Statistical Office (FSO), sepcificially:</p>
+<p><code>chensus</code> is an R package for estimating populations from surveys conducted by the Swiss Federal Statistical Office (FSO), specificially:</p>
 <ul>
 <li>structural survey: <em>Strukturerhebung</em> (SE) / <em>relevé structurel</em> (RS),</li>
 <li>mobility and transport survey: <em>Mikrozensus Mobilität und Verkehr</em> (MZMV) / <em>Microrecensement mobilité et transports</em> (MRMT).</li>
@@ -159,7 +165,6 @@
 <li>
 <a href="articles/nhanes.html">nhanes</a> inspects the example dataset.</li>
 </ul>
-<p>In addition, you can access help pages of individual functions with <code><a href="reference/se_total.html">?se_total</a></code>, <code><a href="reference/mzmv_mean.html">?mzmv_mean</a></code>.</p>
 </div>
 <div class="section level2">
 <h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
