@@ -16,6 +16,10 @@ knitr::opts_chunk$set(
 
 This vignette describes the mathematical method for estimating confidence intervals of the structural survey and mobility and transport survey.
 
+# Confidence Interval
+
+A confidence interval is a range of plausible values for a population parameter, calculated from sample data. A 95% confidence interval means that if the same sampling procedure were repeated many times, approximately 95% of the resulting intervals would contain the true population value. This does not imply that there is a 95% probability that the true value lies within any single interval; rather, it reflects the reliability of the estimation method across repeated samples.
+
 # Structural survey
 
 From the structural survey ( (*Strukturerhebung* / *relevé structurel*)) data, `se_total()` estimates:
