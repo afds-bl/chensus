@@ -4,7 +4,7 @@
 #' based on the number of observations (\code{occ}). It flags low reliability estimates and masks them when sample size is too small 
 #' (\code{occ <= 4}).
 #'
-#' @param df A data frame or tibble.
+#' @param data A data frame or tibble.
 #' @param lang A character string for the language of the estimate reliability description, one of "de", "fr", "it", "en". 
 #' Defaults to German if omitted.
 #'
@@ -29,7 +29,7 @@
 #' df <- data.frame(occ = c(3, 10, 60), mean_income = c(4000, 4200, 4500))
 #' fso_flag_mask(df)
 #'
-fso_flag_mask <- function(df, lang = c("de", "fr", "it", "en")) {
+fso_flag_mask <- function(data, lang = c("de", "fr", "it", "en")) {
   lang <- match.arg(lang)
   
   # Define language-specific messages
@@ -56,11 +56,17 @@ fso_flag_mask <- function(df, lang = c("de", "fr", "it", "en")) {
     )
   )
   
-  if (!"occ" %in% names(df)) {
+  if (!"occ" %in% names(data)) {
     stop("Input data frame must contain an 'occ' column.")
   }
   
-  df <- df |>
+  occ_pos <- match("occ", names(data))
+  numeric_cols <- data |>
+    select((all_of(occ_pos)):last_col()) |>      
+    select(where(is.numeric)) |>            
+    names()
+  
+  data <- data |>
     mutate(
       obs_status = case_when(
         occ <= 4 ~ messages[[lang]]["confidential"],
@@ -70,10 +76,10 @@ fso_flag_mask <- function(df, lang = c("de", "fr", "it", "en")) {
     ) |>
     mutate(
       across(
-        where(is.numeric),
+        all_of(numeric_cols),
         \(x) if_else(occ <= 4, NA, x)
       )
     )
   
-  return(df)
+  return(data)
 }
