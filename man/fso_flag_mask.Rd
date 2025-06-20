@@ -7,10 +7,10 @@
 fso_flag_mask(data, lang = c("de", "fr", "it", "en"))
 }
 \arguments{
+\item{data}{A data frame or tibble.}
+
 \item{lang}{A character string for the language of the estimate reliability description, one of "de", "fr", "it", "en". 
 Defaults to German if omitted.}
-
-\item{df}{A data frame or tibble.}
 }
 \value{
 A tibble containing the original data with masked estimates when \code{occ <= 4} and one additional column:

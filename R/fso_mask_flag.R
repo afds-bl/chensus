@@ -4,7 +4,7 @@
 #' based on the number of observations (\code{occ}). It flags low reliability estimates and masks them when sample size is too small 
 #' (\code{occ <= 4}).
 #'
-#' @param df A data frame or tibble.
+#' @param data A data frame or tibble.
 #' @param lang A character string for the language of the estimate reliability description, one of "de", "fr", "it", "en". 
 #' Defaults to German if omitted.
 #'
