@@ -4,15 +4,15 @@
 \alias{se_mean_num_comb}
 \title{Estimate Averages of Numeric Variables for All Combinations of Grouping Variables in Structural Survey}
 \usage{
-se_mean_num_comb(data, ..., variable, strata, weight, alpha = 0.05)
+se_mean_num_comb(data, variable, ..., strata, weight, alpha = 0.05)
 }
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{...}{Optional grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}..}
-
 \item{variable}{Unquoted or quoted name of the numeric variable whose mean is to be estimated.
 Programmatic usage (e.g., using \code{!!sym()}) is supported.}
+
+\item{...}{Optional grouping variables. Can be passed unquoted (e.g., \code{gender}, \code{birth_country}) or programmatically using \code{!!!syms(c("gender", "birth_country"))}..}
 
 \item{strata}{Unquoted or quoted name of the strata column. Defaults to \code{zone} if omitted.}
 

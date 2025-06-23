@@ -34,7 +34,7 @@
 #'   gender, interview_lang
 #' )
 #'
-se_mean_num_comb <- function(data, ..., variable, strata, weight, alpha = 0.05) {
+se_mean_num_comb <- function(data, variable, ..., strata, weight, alpha = 0.05) {
   weight <- ensym(weight)
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
 
