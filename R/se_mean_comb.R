@@ -31,7 +31,7 @@
 #'   variable = household_size,
 #'   strata = strata,
 #'   weight = weights,
-#'   gender
+#'   gender, interview_lang
 #' )
 #'
 se_mean_num_comb <- function(data, ..., variable, strata, weight, alpha = 0.05) {

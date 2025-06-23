@@ -36,7 +36,7 @@ se_mean_num_comb(
   variable = household_size,
   strata = strata,
   weight = weights,
-  gender
+  gender, interview_lang
 )
 
 }
