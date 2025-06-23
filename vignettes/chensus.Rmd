@@ -30,6 +30,8 @@ In this vignette, we demonstrate the main features of the package using the buil
 
 # Structural Survery Example
 
+## Total Estimates
+
 Suppose we want to estimate the population in the `nhanes` data set by gender and birth country. We can use the main analysis function `se_total()`:
 
 ```{r}
@@ -73,6 +75,8 @@ If we wish to estimate population for all combinations of grouping variables inc
 se_total_comb(nhanes, strata = strata, weight = weights, gender, birth_country)
 ```
 
+## Mean Estimates
+
 If on the other hand we wish to estimate the average household size then we can use the function `se_mean_num()`:
 
 ```{r}
@@ -81,6 +85,18 @@ se_mean_num(
   variable = household_size,
   strata = strata,
   weight = weights
+)
+```
+
+or the wrapper function `se_mean_num_comb()` for all possible combinations of grouping variables `gender` and `interview_lang`:
+
+```{r}
+se_mean_num_comb(
+  nhanes,
+  variable = household_size,
+  strata = strata,
+  weight = weights,
+  gender, interview_lang
 )
 ```
 

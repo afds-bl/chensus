@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
  [![License: GPL v3](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 `chensus` is an R package for estimating populations from surveys conducted by
-the Swiss Federal Statistical Office (FSO), specificially:
+the Swiss Federal Statistical Office (FSO), specifically:
 
 -   structural survey: *Strukturerhebung* (SE) / *relevé structurel* (RS),
 -   mobility and transport survey: *Mikrozensus Mobilität und Verkehr*
