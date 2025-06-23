@@ -16,7 +16,7 @@
 #' @return A tibble combining survey estimates for all combinations of \code{group_vars},
 #'   with grouping variables converted to factors where "Total" means no grouping.
 #'
-#' @seealso \code{\link[=se_mean_num]{se_mean_num()}}, \code{\link[=se_mean_num_map]{se_mean_num_map()}}, \code{\link[=se_combn]{se_combn()}}.
+#' @seealso \code{\link[=se_mean_num]{se_mean_num()}}, \code{\link[=se_combn]{se_combn()}}.
 #'
 #' @import purrr
 #' @import dplyr
@@ -39,7 +39,7 @@ se_mean_num_comb <- function(data, ..., variable, strata, weight, alpha = 0.05) 
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
 
   group_var_syms <- ensyms(...)
-  group_var_names <- purrr::map_chr(group_var_syms, as_label)
+  group_var_names <- map_chr(group_var_syms, as_label)
 
   group_var_list <- se_combn(group_var_names)
 

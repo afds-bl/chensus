@@ -44,7 +44,7 @@ se_total_comb <- function(data, ..., strata, weight, alpha = 0.05) {
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
 
   group_var_syms <- ensyms(...)
-  group_var_names <- purrr::map_chr(group_var_syms, as_label)
+  group_var_names <- map_chr(group_var_syms, as_label)
 
   group_var_list <- se_combn(group_var_names)
 

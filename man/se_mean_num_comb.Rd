@@ -41,5 +41,5 @@ se_mean_num_comb(
 
 }
 \seealso{
-\code{\link[=se_mean_num]{se_mean_num()}}, \code{\link[=se_mean_num_map]{se_mean_num_map()}}, \code{\link[=se_combn]{se_combn()}}.
+\code{\link[=se_mean_num]{se_mean_num()}}, \code{\link[=se_combn]{se_combn()}}.
 }
