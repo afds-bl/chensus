@@ -13,6 +13,7 @@ reference:
       - se_total_comb
       - se_total_map
       - se_mean_num
+      - se_mean_num_comb
       - se_mean_cat
 
   - title: "Mobility Survey"
