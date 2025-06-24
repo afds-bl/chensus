@@ -22,19 +22,17 @@ with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in t
 \item{alpha}{Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).}
 }
 \value{
-A tibble with the following columns:
+A tibble with the selected categorical variable, optional grouping columns and the following columns:
 \describe{
-   \item{<variable>}{Values of categorical variable named dynamically.}
-   \item{...}{Grouping variables if provided.}
-  \item{occ}{Sample size (number of observations) per group.}
-  \item{prop}{Estimated proportion of the specified categorical variable}
-  \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev}, square root of the variance).}
-  \item{ci, ci_l, ci_u}{Confidence interval: half-width (\code{ci}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
+   \item{occ}{Sample size (number of observations) per group.}
+   \item{prop}{Estimated proportion of the specified categorical variable in the corrresponding group.}
+   \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev}, square root of the variance).}
+   \item{ci, ci_l, ci_u}{Confidence interval: half-width (\code{ci}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
 }
 }
 \description{
 \code{se_mean_cat()} estimates the proportions and confidence intervals for each level of a categorical variable
-of FSO's structural survey, by first converting it to dummy variables and then computing statistics within strata and optional groups.
+of FSO's structural survey, by first converting it and optional groups into dummy variables and then estimating proportions and confidence intervals.
 }
 \examples{
 # Direct column references (unquoted)
@@ -69,5 +67,5 @@ se_mean_cat(
 
 }
 \seealso{
-\code{\link[=se_mean_num]{se_mean_num()}}, \code{\link[=se_dummy]{se_dummy()}}
+\code{\link[=se_mean_num]{se_mean_num()}}
 }

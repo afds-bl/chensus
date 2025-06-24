@@ -109,7 +109,7 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #' Estimate Proportions of Categorical Variables in Structural Survey
 #'
 #' \code{se_mean_cat()} estimates the proportions and confidence intervals for each level of a categorical variable
-#' of FSO's structural survey, by first converting it to dummy variables and then computing statistics within strata and optional groups.
+#' of FSO's structural survey, by first converting it and optional groups into dummy variables and then estimating proportions and confidence intervals.
 #'
 #' @param data A data frame or tibble.
 #' @param variable Unquoted or quoted name of the categorical variable whose mean is to be estimated.
@@ -120,23 +120,22 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #'   with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in the function call.
 #' @param alpha Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).
 #'
-#' @returns A tibble with the following columns:
+#' @returns A tibble with the selected categorical variable, optional grouping columns and the following columns:
 #' \describe{
-#'    \item{<variable>}{Values of categorical variable named dynamically.}
-#'    \item{...}{Grouping variables if provided.}
-#'   \item{occ}{Sample size (number of observations) per group.}
-#'   \item{prop}{Estimated proportion of the specified categorical variable}
-#'   \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev}, square root of the variance).}
-#'   \item{ci, ci_l, ci_u}{Confidence interval: half-width (\code{ci}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
+#'    \item{occ}{Sample size (number of observations) per group.}
+#'    \item{prop}{Estimated proportion of the specified categorical variable in the corrresponding group.}
+#'    \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev}, square root of the variance).}
+#'    \item{ci, ci_l, ci_u}{Confidence interval: half-width (\code{ci}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
 #' }
+#'
 #' @import dplyr
-#' @importFrom rlang ensym enquos as_label sym ensym
-#' @importFrom tidyr pivot_wider
+#' @importFrom rlang ensym enquos as_label sym
+#' @importFrom tidyr separate_wider_delim
 #' @importFrom stringr str_starts str_remove
-#' @importFrom purrr map list_rbind
-#' @importFrom stats weighted.mean
+#' @importFrom purrr map map_chr list_rbind
+#' @importFrom stats weighted.mean qnorm
 #' @export
-#' @seealso \code{\link[=se_mean_num]{se_mean_num()}}, \code{\link[=se_dummy]{se_dummy()}}
+#' @seealso \code{\link[=se_mean_num]{se_mean_num()}}
 #'
 #' @examples
 #' # Direct column references (unquoted)
@@ -168,17 +167,21 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #'   weight = !!rlang::sym(wt),
 #'   !!!rlang::syms(vars)
 #' )
-#'
+#' 
 se_mean_cat <- function(data, variable, ..., strata, weight, alpha = 0.05) {
+  
   variable <- ensym(variable)
   group_vars <- enquos(...)
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
   weight <- ensym(weight)
-
+  
   var_name <- as_label(variable)
-  data <- se_dummy(data, !!variable)
-  dummy_vars <- names(data)[str_starts(names(data), paste0(var_name, "_"))]
-
+  group_var_names <- map_chr(group_vars, as_name)
+  
+  data <- se_dummy(data, c(!!variable, !!!group_vars))
+  
+  dummy_vars <- names(data)[str_starts(names(data), "joint_")]
+  
   map(dummy_vars, function(x) {
     data |>
       filter(.data[[x]] >= 0) |>
@@ -187,43 +190,37 @@ se_mean_cat <- function(data, variable, ..., strata, weight, alpha = 0.05) {
         occ = sum(yk == 1),
         nc = sum(!!weight),
         ybar = weighted.mean(yk, w = !!weight),
-        zk = (yk - ybar) / nc,
-        .by = c(!!!group_vars)
+        zk = (yk - ybar) / nc
       ) |>
       mutate(
         mh = n(),
         Nh = sum(!!weight),
         T1h = ifelse(mh != 1, mh / (mh - 1) * (1 - mh / Nh), 0),
         zhat = !!weight * zk,
-        T2h = (!!weight * zk - zhat / mh)^2,
-        .by = c(!!strata, !!!group_vars)
+        T2h = (!!weight * zk - zhat / mh)^2
       ) |>
       summarise(
         sum_T2h = sum(T2h),
         T1h = unique(T1h),
         occ = unique(occ),
-        ybar = unique(ybar),
-        .by = c(!!strata, !!!group_vars)
+        ybar = unique(ybar)
       ) |>
       summarise(
         occ = unique(occ),
         prop = unique(ybar),
-        vhat = sum(T1h * sum_T2h),
-        .by = c(!!!group_vars)
+        vhat = sum(T1h * sum_T2h)
       ) |>
       mutate(
         stand_dev = sqrt(vhat),
         ci = stand_dev * qnorm(1 - alpha / 2),
         ci_l = prop - ci,
         ci_u = prop + ci,
-        {{ variable }} := str_remove(
-          x,
-          paste0(var_name, "_")
-        ),
+        output = str_remove(x, "joint_"),
         .before = 1
       )
   }) |>
     list_rbind() |>
-    select(!!variable, !!!group_vars, occ, prop, vhat, stand_dev, starts_with("ci")) |>
-    arrange(!!!group_vars)
+    select(output, occ, prop, vhat, stand_dev, starts_with("ci")) |>
+    separate_wider_delim(output, delim = "_", names = c(var_name, group_var_names))
 }
+
