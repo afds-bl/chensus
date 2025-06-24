@@ -1,4 +1,11 @@
-# chensus 3.0.0
+# chensus 2.0.0.
+
+## New features
+
+- Renamed `se_mean_cat()` to `se_prop()`.
+- Renamed `se_mean_num()` to `se_mean()`.
+- Added `se_total_prop()` to estimate totals and proportions of categorical variables.
+- Added `se_total_comb()` and `se_mean_comb()` to estimate totals and means, respectively, for all possible grouping variable combinations.
 
 # chensus 1.0.0
 
