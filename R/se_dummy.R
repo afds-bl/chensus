@@ -22,8 +22,6 @@
 #' df <- tibble::tibble(gender = c("male", "female"), country = c("US", "Other"))
 #' se_dummy(df, gender, country)
 #'
-#' @noRd
-#'
 se_dummy <- function(data, ..., sep = "_") {
   prefix <- "joint"
   columns_quo <- rlang::enquos(...)
