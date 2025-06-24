@@ -1,7 +1,7 @@
 #' Format Table with Totals and Proportions for a Categorical Variable
 #'
 #' This function estimates proportions for a categorical variable grouped by optional variables, computes totals,
-#' joins both estimates, removes unnecessary columns, and flags masked values.
+#' joins both estimates, removes unnecessary columns.
 #'
 #' @param data A data frame or tibble.
 #' @param ... Optional grouping variables (unquoted).
@@ -59,6 +59,5 @@ se_total_prop <- function(data, ..., strata, weight, alpha = 0.05) {
     res_p,
     by = c(group_vars, "occ"),
     suffix = c("_total", "_prop")
-  ) |>
-    fso_flag_mask()
+  ) 
 }

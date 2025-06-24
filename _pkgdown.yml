@@ -15,7 +15,7 @@ reference:
       - se_total_comb
       - se_total_map
       - se_mean
-      - se_mean_com
+      - se_mean_comb
 
   - title: "Mobility Survey"
     contents:

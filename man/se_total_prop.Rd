@@ -22,7 +22,7 @@ A tibble with proportions and totals joined, masked as necessary.
 }
 \description{
 This function estimates proportions for a categorical variable grouped by optional variables, computes totals,
-joins both estimates, removes unnecessary columns, and flags masked values.
+joins both estimates, removes unnecessary columns.
 }
 \examples{
 se_total_prop(

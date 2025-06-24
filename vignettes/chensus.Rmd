@@ -75,6 +75,32 @@ If we wish to estimate population for all combinations of grouping variables inc
 se_total_comb(nhanes, strata = strata, weight = weights, gender, birth_country)
 ```
 
+## Proportion Estimates
+
+We can also estimate the proportion of males and females by birth country in the `nhanes` survey:
+
+```{r}
+se_prop(
+  data = nhanes,
+  gender,
+  birth_country,
+  weight = weights,
+  strata = strata
+)
+```
+
+and we can display total and proportion estimates in a single table using the FSO format. The FSO publication format qualifies the reliability of estimates and hides confidential estimates (fewer than five observations):
+
+```{r}
+se_total_prop(
+  data = nhanes,
+  gender,
+  birth_country,
+  weight = weights,
+  strata = strata
+) |>
+  fso_flag_mask()
+```
 ## Mean Estimates
 
 If on the other hand we wish to estimate the average household size then we can use the function `se_mean()`:
@@ -100,30 +126,17 @@ se_mean_comb(
 )
 ```
 
-We can also estimate the proportion of males and females by birth country in the `nhanes` survey:
-
+and with FSO format:
 ```{r}
-se_prop(
-  data = nhanes,
-  gender,
-  birth_country,
-  weight = weights,
-  strata = strata
-)
+nhanes |>
+  se_mean_comb(
+    variable = household_size,
+    gender, birth_country,
+    strata = strata,
+    weight = weights,
+  ) |>
+  fso_flag_mask(lang = "en") # Default is "de", further possibilities: "fr", "it"
 ```
-
-and display a table with total and proportion estimates, using the FSO-formatting of structural survey results:
-
-```{r}
-se_total_prop(
-  data = nhanes,
-  gender,
-  birth_country,
-  weight = weights,
-  strata = strata
-)
-```
-
 
 # Mobility Survey Example
 
