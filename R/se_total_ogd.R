@@ -122,7 +122,8 @@ se_combn <- function(vars) {
 #' }
 #'
 #' @details
-#' This function iterates over each grouping variable supplied via `...`, applies \code{se_total()} to the data grouped by that variable, and combines the results into a single tibble. The grouping variable is renamed to `value` and its name is stored in the `variable` column for clarity.
+#' This function iterates over each grouping variable supplied via \code{...}, applies \code{se_total()} to the data grouped by that variable, 
+#' and combines the results into a single tibble. The grouping variable is renamed to {value} and its name is stored in the {variable} column for clarity.
 #'
 #' @seealso \code{\link[=se_total]{se_total()}}, \code{\link[=se_total_ogd]{se_total_ogd()}}.
 #' @import dplyr

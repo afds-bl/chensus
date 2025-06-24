@@ -2,7 +2,7 @@
 % Please edit documentation in R/se_total_prop.R
 \name{se_total_prop}
 \alias{se_total_prop}
-\title{Create a Table with Total and Proportion Estiamtes for Categorical Variables}
+\title{Create a Table with Total and Proportion Estimates for Categorical Variables in Structural Survey}
 \usage{
 se_total_prop(data, ..., strata, weight, alpha = 0.05)
 }

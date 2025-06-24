@@ -36,7 +36,8 @@ A tibble with results for each grouping variable, including:
 This wrapper function allows to efficiently compute totals and confidence intervals for each grouping variable in the structural survey data in parallel.
 
 
-This function iterates over each grouping variable supplied via `...`, applies \code{se_total()} to the data grouped by that variable, and combines the results into a single tibble. The grouping variable is renamed to `value` and its name is stored in the `variable` column for clarity.
+This function iterates over each grouping variable supplied via \code{...}, applies \code{se_total()} to the data grouped by that variable, 
+and combines the results into a single tibble. The grouping variable is renamed to {value} and its name is stored in the {variable} column for clarity.
 }
 \examples{
 # Unquoted variables
