@@ -28,7 +28,7 @@
 #'
 se_total_prop <- function(data, ..., strata, weight, alpha = 0.05) {
   group_quo <- enquos(...)
-  strata <- ensym(strata)
+  strata <- if (missing(strata)) sym("zone") else ensym(strata)
   weight <- ensym(weight)
 
   group_vars <- map_chr(group_quo, as_label)

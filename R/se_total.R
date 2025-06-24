@@ -75,6 +75,11 @@ se_total <- function(data, ..., strata, weight, alpha = 0.05) {
 
   by_cols <- c(as_label(strata), map_chr(group_vars, as_label))
   by_vec <- set_names(by_cols)
+  
+  group_var_names <- map_chr(group_vars, as_name)
+
+  data <- data |>
+    mutate(across(all_of(group_var_names), \(x) as.character(x)))
 
   # Summarise by strata
   data <- se_summarise(
