@@ -129,7 +129,7 @@ se_mean_num <- function(data, variable, ..., strata, weight, alpha = 0.05) {
 #' }
 #'
 #' @import dplyr
-#' @importFrom rlang ensym enquos as_label sym
+#' @importFrom rlang sym ensym enquos as_label as_name
 #' @importFrom tidyr separate_wider_delim
 #' @importFrom stringr str_starts str_remove
 #' @importFrom purrr map map_chr list_rbind

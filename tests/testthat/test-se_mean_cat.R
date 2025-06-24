@@ -46,6 +46,6 @@ test_that("se_mean_cat works with numeric variable by treating it as categorical
     {
       se_mean_cat(df, variable = notacolumn, weight = weight)
     },
-    regexp = "Can't subset elements that don't exist"
+    regexp = "don't exist"
   )
 })

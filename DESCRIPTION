@@ -19,7 +19,8 @@ Imports:
     rlang,
     stringr,
     tidyr,
-    forcats
+    forcats,
+    fastDummies
 Suggests: 
     knitr,
     rmarkdown,

@@ -1,17 +1,19 @@
 test_that("se_dummy handles both quoted and unquoted column names", {
   # Test data
   df <- data.frame(
-    id = 1:4,
-    group = c("A", "B", "A", "C")
+    id = 1:3,
+    group = c("A", "B", "A"),
+    team = c(10, 5, 9)
   )
 
   # Expected output
   expected <- tibble::tibble(
-    id = 1:4,
-    group = c("A", "B", "A", "C"),
-    group_A = c(1L, 0L, 1L, 0L),
-    group_B = c(0L, 1L, 0L, 0L),
-    group_C = c(0L, 0L, 0L, 1L)
+    id = 1:3,
+    group = c("A", "B", "A"),
+    team = c(10, 5, 9),
+    joint_A_9 = c(0L, 0L, 1L),
+    joint_A_10 = c(1L, 0L, 0L),
+    joint_B_5 = c(0L, 1L, 0L)
   )
 
   # Test both input types
@@ -19,6 +21,14 @@ test_that("se_dummy handles both quoted and unquoted column names", {
     unquoted = rlang::expr(group),
     quoted = "group",
     symbol_from_string = rlang::sym("group")
+  )
+  
+  expected <-  tibble::tibble(
+    id = 1:3,
+    group = c("A", "B", "A"),
+    team = c(10, 5, 9),
+    joint_A = c(1L, 0L, 1L),
+    joint_B = c(0L, 1L, 0L)
   )
 
   for (case_name in names(test_cases)) {
@@ -36,8 +46,8 @@ test_that("se_dummy handles both quoted and unquoted column names", {
 
     # Test column ordering
     expect_equal(
-      names(result)[3:5],
-      c("group_A", "group_B", "group_C"),
+      names(result)[4:5],
+      c("joint_A", "joint_B"),
       info = paste("Column ordering - Case:", case_name)
     )
 
@@ -54,6 +64,6 @@ test_that("se_dummy handles both quoted and unquoted column names", {
     {
       se_dummy(df, "nonexistent_column")
     },
-    regexp = "Can't subset elements that don't exist"
+    regexp = "doesn't exist"
   )
 })
