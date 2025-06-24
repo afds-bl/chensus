@@ -28,7 +28,7 @@ joins both estimates, removes unnecessary columns, and flags masked values.
 se_total_prop(
   data = nhanes,
   interview_lang,
-  gender, 
+  gender,
   birth_country,
   strata = strata,
   weight = weights

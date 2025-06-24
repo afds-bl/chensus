@@ -45,7 +45,7 @@ se_prop(
 se_prop(
   data = nhanes,
   "interview_lang",
-  gender, 
+  gender,
   "birth_country",
   strata = "strata",
   weight = weights,

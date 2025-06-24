@@ -20,19 +20,19 @@
 #' se_total_prop(
 #'   data = nhanes,
 #'   interview_lang,
-#'   gender, 
+#'   gender,
 #'   birth_country,
 #'   strata = strata,
 #'   weight = weights
 #' )
-#' 
+#'
 se_total_prop <- function(data, ..., strata, weight, alpha = 0.05) {
   group_quo <- enquos(...)
   strata <- ensym(strata)
   weight <- ensym(weight)
-  
+
   group_vars <- map_chr(group_quo, as_label)
-  
+
   # Estimate proportions
   res_p <- data |>
     se_prop(
@@ -42,7 +42,7 @@ se_total_prop <- function(data, ..., strata, weight, alpha = 0.05) {
       alpha = alpha
     ) |>
     select(-stand_dev, -vhat)
-  
+
   # Estimate totals
   res_t <- data |>
     se_total(
@@ -52,7 +52,7 @@ se_total_prop <- function(data, ..., strata, weight, alpha = 0.05) {
       alpha = alpha
     ) |>
     select(-stand_dev, -vhat, -ci_per)
-  
+
   # Join and mask
   full_join(
     res_t,

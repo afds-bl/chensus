@@ -105,7 +105,7 @@ We can also estimate the proportion of males and females by birth country in the
 ```{r}
 se_prop(
   data = nhanes,
-  gender, 
+  gender,
   birth_country,
   weight = weights,
   strata = strata
@@ -117,7 +117,7 @@ and display a table with total and proportion estimates, using the FSO-formattin
 ```{r}
 se_total_prop(
   data = nhanes,
-    gender, 
+  gender,
   birth_country,
   weight = weights,
   strata = strata

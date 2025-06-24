@@ -60,7 +60,7 @@ se_total(
 )
 ```
 
-Estimate average household size:
+Estimate average household size (numeric variable):
 
 ```{r}
 se_mean(
@@ -71,7 +71,7 @@ se_mean(
 )
 ```
 
-Estimate population proportions by gender:
+Estimate population proportions by gender (categorical variable):
 
 ```{r example2}
 se_prop(

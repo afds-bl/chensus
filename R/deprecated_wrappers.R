@@ -13,11 +13,11 @@ se_estimate_mean <- function(...) {
 }
 se_mean_num <- function(...) {
   .Deprecated("se_mean", package = "chensus")
-  se_mean(...) 
+  se_mean(...)
 }
-se_mean_cat <- function (...) {
+se_mean_cat <- function(...) {
   .Deprecated("se_prop", package = "chensus")
-  se_prop(...) 
+  se_prop(...)
 }
 
 #' @rdname chensus-deprecated

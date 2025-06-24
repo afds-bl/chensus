@@ -22,8 +22,8 @@ test_that("se_dummy handles both quoted and unquoted column names", {
     quoted = "group",
     symbol_from_string = rlang::sym("group")
   )
-  
-  expected <-  tibble::tibble(
+
+  expected <- tibble::tibble(
     id = 1:3,
     group = c("A", "B", "A"),
     team = c(10, 5, 9),

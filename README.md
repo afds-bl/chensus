@@ -49,7 +49,7 @@ se_total(
 1  9971 316481044. 1.06e13  3250407. 6370681.   2.01 310110363. 322851725.
 ```
 
-Estimate average household size:
+Estimate average household size (numeric variable):
 
 ``` r
 se_mean(
@@ -64,7 +64,7 @@ se_mean(
 1  9971           3.46 0.000495    0.0222 0.0436  3.42  3.51
 ```
 
-Estimate population proportions by gender:
+Estimate population proportions by gender (categorical variable):
 
 ``` r
 se_prop(

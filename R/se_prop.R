@@ -21,7 +21,7 @@
 #' @import dplyr
 #' @importFrom rlang sym ensym enquos as_label as_name
 #' @importFrom tidyr separate_wider_delim
-#' @importFrom stringr str_starts str_remove
+#' @importFrom stringr str_starts str_remove str_replace_all
 #' @importFrom purrr map map_chr list_rbind
 #' @importFrom stats weighted.mean qnorm
 #' @export
@@ -40,7 +40,7 @@
 #' se_prop(
 #'   data = nhanes,
 #'   "interview_lang",
-#'   gender, 
+#'   gender,
 #'   "birth_country",
 #'   strata = "strata",
 #'   weight = weights,
@@ -55,19 +55,21 @@
 #'   weight = !!rlang::sym(wt),
 #'   !!!rlang::syms(vars)
 #' )
-#' 
+#'
 se_prop <- function(data, ..., strata, weight, alpha = 0.05) {
-  
   group_vars <- enquos(...)
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
   weight <- ensym(weight)
-  
+
   group_var_names <- map_chr(group_vars, as_name)
+
+  data <- data |> 
+    mutate(across(all_of(group_var_names), \(x) str_replace_all(as.character(x), "_", ".")))
   
   data <- se_dummy(data, !!!group_vars)
-  
+
   dummy_vars <- names(data)[str_starts(names(data), "joint_")]
-  
+
   map(dummy_vars, function(x) {
     data |>
       filter(.data[[x]] >= 0) |>

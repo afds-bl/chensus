@@ -39,7 +39,10 @@
 #' # Quoted column names
 #' se_mean(
 #'   data = nhanes,
-#'   variable = "age", strata = "strata", weight = "weights", gender, birth_country
+#'   variable = "age", 
+#'   strata = "strata", 
+#'   weight = "weights", 
+#'   gender, birth_country
 #' )
 #'
 #' # Programmatic use with strings

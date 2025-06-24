@@ -67,4 +67,3 @@ se_mean_comb <- function(data, variable, ..., strata, weight, alpha = 0.05) {
       )
     )
 }
-
