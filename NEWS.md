@@ -1,3 +1,5 @@
+# chensus 3.0.0
+
 # chensus 1.0.0
 
 ## New features
