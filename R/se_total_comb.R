@@ -84,6 +84,7 @@ se_total_comb <- function(data, ..., strata, weight, alpha = 0.05) {
 #' The list includes the empty combination of length 0.
 #'
 #' @keywords internal
+#' 
 #' @importFrom purrr map list_c
 #' @importFrom utils combn
 #' @export

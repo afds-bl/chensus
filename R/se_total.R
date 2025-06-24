@@ -26,7 +26,7 @@
 #'
 #'   \code{se_total(data, weight = !!rlang::sym(weight_var), !!!rlang::syms(group_vars))}
 #'
-#' @returns A tibble with estimates for all grouping column combinations, including:
+#' @returns A tibble with total estimates for all grouping column combinations, including:
 #' \describe{
 #'   \item{<variable>}{Value of the grouping variables passed in \code{...}.}
 #'    \item{occ}{number of observations in survey sample.}

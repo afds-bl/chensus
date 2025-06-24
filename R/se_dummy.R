@@ -2,7 +2,7 @@
 #'
 #' \code{se_dummy} is an internal helper function used to generate dummy (0/1) variables 
 #' based on the combinations of multiple categorical variables. It is primarily used by 
-#' \code{se_mean_cat()} to support grouped dummy encoding.
+#' \code{se_prop()} to support grouped dummy encoding.
 #'
 #' @param data A data frame or tibble.
 #' @param ... One or more categorical columns (unquoted or quoted) whose combinations will be 

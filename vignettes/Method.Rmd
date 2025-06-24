@@ -1,5 +1,5 @@
 ---
-title: "Mathematical Method"
+title: "Method"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Method}
@@ -118,7 +118,7 @@ Here again the confidence interval is given by:
 
 $$\text{CI} = \sqrt{\hat{V}(\bar y)} \times \text{qnorm}(1 - \frac{\alpha}2)$$
 
-`se_mean_num()` and `se_mean_cat()` calculate $\bar y$, $\hat{V}(\bar y)$, the frequency in
+`se_mean()` and `se_prop()` calculate $\bar y$, $\hat{V}(\bar y)$, the frequency in
 the survey sample and confidence intervals.
 
 # Mobility and Transport Survey

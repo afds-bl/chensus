@@ -10,11 +10,12 @@ reference:
   - title: "Structural Survey"
     contents:
       - se_total
+      - se_prop
+      - se_total_prop
       - se_total_comb
       - se_total_map
-      - se_mean_num
-      - se_mean_num_comb
-      - se_mean_cat
+      - se_mean
+      - se_mean_com
 
   - title: "Mobility Survey"
     contents:

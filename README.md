@@ -52,7 +52,7 @@ se_total(
 Estimate average household size:
 
 ``` r
-se_mean_num(
+se_mean(
   data = nhanes,
   variable = household_size,
   weight = weights,
@@ -67,17 +67,17 @@ se_mean_num(
 Estimate population proportions by gender:
 
 ``` r
-se_mean_cat(
+se_prop(
   data = nhanes,
-  variable = gender,
+  gender,
   weight = weights,
   strata = strata
 )
 # A tibble: 2 × 8
   gender   occ  prop      vhat stand_dev     ci  ci_l  ci_u
   <chr>  <int> <dbl>     <dbl>     <dbl>  <dbl> <dbl> <dbl>
-1 Male    4892 0.488 0.0000520   0.00721 0.0141 0.474 0.502
-2 Female  5079 0.512 0.0000520   0.00721 0.0141 0.498 0.526
+1 Female  5079 0.512 0.0000521   0.00722 0.0141 0.497 0.526
+2 Male    4892 0.488 0.0000521   0.00722 0.0141 0.474 0.503
 ```
 
 ### Mobility and Transport Survey

@@ -77,10 +77,10 @@ se_total_comb(nhanes, strata = strata, weight = weights, gender, birth_country)
 
 ## Mean Estimates
 
-If on the other hand we wish to estimate the average household size then we can use the function `se_mean_num()`:
+If on the other hand we wish to estimate the average household size then we can use the function `se_mean()`:
 
 ```{r}
-se_mean_num(
+se_mean(
   data = nhanes,
   variable = household_size,
   strata = strata,
@@ -88,10 +88,10 @@ se_mean_num(
 )
 ```
 
-or the wrapper function `se_mean_num_comb()` for all possible combinations of grouping variables `gender` and `interview_lang`:
+or the wrapper function `se_mean_comb()` for all possible combinations of grouping variables `gender` and `interview_lang`:
 
 ```{r}
-se_mean_num_comb(
+se_mean_comb(
   nhanes,
   variable = household_size,
   strata = strata,
@@ -100,28 +100,30 @@ se_mean_num_comb(
 )
 ```
 
-We can also estimate the proportion of males and females in the `nhanes` survey, `gender` being a categorical variable:
+We can also estimate the proportion of males and females by birth country in the `nhanes` survey:
 
 ```{r}
-se_mean_cat(
+se_prop(
   data = nhanes,
-  variable = gender,
+  gender, 
+  birth_country,
   weight = weights,
   strata = strata
 )
 ```
 
-and by birth country:
+and display a table with total and proportion estimates, using the FSO-formatting of structural survey results:
 
 ```{r}
-se_mean_cat(
+se_total_prop(
   data = nhanes,
-  variable = gender,
+    gender, 
+  birth_country,
   weight = weights,
-  strata = strata,
-  birth_country
+  strata = strata
 )
 ```
+
 
 # Mobility Survey Example
 

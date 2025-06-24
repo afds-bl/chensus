@@ -36,3 +36,4 @@ se_summarise(nhanes,
 )
 
 }
+\keyword{internal}

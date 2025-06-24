@@ -1,4 +1,4 @@
-test_that("se_mean_num computes mean and CI correctly with different argument types", {
+test_that("se_mean computes mean and CI correctly with different argument types", {
   # Sample data
   df <- tibble(
     zone = c("A", "A", "B", "B", "A", "B", "A", "B", "A", "B"),
@@ -9,16 +9,16 @@ test_that("se_mean_num computes mean and CI correctly with different argument ty
   )
 
   # Unquoted column names
-  res_unquoted <- se_mean_num(data = df, variable = score, weight = weight, group, category)
+  res_unquoted <- se_mean(data = df, variable = score, weight = weight, group, category)
 
   # Quoted arguments
-  res_quoted <- se_mean_num(data = df, variable = "score", weight = "weight", "group", "category")
+  res_quoted <- se_mean(data = df, variable = "score", weight = "weight", "group", "category")
 
   # Programmatic use
   v <- "score"
   w <- "weight"
   groups <- c("group", "category")
-  res_prog <- se_mean_num(
+  res_prog <- se_mean(
     data = df,
     variable = !!sym(v),
     weight = !!sym(w),
@@ -41,14 +41,14 @@ test_that("se_mean_num computes mean and CI correctly with different argument ty
   }
 })
 
-test_that("se_mean_num throws error for non-numeric variable", {
+test_that("se_mean throws error for non-numeric variable", {
   df <- tibble(
     zone = c("A", "B"),
     weight = c(1, 2),
     text_var = c("x", "y")
   )
   expect_error(
-    se_mean_num(data = df, variable = text_var, weight = weight),
+    se_mean(data = df, variable = text_var, weight = weight),
     "must be numeric"
   )
 })

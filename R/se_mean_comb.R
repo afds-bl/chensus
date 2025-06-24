@@ -1,7 +1,7 @@
 #' Estimate Averages of Numeric Variables for All Combinations of Grouping Variables in Structural Survey
 #'
-#' \code{se_mean_num_comb()} computes structural survey means for every combination of the supplied grouping variables.
-#' This wrapper function uses \code{\link[=se_mean_num]{se_mean_num()}} and the helper function \code{\link[=se_combn]{se_combn()}} and returns a combined tibble with results
+#' \code{se_mean_comb()} computes structural survey means for every combination of the supplied grouping variables.
+#' This wrapper function uses \code{\link[=se_mean]{se_mean()}} and the helper function \code{\link[=se_combn]{se_combn()}} and returns a combined tibble with results
 #' for each grouping subset, including means across all groups. This formatting can be useful for Open Government Data platforms.
 #'
 #' @param data A data frame or tibble.
@@ -16,7 +16,7 @@
 #' @return A tibble combining survey estimates for all combinations of \code{group_vars},
 #'   with grouping variables converted to factors where "Total" means no grouping.
 #'
-#' @seealso \code{\link[=se_mean_num]{se_mean_num()}}, \code{\link[=se_combn]{se_combn()}}.
+#' @seealso \code{\link[=se_mean]{se_mean()}}, \code{\link[=se_combn]{se_combn()}}.
 #'
 #' @import purrr
 #' @import dplyr
@@ -26,7 +26,7 @@
 #' @export
 #'
 #' @examples
-#' se_mean_num_comb(
+#' se_mean_comb(
 #'   nhanes,
 #'   variable = household_size,
 #'   strata = strata,
@@ -34,7 +34,7 @@
 #'   gender, interview_lang
 #' )
 #'
-se_mean_num_comb <- function(data, variable, ..., strata, weight, alpha = 0.05) {
+se_mean_comb <- function(data, variable, ..., strata, weight, alpha = 0.05) {
   weight <- ensym(weight)
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
 
@@ -46,7 +46,7 @@ se_mean_num_comb <- function(data, variable, ..., strata, weight, alpha = 0.05) 
   group_var_list |>
     map(
       \(group_vars) {
-        se_mean_num(
+        se_mean(
           data,
           variable = {{ variable }},
           strata = {{ strata }},

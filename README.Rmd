@@ -63,7 +63,7 @@ se_total(
 Estimate average household size:
 
 ```{r}
-se_mean_num(
+se_mean(
   data = nhanes,
   variable = household_size,
   weight = weights,
@@ -74,9 +74,9 @@ se_mean_num(
 Estimate population proportions by gender:
 
 ```{r example2}
-se_mean_cat(
+se_prop(
   data = nhanes,
-  variable = gender,
+  gender,
   weight = weights,
   strata = strata
 )

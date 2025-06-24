@@ -19,7 +19,7 @@ with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in t
 \item{alpha}{Numeric significance level for confidence intervals. Default is 0.05 (95\% CI).}
 }
 \value{
-A tibble with estimates for all grouping column combinations, including:
+A tibble with total estimates for all grouping column combinations, including:
 \describe{
   \item{<variable>}{Value of the grouping variables passed in \code{...}.}
    \item{occ}{number of observations in survey sample.}
