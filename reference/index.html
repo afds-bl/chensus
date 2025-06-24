@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">chensus</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,7 +19,7 @@
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/Method.html">Mathematical Method</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/Method.html">Method</a></li>
     <li><a class="dropdown-item" href="../articles/nhanes.html">NHANES Survey Data</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -55,7 +55,19 @@
         <dd>Estimate Totals of Structural Survey</dd>
       </dl><dl><dt>
 
-          <code><a href="se_total_comb.html">se_total_comb()</a></code>
+          <code><a href="se_prop.html">se_prop()</a></code>
+
+        </dt>
+        <dd>Estimate Proportions of Categorical Variables in Structural Survey</dd>
+      </dl><dl><dt>
+
+          <code><a href="se_total_prop.html">se_total_prop()</a></code>
+
+        </dt>
+        <dd>Format Table with Totals and Proportions for a Categorical Variable</dd>
+      </dl><dl><dt>
+
+          <code><a href="se_total_ogd.html">se_total_ogd()</a></code>
 
         </dt>
         <dd>Estimate Totals for All Combinations of Grouping Variables in Structural Survey</dd>
@@ -67,16 +79,16 @@
         <dd>Estimate Totals in Parallel for Multiple Grouping Variables in Structural Survey</dd>
       </dl><dl><dt>
 
-          <code><a href="se_mean_num.html">se_mean_num()</a></code>
+          <code><a href="se_mean.html">se_mean()</a></code>
 
         </dt>
         <dd>Estimate Averages of Numeric Variables in Structural Survey</dd>
       </dl><dl><dt>
 
-          <code><a href="se_mean_cat.html">se_mean_cat()</a></code>
+          <code><a href="se_mean_ogd.html">se_mean_ogd()</a></code>
 
         </dt>
-        <dd>Estimate Proportions of Categorical Variables in Structural Survey</dd>
+        <dd>Estimate Averages of Numeric Variables for All Combinations of Grouping Variables in Structural Survey</dd>
       </dl></div><div class="section level2">
       <h2 id="mobility-survey">Mobility Survey<a class="anchor" aria-label="anchor" href="#mobility-survey"></a></h2>
 
@@ -122,7 +134,7 @@
           <code><a href="se_dummy.html">se_dummy()</a></code>
 
         </dt>
-        <dd>Create Dummy Variables from a Categorical Column</dd>
+        <dd>Create Joint Dummy Variables from Multiple Categorical Columns</dd>
       </dl><dl><dt>
 
           <code><a href="se_summarise.html">se_summarise()</a></code>

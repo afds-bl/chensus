@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">chensus</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,7 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/Method.html">Mathematical Method</a></li>
+<li><a class="dropdown-item" href="articles/Method.html">Method</a></li>
     <li><a class="dropdown-item" href="articles/nhanes.html">NHANES Survey Data</a></li>
   </ul>
 </li>
@@ -67,7 +67,7 @@
 </h1>
 </div>
 <p><a href="https://github.com/afds-bl/chensus/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/afds-bl/chensus/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" class="external-link"><img src="https://img.shields.io/badge/license-GPL--3-blue.svg" alt="License: GPL v3"></a></p>
-<p><code>chensus</code> is an R package for estimating populations from surveys conducted by the Swiss Federal Statistical Office (FSO), specificially:</p>
+<p><code>chensus</code> is an R package for estimating populations from surveys conducted by the Swiss Federal Statistical Office (FSO), specifically:</p>
 <ul>
 <li>structural survey: <em>Strukturerhebung</em> (SE) / <em>relevé structurel</em> (RS),</li>
 <li>mobility and transport survey: <em>Mikrozensus Mobilität und Verkehr</em> (MZMV) / <em>Microrecensement mobilité et transports</em> (MRMT).</li>
@@ -98,8 +98,8 @@
 <span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>    occ      total    vhat stand_dev       ci ci_per       ci_l       ci_u</span>
 <span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="sc">&lt;</span>int<span class="sc">&gt;</span>      <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>    <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>      <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>      <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
 <span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">9971</span> <span class="fl">316481044.</span> <span class="fl">1.06e13</span>  <span class="fl">3250407.</span> <span class="fl">6370681.</span>   <span class="fl">2.01</span> <span class="fl">310110363.</span> <span class="fl">322851725.</span></span></code></pre></div>
-<p>Estimate average household size:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">se_mean_num</span>(</span>
+<p>Estimate average household size (numeric variable):</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">se_mean</span>(</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="at">data =</span> nhanes,</span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="at">variable =</span> household_size,</span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="at">weight =</span> weights,</span>
@@ -109,18 +109,18 @@
 <span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>    occ household_size     vhat stand_dev     ci  ci_l  ci_u</span>
 <span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="sc">&lt;</span>int<span class="sc">&gt;</span>          <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>    <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">9971</span>           <span class="fl">3.46</span> <span class="fl">0.000495</span>    <span class="fl">0.0222</span> <span class="fl">0.0436</span>  <span class="fl">3.42</span>  <span class="fl">3.51</span></span></code></pre></div>
-<p>Estimate population proportions by gender:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">se_mean_cat</span>(</span>
+<p>Estimate population proportions by gender (categorical variable):</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">se_prop</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="at">data =</span> nhanes,</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="at">variable =</span> gender,</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  gender,</span>
 <span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="at">weight =</span> weights,</span>
 <span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="at">strata =</span> strata</span>
 <span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>)</span>
 <span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co"># A tibble: 2 × 8</span></span>
 <span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>  gender   occ  prop      vhat stand_dev     ci  ci_l  ci_u</span>
 <span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>  <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="dv">1</span> Male    <span class="dv">4892</span> <span class="fl">0.488</span> <span class="fl">0.0000520</span>   <span class="fl">0.00721</span> <span class="fl">0.0141</span> <span class="fl">0.474</span> <span class="fl">0.502</span></span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="dv">2</span> Female  <span class="dv">5079</span> <span class="fl">0.512</span> <span class="fl">0.0000520</span>   <span class="fl">0.00721</span> <span class="fl">0.0141</span> <span class="fl">0.498</span> <span class="fl">0.526</span></span></code></pre></div>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="dv">1</span> Female  <span class="dv">5079</span> <span class="fl">0.512</span> <span class="fl">0.0000521</span>   <span class="fl">0.00722</span> <span class="fl">0.0141</span> <span class="fl">0.497</span> <span class="fl">0.526</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="dv">2</span> Male    <span class="dv">4892</span> <span class="fl">0.488</span> <span class="fl">0.0000521</span>   <span class="fl">0.00722</span> <span class="fl">0.0141</span> <span class="fl">0.474</span> <span class="fl">0.503</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="mobility-and-transport-survey">Mobility and Transport Survey<a class="anchor" aria-label="anchor" href="#mobility-and-transport-survey"></a>
@@ -198,7 +198,7 @@
 <span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a></span>
 <span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="st">  @Manual{,</span></span>
 <span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="st">    title = {{chensus}: Estimate Totals, Means, Proportions and Confidence Intervals of the Federal Statistic Office'</span>s Surveys<span class="er">}</span>,</span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>    author <span class="ot">=</span> {Souad Guemghar},</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>    author <span class="ot">=</span> {{Guemghar} and {S.}},</span>
 <span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>    organization <span class="ot">=</span> {Amt für Daten und Statistik, Basel<span class="sc">-</span>Landschaft},</span>
 <span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">1</span>.<span class="fl">0.0</span>},</span>
 <span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>    year <span class="ot">=</span> {<span class="dv">2025</span>},</span>
