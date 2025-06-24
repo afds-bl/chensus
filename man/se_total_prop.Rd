@@ -2,7 +2,7 @@
 % Please edit documentation in R/se_total_prop.R
 \name{se_total_prop}
 \alias{se_total_prop}
-\title{Format Table with Totals and Proportions for a Categorical Variable}
+\title{Create a Table with Total and Proportion Estiamtes for Categorical Variables}
 \usage{
 se_total_prop(data, ..., strata, weight, alpha = 0.05)
 }
@@ -18,11 +18,10 @@ se_total_prop(data, ..., strata, weight, alpha = 0.05)
 \item{alpha}{Significance level for confidence intervals. Default is 0.05.}
 }
 \value{
-A tibble with proportions and totals joined, masked as necessary.
+A tibble with joined total and proportion estimates.
 }
 \description{
-This function estimates proportions for a categorical variable grouped by optional variables, computes totals,
-joins both estimates, removes unnecessary columns.
+\code{se_total_prop} is a wrapper function for \code{se_total()} and \code{se_prop()} which estimates totals and proportions for categorical variables.
 }
 \examples{
 se_total_prop(
@@ -34,4 +33,7 @@ se_total_prop(
   weight = weights
 )
 
+}
+\seealso{
+\code{\link[=se_total]{se_total()}}, \code{\link[=se_prop]{se_prop()}}.
 }

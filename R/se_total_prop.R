@@ -1,7 +1,6 @@
-#' Format Table with Totals and Proportions for a Categorical Variable
+#' Create a Table with Total and Proportion Estiamtes for Categorical Variables
 #'
-#' This function estimates proportions for a categorical variable grouped by optional variables, computes totals,
-#' joins both estimates, removes unnecessary columns.
+#'  \code{se_total_prop} is a wrapper function for \code{se_total()} and \code{se_prop()} which estimates totals and proportions for categorical variables.
 #'
 #' @param data A data frame or tibble.
 #' @param ... Optional grouping variables (unquoted).
@@ -9,12 +8,14 @@
 #' @param weight The name of the weight variable.
 #' @param alpha Significance level for confidence intervals. Default is 0.05.
 #'
-#' @returns A tibble with proportions and totals joined, masked as necessary.
+#' @returns A tibble with joined total and proportion estimates.
 #'
 #' @importFrom dplyr select full_join
 #' @importFrom rlang ensym enquos syms
 #' @importFrom purrr map_chr
 #' @export
+#' 
+#' @seealso \code{\link[=se_total]{se_total()}}, \code{\link[=se_prop]{se_prop()}}.
 #'
 #' @examples
 #' se_total_prop(
