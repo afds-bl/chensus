@@ -12,10 +12,10 @@ reference:
       - se_total
       - se_prop
       - se_total_prop
-      - se_total_comb
+      - se_total_ogd
       - se_total_map
       - se_mean
-      - se_mean_comb
+      - se_mean_ogd
 
   - title: "Mobility Survey"
     contents:

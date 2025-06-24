@@ -69,10 +69,10 @@ se_total_map(
 )
 ```
 
-If we wish to estimate population for all combinations of grouping variables including no or partial grouping, we can use `se_total_comb()`, a wrapper function for the main `se_total()` function:
+If we wish to estimate population for all combinations of grouping variables including no or partial grouping, we can use `se_total_ogd()`, a wrapper function for the main `se_total()` function:
 
 ```{r}
-se_total_comb(nhanes, strata = strata, weight = weights, gender, birth_country)
+se_total_ogd(nhanes, strata = strata, weight = weights, gender, birth_country)
 ```
 
 ## Proportion Estimates
@@ -114,10 +114,10 @@ se_mean(
 )
 ```
 
-or the wrapper function `se_mean_comb()` for all possible combinations of grouping variables `gender` and `interview_lang`:
+or the wrapper function `se_mean_ogd()` for all possible combinations of grouping variables `gender` and `interview_lang`:
 
 ```{r}
-se_mean_comb(
+se_mean_ogd(
   nhanes,
   variable = household_size,
   strata = strata,
@@ -129,7 +129,7 @@ se_mean_comb(
 and with FSO format:
 ```{r}
 nhanes |>
-  se_mean_comb(
+  se_mean_ogd(
     variable = household_size,
     gender, birth_country,
     strata = strata,

@@ -73,5 +73,5 @@ se_total(
 
 }
 \seealso{
-\code{\link[=se_total_map]{se_total_map()}}, \code{\link[=se_total_comb]{se_total_comb()}}.
+\code{\link[=se_total_map]{se_total_map()}}, \code{\link[=se_total_ogd]{se_total_ogd()}}.
 }

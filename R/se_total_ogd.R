@@ -1,6 +1,6 @@
 #' Estimate Totals for All Combinations of Grouping Variables in Structural Survey
 #'
-#' \code{se_total_comb()} computes structural survey totals for every combination of the supplied grouping variables.
+#' \code{se_total_ogd()} computes structural survey totals for every combination of the supplied grouping variables.
 #' This wrapper function uses \code{\link[=se_total]{se_total()}} and the helper function \code{\link[=se_combn]{se_combn()}} and returns a combined tibble with results
 #' for each grouping subset, including totals across all groups. This formatting can be useful for Open Government Data platforms.
 #'
@@ -25,21 +25,21 @@
 #'
 #' @examples
 #' # Unquoted variables
-#' se_total_comb(nhanes, strata = strata, weight = weights, gender, birth_country)
+#' se_total_ogd(nhanes, strata = strata, weight = weights, gender, birth_country)
 #'
 #' # Programmatic use
 #' wt <- "weights"
 #' strata <- "strata"
 #' vars <- c("gender", "birth_country")
 #'
-#' se_total_comb(
+#' se_total_ogd(
 #'   nhanes,
 #'   strata = "strata",
 #'   weight = "weights",
 #'   !!!rlang::syms(vars)
 #' )
 #'
-se_total_comb <- function(data, ..., strata, weight, alpha = 0.05) {
+se_total_ogd <- function(data, ..., strata, weight, alpha = 0.05) {
   weight <- ensym(weight)
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
 
@@ -124,7 +124,7 @@ se_combn <- function(vars) {
 #' @details
 #' This function iterates over each grouping variable supplied via `...`, applies \code{se_total()} to the data grouped by that variable, and combines the results into a single tibble. The grouping variable is renamed to `value` and its name is stored in the `variable` column for clarity.
 #'
-#' @seealso \code{\link[=se_total]{se_total()}}, \code{\link[=se_total_comb]{se_total_comb()}}.
+#' @seealso \code{\link[=se_total]{se_total()}}, \code{\link[=se_total_ogd]{se_total_ogd()}}.
 #' @import dplyr
 #' @importFrom purrr map_chr
 #' @importFrom rlang enquo enquos as_label sym syms

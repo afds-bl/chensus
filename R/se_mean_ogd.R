@@ -1,6 +1,6 @@
 #' Estimate Averages of Numeric Variables for All Combinations of Grouping Variables in Structural Survey
 #'
-#' \code{se_mean_comb()} computes structural survey means for every combination of the supplied grouping variables.
+#' \code{se_mean_ogd()} computes structural survey means for every combination of the supplied grouping variables.
 #' This wrapper function uses \code{\link[=se_mean]{se_mean()}} and the helper function \code{\link[=se_combn]{se_combn()}} and returns a combined tibble with results
 #' for each grouping subset, including means across all groups. This formatting can be useful for Open Government Data platforms.
 #'
@@ -26,7 +26,7 @@
 #' @export
 #'
 #' @examples
-#' se_mean_comb(
+#' se_mean_ogd(
 #'   nhanes,
 #'   variable = household_size,
 #'   strata = strata,
@@ -34,7 +34,7 @@
 #'   gender, interview_lang
 #' )
 #'
-se_mean_comb <- function(data, variable, ..., strata, weight, alpha = 0.05) {
+se_mean_ogd <- function(data, variable, ..., strata, weight, alpha = 0.05) {
   weight <- ensym(weight)
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
 
