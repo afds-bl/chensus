@@ -16,6 +16,8 @@
 #' @importFrom fastDummies dummy_cols
 #' @importFrom rlang enquos
 #'
+#' @export
+#' 
 #' @keywords internal
 #'
 #' @examples
