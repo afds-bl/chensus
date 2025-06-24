@@ -98,7 +98,8 @@ with a string variable (e.g., <code>wt &lt;- "weights"</code>), use <code>!!sym(
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This wrapper function allows to efficiently compute totals and confidence intervals for each grouping variable in the structural survey data in parallel.</p>
 
-<p>This function iterates over each grouping variable supplied via `...`, applies <code><a href="se_total.html">se_total()</a></code> to the data grouped by that variable, and combines the results into a single tibble. The grouping variable is renamed to `value` and its name is stored in the `variable` column for clarity.</p>
+<p>This function iterates over each grouping variable supplied via <code>...</code>, applies <code><a href="se_total.html">se_total()</a></code> to the data grouped by that variable,
+and combines the results into a single tibble. The grouping variable is renamed to value and its name is stored in the variable column for clarity.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
