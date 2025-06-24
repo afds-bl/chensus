@@ -23,6 +23,8 @@
 #'   strata, gender
 #' )
 #'
+#' @keywords internal
+#'
 #' @importFrom rlang enquos ensym
 #' @import dplyr
 #'

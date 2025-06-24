@@ -30,6 +30,8 @@ In this vignette, we demonstrate the main features of the package using the buil
 
 # Structural Survery Example
 
+## Total Estimates
+
 Suppose we want to estimate the population in the `nhanes` data set by gender and birth country. We can use the main analysis function `se_total()`:
 
 ```{r}
@@ -67,16 +69,44 @@ se_total_map(
 )
 ```
 
-If we wish to estimate population for all combinations of grouping variables including no or partial grouping, we can use `se_total_comb()`, a wrapper function for the main `se_total()` function:
+If we wish to estimate population for all combinations of grouping variables including no or partial grouping, we can use `se_total_ogd()`, a wrapper function for the main `se_total()` function:
 
 ```{r}
-se_total_comb(nhanes, strata = strata, weight = weights, gender, birth_country)
+se_total_ogd(nhanes, strata = strata, weight = weights, gender, birth_country)
 ```
 
-If on the other hand we wish to estimate the average household size then we can use the function `se_mean_num()`:
+## Proportion Estimates
+
+We can also estimate the proportion of males and females by birth country in the `nhanes` survey:
 
 ```{r}
-se_mean_num(
+se_prop(
+  data = nhanes,
+  gender,
+  birth_country,
+  weight = weights,
+  strata = strata
+)
+```
+
+and we can display total and proportion estimates in a single table using the FSO format. The FSO publication format qualifies the reliability of estimates and hides confidential estimates (fewer than five observations):
+
+```{r}
+se_total_prop(
+  data = nhanes,
+  gender,
+  birth_country,
+  weight = weights,
+  strata = strata
+) |>
+  fso_flag_mask()
+```
+## Mean Estimates
+
+If on the other hand we wish to estimate the average household size then we can use the function `se_mean()`:
+
+```{r}
+se_mean(
   data = nhanes,
   variable = household_size,
   strata = strata,
@@ -84,27 +114,28 @@ se_mean_num(
 )
 ```
 
-We can also estimate the proportion of males and females in the `nhanes` survey, `gender` being a categorical variable:
+or the wrapper function `se_mean_ogd()` for all possible combinations of grouping variables `gender` and `interview_lang`:
 
 ```{r}
-se_mean_cat(
-  data = nhanes,
-  variable = gender,
+se_mean_ogd(
+  nhanes,
+  variable = household_size,
+  strata = strata,
   weight = weights,
-  strata = strata
+  gender, interview_lang
 )
 ```
 
-and by birth country:
-
+and with FSO format:
 ```{r}
-se_mean_cat(
-  data = nhanes,
-  variable = gender,
-  weight = weights,
-  strata = strata,
-  birth_country
-)
+nhanes |>
+  se_mean_ogd(
+    variable = household_size,
+    gender, birth_country,
+    strata = strata,
+    weight = weights,
+  ) |>
+  fso_flag_mask(lang = "en") # Default is "de", further possibilities: "fr", "it"
 ```
 
 # Mobility Survey Example

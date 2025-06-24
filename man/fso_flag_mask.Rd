@@ -9,7 +9,7 @@ fso_flag_mask(data, lang = c("de", "fr", "it", "en"))
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{lang}{A character string for the language of the estimate reliability description, one of "de", "fr", "it", "en". 
+\item{lang}{A character string for the language of the estimate reliability description, one of "de", "fr", "it", "en".
 Defaults to German if omitted.}
 }
 \value{
@@ -20,7 +20,7 @@ A tibble containing the original data with masked estimates when \code{occ <= 4}
 }
 \description{
 \code{fso_flag_mask} applies Swiss Federal Statistical Office (FSO) reliability rules for survey estimates,
-based on the number of observations (\code{occ}). It flags low reliability estimates and masks them when sample size is too small 
+based on the number of observations (\code{occ}). It flags low reliability estimates and masks them when sample size is too small
 (\code{occ <= 4}).
 }
 \details{

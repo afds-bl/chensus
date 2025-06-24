@@ -8,8 +8,16 @@ se_estimate_total <- function(...) {
 #' @rdname chensus-deprecated
 #' @export
 se_estimate_mean <- function(...) {
-  .Deprecated("se_mean_num", package = "chensus")
-  se_mean_num(...)
+  .Deprecated("se_mean", package = "chensus")
+  se_mean(...)
+}
+se_mean_num <- function(...) {
+  .Deprecated("se_mean", package = "chensus")
+  se_mean(...)
+}
+se_mean_cat <- function(...) {
+  .Deprecated("se_prop", package = "chensus")
+  se_prop(...)
 }
 
 #' @rdname chensus-deprecated

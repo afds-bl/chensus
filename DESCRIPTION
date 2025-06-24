@@ -1,7 +1,7 @@
 Type: Package
 Package: chensus
 Title: Estimate Totals, Means, Proportions and Confidence Intervals of the Federal Statistic Office's Surveys
-Version: 1.0.0
+Version: 2.0.0
 Authors@R: c(
     person("Souad", "Guemghar", , "souad.guemghar@bl.ch", role = c("aut", "cre")),
     person("Amt für Daten und Statistik, Basel-Landschaft", role = c("cph", "fnd"))
@@ -19,7 +19,8 @@ Imports:
     rlang,
     stringr,
     tidyr,
-    forcats
+    forcats,
+    fastDummies
 Suggests: 
     knitr,
     rmarkdown,

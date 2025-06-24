@@ -26,7 +26,7 @@
 #'
 #'   \code{se_total(data, weight = !!rlang::sym(weight_var), !!!rlang::syms(group_vars))}
 #'
-#' @returns A tibble with estimates for all grouping column combinations, including:
+#' @returns A tibble with total estimates for all grouping column combinations, including:
 #' \describe{
 #'   \item{<variable>}{Value of the grouping variables passed in \code{...}.}
 #'    \item{occ}{number of observations in survey sample.}
@@ -35,7 +35,7 @@
 #'   \item{ci, ci_per, ci_l, ci_u}{Confidence interval:  half-width (\code{ci}), percentage of the total (\code{ci_per}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
 #'  }
 #'
-#' @seealso \code{\link[=se_total_map]{se_total_map()}}, \code{\link[=se_total_comb]{se_total_comb()}}.
+#' @seealso \code{\link[=se_total_map]{se_total_map()}}, \code{\link[=se_total_ogd]{se_total_ogd()}}.
 #'
 #' @import dplyr
 #' @importFrom purrr map_chr
@@ -75,6 +75,11 @@ se_total <- function(data, ..., strata, weight, alpha = 0.05) {
 
   by_cols <- c(as_label(strata), map_chr(group_vars, as_label))
   by_vec <- set_names(by_cols)
+  
+  group_var_names <- map_chr(group_vars, as_name)
+
+  data <- data |>
+    mutate(across(all_of(group_var_names), \(x) as.character(x)))
 
   # Summarise by strata
   data <- se_summarise(

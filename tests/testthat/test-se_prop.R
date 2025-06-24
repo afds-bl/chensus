@@ -1,4 +1,4 @@
-test_that("se_mean_cat computes mean and CI of categorical input correctly with various argument types", {
+test_that("se_prop computes mean and CI of categorical input correctly with various argument types", {
   # Sample data
   df <- tibble(
     zone = c("A", "A", "B", "B", "A", "B", "A", "B", "A", "B"),
@@ -9,16 +9,15 @@ test_that("se_mean_cat computes mean and CI of categorical input correctly with 
   )
 
   # Case 1: Unquoted
-  res_unquoted <- se_mean_cat(df, variable = category, weight = weight, group)
+  res_unquoted <- se_prop(df, category, group, weight = weight)
 
   # Case 2: Quoted
-  res_quoted <- se_mean_cat(df, variable = "category", weight = "weight", "group")
+  res_quoted <- se_prop(df, "category", "group", weight = "weight")
 
   # Case 3: Programmatic
-  v <- "category"
+  v <- c("category", "group")
   w <- "weight"
-  g <- "group"
-  res_prog <- se_mean_cat(df, variable = !!sym(v), weight = !!sym(w), !!!syms(g))
+  res_prog <- se_prop(df, !!!syms(v), weight = !!sym(w))
 
   for (res in list(res_unquoted, res_quoted, res_prog)) {
     expect_s3_class(res, "data.frame")
@@ -29,7 +28,7 @@ test_that("se_mean_cat computes mean and CI of categorical input correctly with 
   }
 })
 
-test_that("se_mean_cat works with numeric variable by treating it as categorical", {
+test_that("se_prop works with numeric variable by treating it as categorical", {
   df <- tibble(
     zone = c("A", "B"),
     weight = c(1, 2),
@@ -37,15 +36,15 @@ test_that("se_mean_cat works with numeric variable by treating it as categorical
   )
 
   expect_silent({
-    result <- se_mean_cat(df, variable = category, weight = weight)
+    result <- se_prop(df, category, weight = weight)
     expect_s3_class(result, "data.frame")
     expect_true(all(c("1", "2") %in% result$category))
   })
 
   expect_error(
     {
-      se_mean_cat(df, variable = notacolumn, weight = weight)
+      se_prop(df, notacolumn, weight = weight)
     },
-    regexp = "Can't subset elements that don't exist"
+    regexp = "don't exist"
   )
 })
