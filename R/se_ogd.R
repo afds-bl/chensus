@@ -102,7 +102,7 @@ ogd_wrapper <- function(data, core_fun, ..., strata, weight, alpha = 0.05, varia
 
 #' Estimate Totals for All Combinations of Grouping Variables (OGD Format)
 #'
-#' \code{se_total_ogd} computes survey totals for every combination of the supplied grouping variables,
+#' \code{se_total_ogd} estimates survey totals for every combination of the supplied grouping variables,
 #' using \code{se_total} internally and returning results in a format suitable for Open Government Data (OGD).
 #' The output includes totals for each combination of grouping variables, as well as for the overall population.
 #'
@@ -135,7 +135,7 @@ se_total_ogd <- function(data, ..., strata, weight, alpha = 0.05) {
 
 #' Estimate Proportions for All Combinations of Grouping Variables (OGD Format)
 #'
-#' \code{se_prop_ogd} computes survey proportions for every combination of the supplied grouping variables,
+#' \code{se_prop_ogd} estimates survey proportions for every combination of the supplied grouping variables,
 #' using \code{se_prop} internally and returning results in a format suitable for Open Government Data (OGD).
 #' The output includes proportions for each combination of grouping variables, as well as for the overall population.
 #'
@@ -166,9 +166,42 @@ se_prop_ogd <- function(data, ..., strata, weight, alpha = 0.05) {
   ogd_wrapper(data, se_prop, ..., strata = {{ strata }}, weight = {{ weight }}, alpha = alpha)
 }
 
+#' Estimate Totals and Proportions for All Combinations of Grouping Variables (OGD Format)
+#'
+#' \code{se_total_prop_ogd} estimates totals and proportions for each combination
+#' of grouping variables using \code{se_total_prop}, returning results in a format compatible with Open Government Data (OGD) standards.
+#' along with stratification and weighting.
+#'
+#' @param data A data frame or tibble containing the survey data.
+#' @param ... Grouping variables (unquoted or programmatic) to compute combinations of totals and proportions.
+#' @param strata Stratification variable (unquoted or programmatic). Defaults to \code{"zone"} if omitted.
+#' @param weight Sampling weight variable (unquoted or programmatic).
+#' @param alpha Significance level for confidence intervals. Default is 0.05 (for 95\% CI).
+#'
+#' @return A tibble with totals and proportions for all combinations of the specified grouping variables.
+#' The output includes confidence intervals and handles missing values by representing them as "Total".
+#'
+#' @seealso \code{\link{se_total_prop}}, \code{\link{ogd_wrapper}}, \code{\link{se_total_ogd}}, \code{\link{se_prop_ogd}}
+#'
+#' @export
+#'
+#' @examples
+#' # With unquoted variables
+#' se_total_prop_ogd(nhanes, gender, birth_country, strata = strata, weight = weights)
+#'
+#' # Programmatic usage
+#' vars <- c("gender", "birth_country")
+#' wt <- "weights"
+#' se_total_prop_ogd(nhanes, !!!rlang::syms(vars), strata = strata, weight = !!rlang::sym(wt))
+#'
+se_total_prop_ogd <- function(data, ..., strata, weight, alpha = 0.05) {
+  strata <- if (missing(strata)) sym("zone") else ensym(strata)
+  ogd_wrapper(data, se_total_prop, ..., strata = {{ strata }}, weight = {{ weight }}, alpha = alpha)
+}
+
 #' Estimate Means for All Combinations of Grouping Variables (OGD Format)
 #'
-#' \code{se_mean_ogd} computes survey means for every combination of the supplied grouping variables,
+#' \code{se_mean_ogd} estimates survey means of a continuous variable for every combination of the supplied grouping variables,
 #' using \code{se_mean} internally and returning results in a format suitable for Open Government Data (OGD).
 #' The output includes means for each combination of grouping variables, as well as for the overall population.
 #'

@@ -22,7 +22,7 @@ A tibble with survey proportion estimates for all combinations of grouping varia
   Grouping variables are converted to factors with "Total" representing the overall group.
 }
 \description{
-\code{se_prop_ogd} computes survey proportions for every combination of the supplied grouping variables,
+\code{se_prop_ogd} estimates survey proportions for every combination of the supplied grouping variables,
 using \code{se_prop} internally and returning results in a format suitable for Open Government Data (OGD).
 The output includes proportions for each combination of grouping variables, as well as for the overall population.
 }

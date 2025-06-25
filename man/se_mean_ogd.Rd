@@ -24,7 +24,7 @@ A tibble with survey mean estimates for all combinations of grouping variables.
   Grouping variables are converted to factors with "Total" representing the overall group.
 }
 \description{
-\code{se_mean_ogd} computes survey means for every combination of the supplied grouping variables,
+\code{se_mean_ogd} estimates survey means of a continuous variable for every combination of the supplied grouping variables,
 using \code{se_mean} internally and returning results in a format suitable for Open Government Data (OGD).
 The output includes means for each combination of grouping variables, as well as for the overall population.
 }

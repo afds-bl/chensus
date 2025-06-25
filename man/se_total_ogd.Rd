@@ -22,7 +22,7 @@ A tibble with survey estimates for all combinations of grouping variables.
   Grouping variables are converted to factors with "Total" representing the overall group.
 }
 \description{
-\code{se_total_ogd} computes survey totals for every combination of the supplied grouping variables,
+\code{se_total_ogd} estimates survey totals for every combination of the supplied grouping variables,
 using \code{se_total} internally and returning results in a format suitable for Open Government Data (OGD).
 The output includes totals for each combination of grouping variables, as well as for the overall population.
 }
