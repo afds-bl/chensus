@@ -48,13 +48,14 @@ remotes::install_github("afds-bl/chensus")
 
 ### Structural survey
 
-Estimate total population:
+Estimate total population by gender:
 
 ```{r example1}
 library(chensus)
 
 se_total(
   data = nhanes,
+  gender,
   weight = weights,
   strata = strata
 )

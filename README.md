@@ -33,20 +33,22 @@ remotes::install_github("afds-bl/chensus")
 
 ### Structural survey
 
-Estimate total population:
+Estimate total population by gender:
 
 ``` r
 library(chensus)
 
 se_total(
   data = nhanes,
+  gender,
   weight = weights,
   strata = strata
 )
-# A tibble: 1 × 8
-    occ      total    vhat stand_dev       ci ci_per       ci_l       ci_u
-  <int>      <dbl>   <dbl>     <dbl>    <dbl>  <dbl>      <dbl>      <dbl>
-1  9971 316481044. 1.06e13  3250407. 6370681.   2.01 310110363. 322851725.
+# A tibble: 2 × 9
+  gender   occ      total    vhat stand_dev       ci ci_per       ci_l      ci_u
+  <chr>  <int>      <dbl>   <dbl>     <dbl>    <dbl>  <dbl>      <dbl>     <dbl>
+1 Female  5079 161922446. 7.82e12  2795884. 5479833.   3.38 156442613.    1.67e8
+2 Male    4892 154558598. 7.90e12  2810039. 5507576.   3.56 149051022.    1.60e8
 ```
 
 Estimate average household size (numeric variable):
@@ -76,8 +78,8 @@ se_prop(
 # A tibble: 2 × 8
   gender   occ  prop      vhat stand_dev     ci  ci_l  ci_u
   <chr>  <int> <dbl>     <dbl>     <dbl>  <dbl> <dbl> <dbl>
-1 Female  5079 0.512 0.0000521   0.00722 0.0141 0.497 0.526
-2 Male    4892 0.488 0.0000521   0.00722 0.0141 0.474 0.503
+1 Female  5079 0.512 0.0000520   0.00721 0.0141 0.498 0.526
+2 Male    4892 0.488 0.0000520   0.00721 0.0141 0.474 0.502
 ```
 
 ### Mobility and Transport Survey
@@ -158,7 +160,7 @@ utils::citation("chensus")
 
       Guemghar, S. (2025). chensus: Estimate Totals, Means, Proportions and
       Confidence Intervals of the Federal Statistic Office's Surveys. R
-      package version 1.0.0. Amt für Daten und Statistik, Basel-Landschaft.
+      package version 2.0.0. Amt für Daten und Statistik, Basel-Landschaft.
       https://github.com/afds-bl/chensus
 
     A BibTeX entry for LaTeX users is
@@ -167,7 +169,7 @@ utils::citation("chensus")
         title = {{chensus}: Estimate Totals, Means, Proportions and Confidence Intervals of the Federal Statistic Office's Surveys},
         author = {{Guemghar} and {S.}},
         organization = {Amt für Daten und Statistik, Basel-Landschaft},
-        note = {R package version 1.0.0},
+        note = {R package version 2.0.0},
         year = {2025},
         url = {https://github.com/afds-bl/chensus},
       }
