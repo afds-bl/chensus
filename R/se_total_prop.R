@@ -1,4 +1,4 @@
-#' Create a Table with Total and Proportion Estiamtes for Categorical Variables
+#' Create a Table with Total and Proportion Estimates for Categorical Variables in Structural Survey
 #'
 #'  \code{se_total_prop} is a wrapper function for \code{se_total()} and \code{se_prop()} which estimates totals and proportions for categorical variables.
 #'

@@ -48,3 +48,23 @@ test_that("se_prop works with numeric variable by treating it as categorical", {
     regexp = "don't exist"
   )
 })
+
+test_that("se_prop handles no column input correctly", {
+
+    df <- tibble(
+    zone = c("A", "A", "B", "B", "A", "B", "A", "B", "A", "B"),
+    weight = c(1.1, 1.4, 2.0, 0.9, 1.6, 2.2, 1.3, 1.8, 1.0, 2.5)
+  )
+  
+  result <- se_prop(df, weight = weight)
+  
+  # Verify results
+  expect_equal(nrow(result), 1)
+  expect_equal(result$occ, 10L)
+  expect_equal(result$prop, 1)
+  expect_equal(result$vhat, 0)
+  expect_equal(result$stand_dev, 0)
+  expect_equal(result$ci, 0)
+  expect_equal(result$ci_l, 1)
+  expect_equal(result$ci_u, 1)
+})

@@ -15,6 +15,7 @@
 #' @importFrom tidyr unite
 #' @importFrom fastDummies dummy_cols
 #' @importFrom rlang enquos
+#' @importFrom dplyr mutate
 #'
 #' @export
 #' 
@@ -26,7 +27,13 @@
 #'
 se_dummy <- function(data, ..., sep = "_") {
   prefix <- "joint"
-  columns_quo <- rlang::enquos(...)
+  columns_quo <- enquos(...)
+  
+  if (length(columns_quo) == 0) {
+    data <- data |> 
+      mutate("{prefix}_total" := 1)
+    return(data)
+  }
 
   data <- unite(
     data,
