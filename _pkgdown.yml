@@ -12,9 +12,11 @@ reference:
       - se_total
       - se_prop
       - se_total_prop
-      - se_total_ogd
       - se_total_map
       - se_mean
+      - se_total_ogd
+      - se_prop_ogd
+      - se_total_prop_ogd
       - se_mean_ogd
 
   - title: "Mobility Survey"
@@ -28,6 +30,7 @@ reference:
       - se_combn
       - se_dummy
       - se_summarise
+      - se_ogd_wrapper
       - fso_flag_mask
       
   - title: "Example Data"
