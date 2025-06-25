@@ -86,18 +86,20 @@
 <div class="section level3">
 <h3 id="structural-survey">Structural survey<a class="anchor" aria-label="anchor" href="#structural-survey"></a>
 </h3>
-<p>Estimate total population:</p>
+<p>Estimate total population by gender:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(chensus)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">se_total</span>(</span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">data =</span> nhanes,</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">weight =</span> weights,</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">strata =</span> strata</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>)</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co"># A tibble: 1 × 8</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>    occ      total    vhat stand_dev       ci ci_per       ci_l       ci_u</span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="sc">&lt;</span>int<span class="sc">&gt;</span>      <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>    <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>      <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>      <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">9971</span> <span class="fl">316481044.</span> <span class="fl">1.06e13</span>  <span class="fl">3250407.</span> <span class="fl">6370681.</span>   <span class="fl">2.01</span> <span class="fl">310110363.</span> <span class="fl">322851725.</span></span></code></pre></div>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  gender,</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">weight =</span> weights,</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="at">strata =</span> strata</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>)</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co"># A tibble: 2 × 9</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  gender   occ      total    vhat stand_dev       ci ci_per       ci_l      ci_u</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>  <span class="er">&lt;</span>int<span class="sc">&gt;</span>      <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>    <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>      <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="dv">1</span> Female  <span class="dv">5079</span> <span class="fl">161922446.</span> <span class="fl">7.82e12</span>  <span class="fl">2795884.</span> <span class="fl">5479833.</span>   <span class="fl">3.38</span> <span class="fl">156442613.</span>    <span class="fl">1.67e8</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="dv">2</span> Male    <span class="dv">4892</span> <span class="fl">154558598.</span> <span class="fl">7.90e12</span>  <span class="fl">2810039.</span> <span class="fl">5507576.</span>   <span class="fl">3.56</span> <span class="fl">149051022.</span>    <span class="fl">1.60e8</span></span></code></pre></div>
 <p>Estimate average household size (numeric variable):</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">se_mean</span>(</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="at">data =</span> nhanes,</span>
@@ -119,8 +121,8 @@
 <span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co"># A tibble: 2 × 8</span></span>
 <span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>  gender   occ  prop      vhat stand_dev     ci  ci_l  ci_u</span>
 <span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>  <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="dv">1</span> Female  <span class="dv">5079</span> <span class="fl">0.512</span> <span class="fl">0.0000521</span>   <span class="fl">0.00722</span> <span class="fl">0.0141</span> <span class="fl">0.497</span> <span class="fl">0.526</span></span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="dv">2</span> Male    <span class="dv">4892</span> <span class="fl">0.488</span> <span class="fl">0.0000521</span>   <span class="fl">0.00722</span> <span class="fl">0.0141</span> <span class="fl">0.474</span> <span class="fl">0.503</span></span></code></pre></div>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="dv">1</span> Female  <span class="dv">5079</span> <span class="fl">0.512</span> <span class="fl">0.0000520</span>   <span class="fl">0.00721</span> <span class="fl">0.0141</span> <span class="fl">0.498</span> <span class="fl">0.526</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="dv">2</span> Male    <span class="dv">4892</span> <span class="fl">0.488</span> <span class="fl">0.0000520</span>   <span class="fl">0.00721</span> <span class="fl">0.0141</span> <span class="fl">0.474</span> <span class="fl">0.502</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="mobility-and-transport-survey">Mobility and Transport Survey<a class="anchor" aria-label="anchor" href="#mobility-and-transport-survey"></a>
@@ -191,7 +193,7 @@
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  Guemghar, <span class="fu">S.</span> (<span class="dv">2025</span>). chensus<span class="sc">:</span> Estimate Totals, Means, Proportions and</span>
 <span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  Confidence Intervals of the Federal Statistic Office<span class="st">'s Surveys. R</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="st">  package version 1.0.0. Amt für Daten und Statistik, Basel-Landschaft.</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="st">  package version 2.0.0. Amt für Daten und Statistik, Basel-Landschaft.</span></span>
 <span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="st">  https://github.com/afds-bl/chensus</span></span>
 <span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a></span>
 <span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="st">A BibTeX entry for LaTeX users is</span></span>
@@ -200,7 +202,7 @@
 <span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="st">    title = {{chensus}: Estimate Totals, Means, Proportions and Confidence Intervals of the Federal Statistic Office'</span>s Surveys<span class="er">}</span>,</span>
 <span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>    author <span class="ot">=</span> {{Guemghar} and {S.}},</span>
 <span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>    organization <span class="ot">=</span> {Amt für Daten und Statistik, Basel<span class="sc">-</span>Landschaft},</span>
-<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">1</span>.<span class="fl">0.0</span>},</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">2</span>.<span class="fl">0.0</span>},</span>
 <span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>    year <span class="ot">=</span> {<span class="dv">2025</span>},</span>
 <span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>    url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>afds<span class="sc">-</span>bl<span class="sc">/</span>chensus},</span>
 <span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>  <span class="er">}</span></span></code></pre></div>
