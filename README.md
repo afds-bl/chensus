@@ -3,6 +3,8 @@
 # chensus <img src="man/figures/logo.png" align="right" width="10%" />
 
 [![R-CMD-check](https://github.com/afds-bl/chensus/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/afds-bl/chensus/actions/workflows/R-CMD-check.yaml)
+![Lifecycle:
+active](https://img.shields.io/badge/lifecycle-active-brightgreen.svg)
 [![License: GPL
 v3](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
