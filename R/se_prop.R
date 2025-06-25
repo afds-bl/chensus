@@ -60,16 +60,16 @@ se_prop <- function(data, ..., strata, weight, alpha = 0.05) {
   group_vars <- enquos(...)
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
   weight <- ensym(weight)
-  
+
   group_var_names <- map_chr(group_vars, as_name)
-  
-  data <- data |> 
+
+  data <- data |>
     mutate(across(all_of(group_var_names), \(x) str_replace_all(as.character(x), "_", ".")))
-  
+
   data <- se_dummy(data, !!!group_vars)
-  
+
   dummy_vars <- names(data)[str_starts(names(data), "joint_")]
-  
+
   results <- map(dummy_vars, function(x) {
     data |>
       filter(.data[[x]] >= 0) |>
@@ -85,13 +85,15 @@ se_prop <- function(data, ..., strata, weight, alpha = 0.05) {
         Nh = sum(!!weight),
         T1h = ifelse(mh != 1, mh / (mh - 1) * (1 - mh / Nh), 0),
         zhat = !!weight * zk,
-        T2h = (!!weight * zk - zhat / mh)^2
+        T2h = (!!weight * zk - zhat / mh)^2,
+        .by = c(!!strata)
       ) |>
       summarise(
         sum_T2h = sum(T2h),
         T1h = unique(T1h),
         occ = unique(occ),
-        ybar = unique(ybar)
+        ybar = unique(ybar),
+        .by = c(!!strata)
       ) |>
       summarise(
         occ = unique(occ),
@@ -108,15 +110,15 @@ se_prop <- function(data, ..., strata, weight, alpha = 0.05) {
       )
   }) |>
     list_rbind()
-  
+
   if (length(group_var_names) > 0) {
-    results <- results |> 
-      select(output, occ, prop, vhat, stand_dev, starts_with("ci")) |> 
+    results <- results |>
+      select(output, occ, prop, vhat, stand_dev, starts_with("ci")) |>
       separate_wider_delim(output, delim = "_", names = group_var_names)
   } else {
-    results <- results |> 
+    results <- results |>
       select(occ, prop, vhat, stand_dev, starts_with("ci"))
   }
-  
+
   return(results)
 }
