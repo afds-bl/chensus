@@ -2,7 +2,7 @@
 % Please edit documentation in R/se_ogd.R
 \name{se_mean_ogd}
 \alias{se_mean_ogd}
-\title{Estimate Means for All Combinations of Grouping Variables (OGD Format)}
+\title{Estimate Means for All Combinations of Grouping Variables (OGD Format) in Structural Survey}
 \usage{
 se_mean_ogd(data, variable, ..., strata, weight, alpha = 0.05)
 }

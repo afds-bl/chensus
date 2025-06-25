@@ -2,7 +2,7 @@
 % Please edit documentation in R/se_ogd.R
 \name{se_ogd_wrapper}
 \alias{se_ogd_wrapper}
-\title{Generic OGD wrapper for survey estimation functions}
+\title{OGD Wrapper for Structural Survey Estimation Functions}
 \usage{
 se_ogd_wrapper(
   data,
@@ -37,5 +37,5 @@ Hidden by default.}
 A tibble with estimates for all combinations of grouping variables.
 }
 \description{
-Generic OGD wrapper for survey estimation functions
+OGD Wrapper for Structural Survey Estimation Functions
 }

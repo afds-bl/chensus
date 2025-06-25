@@ -23,7 +23,7 @@ se_combn <- function(vars) {
     list_c()
 }
 
-#' Generic OGD wrapper for survey estimation functions
+#' OGD Wrapper for Structural Survey Estimation Functions
 #'
 #' @param data A data frame or tibble.
 #' @param core_fun The core estimation function to use, one of \code{se_mean}, \code{se_total}, \code{se_prop}.
@@ -100,7 +100,7 @@ se_ogd_wrapper <- function(data, core_fun, ..., strata, weight, alpha = 0.05, va
   return(output)
 }
 
-#' Estimate Totals for All Combinations of Grouping Variables (OGD Format)
+#' Estimate Totals for All Combinations of Grouping Variables (OGD Format) in Structural Survey
 #'
 #' \code{se_total_ogd} estimates survey totals for every combination of the supplied grouping variables,
 #' using \code{se_total} internally and returning results in a format suitable for Open Government Data (OGD).
@@ -133,7 +133,7 @@ se_total_ogd <- function(data, ..., strata, weight, alpha = 0.05) {
   se_ogd_wrapper(data, se_total, ..., strata = {{ strata }}, weight = {{ weight }}, alpha = alpha)
 }
 
-#' Estimate Proportions for All Combinations of Grouping Variables (OGD Format)
+#' Estimate Proportions for All Combinations of Grouping Variables (OGD Format) in Structural Survey
 #'
 #' \code{se_prop_ogd} estimates survey proportions for every combination of the supplied grouping variables,
 #' using \code{se_prop} internally and returning results in a format suitable for Open Government Data (OGD).
@@ -166,7 +166,7 @@ se_prop_ogd <- function(data, ..., strata, weight, alpha = 0.05) {
   se_ogd_wrapper(data, se_prop, ..., strata = {{ strata }}, weight = {{ weight }}, alpha = alpha)
 }
 
-#' Estimate Totals and Proportions for All Combinations of Grouping Variables (OGD Format)
+#' Estimate Totals and Proportions for All Combinations of Grouping Variables (OGD Format) in Structural Survey
 #'
 #' \code{se_total_prop_ogd} estimates totals and proportions for each combination
 #' of grouping variables using \code{se_total_prop}, returning results in a format compatible with Open Government Data (OGD) standards.
@@ -199,7 +199,7 @@ se_total_prop_ogd <- function(data, ..., strata, weight, alpha = 0.05) {
   se_ogd_wrapper(data, se_total_prop, ..., strata = {{ strata }}, weight = {{ weight }}, alpha = alpha)
 }
 
-#' Estimate Means for All Combinations of Grouping Variables (OGD Format)
+#' Estimate Means for All Combinations of Grouping Variables (OGD Format) in Structural Survey
 #'
 #' \code{se_mean_ogd} estimates survey means of a continuous variable for every combination of the supplied grouping variables,
 #' using \code{se_mean} internally and returning results in a format suitable for Open Government Data (OGD).

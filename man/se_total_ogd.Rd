@@ -2,7 +2,7 @@
 % Please edit documentation in R/se_ogd.R
 \name{se_total_ogd}
 \alias{se_total_ogd}
-\title{Estimate Totals for All Combinations of Grouping Variables (OGD Format)}
+\title{Estimate Totals for All Combinations of Grouping Variables (OGD Format) in Structural Survey}
 \usage{
 se_total_ogd(data, ..., strata, weight, alpha = 0.05)
 }
