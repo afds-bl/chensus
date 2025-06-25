@@ -37,5 +37,5 @@ se_total_ogd(nhanes, strata = strata, weight = !!rlang::sym(wt), !!!rlang::syms(
 
 }
 \seealso{
-\code{\link{se_prop_ogd}}, \code{\link{se_mean_ogd}}, \code{\link{ogd_wrapper}}, \code{\link{se_total}}
+\code{\link{se_prop_ogd}}, \code{\link{se_mean_ogd}}, \code{\link{se_ogd_wrapper}}, \code{\link{se_total}}
 }

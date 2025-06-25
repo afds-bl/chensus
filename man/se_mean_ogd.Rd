@@ -46,5 +46,5 @@ se_mean_ogd(
 
 }
 \seealso{
-\code{\link{se_total_ogd}}, \code{\link{se_prop_ogd}}, \code{\link{ogd_wrapper}}, \code{\link{se_mean}}
+\code{\link{se_total_ogd}}, \code{\link{se_prop_ogd}}, \code{\link{se_ogd_wrapper}}, \code{\link{se_mean}}
 }

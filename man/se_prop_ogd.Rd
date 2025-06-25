@@ -37,5 +37,5 @@ se_prop_ogd(nhanes, strata = strata, weight = !!rlang::sym(wt), !!!rlang::syms(v
 
 }
 \seealso{
-\code{\link{se_total_ogd}}, \code{\link{se_mean_ogd}}, \code{\link{ogd_wrapper}}, \code{\link{se_prop}}
+\code{\link{se_total_ogd}}, \code{\link{se_mean_ogd}}, \code{\link{se_ogd_wrapper}}, \code{\link{se_prop}}
 }

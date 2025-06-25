@@ -42,7 +42,7 @@ se_combn <- function(vars) {
 #' @importFrom rlang ensym ensyms syms as_label
 #' @importFrom forcats fct_na_value_to_level
 #'
-ogd_wrapper <- function(data, core_fun, ..., strata, weight, alpha = 0.05, variable = NULL, show_internal = FALSE) {
+se_ogd_wrapper <- function(data, core_fun, ..., strata, weight, alpha = 0.05, variable = NULL, show_internal = FALSE) {
   weight <- ensym(weight)
   group_var_syms <- ensyms(...)
   group_var_names <- map_chr(group_var_syms, as_label)
@@ -115,7 +115,7 @@ ogd_wrapper <- function(data, core_fun, ..., strata, weight, alpha = 0.05, varia
 #' @return A tibble with survey estimates for all combinations of grouping variables.
 #'   Grouping variables are converted to factors with "Total" representing the overall group.
 #'
-#' @seealso \code{\link{se_prop_ogd}}, \code{\link{se_mean_ogd}}, \code{\link{ogd_wrapper}}, \code{\link{se_total}}
+#' @seealso \code{\link{se_prop_ogd}}, \code{\link{se_mean_ogd}}, \code{\link{se_ogd_wrapper}}, \code{\link{se_total}}
 #'
 #' @export
 #'
@@ -130,7 +130,7 @@ ogd_wrapper <- function(data, core_fun, ..., strata, weight, alpha = 0.05, varia
 #'
 se_total_ogd <- function(data, ..., strata, weight, alpha = 0.05) {
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
-  ogd_wrapper(data, se_total, ..., strata = {{ strata }}, weight = {{ weight }}, alpha = alpha)
+  se_ogd_wrapper(data, se_total, ..., strata = {{ strata }}, weight = {{ weight }}, alpha = alpha)
 }
 
 #' Estimate Proportions for All Combinations of Grouping Variables (OGD Format)
@@ -148,7 +148,7 @@ se_total_ogd <- function(data, ..., strata, weight, alpha = 0.05) {
 #' @return A tibble with survey proportion estimates for all combinations of grouping variables.
 #'   Grouping variables are converted to factors with "Total" representing the overall group.
 #'
-#' @seealso \code{\link{se_total_ogd}}, \code{\link{se_mean_ogd}}, \code{\link{ogd_wrapper}}, \code{\link{se_prop}}
+#' @seealso \code{\link{se_total_ogd}}, \code{\link{se_mean_ogd}}, \code{\link{se_ogd_wrapper}}, \code{\link{se_prop}}
 #'
 #' @export
 #'
@@ -163,7 +163,7 @@ se_total_ogd <- function(data, ..., strata, weight, alpha = 0.05) {
 #'
 se_prop_ogd <- function(data, ..., strata, weight, alpha = 0.05) {
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
-  ogd_wrapper(data, se_prop, ..., strata = {{ strata }}, weight = {{ weight }}, alpha = alpha)
+  se_ogd_wrapper(data, se_prop, ..., strata = {{ strata }}, weight = {{ weight }}, alpha = alpha)
 }
 
 #' Estimate Totals and Proportions for All Combinations of Grouping Variables (OGD Format)
@@ -181,7 +181,7 @@ se_prop_ogd <- function(data, ..., strata, weight, alpha = 0.05) {
 #' @return A tibble with totals and proportions for all combinations of the specified grouping variables.
 #' The output includes confidence intervals and handles missing values by representing them as "Total".
 #'
-#' @seealso \code{\link{se_total_prop}}, \code{\link{ogd_wrapper}}, \code{\link{se_total_ogd}}, \code{\link{se_prop_ogd}}
+#' @seealso \code{\link{se_total_prop}}, \code{\link{se_ogd_wrapper}}, \code{\link{se_total_ogd}}, \code{\link{se_prop_ogd}}
 #'
 #' @export
 #'
@@ -196,7 +196,7 @@ se_prop_ogd <- function(data, ..., strata, weight, alpha = 0.05) {
 #'
 se_total_prop_ogd <- function(data, ..., strata, weight, alpha = 0.05) {
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
-  ogd_wrapper(data, se_total_prop, ..., strata = {{ strata }}, weight = {{ weight }}, alpha = alpha)
+  se_ogd_wrapper(data, se_total_prop, ..., strata = {{ strata }}, weight = {{ weight }}, alpha = alpha)
 }
 
 #' Estimate Means for All Combinations of Grouping Variables (OGD Format)
@@ -215,7 +215,7 @@ se_total_prop_ogd <- function(data, ..., strata, weight, alpha = 0.05) {
 #' @return A tibble with survey mean estimates for all combinations of grouping variables.
 #'   Grouping variables are converted to factors with "Total" representing the overall group.
 #'
-#' @seealso \code{\link{se_total_ogd}}, \code{\link{se_prop_ogd}}, \code{\link{ogd_wrapper}}, \code{\link{se_mean}}
+#' @seealso \code{\link{se_total_ogd}}, \code{\link{se_prop_ogd}}, \code{\link{se_ogd_wrapper}}, \code{\link{se_mean}}
 #'
 #' @export
 #'
@@ -238,5 +238,5 @@ se_total_prop_ogd <- function(data, ..., strata, weight, alpha = 0.05) {
 se_mean_ogd <- function(data, variable, ..., strata, weight, alpha = 0.05) {
   strata <- if (missing(strata)) sym("zone") else ensym(strata)
   variable <- ensym(variable)
-  ogd_wrapper(data, se_mean, ..., strata = {{ strata }}, weight = {{ weight }}, alpha = alpha, variable = variable)
+  se_ogd_wrapper(data, se_mean, ..., strata = {{ strata }}, weight = {{ weight }}, alpha = alpha, variable = variable)
 }
