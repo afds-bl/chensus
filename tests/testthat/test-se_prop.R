@@ -58,16 +58,6 @@ test_that("se_prop handles no column input correctly", {
   
   result <- se_prop(df, weight = weight)
   
-  expected <- tibble(
-    occ = 10L,
-    prop = 1,
-    vhat = 0,
-    stand_dev = 0,
-    ci = 0,
-    ci_l = 1,
-    ci_u = 1
-  )
-  
   # Verify results
   expect_equal(nrow(result), 1)
   expect_equal(result$occ, 10L)
