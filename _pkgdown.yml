@@ -10,14 +10,14 @@ reference:
   - title: "Structural Survey"
     contents:
       - se_total
+      - se_mean
       - se_prop
       - se_total_prop
       - se_total_map
-      - se_mean
       - se_total_ogd
+      - se_mean_ogd
       - se_prop_ogd
       - se_total_prop_ogd
-      - se_mean_ogd
 
   - title: "Mobility Survey"
     contents:
