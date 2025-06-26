@@ -103,7 +103,7 @@ se_total_prop(
 ```
 ## Mean Estimates
 
-If on the other hand we wish to estimate the average household size then we can use the function `se_mean()`:
+If on the other hand we wish to estimate the mean household size then we can use the function `se_mean()`:
 
 ```{r}
 se_mean(

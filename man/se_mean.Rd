@@ -2,7 +2,7 @@
 % Please edit documentation in R/se_mean.R
 \name{se_mean}
 \alias{se_mean}
-\title{Estimate Averages of Numeric Variables in Structural Survey}
+\title{Estimate Means of Numeric Variables in Structural Survey}
 \usage{
 se_mean(data, variable, ..., strata, weight, alpha = 0.05)
 }
@@ -31,7 +31,7 @@ A tibble with columns:
 }
 }
 \description{
-\code{se_mean()} estimates the averages of numeric variables along with variance
+\code{se_mean()} estimates the means of numeric variables along with variance
 and confidence intervals for FSO's structural survey.
 }
 \examples{

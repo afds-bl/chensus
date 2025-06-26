@@ -68,7 +68,7 @@ se_total(
 2 Male    4892 154558598. 7.90e12  2810039. 5507576.   3.56 149051022.    1.60e8
 ```
 
-Estimate average household size (numeric variable):
+Estimate mean household size (numeric variable):
 
 ``` r
 se_mean(
@@ -101,7 +101,7 @@ se_prop(
 
 ### Mobility and Transport Survey
 
-Estimate average annual household and family incomes:
+Estimate mean annual household and family incomes:
 
 ``` r
 mzmv_mean(
@@ -116,7 +116,7 @@ mzmv_mean(
 2 annual_family_income     9642  11.5 0.245
 ```
 
-Estimate average annual household and family incomes by gender:
+Estimate mean annual household and family incomes by gender:
 
 ``` r
 mzmv_mean_map(

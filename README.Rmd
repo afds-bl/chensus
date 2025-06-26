@@ -72,7 +72,7 @@ se_total(
 )
 ```
 
-Estimate average household size (numeric variable):
+Estimate mean household size (numeric variable):
 
 ```{r}
 se_mean(
@@ -96,7 +96,7 @@ se_prop(
 
 ### Mobility and Transport Survey
 
-Estimate average annual household and family incomes:
+Estimate mean annual household and family incomes:
 
 ```{r example3}
 mzmv_mean(
@@ -106,7 +106,7 @@ mzmv_mean(
 )
 ```
 
-Estimate average annual household and family incomes by gender:
+Estimate mean annual household and family incomes by gender:
 
 ``` {r}
 mzmv_mean_map(

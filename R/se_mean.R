@@ -1,6 +1,6 @@
-#' Estimate Averages of Numeric Variables in Structural Survey
+#' Estimate Means of Numeric Variables in Structural Survey
 #'
-#' \code{se_mean()} estimates the averages of numeric variables along with variance
+#' \code{se_mean()} estimates the means of numeric variables along with variance
 #' and confidence intervals for FSO's structural survey.
 #'
 #' @param data A data frame or tibble.
