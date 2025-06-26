@@ -67,8 +67,8 @@ nhanes |>
 ## Best Practices and References
 
 - For research: Always download the latest, official data directly from the [NHANES website](https://www.cdc.gov/nchs/nhanes/).
-- Documentation: Refer to the official NHANES codebooks for detailed variable definitions and survey methodology.
-- Acknowledgement: Data were obtained from the National Health and Nutrition Examination Survey (NHANES), conducted by the National Center for Health Statistics (NCHS), Centers for Disease Control and Prevention (CDC).
+- Documentation: Refer to the official NHANES code books for detailed variable definitions and survey methodology.
+- Acknowledgment: Data were obtained from the National Health and Nutrition Examination Survey (NHANES), conducted by the National Center for Health Statistics (NCHS), Centers for Disease Control and Prevention (CDC).
 
 ## Further Information
 

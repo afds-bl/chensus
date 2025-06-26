@@ -10,7 +10,7 @@
 #'
 #' @returns A tibble containing the original data with masked estimates when \code{occ <= 4} and one additional column:
 #' \describe{
-#'   \item{obs_status}{characater column classifying reliability of estimates.}
+#'   \item{obs_status}{character column classifying reliability of estimates.}
 #' }
 #'
 #' @details

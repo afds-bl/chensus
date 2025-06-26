@@ -22,7 +22,7 @@ with a string variable (e.g., \code{wt <- "weights"}), use \code{!!sym(wt)} in t
 A tibble with proportion estimates for all grouping column combinations, including:
 \describe{
    \item{occ}{Sample size (number of observations) per group.}
-   \item{prop}{Estimated proportion of the specified categorical variable in the corrresponding group.}
+   \item{prop}{Estimated proportion of the specified categorical variable in the corresponding group.}
    \item{vhat, stand_dev}{Estimated variance of the mean (\code{vhat}) and its standard deviation (\code{stand_dev}, square root of the variance).}
    \item{ci, ci_l, ci_u}{Confidence interval: half-width (\code{ci}), lower (\code{ci_l}) and upper (\code{ci_u}) bounds.}
 }

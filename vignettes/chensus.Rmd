@@ -28,7 +28,7 @@ The `chensus` package estimates population frequencies, means, proportions and c
 
 In this vignette, we demonstrate the main features of the package using the built-in `nhanes` dataset, which contains a subset of data from the [National Health and Nutrition Examination Survey](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.htm) for the period 2015-2016 (more with `?nhanes` and `vignette("nhanes")`). Its structure is similar to FSO survey data in that it contains `strata` and `weights` columns and demographic features such as `gender` and `household_size`.
 
-# Structural Survery
+# Structural Survey
 
 ## Total Estimates
 
