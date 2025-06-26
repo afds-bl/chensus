@@ -8,6 +8,8 @@ active](https://img.shields.io/badge/lifecycle-active-brightgreen.svg)
 [![License: GPL
 v3](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
+## Overview
+
 `chensus` is an R package for estimating populations from surveys
 conducted by the Swiss Federal Statistical Office (FSO), specifically:
 
@@ -22,6 +24,16 @@ and [mobility and transport
 survey](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.24266729.html).
 For mathematical details, see the [Method
 vignette](articles/Method.html).
+
+`chensus` provides a consistent set of tidyverse-based tools to analyse
+the data of structural and mobility and transport surveys:
+
+- `se_total()` estimates population totals in the structural surveys
+- `se_mean()` estimates means of continuous variables in the structural
+  survey
+- `se_prop()` estimates population proportions in the structural survey
+- `mzmv_mean()` estimates proportions and means in the mobility and
+  transport survey.
 
 ## Installation
 
@@ -171,7 +183,8 @@ utils::citation("chensus")
     A BibTeX entry for LaTeX users is
 
       @Manual{,
-        title = {{chensus}: Estimate Totals, Means, Proportions and Confidence Intervals of the Federal Statistic Office's Surveys},
+        title = {{chensus}: Estimate Totals, Means, Proportions and Confidence Intervals of
+    the Federal Statistic Office's Surveys},
         author = {{Guemghar} and {S.}},
         organization = {Amt für Daten und Statistik, Basel-Landschaft},
         note = {R package version 2.0.0},
