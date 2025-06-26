@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Method • chensus</title>
+<title>Mathematical Method • chensus</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Method">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Mathematical Method">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -40,7 +40,7 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/Method.html">Method</a></li>
+<li><a class="dropdown-item" href="../articles/Method.html">Mathematical Method</a></li>
     <li><a class="dropdown-item" href="../articles/nhanes.html">NHANES Survey Data</a></li>
   </ul>
 </li>
@@ -63,7 +63,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Method</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Mathematical Method</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/afds-bl/chensus/blob/main/vignettes/Method.Rmd" class="external-link"><code>vignettes/Method.Rmd</code></a></small>
@@ -74,83 +74,185 @@
     
 <p>This vignette describes the mathematical method for estimating
 confidence intervals of the structural survey and mobility and transport
-survey.</p>
-<div class="section level2">
-<h2 id="confidence-interval">Confidence Interval<a class="anchor" aria-label="anchor" href="#confidence-interval"></a>
-</h2>
-<p>A confidence interval is a range of plausible values for a population
-parameter, calculated from sample data. A 95% confidence interval means
-that if the same sampling procedure were repeated many times,
-approximately 95% of the resulting intervals would contain the true
-population value. This does not imply that there is a 95% probability
-that the true value lies within any single interval; rather, it reflects
-the reliability of the estimation method across repeated samples.</p>
-</div>
+survey conducted by the Swiss Federal Statistical Office (FSO).</p>
 <div class="section level2">
 <h2 id="structural-survey">Structural survey<a class="anchor" aria-label="anchor" href="#structural-survey"></a>
 </h2>
-<p>From the structural survey ( (<em>Strukturerhebung</em> / <em>relevé
-structurel</em>)) data, <code><a href="../reference/se_total.html">se_total()</a></code> estimates:</p>
+<p>The FSO provides <a href="https://www.bfs.admin.ch/bfs/de/home/statistiken/bevoelkerung/erhebungen/se/methodische-grundlagen-forschung-regionale-partner.assetdetail.11187024.html" class="external-link">formulas
+to estimate populations and variances of the structural survey</a> in
+German (Section 6).</p>
+<p>The estimator depends on:</p>
 <ul>
-<li>occurrences in the real population: sum of weights of sub-population
-of interest;</li>
-<li>variance <span class="math inline">\hat V</span> of the
-estimate;</li>
-<li>standard deviation (<span class="math inline">\sqrt{\hat{V}}</span>)
-of the estimate;</li>
-<li>confidence interval of the estimate with significance level <span class="math inline">\alpha</span>: <span class="math inline">\left[(1 -
-\alpha/2)\times 100\right]^{\text{th}}</span> percentile of normal
-distribution with mean <span class="math inline">0</span> and standard
-deviation <span class="math inline">\sqrt{\hat{V}}</span>.</li>
+<li>The type of variable:
+<ul>
+<li>Categorical: a factor-like variable, e.g., gender, country of
+birth.</li>
+<li>Continuous: a numeric variable, e.g., income, household size.</li>
 </ul>
-<p>The FSO provides <a href="https://portal.collab.admin.ch/sites/317-SE-CUG" class="external-link">formulas to
-estimate populations and variances of the structural survey</a> in
-French (<code>do-f-40-se_METH.pdf</code>) and German
-(<code>do-d-40-se_METH.pdf</code>).</p>
+</li>
+<li>The type of estimate:
+<ul>
+<li>Total (sum across the population).</li>
+<li>Proportion (relative frequency) or mean (average).</li>
+</ul>
+</li>
+</ul>
 <div class="section level3">
-<h3 id="totals">Totals<a class="anchor" aria-label="anchor" href="#totals"></a>
+<h3 id="population-estimator">Population Estimator<a class="anchor" aria-label="anchor" href="#population-estimator"></a>
 </h3>
-<p>The estimated populations from the population survey is given by:</p>
-<p><span class="math display">\hat{N}_c = \sum_{i \in r} w_i
-I_c</span></p>
+<p>The estimator of variable <span class="math inline">y</span> depends
+on the type of the variable and the desired statistic:</p>
+<table class="table">
+<colgroup>
+<col width="33%">
+<col width="33%">
+<col width="33%">
+</colgroup>
+<thead><tr class="header">
+<th>Variable type</th>
+<th>Estimate type</th>
+<th>Estimate</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Categorical</td>
+<td>Total</td>
+<td><span class="math inline">\hat{y} = \sum_k w_k I_c(y_k)</span></td>
+</tr>
+<tr class="even">
+<td>Continuous</td>
+<td>Total</td>
+<td><span class="math inline">\hat{y} = \sum_k w_k y_k</span></td>
+</tr>
+<tr class="odd">
+<td>Categorical</td>
+<td>Proportion</td>
+<td><span class="math inline">\bar y = \frac{\sum_k w_k I_c(y_k)} {\sum
+_k w_k}</span></td>
+</tr>
+<tr class="even">
+<td>Continuous</td>
+<td>Mean</td>
+<td><span class="math inline">\bar y = \frac {\sum_k w_k y_k} {\sum _k
+w_k}</span></td>
+</tr>
+</tbody>
+</table>
 <p>where:</p>
 <ul>
 <li>
-<span class="math inline">w_i</span> is the weight for participant
-<span class="math inline">i</span>;</li>
+<span class="math inline">w_k</span> is the sampling weight for
+respondent <span class="math inline">k</span>,</li>
 <li>
-<span class="math inline">I_c = 1</span> if condition(s) <span class="math inline">c</span> is true, 0 otherwise;</li>
+<span class="math inline">I_c = 1</span> if condition(s) <span class="math inline">c</span> is true, 0 otherwise,</li>
 <li>
-<span class="math inline">r</span> is the set of participants.</li>
+<span class="math inline">y_k</span> is the observed value for unit
+<span class="math inline">k</span>.</li>
 </ul>
-<p>The estimated variance is given by:</p>
+<p>The variance of the estimator of the variable <span class="math inline">y</span> is approximated by the variance of the
+estimate of variable <span class="math inline">z</span> defined as:</p>
+<p><span class="math display">\hat z = \sum_{k \in r} w_k z_k</span></p>
+<p>where the transformation <span class="math inline">z_k</span> depends
+on both the type of variable <span class="math inline">y</span> and the
+desired statistic:</p>
+<table class="table">
+<colgroup>
+<col width="33%">
+<col width="33%">
+<col width="33%">
+</colgroup>
+<thead><tr class="header">
+<th>Variable type</th>
+<th>Estimate type</th>
+<th>Transformation <span class="math inline">z_k</span>
+</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Categorical</td>
+<td>Total</td>
+<td><span class="math inline">z_k = I_c(y_k)</span></td>
+</tr>
+<tr class="even">
+<td>Continuous</td>
+<td>Total</td>
+<td><span class="math inline">z_k = y_k</span></td>
+</tr>
+<tr class="odd">
+<td>Categorical</td>
+<td>Proportion</td>
+<td><span class="math inline">z_ k = \frac{ y _k - \bar y} {\sum _i
+w_i}</span></td>
+</tr>
+<tr class="even">
+<td>Continuous</td>
+<td>Mean</td>
+<td><span class="math inline">z_k=\frac{y_k - \bar y} {\sum _i
+w_i}</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="variance-estimator">Variance Estimator<a class="anchor" aria-label="anchor" href="#variance-estimator"></a>
+</h3>
+<p>The variance estimator for the estimator <span class="math inline">\hat{z}</span> is given by:</p>
+<p><span class="math display">\hat V(\hat z) =  \sum_h \frac{m_h}{m_h -
+1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i z_i -
+\frac{\hat z_h}{m_h}\right)^2</span> where:</p>
+<ul>
+<li>
+<span class="math inline">h</span> is index stratum
+(<code>zone</code>),</li>
+<li>
+<span class="math inline">r_h</span> is the set of respondents in
+stratum <span class="math inline">h</span>,</li>
+<li>
+<span class="math inline">m_h</span> is the number of respondents in
+<span class="math inline">r_h</span>,</li>
+<li>
+<span class="math inline">N_h = \sum_{i \in r_h} w_i</span> is the
+estimated population size in stratum <span class="math inline">h</span>,</li>
+<li>
+<span class="math inline">w_i</span> is the sampling weight for
+respondent <span class="math inline">i</span>,</li>
+<li>
+<span class="math inline">z_i</span> is a transformation of <span class="math inline">y_i</span>.</li>
+<li>
+<span class="math inline">\hat{z}_h</span> is the estimate of
+variable <span class="math inline">z</span> in stratum <span class="math inline">h</span>.</li>
+</ul>
+<p>The confidence interval is given by:</p>
+<p><span class="math display">
+\text{CI} = \sqrt{\hat{V}(\hat{z})} \times \text{qnorm}\left(1 -
+\frac{\alpha}{2}\right)
+</span> where <span class="math inline">\alpha</span> is the
+significance level, for example <span class="math inline">\alpha =
+0.05</span> for <a href="#confidence-interval">confidence interval</a>
+95%.</p>
+</div>
+<div class="section level3">
+<h3 id="simplification-of-variance-estimates">Simplification of Variance Estimates<a class="anchor" aria-label="anchor" href="#simplification-of-variance-estimates"></a>
+</h3>
+<div class="section level4">
+<h4 id="total-of-categorical-variable">Total of Categorical Variable<a class="anchor" aria-label="anchor" href="#total-of-categorical-variable"></a>
+</h4>
+<p>The estimated total for a condition c is given by:</p>
+<p><span class="math display">\hat{N}_c = \sum_{i \in r} w_i I_c</span>
+with corresponding variance estimate:</p>
 <p><span class="math display">\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h
 - 1} \left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h} \left(w_i I_c -
-\frac{\hat{N}_{hc}}{m_h}\right)^2</span></p>
-<p>where:</p>
+\frac{\hat{N}_{hc}}{m_h}\right)^2</span> where:</p>
 <ul>
 <li>
-<span class="math inline">\hat{N}_c</span> is the estimated
-occurrence of condition <span class="math inline">c</span>;</li>
+<span class="math inline">\hat{N}_c</span> is the total estimate of
+condition <span class="math inline">c</span>;</li>
 <li>
-<span class="math inline">h</span> designates a stratum (e.g.,
-<code>zone</code>);</li>
-<li>
-<span class="math inline">\hat{N}_{hc}</span> is the estimated
-occurrence of conditions <span class="math inline">c</span> in stratum
-<span class="math inline">h</span>;</li>
-<li>
-<span class="math inline">N_h</span> is the total estimated
-population in stratum <span class="math inline">h</span> (sum of weights
-in stratum <span class="math inline">h</span>);</li>
-<li>
-<span class="math inline">r_h</span> is the set of participants in
-stratum <span class="math inline">h</span>;</li>
-<li>
-<span class="math inline">m_h</span> is the number of participants
-in stratum <span class="math inline">h</span>.</li>
+<span class="math inline">\hat{N}_{hc}</span> is the total estimate
+of conditions <span class="math inline">c</span> in stratum <span class="math inline">h</span>;</li>
 </ul>
-<p>For condition <span class="math inline">c</span>, this becomes:</p>
+<p>For condition <span class="math inline">c</span>, this term
+becomes:</p>
 <p><span class="math display">
 \begin{aligned}
 \sum_{i \in r_h} \left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2
@@ -170,32 +272,20 @@ condition <span class="math inline">c</span>, and <span class="math inline">m_{h
 \left(\frac{\hat{N}_{hc}}{m_h}\right)^2 + \sum_{i \in r_{hc}} \left(w_i
 - \frac{\hat{N}_{hc}}{m_h}\right)^2\right]
 </span></p>
-<p>The confidence interval is given by:</p>
-<p><span class="math display">
-\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}\left(1 -
-\frac{\alpha}{2}\right)
-</span></p>
-<p>where <span class="math inline">\alpha</span> is the significance
-level (e.g., 0.05 for a 95% confidence interval).</p>
-<p><code><a href="../reference/se_summarise.html">se_summarise()</a></code> calculates <span class="math inline">m_h,
-N_h, m_{hc}, \text{and } \hat{N}_{hc}</span>.</p>
-<p><code><a href="../reference/se_total.html">se_total()</a></code> calculates <span class="math inline">\hat{V}(\hat{N}_c)</span>, the true occurrence in
-the survey sample and confidence intervals.</p>
 </div>
-<div class="section level3">
-<h3 id="means">Means<a class="anchor" aria-label="anchor" href="#means"></a>
-</h3>
-<p>The estimate of the mean of a continuous variable <span class="math inline">y</span>, for example the average rent of an
-apartment <code>rentnet</code>, is given by the weighted mean:</p>
+<div class="section level4">
+<h4 id="mean-of-a-continuous-variable">Mean of a Continuous Variable<a class="anchor" aria-label="anchor" href="#mean-of-a-continuous-variable"></a>
+</h4>
+<p>The estimate of the mean of a continuous variable <span class="math inline">y</span>, for example the average rent
+<code>rentnet</code>, is given by the weighted mean:</p>
 <p><span class="math display">\bar y = \frac{\sum_k w_k y_k}{\sum_k
 w_k}</span></p>
 <p>Variance of <span class="math inline">\bar y</span> is approximated
-by that of the total of variable <span class="math inline">z</span>
-where: <span class="math display">z_k = \frac{y_k - \bar y}{\sum_i
-w_i}</span></p>
+by that of the total of variable <span class="math inline">\hat{z} =
+\sum_k w_k z_k</span> where: <span class="math display">z_k = \frac{y_k
+- \bar y}{\sum_i w_i}</span></p>
 <p>In other words:</p>
-<p><span class="math display">
-\begin{align*}
+<p><span class="math display">\begin{align*}
 \hat V(\bar y) &amp; = \hat V(\hat z) \\
 &amp; = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right)
 \sum_{i \in r_h}\left(w_i z_i - \frac{\hat z_h}{m_h}\right)^2 \\
@@ -205,13 +295,8 @@ z_j}{m_h}\right)^2 \\
 &amp; = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right)
 \sum_{i \in r_h}\left(w_i \frac{y_i - \bar y}{\sum_{j \in r_h} w_j} -
 \frac{\sum_{j \in r_h} w_j \left(\frac{y_j - \bar y}{\sum_{k \in r_h}
-w_k}\right)}{m_h}\right)^2 \end{align*}
-</span></p>
-<p>Here again the confidence interval is given by:</p>
-<p><span class="math display">\text{CI} = \sqrt{\hat{V}(\bar y)} \times
-\text{qnorm}(1 - \frac{\alpha}2)</span></p>
-<p><code><a href="../reference/se_mean.html">se_mean()</a></code> and <code><a href="../reference/se_prop.html">se_prop()</a></code> calculate <span class="math inline">\bar y</span>, <span class="math inline">\hat{V}(\bar y)</span>, the frequency in the survey
-sample and confidence intervals.</p>
+w_k}\right)}{m_h}\right)^2 \end{align*}</span></p>
+</div>
 </div>
 </div>
 <div class="section level2">
@@ -231,7 +316,7 @@ both proportions and means, as shown below.</p>
 <p>The FSO provides <a href="https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html" class="external-link">formulas
 to estimate variances of the MZMV/MRMT</a>.</p>
 <div class="section level3">
-<h3 id="means-1">Means<a class="anchor" aria-label="anchor" href="#means-1"></a>
+<h3 id="means">Means<a class="anchor" aria-label="anchor" href="#means"></a>
 </h3>
 <p>The estimated mean is:</p>
 <p><span class="math display">\hat{Y} = \frac{1}{\sum\limits_{i\in r}
@@ -335,6 +420,17 @@ for the required significance level <span class="math inline">\alpha</span>;</li
 <span class="math inline">n</span> is the size of set <span class="math inline">r</span>, i.e. number of respondents.</li>
 </ul>
 </div>
+</div>
+<div class="section level2">
+<h2 id="confidence-interval">Confidence Interval<a class="anchor" aria-label="anchor" href="#confidence-interval"></a>
+</h2>
+<p>A confidence interval is a range of plausible values for a population
+parameter, calculated from sample data. A 95% confidence interval means
+that if the same sampling procedure were repeated many times,
+approximately 95% of the resulting intervals would contain the true
+population value. This does not imply that there is a 95% probability
+that the true value lies within any single interval; rather, it reflects
+the reliability of the estimation method across repeated samples.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
