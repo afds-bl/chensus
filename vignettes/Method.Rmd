@@ -44,7 +44,7 @@ where:
 
 -   $w_k$ is the sampling weight for respondent $k$,
 -   $I_c = 1$ if condition(s) $c$ is true, 0 otherwise,
--   $y_k$ is the observed value for unit $k$.
+-   $y_k$ is the observed value for respondent $k$.
 
 The variance of the estimator of the variable $y$ is approximated by the variance of the estimate of variable $z$ defined as:
 
@@ -89,8 +89,8 @@ $$\hat{N}_c = \sum_{i \in r} w_i I_c$$ with corresponding variance estimate:
 
 $$\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1} \left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h} \left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2$$ where:
 
--   $\hat{N}_c$ is the total estimate of condition $c$;
--   $\hat{N}_{hc}$ is the total estimate of conditions $c$ in stratum $h$;
+-   $\hat{N}_c$ is the total estimate of condition $c$,
+-   $\hat{N}_{hc}$ is the total estimate of conditions $c$ in stratum $h$,
 
 For condition $c$, this term becomes:
 
@@ -129,7 +129,7 @@ In other words:
 
 From the survey (MZMV/MRMT) data, `mzmv_mean()` estimates:
 
--   average occurrence in the real population: weighted mean of sub-population of interest;
+-   mean or proportion of a variable in the real population: weighted mean of sub-population of interest,
 -   confidence interval of the estimate with significance level $\alpha$,
 
 while `mzmv_mean_map()` additionally uses grouping variables.
@@ -144,8 +144,8 @@ The estimated mean is:
 
 $$\hat{Y} = \frac{1}{\sum\limits_{i\in r} w_i}\sum_{i \in r} w_i y_i$$ where:
 
--   $w_i$ is the weight for participant $i$;
--   $y_i$ is the response of participant $i$;
+-   $w_i$ is the weight for participant $i$,
+-   $y_i$ is the response of participant $i$,
 -   $r$ is the set of respondents.
 
 The [confidence interval of the estimated mean](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html) is:
@@ -158,10 +158,10 @@ $$
 
 where:
 
--   1.14 is a correction factor;
--   $\alpha$ is the significance level, for example 0.05 for confidence interval 95%;
--   $Z_{\alpha}$ is the [Z-value](https://www.z-table.com/) for the desired confidence level ($Z_{0.05} = 1.96$ for double-sided 95% confidence interval);
--   $n$ is the size of set $r$, i.e. number of respondents;
+-   1.14 is a correction factor,
+-   $\alpha$ is the significance level, for example 0.05 for confidence interval 95%,
+-   $Z_{\alpha}$ is the [Z-value](https://www.z-table.com/) for the desired confidence level ($Z_{0.05} = 1.96$ for double-sided 95% confidence interval),
+-   $n$ is the size of set $r$, i.e. number of respondents,
 -   $\hat{\sigma}_{y}^2$ is the variance of variable $Y$ estimated with sample $r$.
 
 The (sample) variance of variable $Y$ is estimated by:
@@ -174,8 +174,8 @@ If $y_i \in \{0, 1\}$, for example possession of a car, then the mean estimate b
 
 $$p = \frac{1}{\sum\limits_{i \in r} w_i} \sum_{i \in r} w_i I_c$$ where:
 
--   $w_i$ is the weight for participant $i$;
--   $I_c = 1$ if condition $c$ is true ($y_i = 1$), 0 otherwise ($y_i = 0$);
+-   $w_i$ is the weight for participant $i$,
+-   $I_c = 1$ if condition $c$ is true ($y_i = 1$), 0 otherwise ($y_i = 0$),
 -   $r$ is the set of participants.
 
 The sample variance in the previous section then becomes:
@@ -206,10 +206,10 @@ The confidence interval for proportions could therefore be approximated with:
 
 $$\text{CI} \approx 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)$$ where:
 
--   $\alpha$ is the significance level;
--   $\text{qnorm}$ outputs the Z-score for the required significance level $\alpha$;
+-   $\alpha$ is the significance level,
+-   $\text{qnorm}$ outputs the Z-score for the required significance level $\alpha$,
 -   $n$ is the size of set $r$, i.e. number of respondents.
 
-# Confidence Interval {#confidence-interval}
+# Confidence Interval - Definition {#confidence-interval}
 
-A confidence interval is a range of plausible values for a population parameter, calculated from sample data. A 95% confidence interval means that if the same sampling procedure were repeated many times, approximately 95% of the resulting intervals would contain the true population value. This does not imply that there is a 95% probability that the true value lies within any single interval; rather, it reflects the reliability of the estimation method across repeated samples.
+A confidence interval is a range of plausible values for a population parameter, calculated from sample data. A 95% confidence interval means that if the same sampling procedure were repeated many times, approximately 95% of the resulting intervals would contain the true population value. This does not imply that there is a 95% probability that the true value lies within any single interval, rather, it reflects the reliability of the estimation method across repeated samples.
