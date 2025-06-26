@@ -33,6 +33,9 @@ remotes::install_github("afds-bl/chensus")
 
 ## Usage
 
+Refer to the [package vignette](articles/chensus.html) for detailed
+examples and use cases.
+
 ### Structural survey
 
 Estimate total population by gender:
