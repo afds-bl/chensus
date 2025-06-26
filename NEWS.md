@@ -1,5 +1,7 @@
 # chensus 2.1.0
 
+- Added `se_prop_ogd()` and `se_total_prop_ogd()`.
+
 # chensus 2.0.0.
 
 ## New features
