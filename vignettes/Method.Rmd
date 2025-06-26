@@ -1,5 +1,5 @@
 ---
-title: "Method"
+title: "Mathematical Method"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Method}
@@ -14,55 +14,85 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignette describes the mathematical method for estimating confidence intervals of the structural survey and mobility and transport survey.
-
-# Confidence Interval
-
-A confidence interval is a range of plausible values for a population parameter, calculated from sample data. A 95% confidence interval means that if the same sampling procedure were repeated many times, approximately 95% of the resulting intervals would contain the true population value. This does not imply that there is a 95% probability that the true value lies within any single interval; rather, it reflects the reliability of the estimation method across repeated samples.
+This vignette describes the mathematical method for estimating confidence intervals of the structural survey and mobility and transport survey conducted by the Swiss Federal Statistical Office (FSO).
 
 # Structural survey
 
-From the structural survey ( (*Strukturerhebung* / *relevé structurel*)) data, `se_total()` estimates:
+The FSO provides [formulas to estimate populations and variances of the structural survey](https://www.bfs.admin.ch/bfs/de/home/statistiken/bevoelkerung/erhebungen/se/methodische-grundlagen-forschung-regionale-partner.assetdetail.11187024.html) in German (Section 6).
 
--   occurrences in the real population: sum of weights of sub-population
-    of interest;
--   variance $\hat V$ of the estimate;
--   standard deviation ($\sqrt{\hat{V}}$) of the estimate;
--   confidence interval of the estimate with significance level
-    $\alpha$: $\left[(1 - \alpha/2)\times 100\right]^{\text{th}}$
-    percentile of normal distribution with mean $0$ and standard
-    deviation $\sqrt{\hat{V}}$.
+The estimator depends on:
 
-The FSO provides [formulas to estimate populations and
-variances of the structural survey](https://portal.collab.admin.ch/sites/317-SE-CUG) in French
-(`do-f-40-se_METH.pdf`) and German (`do-d-40-se_METH.pdf`).
+-   The type of variable:
+    -   Categorical: a factor-like variable, e.g., gender, country of birth.
+    -   Continuous: a numeric variable, e.g., income, household size.
+-   The type of estimate:
+    -   Total (sum across the population).
+    -   Proportion (relative frequency) or mean (average).
 
-## Totals
+## Population Estimator
 
-The estimated populations from the population survey is given by:
+The estimator of variable $y$ depends on the type of the variable and the desired statistic:
 
-$$\hat{N}_c = \sum_{i \in r} w_i I_c$$
-
-where:
-
-- $w_i$ is the weight for participant $i$;
-- $I_c = 1$ if condition(s) $c$ is true, 0 otherwise;
-- $r$ is the set of participants.
-
-The estimated variance is given by:
-
-$$\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1} \left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h} \left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2$$
+| Variable type | Estimate type | Estimate |
+|------------------------|------------------------|------------------------|
+| Categorical | Total | $\hat{y} = \sum_k w_k I_c(y_k)$ |
+| Continuous | Total | $\hat{y} = \sum_k w_k y_k$ |
+| Categorical | Proportion | $\bar y = \frac{\sum_k w_k I_c(y_k)} {\sum _k w_k}$ |
+| Continuous | Mean | $\bar y = \frac {\sum_k w_k y_k} {\sum _k w_k}$ |
 
 where:
 
-- $\hat{N}_c$ is the estimated occurrence of condition $c$;
-- $h$ designates a stratum (e.g., `zone`);
-- $\hat{N}_{hc}$ is the estimated occurrence of conditions $c$ in stratum $h$;
-- $N_h$ is the total estimated population in stratum $h$ (sum of weights in stratum $h$);
-- $r_h$ is the set of participants in stratum $h$;
-- $m_h$ is the number of participants in stratum $h$.
+-   $w_k$ is the sampling weight for respondent $k$,
+-   $I_c = 1$ if condition(s) $c$ is true, 0 otherwise,
+-   $y_k$ is the observed value for unit $k$.
 
-For condition $c$, this becomes:
+The variance of the estimator of the variable $y$ is approximated by the variance of the estimate of variable $z$ defined as:
+
+$$\hat z = \sum_{k \in r} w_k z_k$$
+
+where the transformation $z_k$ depends on both the type of variable $y$ and the desired statistic:
+
+| Variable type | Estimate type | Transformation $z_k$                         |
+|------------------------|------------------------|------------------------|
+| Categorical   | Total         | $z_k = I_c(y_k)$                             |
+| Continuous    | Total         | $z_k = y_k$                                  |
+| Categorical   | Proportion    | $z_ k = \frac{ y _k - \bar y} {\sum _i w_i}$ |
+| Continuous    | Mean          | $z_k=\frac{y_k - \bar y} {\sum _i w_i}$      |
+
+## Variance Estimator
+
+The variance estimator for the estimator $\hat{z}$ is given by:
+
+$$\hat V(\hat z) =  \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i z_i - \frac{\hat z_h}{m_h}\right)^2$$ where:
+
+-   $h$ is index stratum (`zone`),
+-   $r_h$ is the set of respondents in stratum $h$,
+-   $m_h$ is the number of respondents in $r_h$,
+-   $N_h = \sum_{i \in r_h} w_i$ is the estimated population size in stratum $h$,
+-   $w_i$ is the sampling weight for respondent $i$,
+-   $z_i$ is a transformation of $y_i$.
+-   $\hat{z}_h$ is the estimate of variable $z$ in stratum $h$.
+
+The confidence interval is given by:
+
+$$
+\text{CI} = \sqrt{\hat{V}(\hat{z})} \times \text{qnorm}\left(1 - \frac{\alpha}{2}\right)
+$$ where $\alpha$ is the significance level, for example $\alpha = 0.05$ for [confidence interval](#confidence-interval) 95%.
+
+## Simplification of Variance Estimates
+
+### Total of Categorical Variable
+
+The estimated total for a condition c is given by:
+
+$$\hat{N}_c = \sum_{i \in r} w_i I_c$$ with corresponding variance estimate:
+
+$$\hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1} \left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h} \left(w_i I_c - \frac{\hat{N}_{hc}}{m_h}\right)^2$$ where:
+
+-   $\hat{N}_c$ is the total estimate of condition $c$;
+-   $\hat{N}_{hc}$ is the total estimate of conditions $c$ in stratum $h$;
+
+For condition $c$, this term becomes:
 
 $$
 \begin{aligned}
@@ -79,79 +109,46 @@ $$
 \hat{V}(\hat{N}_c) = \sum_h \frac{m_h}{m_h - 1} \left(1 - \frac{m_h}{N_h}\right) \left[(m_h - m_{hc}) \left(\frac{\hat{N}_{hc}}{m_h}\right)^2 + \sum_{i \in r_{hc}} \left(w_i - \frac{\hat{N}_{hc}}{m_h}\right)^2\right]
 $$
 
-The confidence interval is given by:
+### Mean of a Continuous Variable
 
-$$
-\text{CI} = \sqrt{\hat{V}(\hat{N}_c)} \times \text{qnorm}\left(1 - \frac{\alpha}{2}\right)
-$$
-
-where $\alpha$ is the significance level (e.g., 0.05 for a 95% confidence interval).
-
-
-`se_summarise()` calculates
-$m_h, N_h, m_{hc}, \text{and } \hat{N}_{hc}$.
-
-`se_total()` calculates $\hat{V}(\hat{N}_c)$, the true occurrence in
-the survey sample and confidence intervals.
-
-## Means
-
-The estimate of the mean of a continuous variable $y$, for example the
-average rent of an apartment `rentnet`, is given by the weighted mean:
+The estimate of the mean of a continuous variable $y$, for example the average rent `rentnet`, is given by the weighted mean:
 
 $$\bar y = \frac{\sum_k w_k y_k}{\sum_k w_k}$$
 
-Variance of $\bar y$ is approximated by that of the total of variable
-$z$ where: $$z_k = \frac{y_k - \bar y}{\sum_i w_i}$$
+Variance of $\bar y$ is approximated by that of the total of variable $\hat{z} = \sum_k w_k z_k$ where: $$z_k = \frac{y_k - \bar y}{\sum_i w_i}$$
 
 In other words:
 
-$$
 \begin{align*} 
 \hat V(\bar y) & = \hat V(\hat z) \\
 & = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i z_i - \frac{\hat z_h}{m_h}\right)^2 \\
 & = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i z_i - \frac{\sum_{j \in r_h} w_j z_j}{m_h}\right)^2 \\
 & = \sum_h \frac{m_h}{m_h - 1}\left(1 - \frac{m_h}{N_h}\right) \sum_{i \in r_h}\left(w_i \frac{y_i - \bar y}{\sum_{j \in r_h} w_j} - \frac{\sum_{j \in r_h} w_j \left(\frac{y_j - \bar y}{\sum_{k \in r_h} w_k}\right)}{m_h}\right)^2 \end{align*}
-$$
-
-Here again the confidence interval is given by:
-
-$$\text{CI} = \sqrt{\hat{V}(\bar y)} \times \text{qnorm}(1 - \frac{\alpha}2)$$
-
-`se_mean()` and `se_prop()` calculate $\bar y$, $\hat{V}(\bar y)$, the frequency in
-the survey sample and confidence intervals.
 
 # Mobility and Transport Survey
 
 From the survey (MZMV/MRMT) data, `mzmv_mean()` estimates:
 
--   average occurrence in the real population: weighted mean of
-    sub-population of interest;
--   confidence interval of the estimate with significance level
-    $\alpha$,
+-   average occurrence in the real population: weighted mean of sub-population of interest;
+-   confidence interval of the estimate with significance level $\alpha$,
 
 while `mzmv_mean_map()` additionally uses grouping variables.
 
-Note that one can simply use `mzmv_mean()` to estimate both
-proportions and means, as shown below.
+Note that one can simply use `mzmv_mean()` to estimate both proportions and means, as shown below.
 
-The FSO provides [formulas to estimate
-variances of the MZMV/MRMT](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html).
+The FSO provides [formulas to estimate variances of the MZMV/MRMT](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html).
 
 ## Means
 
 The estimated mean is:
 
-$$\hat{Y} = \frac{1}{\sum\limits_{i\in r} w_i}\sum_{i \in r} w_i y_i$$
-where:
+$$\hat{Y} = \frac{1}{\sum\limits_{i\in r} w_i}\sum_{i \in r} w_i y_i$$ where:
 
 -   $w_i$ is the weight for participant $i$;
 -   $y_i$ is the response of participant $i$;
 -   $r$ is the set of respondents.
 
-The [confidence interval of the estimated
-mean](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html)
-is:
+The [confidence interval of the estimated mean](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.4262242.html) is:
 
 $$
 \begin{aligned}\text{CI} &= 
@@ -162,40 +159,30 @@ $$
 where:
 
 -   1.14 is a correction factor;
--   $\alpha$ is the significance level, for example 0.05 for confidence
-    interval 95%;
--   $Z_{\alpha}$ is the [Z-value](https://www.z-table.com/) for the
-    desired confidence level ($Z_{0.05} = 1.96$ for double-sided 95%
-    confidence interval);
+-   $\alpha$ is the significance level, for example 0.05 for confidence interval 95%;
+-   $Z_{\alpha}$ is the [Z-value](https://www.z-table.com/) for the desired confidence level ($Z_{0.05} = 1.96$ for double-sided 95% confidence interval);
 -   $n$ is the size of set $r$, i.e. number of respondents;
--   $\hat{\sigma}_{y}^2$ is the variance of variable $Y$ estimated with
-    sample $r$.
+-   $\hat{\sigma}_{y}^2$ is the variance of variable $Y$ estimated with sample $r$.
 
 The (sample) variance of variable $Y$ is estimated by:
 
-$$\hat{\sigma}_{y}^2 = \frac{\sum\limits_{i\in r} w_i \left(y_i - \bar{y}\right)^2}{\left(\sum\limits_{i \in r} w_i \right)- 1}$$
-where $\bar{y}$ is the estimated mean $\hat{Y}$.
+$$\hat{\sigma}_{y}^2 = \frac{\sum\limits_{i\in r} w_i \left(y_i - \bar{y}\right)^2}{\left(\sum\limits_{i \in r} w_i \right)- 1}$$ where $\bar{y}$ is the estimated mean $\hat{Y}$.
 
 ## Proportions
 
-If $y_i \in \{0, 1\}$, for example possession of a car, then the mean
-estimate becomes the proportion estimate:
+If $y_i \in \{0, 1\}$, for example possession of a car, then the mean estimate becomes the proportion estimate:
 
-$$p = \frac{1}{\sum\limits_{i \in r} w_i} \sum_{i \in r} w_i I_c$$
-where:
+$$p = \frac{1}{\sum\limits_{i \in r} w_i} \sum_{i \in r} w_i I_c$$ where:
 
 -   $w_i$ is the weight for participant $i$;
--   $I_c = 1$ if condition $c$ is true ($y_i = 1$), 0 otherwise
-    ($y_i = 0$);
+-   $I_c = 1$ if condition $c$ is true ($y_i = 1$), 0 otherwise ($y_i = 0$);
 -   $r$ is the set of participants.
 
 The sample variance in the previous section then becomes:
 
 $$\hat{\sigma}_{p}^2 = \frac{\sum\limits_{i\in r} w_i \left(I_c - p\right)^2}{\left(\sum\limits_{i \in r} w_i \right)- 1}$$
 
-Noting that $I_c^2 = I_c$ and
-$\sum\limits_i w_i I_c = p \sum\limits_i w_i$, the nominator then
-becomes:
+Noting that $I_c^2 = I_c$ and $\sum\limits_i w_i I_c = p \sum\limits_i w_i$, the nominator then becomes:
 
 $$
 \begin{aligned} \sum\limits_{i\in r} w_i \left(I_c - p\right)^2 &=
@@ -215,13 +202,14 @@ which when $\sum\limits_i w_i >> 1$ can be approximated with:
 
 $$\hat{\sigma}_{p}^2 \approx p(1-p)$$
 
-The confidence interval for proportions could therefore be approximated
-with:
+The confidence interval for proportions could therefore be approximated with:
 
-$$\text{CI} \approx 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)$$
-where:
+$$\text{CI} \approx 1.14 \times \sqrt{\frac{p(1-p)}{n}} \times \text{qnorm}(1 - \frac{\alpha} 2)$$ where:
 
 -   $\alpha$ is the significance level;
--   $\text{qnorm}$ outputs the Z-score for the required significance
-    level $\alpha$;
+-   $\text{qnorm}$ outputs the Z-score for the required significance level $\alpha$;
 -   $n$ is the size of set $r$, i.e. number of respondents.
+
+# Confidence Interval {#confidence-interval}
+
+A confidence interval is a range of plausible values for a population parameter, calculated from sample data. A 95% confidence interval means that if the same sampling procedure were repeated many times, approximately 95% of the resulting intervals would contain the true population value. This does not imply that there is a 95% probability that the true value lies within any single interval; rather, it reflects the reliability of the estimation method across repeated samples.
