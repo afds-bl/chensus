@@ -4,7 +4,7 @@
 \name{chensus-package}
 \alias{chensus}
 \alias{chensus-package}
-\title{chensus: Estimate Totals, Means, Proportions and Confidence Intervals of the Federal Statistic Office's Surveys}
+\title{chensus: Estimate Totals, Means, Proportions and Confidence Intervals of the Swiss Federal Statistic Office's Surveys}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 

@@ -1,6 +1,6 @@
 Type: Package
 Package: chensus
-Title: Estimate Totals, Means, Proportions and Confidence Intervals of the Federal Statistic Office's Surveys
+Title: Estimate Totals, Means, Proportions and Confidence Intervals of the Swiss Federal Statistic Office's Surveys
 Version: 2.1.0
 Authors@R: c(
     person("Souad", "Guemghar", , "souad.guemghar@bl.ch", role = c("aut", "cre")),
