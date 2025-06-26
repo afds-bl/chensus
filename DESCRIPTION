@@ -24,6 +24,7 @@ Imports:
 Suggests: 
     knitr,
     rmarkdown,
+    spelling,
     testthat (>= 3.0.0),
     tibble
 Depends: R (>= 4.1.0)
@@ -32,3 +33,4 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.2
 VignetteBuilder: knitr
+Language: en-US
