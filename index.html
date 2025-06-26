@@ -67,12 +67,27 @@
 </h1>
 </div>
 <p><a href="https://github.com/afds-bl/chensus/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/afds-bl/chensus/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <img src="https://img.shields.io/badge/lifecycle-active-brightgreen.svg" alt="Lifecycle: active"><a href="https://www.gnu.org/licenses/gpl-3.0.en.html" class="external-link"><img src="https://img.shields.io/badge/license-GPL--3-blue.svg" alt="License: GPL v3"></a></p>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
 <p><code>chensus</code> is an R package for estimating populations from surveys conducted by the Swiss Federal Statistical Office (FSO), specifically:</p>
 <ul>
 <li>structural survey: <em>Strukturerhebung</em> (SE) / <em>relevé structurel</em> (RS),</li>
 <li>mobility and transport survey: <em>Mikrozensus Mobilität und Verkehr</em> (MZMV) / <em>Microrecensement mobilité et transports</em> (MRMT).</li>
 </ul>
 <p>It implements closed-form formulas for confidence intervals as described in the FSO’s methodological reports for the <a href="https://www.bfs.admin.ch/bfs/en/home/services/research/methodological-reports.assetdetail.11187024.html" class="external-link">structural survey</a> and <a href="https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.24266729.html" class="external-link">mobility and transport survey</a>. For mathematical details, see the <a href="articles/Method.html">Method vignette</a>.</p>
+<p><code>chensus</code> provides a consistent set of tidyverse-based tools to analyse the data of structural and mobility and transport surveys:</p>
+<ul>
+<li>
+<code><a href="reference/se_total.html">se_total()</a></code> estimates population totals in the structural surveys</li>
+<li>
+<code><a href="reference/se_mean.html">se_mean()</a></code> estimates means of continuous variables in the structural survey</li>
+<li>
+<code><a href="reference/se_prop.html">se_prop()</a></code> estimates population proportions in the structural survey</li>
+<li>
+<code><a href="reference/mzmv_mean.html">mzmv_mean()</a></code> estimates proportions and means in the mobility and transport survey.</li>
+</ul>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -101,7 +116,7 @@
 <span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>  <span class="er">&lt;</span>int<span class="sc">&gt;</span>      <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>    <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>      <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
 <span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="dv">1</span> Female  <span class="dv">5079</span> <span class="fl">161922446.</span> <span class="fl">7.82e12</span>  <span class="fl">2795884.</span> <span class="fl">5479833.</span>   <span class="fl">3.38</span> <span class="fl">156442613.</span>    <span class="fl">1.67e8</span></span>
 <span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="dv">2</span> Male    <span class="dv">4892</span> <span class="fl">154558598.</span> <span class="fl">7.90e12</span>  <span class="fl">2810039.</span> <span class="fl">5507576.</span>   <span class="fl">3.56</span> <span class="fl">149051022.</span>    <span class="fl">1.60e8</span></span></code></pre></div>
-<p>Estimate average household size (numeric variable):</p>
+<p>Estimate mean household size (numeric variable):</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">se_mean</span>(</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="at">data =</span> nhanes,</span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="at">variable =</span> household_size,</span>
@@ -128,7 +143,7 @@
 <div class="section level3">
 <h3 id="mobility-and-transport-survey">Mobility and Transport Survey<a class="anchor" aria-label="anchor" href="#mobility-and-transport-survey"></a>
 </h3>
-<p>Estimate average annual household and family incomes:</p>
+<p>Estimate mean annual household and family incomes:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">mzmv_mean</span>(</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="at">data =</span> nhanes,</span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  annual_household_income, annual_family_income,</span>
@@ -139,7 +154,7 @@
 <span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>                   <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
 <span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="dv">1</span> annual_household_income  <span class="dv">9626</span>  <span class="fl">11.9</span> <span class="fl">0.240</span></span>
 <span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="dv">2</span> annual_family_income     <span class="dv">9642</span>  <span class="fl">11.5</span> <span class="fl">0.245</span></span></code></pre></div>
-<p>Estimate average annual household and family incomes by gender:</p>
+<p>Estimate mean annual household and family incomes by gender:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">mzmv_mean_map</span>(</span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="at">data =</span> nhanes,</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="at">variable =</span> <span class="fu">c</span>(<span class="st">"annual_household_income"</span>, <span class="st">"annual_family_income"</span>),</span>
@@ -200,13 +215,14 @@
 <span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="st">A BibTeX entry for LaTeX users is</span></span>
 <span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a></span>
 <span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="st">  @Manual{,</span></span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="st">    title = {{chensus}: Estimate Totals, Means, Proportions and Confidence Intervals of the Federal Statistic Office'</span>s Surveys<span class="er">}</span>,</span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>    author <span class="ot">=</span> {{Guemghar} and {S.}},</span>
-<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>    organization <span class="ot">=</span> {Amt für Daten und Statistik, Basel<span class="sc">-</span>Landschaft},</span>
-<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">2</span>.<span class="fl">0.0</span>},</span>
-<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>    year <span class="ot">=</span> {<span class="dv">2025</span>},</span>
-<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>    url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>afds<span class="sc">-</span>bl<span class="sc">/</span>chensus},</span>
-<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>  <span class="er">}</span></span></code></pre></div>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="st">    title = {{chensus}: Estimate Totals, Means, Proportions and Confidence Intervals of</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="st">the Federal Statistic Office'</span>s Surveys<span class="er">}</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>    author <span class="ot">=</span> {{Guemghar} and {S.}},</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>    organization <span class="ot">=</span> {Amt für Daten und Statistik, Basel<span class="sc">-</span>Landschaft},</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">2</span>.<span class="fl">0.0</span>},</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>    year <span class="ot">=</span> {<span class="dv">2025</span>},</span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>    url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>afds<span class="sc">-</span>bl<span class="sc">/</span>chensus},</span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a>  <span class="er">}</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
