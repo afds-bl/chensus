@@ -1,21 +1,17 @@
 citHeader("To cite 'chensus' in publications, please use:")
 
-note  <- paste("R package version", meta$Version)
-year <- "2025"
-text_author <- "Guemghar, S."
-organization <- "Amt für Daten und Statistik, Basel-Landschaft"
-
-# Create the bibentry object
 bibentry(
   bibtype = "Manual",
-  title = sprintf("{%s}: %s", meta$Package, meta$Title),
-  author = as.person(text_author),
-  organization = organization,
-  note = note,
-  year = year,
-  url = meta$URL,
-  textVersion = sprintf(
-    "%s (%s). %s: %s. %s. %s. %s",
-    text_author, year, meta$Package, meta$Title, note, organization, meta$URL
+  title = "{chensus}: Estimate Totals, Means, Proportions and Confidence Intervals of the Swiss Federal Statistic Office's Surveys",
+  author = "Guemghar, S.",
+  organization = "Amt für Daten und Statistik, Basel-Landschaft",
+  note = "R package version 2.1.0",  # Update version manually
+  year = "2025",
+  url = "https://github.com/afds-bl/chensus",
+  textVersion = paste(
+    "Guemghar, S. (2025). chensus: Estimate Totals, Means, Proportions and",
+    "Confidence Intervals of the Swiss Federal Statistic Office's Surveys.",
+    "R package version 2.1.0. Amt für Daten und Statistik, Basel-Landschaft.",
+    "https://github.com/afds-bl/chensus"
   )
 )
