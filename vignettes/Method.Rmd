@@ -160,7 +160,7 @@ where:
 
 -   1.14 is a correction factor,
 -   $\alpha$ is the significance level, for example 0.05 for confidence interval 95%,
--   $Z_{\alpha}$ is the [Z-value](https://www.z-table.com/) for the desired confidence level ($Z_{0.05} = 1.96$ for double-sided 95% confidence interval),
+-   $Z_{\alpha}$ is the Z-value for the desired confidence level ($Z_{0.05} = 1.96$ for double-sided 95% confidence interval),
 -   $n$ is the size of set $r$, i.e. number of respondents,
 -   $\hat{\sigma}_{y}^2$ is the variance of variable $Y$ estimated with sample $r$.
 

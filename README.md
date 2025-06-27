@@ -23,7 +23,7 @@ survey](https://www.bfs.admin.ch/bfs/en/home/services/research/methodological-re
 and [mobility and transport
 survey](https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/mzmv.assetdetail.24266729.html).
 For mathematical details, see the [Method
-vignette](articles/Method.html).
+vignette](https://afds-bl.github.io/chensus/articles/Method.html).
 
 `chensus` provides a consistent set of tidyverse-based tools to analyse
 the data of structural and mobility and transport surveys:
@@ -45,8 +45,9 @@ remotes::install_github("afds-bl/chensus")
 
 ## Usage
 
-Refer to the [package vignette](articles/chensus.html) for detailed
-examples and use cases.
+Refer to the [package
+vignette](https://afds-bl.github.io/chensus/articles/chensus.html) for
+detailed examples and use cases.
 
 ### Structural survey
 
@@ -138,11 +139,13 @@ mzmv_mean_map(
 
 The package includes the following vignettes:
 
-- [chensus](articles/chensus.html) gives detailed examples of how to use
-  the package.
-- [Method](articles/Method.html) details the mathematical background of
-  the confidence interval estimates.
-- [nhanes](articles/nhanes.html) inspects the example data set.
+- [chensus](https://afds-bl.github.io/chensus/articles/chensus.html)
+  gives detailed examples of how to use the package.
+- [Method](https://afds-bl.github.io/chensus/articles/Method.html)
+  details the mathematical background of the confidence interval
+  estimates.
+- [nhanes](https://afds-bl.github.io/chensus/articles/Method.html)
+  inspects the example data set.
 
 ## License
 
