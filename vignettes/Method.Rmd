@@ -48,7 +48,7 @@ where:
 
 The variance of the estimator of the variable $y$ is approximated by the variance of the estimate of variable $z$ defined as:
 
-$$\hat z = \sum_{k \in r} w_k z_k$$
+$$\hat z = \sum_{k} w_k z_k$$
 
 where the transformation $z_k$ depends on both the type of variable $y$ and the desired statistic:
 
