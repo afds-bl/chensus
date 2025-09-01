@@ -68,4 +68,5 @@ sticker(
   p_fontface = "bold"
 )
 
+# ggsave("man/figures/logo.eps", device = cairo_pdf)
 
